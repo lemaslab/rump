@@ -12,3 +12,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("xcms", version = "3.8")
 
 BiocInstaller::biocLite('BiocStyle')
+BiocInstaller::biocLite('faahKO')
+BiocInstaller::biocLite('pander')
+BiocInstaller::biocLite('RColorBrewer')
+BiocInstaller::biocLite('magrittr')
