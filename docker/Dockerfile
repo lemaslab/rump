@@ -39,14 +39,23 @@ RUN R CMD javareconf
 
 ENV NETCDF_INCLUDE=/usr/include
 
-
-ADD install.R /tmp/
+#ADD install.R /tmp/
+ADD libs.R /tmp/
 
 # invalidates cache every 24 hours
 ADD http://master.bioconductor.org/todays-date /tmp/
 
-RUN R -f /tmp/install.R
+#RUN R -f /tmp/install.R
+RUN R -f /tmp/libs.R
 
-# Build dirs for UFRC
+# build dirs for UFRC
 RUN mkdir /ufrc /orange /bio /rlts 
 RUN mkdir -p /scratch/local
+RUN mkdir app
+
+# define work dir
+WORKDIR /app
+COPY . /app
+
+# run app
+# CMD ["Rscript", "xcms-direct-injection.R"]
