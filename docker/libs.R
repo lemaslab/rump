@@ -1,8 +1,5 @@
-# DO NOT EDIT 'install.R'; instead, edit 'install.R.in' and
-# use 'rake' to generate 'install.R'.
-
 ##
-## Obtain list of packages in view, as defined in config.yml
+## Obtain list of packages needed for running xcms
 ##
 source("https://bioconductor.org/biocLite.R")
 

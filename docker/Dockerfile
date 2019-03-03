@@ -39,14 +39,14 @@ RUN R CMD javareconf
 
 ENV NETCDF_INCLUDE=/usr/include
 
-#ADD install.R /tmp/
-ADD libs.R /tmp/
+#ADD install.R /tmp/ # comment out this line
+ADD libs.R /tmp/ # use this line to install required R libraries for xcms
 
 # invalidates cache every 24 hours
 ADD http://master.bioconductor.org/todays-date /tmp/
 
-#RUN R -f /tmp/install.R
-RUN R -f /tmp/libs.R
+# RUN R -f /tmp/install.R # comment out this line
+RUN R -f /tmp/libs.R # use this line to install required R libraries for xcms
 
 # build dirs for UFRC
 RUN mkdir /ufrc /orange /bio /rlts 
