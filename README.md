@@ -36,7 +36,7 @@ singularity exec <the image file> Rscript <the R code> > ../log/<file name of th
 ## Some docker notes
 
 - Dockerfile reference:
-> [bioconductor/devel_metabolomics2](https://www.bioconductor.org/help/docker/)
+> [bioconductor/devel_metabolomics2](https://github.com/Bioconductor/bioc_docker/tree/master/out/release_metabolomics)
 - `install.R` has some problem (the error message is about `failed to install library MAIT`). `libs.R` was used instead to install required R libraries for xcms codes.
 - Inspect inside of docker environment:
 ```
