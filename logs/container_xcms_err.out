@@ -1,0 +1,90 @@
+Sending build context to Docker daemon  85.16MB
+Step 1/18 : FROM container-registry.phenomenal-h2020.eu/phnmnl/rbase:dev_v3.4.4-1xenial0_cv1.0.20
+ ---> 478e9dca1fa6
+Step 2/18 : MAINTAINER PhenoMeNal-H2020 Project (phenomenal-h2020-users@googlegroups.com)
+ ---> Using cache
+ ---> 6e87906f16bd
+Step 3/18 : LABEL software="XCMS"
+ ---> Using cache
+ ---> 3cf03f6e6bf5
+Step 4/18 : LABEL software.version="1.53.1"
+ ---> Using cache
+ ---> c364601faf6a
+Step 5/18 : LABEL version="0.1"
+ ---> Using cache
+ ---> a78c27965e28
+Step 6/18 : LABEL Description="XCMS: Framework for processing and visualization of chromatographically separated and single-spectra mass spectral data."
+ ---> Using cache
+ ---> ce67beb4b9a1
+Step 7/18 : LABEL website="https://github.com/sneumann/xcms"
+ ---> Using cache
+ ---> 8ede9115a859
+Step 8/18 : LABEL documentation="https://github.com/phnmnl/container-xcms/blob/master/README.md"
+ ---> Using cache
+ ---> 61e771746f5d
+Step 9/18 : LABEL license="https://github.com/phnmnl/container-midcor/blob/master/License.txt"
+ ---> Using cache
+ ---> 94f822ee9cb9
+Step 10/18 : LABEL tags="Metabolomics"
+ ---> Using cache
+ ---> 72dc1aaa73e6
+Step 11/18 : RUN apt-get -y update && apt-get -y --no-install-recommends install make gcc gfortran g++ libnetcdf-dev libxml2-dev libblas-dev liblapack-dev libssl-dev pkg-config git &&     R -e 'source("https://bioconductor.org/biocLite.R"); biocLite(c("MSnbase","mzR","MassSpecWavelet","S4Vectors","BiocStyle","faahKO","msdata"))' &&     R -e 'source("https://bioconductor.org/biocLite.R");biocLite(c("lattice","RColorBrewer","plyr","RANN","multtest","knitr","ncdf4","microbenchmark","RUnit"))' &&     R -e 'source("https://bioconductor.org/biocLite.R");biocLite("devtools")' &&     R -e 'source("https://bioconductor.org/biocLite.R");biocLite("ncdf4")' &&     R -e 'library(devtools); install_github(repo="sneumann/xcms", ref="d9baa6ca364f4dd197a9eedd361869cf0787dbc3")' &&     apt-get -y --purge --auto-remove remove make gcc gfortran g++ libblas-dev liblapack-dev &&     apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/{cache,log}/ /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> 68c74dfcb6d8
+Step 12/18 : ADD scripts/*.r /usr/local/bin/
+ ---> Using cache
+ ---> 2a6855a40720
+Step 13/18 : RUN chmod +x /usr/local/bin/*.r
+ ---> Using cache
+ ---> a0335a8652b9
+Step 14/18 : ADD runTest1.sh /usr/local/bin/runTest1.sh
+ ---> Using cache
+ ---> c522c647aa3d
+Step 15/18 : RUN mkdir /ufrc /orange /bio /rlts
+ ---> Using cache
+ ---> eb1dd095b241
+Step 16/18 : RUN mkdir -p /scratch/local
+ ---> Using cache
+ ---> 65779a42c4c8
+Step 17/18 : ADD libs.R /tmp/
+ ---> Using cache
+ ---> 893cc4b9b8c1
+Step 18/18 : RUN R -f /tmp/libs.R
+ ---> Running in c9053c878b88
+
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> ## Obtain list of packages needed for running xcms
+> ##
+> source("https://bioconductor.org/biocLite.R")
+[91mBioconductor version 3.6 (BiocInstaller 1.28.0), ?biocLite for help
+[0m[91mA new version of Bioconductor is available after installing the most recent
+  version of R; see http://bioconductor.org/install
+[0m> 
+> if (!requireNamespace("BiocManager", quietly = TRUE))
++     install.packages("BiocManager")
+[91mInstalling package into '/usr/local/lib/R/site-library'
+(as 'lib' is unspecified)
+[0m> 
+> BiocManager::install("xcms", version = "3.8")
+[91mWarning message:
+package 'BiocManager' is not available (for R version 3.4.4) 
+[0m[91mError in loadNamespace(name) : there is no package called 'BiocManager'
+Calls: :: ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+Execution halted
+[0m
