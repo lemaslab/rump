@@ -5,9 +5,9 @@ Data processing for metabolomics data
 ---
 ## Usage (for UFRC)
 
-1. Load singularity:
+1. Load singularity and direct to `xcms_R` folder:
 ```
-ml singularity
+ml singularity && cd xcms_R
 ```
 2. Pull docker environment:
 ```
@@ -15,7 +15,7 @@ singularity pull --name <the image file> docker://galaxydream/bioconductor_metab
 ```
 3. Run R code with docker image:
 ```
-singularity exec <the image file> Rscript <the R code> > ../log/<file name of the output log>
+singularity exec <the image file> Rscript <the R code> > ../logs/<file name of the output log>
 ```
 > R codes are stored in `xcms_R`
 
