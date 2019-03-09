@@ -10,8 +10,6 @@ library(MassSpecWavelet)
 
 register(SerialParam())
 
-
-
 ## ----load-data, message = FALSE, results = "hide"--------------------------
 mzdata_path <- system.file("fticr", package = "msdata")
 mzdata_files <- list.files(mzdata_path, recursive = TRUE, full.names = TRUE)

@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
  
-input_dir = Channel.fromPath('/Users/xinsongdu/Library/R/3.5/library/faahKO/cdf', type: 'dir')
+input_dir = Channel.fromPath('./data', type: 'dir')
 R_file = Channel.fromPath('./xcms_R/xcms-faahKO.R')
 // plot_1 = file('chromatograms_1.pdf')
 // plot_2 = file('ion_current.pdf')
