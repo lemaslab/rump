@@ -9,7 +9,7 @@ Data processing for metabolomics data
 ```
 ml singularity && ml nextflow
 ```
-2. Run sample code (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`):
+2. Run sample code (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`. Outpuf files will be stored in `results` folder):
 ```
 nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 <file name of the first plot, default is "plot_1.pdf"> --plot_2 <file name of the second plot, default is "plot_2.pdf"> --plot_3 <file name of the third plot, default is "plot_3.pdf">
 ```
