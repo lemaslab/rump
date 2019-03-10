@@ -1,3 +1,5 @@
+logs/
+results/
 work/
 .nextflow*
 .DS_Store
