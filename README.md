@@ -5,18 +5,15 @@ Data processing for metabolomics data
 ---
 ## Usage (for UFRC)
 
-1. Load singularity and direct to `xcms_R` folder:
+1. Load singularity and nextflow:
 ```
-ml singularity && cd xcms_R
+ml singularity && ml nextflow
 ```
-2. Pull docker environment:
+2. Run sample code (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`):
 ```
-singularity pull --name <the image file> docker://galaxydream/bioconductor_metabolomics
+nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 <file name of the first plot, default is "plot_1.pdf"> --plot_2 <file name of the second plot, default is "plot_2.pdf"> --plot_3 <file name of the third plot, default is "plot_3.pdf">
 ```
-3. Run R code with docker image:
-```
-singularity exec <the image file> Rscript <the R code> > ../logs/<file name of the output log>
-```
+
 > R codes are stored in `xcms_R`
 
 ## R scripts notes:
@@ -28,6 +25,7 @@ singularity exec <the image file> Rscript <the R code> > ../logs/<file name of t
 > - `xcms.R`: LCMS data preprocessing and analysis with xcms
 > - `new_functionality.R`: New and modified functionality in xcms
 > - `xcmsMSn.R`: Processing Tandem-MS and MSn data with xcms
+> - `xcms-faahKO.R`: Modified sample file
 
 #### Reference
 

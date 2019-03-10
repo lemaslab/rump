@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
  
-input_dir = Channel.fromPath('./data', type: 'dir')
+input_dir = Channel.fromPath(params.input_folder, type: 'dir')
 R_file = Channel.fromPath('./xcms_R/xcms-faahKO.R')
 // plot_1 = file('chromatograms_1.pdf')
 // plot_2 = file('ion_current.pdf')
@@ -15,13 +15,13 @@ process run_sample {
     file r from R_file
 
     output:
-    file "plot_1.pdf" into plt1
-    file "plot_2.pdf" into plt2
-    file "plot_3.pdf" into plt3
+    file params.plot_1 into plt1
+    file params.plot_2 into plt2
+    file params.plot_3 into plt3
  
     shell:
     """   
-    Rscript ${r} -i ${f} -p "plot_1.pdf" -q "plot_2.pdf" -r "plot_3.pdf"
+    Rscript ${r} -i ${f} -p $params.plot_1 -q $params.plot_2 -r $params.plot_3
 
     """
 }
