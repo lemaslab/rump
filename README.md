@@ -13,7 +13,7 @@ ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
 nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 <file name of the first plot, default is "chromatograms_1_mqc.jpeg"> --plot_2 <file name of the second plot, default is "ion_current_mqc.jpeg"> --plot_3 <file name of the third plot, default is "chromatograms_2_mqc.jpeg">
 ```
-3. Get report with MultiQC
+3. Get report with [MultiQC](https://multiqc.info/)
 ```
 multiqc results/
 ```
