@@ -8,6 +8,8 @@ R_file = Channel.fromPath('./xcms_R/xcms-faahKO.R')
 
 process run_sample {
 
+    echo true
+
     publishDir './results/', mode: 'move'
 
     input:

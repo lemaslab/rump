@@ -7,13 +7,16 @@ Data processing for metabolomics data
 
 1. Load singularity and nextflow:
 ```
-ml singularity && ml nextflow
+ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
 2. Run sample code (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`. Output files will be stored in `results` folder):
 ```
-nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 <file name of the first plot, default is "plot_1.pdf"> --plot_2 <file name of the second plot, default is "plot_2.pdf"> --plot_3 <file name of the third plot, default is "plot_3.pdf">
+nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 <file name of the first plot, default is "chromatograms_1_mqc.jpeg"> --plot_2 <file name of the second plot, default is "ion_current_mqc.jpeg"> --plot_3 <file name of the third plot, default is "chromatograms_2_mqc.jpeg">
 ```
-
+3. Get report with MultiQC
+```
+multiqc results/
+```
 > R codes are stored in `xcms_R`
 
 ## R scripts notes:
