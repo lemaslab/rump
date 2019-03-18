@@ -3,8 +3,10 @@ results/
 work/
 .nextflow*
 .DS_Store
-data/
 *.img
+trace*
+timeline*
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
