@@ -5,7 +5,7 @@ Data processing for metabolomics data
 ---
 ## Usage (for UFRC)
 
-1. Load singularity and nextflow:
+1. Load (Singularity)[https://singularity.lbl.gov/] and (Nextflow)[https://www.nextflow.io/]:
 ```
 ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
