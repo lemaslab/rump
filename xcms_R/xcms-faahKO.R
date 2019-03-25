@@ -26,13 +26,15 @@ library(optparse) # add this library to enable argparse arguments
 
 ## Define input and output arguments
 option_list = list(
-    make_option(c("-i", "--input"), type="character", default="/Users/xinsongdu/Library/R/3.5/library/faahKO/cdf", 
+    make_option(c("-i", "--input"), type="character", default="./data/DCSM/", 
               help="input folder location", metavar="character"),
     make_option(c("-p", "--plot1"), type="character", default="chromatograms_1_mqc.jpeg", 
               help="the file name and location of the first chromatograms plot", metavar="character"),
     make_option(c("-q", "--plot2"), type="character", default="ion_current_mqc.jpeg", 
               help="the file name and location of the box plot", metavar="character"),
     make_option(c("-r", "--plot3"), type="character", default="chromatograms_2_mqc.jpeg", 
+              help="the file name and location of the second chromatograms plot", metavar="character")
+    make_option(c("-d", "--data"), type="character", default="DCSM", 
               help="the file name and location of the second chromatograms plot", metavar="character")
 ); 
  
@@ -64,7 +66,7 @@ pd <- data.frame(sample_name = sn,
 ## load the raw data as an OnDiskMSnExp object using the readMSData method 
 ## from the MSnbase package.
 raw_data <- readMSData(files = files, pdata = new("NAnnotatedDataFrame", pd),
-                       mode = "onDisk") 
+                       mode = "onDisk")
   # The OnDiskMSnExp object contains general information about the number of spectra, 
   # retention times, the measured total ion current etc, but does not contain the 
   # full raw data (i.e. the m/z and intensity values from each measured spectrum).
@@ -140,7 +142,27 @@ dev.off() # close file
 ## by considering only signals with a value larger than 1000 in the peak 
 ## detection step.
 
-cwp <- CentWaveParam(peakwidth = c(30, 80), noise = 1000)
+if(opt$data == "DCMS"){
+  cwp <- CentWaveParam(ppm = 0.01, peakwidth = c(0.6, 30.0), noise = 100, prefilter=c(1,5000), integrate = 2)
+}else{
+  cwp <- CentWaveParam(peakwidth = c(30, 80), noise = 1000)
+}
+
 xdata <- findChromPeaks(raw_data, param = cwp) 
+
+## Print peak numbers
+summary_fun <- function(z) {
+    c(peak_count = nrow(z), rt = quantile(z[, "rtmax"] - z[, "rtmin"]))
+}
+T <- lapply(split.data.frame(chromPeaks(xdata),
+                 f = chromPeaks(xdata)[, "sample"]),
+        FUN = summary_fun)
+T <- do.call(rbind, T)
+rownames(T) <- basename(fileNames(xdata))
+pandoc.table(T,
+         caption = paste0("Summary statistics on identified chromatographic",
+                  " peaks. Shown are number of identified peaks per",
+                  " sample and widths/duration of chromatographic ",
+                  "peaks.")) 
 
 # print(xdata)
