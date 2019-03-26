@@ -142,7 +142,7 @@ dev.off() # close file
 ## by considering only signals with a value larger than 1000 in the peak 
 ## detection step.
 
-if(opt$data == "DCMS"){
+if(opt$data == "DCSM"){
   cwp <- CentWaveParam(ppm = 0.01, peakwidth = c(0.6, 30.0), noise = 100, prefilter=c(1,5000), integrate = 2)
 }else{
   cwp <- CentWaveParam(peakwidth = c(30, 80), noise = 1000)
