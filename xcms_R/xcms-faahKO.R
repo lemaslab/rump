@@ -33,9 +33,9 @@ option_list = list(
     make_option(c("-q", "--plot2"), type="character", default="ion_current_mqc.jpeg", 
               help="the file name and location of the box plot", metavar="character"),
     make_option(c("-r", "--plot3"), type="character", default="chromatograms_2_mqc.jpeg", 
-              help="the file name and location of the second chromatograms plot", metavar="character")
+              help="the file name and location of the second chromatograms plot", metavar="character"),
     make_option(c("-d", "--data"), type="character", default="DCSM", 
-              help="the file name and location of the second chromatograms plot", metavar="character")
+              help="the simulation data name", metavar="character")
 ); 
  
 opt_parser = OptionParser(option_list=option_list);
