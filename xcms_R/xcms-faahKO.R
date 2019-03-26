@@ -23,6 +23,7 @@ library(RColorBrewer)
 library(pander)
 library(magrittr)
 library(optparse) # add this library to enable argparse arguments
+options(warn=-1)
 
 ## Define input and output arguments
 option_list = list(
@@ -33,6 +34,10 @@ option_list = list(
     make_option(c("-q", "--plot2"), type="character", default="ion_current_mqc.jpeg", 
               help="the file name and location of the box plot", metavar="character"),
     make_option(c("-r", "--plot3"), type="character", default="chromatograms_2_mqc.jpeg", 
+              help="the file name and location of the second chromatograms plot", metavar="character"),
+    make_option(c("-s", "--plot4"), type="character", default="chromatograms_3_mqc.jpeg", 
+              help="the file name and location of the second chromatograms plot", metavar="character"),
+    make_option(c("-a", "--peakDetail"), type="character", default="F", 
               help="the file name and location of the second chromatograms plot", metavar="character"),
     make_option(c("-d", "--data"), type="character", default="DCSM", 
               help="the simulation data name", metavar="character")
@@ -122,14 +127,17 @@ dev.off() # close file
 
 #To evaluate the typical chromatographic peak width we plot the EIC for one peak.
 
+
 ## Define the rt and m/z range of the peak area
-rtr <- c(2700, 2900)
-mzr <- c(334.9, 335.1)
+rtr <- c(30, 50)
+mzr <- c(140, 170)
 ## extract the chromatogram
 chr_raw <- chromatogram(raw_data, mz = mzr, rt = rtr)
 jpeg(opt$plot3)    # add code to plot the figure then save it to file
 plot(chr_raw, col = group_colors[chr_raw$sample_group]) 
+dev.off()
 
+jpeg(opt$plot4)
 raw_data %>%
   filterRt(rt = rtr) %>%
   filterMz(mz = mzr) %>%
@@ -142,15 +150,22 @@ dev.off() # close file
 ## by considering only signals with a value larger than 1000 in the peak 
 ## detection step.
 
+
 if(opt$data == "DCSM"){
-  cwp <- CentWaveParam(ppm = 0.01, peakwidth = c(0.6, 30.0), noise = 100, prefilter=c(1,5000), integrate = 2)
-}else{
+  print("Detecting peaks from DCSM")
+  cwp <- CentWaveParam(ppm = 0.01, peakwidth = c(1.2, 36.0), noise = 100, prefilter=c(1,5000), integrate = 2)
+}else if(opt$data == "VT001"){
+  print("Detecting peaks from VT001")
+  cwp <- CentWaveParam(ppm = 0.01, peakwidth = c(0.6, 30.0), noise = 100, prefilter=c(1,1000), integrate = 2)
+  }else{
   cwp <- CentWaveParam(peakwidth = c(30, 80), noise = 1000)
 }
 
-xdata <- findChromPeaks(raw_data, param = cwp) 
-
+xdata <- findChromPeaks(raw_data, param = cwp)
+print("peak number: ")
+print(nrow(chromPeaks(xdata)))
 ## Print peak numbers
+
 summary_fun <- function(z) {
     c(peak_count = nrow(z), rt = quantile(z[, "rtmax"] - z[, "rtmin"]))
 }
@@ -159,10 +174,9 @@ T <- lapply(split.data.frame(chromPeaks(xdata),
         FUN = summary_fun)
 T <- do.call(rbind, T)
 rownames(T) <- basename(fileNames(xdata))
+print(T)
 pandoc.table(T,
          caption = paste0("Summary statistics on identified chromatographic",
                   " peaks. Shown are number of identified peaks per",
                   " sample and widths/duration of chromatographic ",
-                  "peaks.")) 
-
-# print(xdata)
+                  "peaks."))

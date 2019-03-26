@@ -34,6 +34,9 @@ multiqc results/
 
 [bioconductor](https://bioconductor.org/packages/release/bioc/html/xcms.html)
 
+## xcms notes
+- Peak detection results are different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), which might because their xcms version is 1.47.2 while ours is 3.3.2
+
 ## Some docker notes
 
 - Dockerfile reference (with minor modification):

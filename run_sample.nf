@@ -20,10 +20,11 @@ process run_sample {
     file params.plot_1 into plt1
     file params.plot_2 into plt2
     file params.plot_3 into plt3
+    file params.plot_4 into plt4
  
     shell:
     """   
-    Rscript ${r} -i ${f} -p $params.plot_1 -q $params.plot_2 -r $params.plot_3
+    Rscript ${r} -i ${f} -p $params.plot_1 -q $params.plot_2 -r $params.plot_3 -s $params.plot_4 -a $params.peak_detail -d $params.sample_data
 
     """
 }
