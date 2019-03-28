@@ -11,7 +11,7 @@ ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
 2. Run sample code (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`. Output files will be stored in `results` folder):
 ```
-nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 <file name of the first plot, default is "chromatograms_1_mqc.jpeg"> --plot_2 <file name of the second plot, default is "ion_current_mqc.jpeg"> --plot_3 <file name of the third plot, default is "chromatograms_2_mqc.jpeg">
+nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 [file name of the first plot, default is "chromatograms_1_mqc.jpeg"] --plot_2 [file name of the second plot, default is "ion_current_mqc.jpeg"] --plot_3 [file name of the third plot, default is "chromatograms_2_mqc.jpeg"] --plot_4 [file name of the fourth plot, default is "chromatograms_3_mqc.jpeg"]
 ```
 3. Get report with MultiQC:
 ```
