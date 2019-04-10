@@ -1,3 +1,4 @@
+*backups/
 logs/
 results/
 work/
@@ -7,6 +8,7 @@ work/
 trace*
 timeline*
 data/
+docker/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

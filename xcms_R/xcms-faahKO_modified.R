@@ -37,6 +37,8 @@ option_list = list(
               help="the file name and location of the second chromatograms plot", metavar="character"),
     make_option(c("-s", "--plot4"), type="character", default="chromatograms_3_mqc.jpeg", 
               help="the file name and location of the second chromatograms plot", metavar="character"),
+    make_option(c("-t", "--peaks"), type="character", default="peaks.csv", 
+              help="the file name and location of the second chromatograms plot", metavar="character"),
     make_option(c("-d", "--data"), type="character", default="DCSM", 
               help="the simulation data name", metavar="character")
 ); 
@@ -179,3 +181,7 @@ pandoc.table(T,
                   " peaks. Shown are number of identified peaks per",
                   " sample and widths/duration of chromatographic ",
                   "peaks."))
+
+## Output detected peaks to csv file
+
+write.csv(chromPeaks(xdata), opt$peaks)
