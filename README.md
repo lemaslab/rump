@@ -37,6 +37,7 @@ multiqc results/
 ## xcms notes
 - Peak detection results are different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), which might because their xcms version is 1.47.2 while ours is 3.3.2
 - Good xcms tutorial: https://www.uab.edu/proteomics/metabolomics/workshop/2017/day3/intro_to_XCMS_in_R.pdf
+- Modify `xcms v1.47.2` to enable it to detect peaks with mzTolerance instead of ppm: modify **findPeaks.centWave** in `xcmsRaw.R`; modify **getLocalNoiseEstimate** in `cwTools.R`; modify `mzROI.c`
 
 ## Some docker notes
 
