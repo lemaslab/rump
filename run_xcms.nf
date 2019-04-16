@@ -27,6 +27,9 @@ timestamp='20190328'
 
 input_dir = Channel.fromPath(params.input_folder, type: 'dir')
 R_file = Channel.fromPath('./xcms_R/xcms-faahKO_modified.R')
+python_file = Channel.fromPath('./src/batchfile_generator.py')
+mzmine = Channel.fromPath('./docker/main/MZmine-2.38/startMZmine_MacOSX.command')
+batchfile_path = Channel.fromPath('./results/batchfile.xml')
 
 /**
     Prints version when asked for
@@ -73,7 +76,7 @@ if (params.help) {
 //    exit 1
 }
 
-process peakDetection {
+process peakDetection_xcms {
 
     echo true
 

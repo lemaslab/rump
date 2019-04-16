@@ -9,11 +9,15 @@ Data processing for metabolomics data
 ```
 ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
-2. Run sample code (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`. Output files will be stored in `results` folder):
+2. Run xcms (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`. Output files will be stored in `results` folder):
 ```
-nextflow run_sample.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 [file name of the first plot, default is "chromatograms_1_mqc.jpeg"] --plot_2 [file name of the second plot, default is "ion_current_mqc.jpeg"] --plot_3 [file name of the third plot, default is "chromatograms_2_mqc.jpeg"] --plot_4 [file name of the fourth plot, default is "chromatograms_3_mqc.jpeg"]
+nextflow run_xcms.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 [file name of the first plot, default is "chromatograms_1_mqc.jpeg"] --plot_2 [file name of the second plot, default is "ion_current_mqc.jpeg"] --plot_3 [file name of the third plot, default is "chromatograms_2_mqc.jpeg"] --plot_4 [file name of the fourth plot, default is "chromatograms_3_mqc.jpeg"]
 ```
-3. Get report with MultiQC:
+3. Run mzmine (under development for all users, now it can only run on my local machine)
+```
+bash run_mzmine.sh
+```
+4. Get report with MultiQC (under development):
 ```
 multiqc results/
 ```
@@ -38,6 +42,9 @@ multiqc results/
 - Peak detection results are different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), which might because their xcms version is 1.47.2 while ours is 3.3.2
 - Good xcms tutorial: https://www.uab.edu/proteomics/metabolomics/workshop/2017/day3/intro_to_XCMS_in_R.pdf
 - Modify `xcms v1.47.2` to enable it to detect peaks with mzTolerance instead of ppm: modify **findPeaks.centWave** in `xcmsRaw.R`; modify **getLocalNoiseEstimate** in `cwTools.R`; modify `mzROI.c`
+
+## mzmine notes
+- all paths in mzmine (paths in config file, the path of the generated config file when running mzmine) need to be absolute, relative path will generate error.
 
 ## Some docker notes
 
