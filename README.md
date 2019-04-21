@@ -9,7 +9,7 @@ Data processing for metabolomics data
 ```
 ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
-2. Run pipeline on local machine using default parameters (Before running, change `input_file` in `nextflow.config` to the location of your input data file of your local machine; change `mzmine_dir` in `nextflow.config` to the location of the mzmine directory on your local machine; change other parameters in `nextflow.config`):
+2. Run pipeline on local machine using default parameters (Before running, change `input_file` in `nextflow.config` to the location of your input data file on your local machine; change `mzmine_dir` in `nextflow.config` to the location of the mzmine directory on your local machine):
 ```
 nextflow run.nf -with-docker galaxydream/bioconductor_metabolomics
 ```
