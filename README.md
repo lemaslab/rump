@@ -9,15 +9,26 @@ Data processing for metabolomics data
 ```
 ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
-2. Run pipeline on local machine (Before running, change `input_file` in `nextflow.config` to the location of your input file of your local machine; change `mzmine_peak_output` in `nextflow.config` to the location of mzmine output peak table on your local machine; change other parameters in `nextflow.config`):
+2. Run pipeline on local machine using default parameters (Before running, change `input_file` in `nextflow.config` to the location of your input data file of your local machine; change `mzmine_dir` in `nextflow.config` to the location of the mzmine directory on your local machine; change other parameters in `nextflow.config`):
 ```
-nextflow run.nf
+nextflow run.nf -with-docker galaxydream/bioconductor_metabolomics
 ```
 3. Get report with MultiQC (under development):
 ```
 multiqc results/
 ```
 > R codes are stored in `xcms_R`
+
+## Parameters description
+
+- Use the following line to get the help information:
+```
+nextflow run.nf --help true
+```
+- Use the following line to get the version information:
+```
+nextflow run.nf --version true
+```
 
 ## R scripts notes:
 
@@ -35,12 +46,15 @@ multiqc results/
 [bioconductor](https://bioconductor.org/packages/release/bioc/html/xcms.html)
 
 ## xcms notes
-- Peak detection results are different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), which might because their xcms version is 1.47.2 while ours is 3.3.2
+- The peak detection result using xcms is very different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), this [docker file](https://cloud.docker.com/u/galaxydream/repository/docker/galaxydream/xcms_modified) is used to replicate the experiment in the paper.
 - Good xcms tutorial: https://www.uab.edu/proteomics/metabolomics/workshop/2017/day3/intro_to_XCMS_in_R.pdf
 - Modify `xcms v1.47.2` to enable it to detect peaks with mzTolerance instead of ppm: modify **findPeaks.centWave** in `xcmsRaw.R`; modify **getLocalNoiseEstimate** in `cwTools.R`; modify `mzROI.c`
+- The xcms used in this pipeline is the most updated xcms, which only allows to define ppm as m/z tolerance.
 
 ## mzmine notes
-- all paths in mzmine (paths in config file, the path of the generated config file when running mzmine) need to be absolute, relative path will generate error.
+- The peak detection result using MZmine is very different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), this [docker file](https://cloud.docker.com/repository/docker/galaxydream/mzmine_oldversion) is used to replicate the experiment in the paper.
+- All paths in mzmine batch file (paths in config file, the path of the generated config file when running mzmine) need to be the format that xml can accept (i.e. either using absolute path, or using relative path with "./" at the begaining).
+- For mass detector, we use `Wavelet transform`; for chromatogram deconvolution, we use `Wavelets (XCMS)`
 
 ## Some docker notes
 
@@ -48,6 +62,10 @@ multiqc results/
 > [bioconductor/devel_metabolomics2](https://github.com/Bioconductor/bioc_docker/tree/master/out/release_metabolomics)
 - `install.R` has some problem (the error message is about `failed to install library MAIT`). `libs.R` was used instead to install required R libraries for xcms codes.
 - [container-xcms](https://github.com/phnmnl/container-xcms) generated an error (see logs/container_xcms_err.out) when trying to installing libraries for xcms, which might because their R version is 3.4 and not be able to install `BioManager`
+- Start to run a docker image, after which you can "login" to it and inspect the content:
+```
+docker run --name <image name> -t <docker image> sh
+```
 - Inspect inside of docker environment:
 ```
 docker exec -t -i <image name> /bin/bash

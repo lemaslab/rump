@@ -23,12 +23,13 @@
 */
 
 version='0.0.0'
-timestamp='20190416'
+timestamp='20190421'
 
 // input_dir = Channel.fromPath(params.input_folder, type: 'dir')
 input_file_xcms = Channel.fromPath(params.input_file)
 input_file_mzmine = Channel.fromPath(params.input_file)
-mzmine = Channel.fromPath('/Users/xinsongdu/mnt/tools/mzmine2/MZmine-2.38/', type: 'dir')
+mzmine = Channel.fromPath(params.mzmine_dir, type: 'dir')
+// mzmine_peak_file = Channel.fromPath("MZmine-2.38/$params.mzmine_peak_output")
 python_file = Channel.fromPath('./src/batchfile_generator.py')
 R_file = Channel.fromPath('./xcms_R/peak_detection_xcms.R')
 output_dir = Channel.fromPath(params.output_dir, type: 'dir')
@@ -40,7 +41,7 @@ output_dir = Channel.fromPath(params.output_dir, type: 'dir')
 if (params.version) {
     System.out.println("")
     System.out.println("METAGENOMIC PIPELINE FOR SUPERCOMPUTERS (MPS) - Version: $version ($timestamp)")
-//    exit 1
+    exit 1
 }
 
 /**
@@ -59,14 +60,35 @@ if (params.help) {
     System.out.println("[wiki placeholder]")
     System.out.println("")
     System.out.println("Usage: ")
-    System.out.println("   nextflow run YAMP.nf --reads1 R1 --reads2 R2 --prefix mysample --outdir path --mode MODE  ")
-    System.out.println("                [options] [-with-docker|-with-singularity]")
+    System.out.println("   nextflow run.nf [options] -with-docker galaxydream/bioconductor_metabolomics")
     System.out.println("")
-    System.out.println("Mandatory arguments:")
-    System.out.println("    --plot_1   p1      Name of the first plot, please ends with '_mqc.jepg'")
-    System.out.println("    --plot_2   p2      Name of the second plot, please ends with '_mqc.jepg'")
-    System.out.println("    --plot_3   p3      Name of the third plot, please ends with '_mqc.jepg'")
-    System.out.println("    --plot_4   p4      Name of the first plot, please ends with '_mqc.jepg'")
+    System.out.println("Arguments:")
+    System.out.println("----------------------------- common parameters ----------------------------------")
+    System.out.println("    --version                   whether to show version information or not, default is null")
+    System.out.println("    --help                      whether to show help information or not, default is null")
+    System.out.println("    --input_file                location of your input metabolomics data file")
+    System.out.println("    --noise                     noise value used by both mzmine and xcms, default is 100")
+    System.out.println("    --ppm                       relative m/z tolerance used by both mzmine and xcms, default is 25")
+    System.out.println("------------------------------- xcms parameters ----------------------------------")
+    System.out.println("    --peakwidth_low             lower bound of peak width, default is 0.6")
+    System.out.println("    --peakwidth_high            higher bound of peak width, default is 30")
+    System.out.println("    --prefilter_low             lower bound of prefilter, default is 1")
+    System.out.println("    --prefilter_high            higher bound of prefilter, default is 1000")
+    System.out.println("    --integrate                 value of integrate in xcms, default is 2")
+    System.out.println("    --xcms_peak_output          csv file name of the peak table output by xcms; note: this is not path, just a file name")
+    System.out.println("------------------------------ mzmine parameters ---------------------------------")
+    System.out.println("    --mzmine_dir                path of the mzmine directory on your machine")
+    System.out.println("    --ms_level                  MS level for mass detection in mzmine, default is 1")
+    System.out.println("    --detector_scalelevel       scale level for mass detector in mzmine, default is 20")
+    System.out.println("    --detector_windowsize       window size for mass detector in mzmine, default is 0.3")
+    System.out.println("    --buider_mintimespan        minimum time span for chromatogram builder in mzmine, default is 0.04")
+    System.out.println("    --buider_minheight          minimum height for chromatogram builder in mzmine, default is 5000")
+    System.out.println("    --decov_snthreshold         S/N threshold for chromatogram builder in mzmine, default is 10")
+    System.out.println("    --decov_wavscamin           minimum wavelet scales for chromatogram deconvolution in mzmine, default is 0.02")
+    System.out.println("    --decov_wavscamax           maximum wavelet scales for chromatogram deconvolution in mzmine, default is 0.8")
+    System.out.println("    --decov_peadurmin           minimum peak duration for chromatogram deconvolution in mzmine, default is 0.02")
+    System.out.println("    --decov_peadurma            maximum peak duration for chromatogram deconvolution in mzmine, default is 0.6")
+    System.out.println("    --mzmine_peak_output        output file name of peak detection result using mzmine, default is ./mzmine_dcsm_peaks.csv; note: the value must start with ./, followed by the file name")
     System.out.println("Please refer to nextflow.config for more options.")
     System.out.println("")
     System.out.println("Container:")
@@ -75,7 +97,7 @@ if (params.help) {
     System.out.println("")
     System.out.println("MPS supports mzData files.")
     System.out.println("")
-//    exit 1
+    exit 1
 }
 
 process peakDetection_xcms {
@@ -120,7 +142,7 @@ process batchfile_generation_mzmine {
 
 process peakDetection_mzmine {
 
-//    publishDir './results/', mode: 'move'
+    publishDir './results/', mode: 'move'
 
     echo true
 
@@ -129,14 +151,18 @@ process peakDetection_mzmine {
     file m from mzmine
 
     output:
-//    file params.mzmine_peak_output into mzmine_peaks
+    file "MZmine-2.38/${params.mzmine_peak_output}" into mzmine_peaks
     stdout result
+
+// Change "startMZmine_Linux.sh" to "startMZmine_MacOSX.command" in the following code if running locally with Mac
 
     shell:
     """   
-    mv ${b} ${m} && ${m}/startMZmine_MacOSX.command ${b}
+    mv ${b} ${m} && ${m}/startMZmine_Linux.sh ${b}
 
     """
 }
 
 // result.subscribe{println it}
+
+
