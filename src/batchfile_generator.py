@@ -218,15 +218,20 @@ if __name__ == '__main__':
         '-dpa', '--decov_peadurmax', help="define the max peak duration for chromatogram deconvolution;", dest = 'decov_peadurmax', default=0.6, required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output file (.csv format);", default="/app/outputs/DCSM_peaks.csv", required = False)
+    parser.add_argument(
+        '-c', '--choice', help="choice of mode: b (generating batch file) and r (runing the mzmine using the generated batch file);", dest = 'choice', default="b", required = False)
 
     args = parser.parse_args()
 
-    batchfile_generator(args.x_output, args.input, args.ms_level, args.detector_noiselevel, args.detector_scalelevel, args.detector_windowsize, args.buider_mintimespan, args.builder_minheight,
-                        args.builder_abstolerance, args.builder_ppm, args.decov_snthreshold, args.decov_wavscamin, args.decov_wavscamax, args.decov_peadurmin, args.decov_peadurmax, args.output)
-
-    print("start to run mzmine")
+    if args.choice == "b":
+        batchfile_generator(args.x_output, args.input, args.ms_level, args.detector_noiselevel, args.detector_scalelevel, args.detector_windowsize, args.buider_mintimespan, args.builder_minheight,
+                            args.builder_abstolerance, args.builder_ppm, args.decov_snthreshold, args.decov_wavscamin, args.decov_wavscamax, args.decov_peadurmin, args.decov_peadurmax, args.output)
+    elif args.choice == "r":
+        print("start to run mzmine")
 #    print(args.mzmine + " " + args.x_output)
-#    os.system(args.mzmine + " " + args.x_output)
+        os.system(args.mzmine + " " + args.x_output)
+    else:
+        print("wrong choice of mode!")
 
 
 

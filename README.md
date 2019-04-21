@@ -9,15 +9,11 @@ Data processing for metabolomics data
 ```
 ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
 ```
-2. Run xcms (If you use `slurm`, please remove the `//` of 29th line in `nextflow.config`. Output files will be stored in `results` folder):
+2. Run pipeline on local machine (Before running, change `input_file` in `nextflow.config` to the location of your input file of your local machine; change `mzmine_peak_output` in `nextflow.config` to the location of mzmine output peak table on your local machine; change other parameters in `nextflow.config`):
 ```
-nextflow run_xcms.nf -with-singularity docker://galaxydream/bioconductor_metabolomics --plot_1 [file name of the first plot, default is "chromatograms_1_mqc.jpeg"] --plot_2 [file name of the second plot, default is "ion_current_mqc.jpeg"] --plot_3 [file name of the third plot, default is "chromatograms_2_mqc.jpeg"] --plot_4 [file name of the fourth plot, default is "chromatograms_3_mqc.jpeg"]
+nextflow run.nf
 ```
-3. Run mzmine (under development for all users, now it can only run on my local machine)
-```
-bash run_mzmine.sh
-```
-4. Get report with MultiQC (under development):
+3. Get report with MultiQC (under development):
 ```
 multiqc results/
 ```
