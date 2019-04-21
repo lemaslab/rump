@@ -95,7 +95,7 @@ if (params.help) {
     System.out.println("    Docker image to use with -with-docker|-with-singularity options is")
     System.out.println("    'docker://galaxydream/bioconductor_metabolomics'")
     System.out.println("")
-    System.out.println("MPS supports mzData files.")
+    System.out.println("MPS supports mzXML format files.")
     System.out.println("")
     exit 1
 }
