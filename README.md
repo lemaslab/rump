@@ -52,7 +52,7 @@ nextflow run.nf --version true
 - The xcms used in this pipeline is the most updated xcms, which only allows to define ppm as m/z tolerance.
 
 ## mzmine notes
-- The peak detection result using MZmine is very different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), this [docker file](https://cloud.docker.com/repository/docker/galaxydream/mzmine_oldversion) is used to replicate the experiment in the paper.
+- The peak detection result using MZmine is slightly different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), this [docker file](https://cloud.docker.com/repository/docker/galaxydream/mzmine_oldversion) is used to replicate the experiment in the paper.
 - All paths in mzmine batch file (paths in config file, the path of the generated config file when running mzmine) need to be the format that xml can accept (i.e. either using absolute path, or using relative path with "./" at the begaining).
 - For mass detector, we use `Wavelet transform`; for chromatogram deconvolution, we use `Wavelets (XCMS)`
 
