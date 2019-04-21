@@ -62,7 +62,7 @@ if (params.help) {
     System.out.println("Usage: ")
     System.out.println("   nextflow run.nf [options] -with-docker galaxydream/bioconductor_metabolomics")
     System.out.println("")
-    System.out.println("Arguments:")
+    System.out.println("Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:")
     System.out.println("----------------------------- common parameters ----------------------------------")
     System.out.println("    --version                   whether to show version information or not, default is null")
     System.out.println("    --help                      whether to show help information or not, default is null")
