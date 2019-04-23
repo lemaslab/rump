@@ -2,7 +2,7 @@
 
 Data processing for metabolomics data. Pipeline overview:
 
-![alt text](https://github.com/GalaxyDream/metabolomics_data_processing/blob/master/figs/pipeline.png)
+![alt text](https://github.com/GalaxyDream/metabolomics_data_processing/blob/master/figs/pipeline.png =100*200)
 
 ---
 ## Usage (for UFRC)
