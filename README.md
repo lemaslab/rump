@@ -1,6 +1,8 @@
 # metabolomics_data_processing
 
-Data processing for metabolomics data
+Data processing for metabolomics data. Pipeline overview:
+
+![alt text](https://github.com/GalaxyDream/metabolomics_data_processing/blob/master/figs/pipeline.png)
 
 ---
 ## Usage (for UFRC)
