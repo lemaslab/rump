@@ -1,6 +1,6 @@
 # metabolomics_data_processing
 
-Data processing for metabolomics data. Pipeline overview:
+Data processing for metabolomics data. Pipeline overview (note: peak alignment and peak filling need to be done for multiple samples before merging peaks of the three tools, the process is also needed to be added to the following figure):
 
 ![alt text](https://github.com/GalaxyDream/metabolomics_data_processing/blob/master/figs/pipeline.png)
 
