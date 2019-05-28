@@ -58,7 +58,7 @@ nextflow run.nf --version true
 - All paths in mzmine batch file (paths in config file, the path of the generated config file when running mzmine) need to be the format that xml can accept (i.e. either using absolute path, or using relative path with "./" at the begaining).
 - For mass detector, we use `Wavelet transform`; for chromatogram deconvolution, we use `Wavelets (XCMS)`
 
-## Some docker notes
+## docker notes
 
 - Dockerfile reference (with minor modification):
 > [bioconductor/devel_metabolomics2](https://github.com/Bioconductor/bioc_docker/tree/master/out/release_metabolomics)
@@ -80,3 +80,6 @@ docker cp <image name>:/path/to/file /des/to/file
 ```
 docker rm $(docker ps -a -q -f status=exited)
 ```
+
+## multiqc notes
+- File name (ends with **_mqc**) decides the sequence of sections.
