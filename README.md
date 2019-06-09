@@ -82,4 +82,10 @@ docker rm $(docker ps -a -q -f status=exited)
 ```
 
 ## multiqc notes
-- File name (ends with **_mqc**) decides the sequence of sections.
+- File name (ends with **\_mqc**) decides the sequence of sections.
+
+## Nextflow notes
+- If there is output in a process needs to be used for another process, do not add the following line to the process, otherwise it will generate error:
+```
+publishDir './results/R_outputs', mode: 'move'
+```
