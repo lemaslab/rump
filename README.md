@@ -80,6 +80,7 @@ docker cp <image name>:/path/to/file /des/to/file
 ```
 docker rm $(docker ps -a -q -f status=exited)
 ```
+- For singularity on UFRC, set TMPDIR to `./tmp` after loading singularity, otherwise you may encounter "no space" error later.
 
 ## multiqc notes
 - File name (ends with **\_mqc**) decides the sequence of sections.
