@@ -88,5 +88,9 @@ docker rm $(docker ps -a -q -f status=exited)
 ## Nextflow notes
 - If there is output in a process needs to be used for another process, do not add the following line to the process, otherwise it will generate error:
 ```
-publishDir './results/R_outputs', mode: 'move'
+publishDir 'path/of/your/folder/', mode: 'move'
+```
+- Use the following line in a process if you want to save the output of the process to certain folder:
+```
+publishDir 'path/of/your/folder/', mode: 'copy'
 ```
