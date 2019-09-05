@@ -94,3 +94,4 @@ publishDir 'path/of/your/folder/', mode: 'move'
 ```
 publishDir 'path/of/your/folder/', mode: 'copy'
 ```
+- "$" stands for variable defined in Nextflow script, instead of system variable. If using system defined variable, use "\$".
