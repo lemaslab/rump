@@ -58,7 +58,8 @@ RUN mkdir app
 
 # define work dir
 WORKDIR /app
-COPY . /app
+COPY MZmine-2.28 /app
+COPY xcms-docker.tar.gz /app
 
 # RUN R -f /tmp/install.R # comment out this line
 # use the following line to install required R libraries for xcms
