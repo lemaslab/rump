@@ -45,9 +45,6 @@ RUN echo "alias python=python3" >> ~/.bash_profile
 
 ENV NETCDF_INCLUDE=/usr/include
 
-# ADD install.R /tmp/ # comment out this line
-# ADD libs.R /tmp/
-
 # invalidates cache every 24 hours
 ADD http://master.bioconductor.org/todays-date /tmp/
 
@@ -60,6 +57,8 @@ RUN mkdir app
 WORKDIR /app
 COPY MZmine-2.28 /app
 COPY xcms-docker.tar.gz /app
+COPY libs.R /app
+COPY accessibility.properties /app
 
 # RUN R -f /tmp/install.R # comment out this line
 # use the following line to install required R libraries for xcms
