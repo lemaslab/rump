@@ -2,7 +2,7 @@
 # generated. Edit 'Dockerfile.in' and generate the 'Dockerfile'
 # with the 'rake' command.
 
-FROM rocker/r-ver:3.4.1
+FROM rocker/r-ver:3.5.2
 
 MAINTAINER xinsongdu@ufl.edu
 

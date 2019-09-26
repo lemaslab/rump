@@ -3,13 +3,13 @@
 ##
 source("https://bioconductor.org/biocLite.R")
 
-# if (!requireNamespace("BiocManager", quietly = TRUE))
-#     install.packages("BiocManager")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 
-path_to_file = "xcms-docker.tar.gz"
-install.packages(path_to_file, repos = NULL, type="source")
+# path_to_file = "xcms-docker.tar.gz"
+# install.packages(path_to_file, repos = NULL, type="source")
 
-## BiocManager::install("xcms", version = "3.8")
+BiocManager::install("xcms", version = "3.8")
 
 BiocInstaller::biocLite('BiocStyle')
 BiocInstaller::biocLite('faahKO')
