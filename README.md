@@ -47,7 +47,15 @@ nextflow run.nf --version true
 
 [bioconductor](https://bioconductor.org/packages/release/bioc/html/xcms.html)
 
-## xcms notes
+## msconvert notes
+- XCMS cannot process profile mode data. If the data we got is in profile mode, then we need to use `msconvert` to convert the data from profile mode to centroid mode before feeding it to XCMS.
+- [msconvert (docker version)](https://hub.docker.com/r/chambm/pwiz-skyline-i-agree-to-the-vendor-licenses)
+- Example command line for using msconvert (`DCSM.mzXML` stands for the data):
+```
+wine msconvert DCSM.mzXML --filter "peakPicking [cwt[snr=1.0][peakSpace=0.1][msLevel=1-]]" --outfile "DCSM_centroid.mzXML" --mzXML
+```
+
+## XCMS notes
 - The peak detection result using xcms is very different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), this [docker file](https://cloud.docker.com/u/galaxydream/repository/docker/galaxydream/xcms_modified) is used to replicate the experiment in the paper.
 - Good xcms tutorial: https://www.uab.edu/proteomics/metabolomics/workshop/2017/day3/intro_to_XCMS_in_R.pdf
 - Modify `xcms v1.47.2` to enable it to detect peaks with mzTolerance instead of ppm: modify **findPeaks.centWave** in `xcmsRaw.R`; modify **getLocalNoiseEstimate** in `cwTools.R`; modify `mzROI.c`
