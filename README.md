@@ -105,3 +105,4 @@ publishDir 'path/of/your/folder/', mode: 'copy'
 ```
 - "$" stands for variable defined in Nextflow script, instead of system variable. If using system defined variable, use "\$".
 - If system variables and Nextflow variables exist in the same shell script block, then use `!{var}` to represent Nextflow variable while use `$var` to represent system variable.
+- Comment out "executor = 'slurm'", otherwise there would be an resource allocation error. It seems you need to allocate a big size of memory and cpu covering the need of all process to avoid the error.
