@@ -63,8 +63,9 @@ wine msconvert DCSM.mzXML --filter "peakPicking [cwt[snr=1.0][peakSpace=0.1][msL
 
 ## mzmine notes
 - The peak detection result using MZmine is slightly different with [this paper](https://pubs.acs.org/doi/ipdf/10.1021/acs.analchem.7b01069), this [docker file](https://cloud.docker.com/repository/docker/galaxydream/mzmine_oldversion) is used to replicate the experiment in the paper.
-- All paths in mzmine batch file (paths in config file, the path of the generated config file when running mzmine) need to be the format that xml can accept (i.e. either using absolute path, or using relative path with "./" at the begaining).
+- All paths in mzmine batch file (paths in config file, the path of the generated config file when running mzmine) need to be the format that xml can accept (i.e. either using absolute path, or using relative path with "./" at the begining).
 - For mass detector, we use `Wavelet transform`; for chromatogram deconvolution, we use `Wavelets (XCMS)`
+- If we want to export the intermidiate result and load it back, we need to export it to XML. When loading back (e.g. after doing some parse and processing with the peaks in the XML file), we need to make sure that the original data has already been imported to the left side of the window before loading the XML, otherwide a `raw data file is not found` error would be generated.
 
 ## docker notes
 
