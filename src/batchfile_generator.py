@@ -8,27 +8,33 @@ import logging.handlers
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
-def batchfile_generator(xml_file, input_data, ms_level, detector_noiselevel, detector_scalelevel, detector_windowsize, buider_mintimespan, builder_minheight,
-                        builder_abstolerance, builder_ppm, decov_snthreshold, decov_wavscamin, decov_wavscamax, decov_peadurmin, decov_peadurmax, output_data):
+def batchfile_generator(xml_file, input_dir, library, output_csv):
+
+#    output = os.path.abspath(output_csv)
+
+    input_files = [os.path.abspath(os.path.join(input_dir, f)) for f in os.listdir(input_dir)]
+    input_str = ""
+    for i in input_files:
+        input_str += "            <file>" + i + "</file>\n"
+
     with open(xml_file, "w+") as f:
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
 <batch>\n\
     <batchstep method=\"net.sf.mzmine.modules.rawdatamethods.rawdataimport.RawDataImportModule\">\n\
-        <parameter name=\"Raw data file names\">\n\
-            <file>{0}</file>\n\
-        </parameter>\n\
+        <parameter name=\"Raw data file names\">\n" + input_str + 
+"        </parameter>\n\
     </batchstep>\n\
     <batchstep method=\"net.sf.mzmine.modules.rawdatamethods.peakpicking.massdetection.MassDetectionModule\">\n\
         <parameter name=\"Raw data files\" type=\"BATCH_LAST_FILES\"/>\n\
         <parameter name=\"Scans\">\n\
-            <ms_level>{1}</ms_level>\n\
+            <ms_level>1</ms_level>\n\
         </parameter>\n\
-        <parameter name=\"Mass detector\" selected=\"Wavelet transform\">\n\
+        <parameter name=\"Mass detector\" selected=\"Centroid\">\n\
             <module name=\"Centroid\">\n\
-                <parameter name=\"Noise level\">100.0</parameter>\n\
+                <parameter name=\"Noise level\">1000.0</parameter>\n\
             </module>\n\
             <module name=\"Exact mass\">\n\
-                <parameter name=\"Noise level\">100.0</parameter>\n\
+                <parameter name=\"Noise level\">10000.0</parameter>\n\
             </module>\n\
             <module name=\"Local maxima\">\n\
                 <parameter name=\"Noise level\"/>\n\
@@ -39,9 +45,9 @@ def batchfile_generator(xml_file, input_data, ms_level, detector_noiselevel, det
                 <parameter name=\"Max m/z peak width\"/>\n\
             </module>\n\
             <module name=\"Wavelet transform\">\n\
-                <parameter name=\"Noise level\">{2}</parameter>\n\
-                <parameter name=\"Scale level\">{3}</parameter>\n\
-                <parameter name=\"Wavelet window size (%)\">{4}</parameter>\n\
+                <parameter name=\"Noise level\"/>\n\
+                <parameter name=\"Scale level\"/>\n\
+                <parameter name=\"Wavelet window size (%)\"/>\n\
             </module>\n\
         </parameter>\n\
         <parameter name=\"Mass list name\">masses</parameter>\n\
@@ -53,65 +59,70 @@ def batchfile_generator(xml_file, input_data, ms_level, detector_noiselevel, det
             <ms_level>1</ms_level>\n\
         </parameter>\n\
         <parameter name=\"Mass list\">masses</parameter>\n\
-        <parameter name=\"Min time span (min)\">{5}</parameter>\n\
-        <parameter name=\"Min height\">{6}</parameter>\n\
+        <parameter name=\"Min time span (min)\">0.06</parameter>\n\
+        <parameter name=\"Min height\">100000.0</parameter>\n\
         <parameter name=\"m/z tolerance\">\n\
-            <absolutetolerance>{7}</absolutetolerance>\n\
-            <ppmtolerance>{8}</ppmtolerance>\n\
+            <absolutetolerance>0.002</absolutetolerance>\n\
+            <ppmtolerance>5.0</ppmtolerance>\n\
         </parameter>\n\
-        <parameter name=\"Suffix\">chromatograms</parameter>\n\
+        <parameter name=\"Suffix\">chromatograms-1E5</parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.peakpicking.smoothing.SmoothingModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Filename suffix\">smoothed</parameter>\n\
+        <parameter name=\"Filter width\">5</parameter>\n\
+        <parameter name=\"Remove original peak list\">false</parameter>\n\
     </batchstep>\n\
     <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.peakpicking.deconvolution.DeconvolutionModule\">\n\
         <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
         <parameter name=\"Suffix\">deconvoluted</parameter>\n\
-        <parameter name=\"Algorithm\" selected=\"Wavelets (XCMS)\">\n\
+        <parameter name=\"Algorithm\" selected=\"Local minimum search\">\n\
             <module name=\"Baseline cut-off\">\n\
-                <parameter name=\"Min peak height\">100.0</parameter>\n\
+                <parameter name=\"Min peak height\">10000.0</parameter>\n\
                 <parameter name=\"Peak duration range (min)\">\n\
-                    <min>0.0</min>\n\
-                    <max>10.0</max>\n\
+                    <min>0.1</min>\n\
+                    <max>3.0</max>\n\
                 </parameter>\n\
-                <parameter name=\"Baseline level\">100.0</parameter>\n\
+                <parameter name=\"Baseline level\">1000.0</parameter>\n\
             </module>\n\
             <module name=\"Noise amplitude\">\n\
-                <parameter name=\"Min peak height\"/>\n\
+                <parameter name=\"Min peak height\">10000.0</parameter>\n\
                 <parameter name=\"Peak duration range (min)\">\n\
                     <min>0.0</min>\n\
                     <max>10.0</max>\n\
                 </parameter>\n\
-                <parameter name=\"Amplitude of noise\"/>\n\
+                <parameter name=\"Amplitude of noise\">1000.0</parameter>\n\
             </module>\n\
             <module name=\"Savitzky-Golay\">\n\
-                <parameter name=\"Min peak height\"/>\n\
+                <parameter name=\"Min peak height\">10000.0</parameter>\n\
                 <parameter name=\"Peak duration range (min)\">\n\
                     <min>0.0</min>\n\
                     <max>10.0</max>\n\
                 </parameter>\n\
-                <parameter name=\"Derivative threshold level\"/>\n\
+                <parameter name=\"Derivative threshold level\">0.2</parameter>\n\
             </module>\n\
             <module name=\"Local minimum search\">\n\
-                <parameter name=\"Chromatographic threshold\"/>\n\
-                <parameter name=\"Search minimum in RT range (min)\"/>\n\
-                <parameter name=\"Minimum relative height\"/>\n\
-                <parameter name=\"Minimum absolute height\"/>\n\
-                <parameter name=\"Min ratio of peak top/edge\"/>\n\
+                <parameter name=\"Chromatographic threshold\">0.95</parameter>\n\
+                <parameter name=\"Search minimum in RT range (min)\">0.05</parameter>\n\
+                <parameter name=\"Minimum relative height\">0.05</parameter>\n\
+                <parameter name=\"Minimum absolute height\">30000.0</parameter>\n\
+                <parameter name=\"Min ratio of peak top/edge\">3.0</parameter>\n\
                 <parameter name=\"Peak duration range (min)\">\n\
-                    <min>0.0</min>\n\
-                    <max>10.0</max>\n\
+                    <min>0.06</min>\n\
+                    <max>1.0</max>\n\
                 </parameter>\n\
             </module>\n\
             <module name=\"Wavelets (XCMS)\">\n\
-                <parameter name=\"S/N threshold\">{9}</parameter>\n\
+                <parameter name=\"S/N threshold\">10.0</parameter>\n\
                 <parameter name=\"Wavelet scales\">\n\
-                    <min>{10}</min>\n\
-                    <max>{11}</max>\n\
+                    <min>0.25</min>\n\
+                    <max>5.0</max>\n\
                 </parameter>\n\
                 <parameter name=\"Peak duration range\">\n\
-                    <min>{12}</min>\n\
-                    <max>{13}</max>\n\
+                    <min>0.0</min>\n\
+                    <max>10.0</max>\n\
                 </parameter>\n\
                 <parameter name=\"Peak integration method\">Use smoothed data</parameter>\n\
-                <parameter name=\"R engine\">RCaller</parameter>\n\
             </module>\n\
             <module name=\"Wavelets (ADAP)\">\n\
                 <parameter name=\"S/N threshold\">10.0</parameter>\n\
@@ -129,27 +140,99 @@ def batchfile_generator(xml_file, input_data, ms_level, detector_noiselevel, det
                     <max>10.0</max>\n\
                 </parameter>\n\
                 <parameter name=\"RT wavelet range\">\n\
-                    <min>0.0</min>\n\
+                    <min>0.001</min>\n\
                     <max>0.1</max>\n\
                 </parameter>\n\
             </module>\n\
         </parameter>\n\
-        <parameter measure=\"MEDIAN\" name=\"m/z center calculation\" weighting=\"NONE\">CenterFunction</parameter>\n\
-        <parameter name=\"m/z range for MS2 scan pairing (Da)\" selected=\"false\"/>\n\
-        <parameter name=\"RT range for MS2 scan pairing (min)\" selected=\"false\"/>\n\
+        <parameter name=\"m/z range for MS2 scan pairing (Da)\" selected=\"false\">2.0</parameter>\n\
+        <parameter name=\"RT range for MS2 scan pairing (min)\" selected=\"false\">0.1</parameter>\n\
+        <parameter name=\"Remove original peak list\">true</parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.isotopes.deisotoper.IsotopeGrouperModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Name suffix\">deisotoped</parameter>\n\
+        <parameter name=\"m/z tolerance\">\n\
+            <absolutetolerance>0.002</absolutetolerance>\n\
+            <ppmtolerance>5.0</ppmtolerance>\n\
+        </parameter>\n\
+        <parameter name=\"Retention time tolerance\" type=\"absolute\">0.05</parameter>\n\
+        <parameter name=\"Monotonic shape\">false</parameter>\n\
+        <parameter name=\"Maximum charge\">3</parameter>\n\
+        <parameter name=\"Representative isotope\">Most intense</parameter>\n\
+        <parameter name=\"Remove original peaklist\">true</parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.alignment.join.JoinAlignerModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Peak list name\">Aligned peak list</parameter>\n\
+        <parameter name=\"m/z tolerance\">\n\
+            <absolutetolerance>0.003</absolutetolerance>\n\
+            <ppmtolerance>5.0</ppmtolerance>\n\
+        </parameter>\n\
+        <parameter name=\"Weight for m/z\">20.0</parameter>\n\
+        <parameter name=\"Retention time tolerance\" type=\"absolute\">0.05</parameter>\n\
+        <parameter name=\"Weight for RT\">20.0</parameter>\n\
+        <parameter name=\"Require same charge state\">false</parameter>\n\
+        <parameter name=\"Require same ID\">false</parameter>\n\
+        <parameter name=\"Compare isotope pattern\" selected=\"false\">\n\
+            <parameter name=\"Isotope m/z tolerance\">\n\
+                <absolutetolerance>0.001</absolutetolerance>\n\
+                <ppmtolerance>5.0</ppmtolerance>\n\
+            </parameter>\n\
+            <parameter name=\"Minimum absolute intensity\">10000.0</parameter>\n\
+            <parameter name=\"Minimum score\">0.1</parameter>\n\
+        </parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.gapfilling.peakfinder.PeakFinderModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Name suffix\">gap-filled</parameter>\n\
+        <parameter name=\"Intensity tolerance\">0.25</parameter>\n\
+        <parameter name=\"m/z tolerance\">\n\
+            <absolutetolerance>0.003</absolutetolerance>\n\
+            <ppmtolerance>5.0</ppmtolerance>\n\
+        </parameter>\n\
+        <parameter name=\"Retention time tolerance\" type=\"absolute\">0.05</parameter>\n\
+        <parameter name=\"RT correction\">false</parameter>\n\
         <parameter name=\"Remove original peak list\">false</parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.filtering.duplicatefilter.DuplicateFilterModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Name suffix\">filtered</parameter>\n\
+        <parameter name=\"m/z tolerance\">\n\
+            <absolutetolerance>0.002</absolutetolerance>\n\
+            <ppmtolerance>5.0</ppmtolerance>\n\
+        </parameter>\n\
+        <parameter name=\"RT tolerance\" type=\"absolute\">0.05</parameter>\n\
+        <parameter name=\"Require same identification\">false</parameter>\n\
+        <parameter name=\"Remove original peaklist\">false</parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.identification.customdbsearch.CustomDBSearchModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Database file\">{0}</parameter>\n\
+        <parameter name=\"Field separator\">,</parameter>\n\
+        <parameter name=\"Field order\">\n\
+            <item>ID</item>\n\
+            <item>m/z</item>\n\
+            <item>Retention time (min)</item>\n\
+            <item>Identity</item>\n\
+            <item>Formula</item>\n\
+        </parameter>\n\
+        <parameter name=\"Ignore first line\">true</parameter>\n\
+        <parameter name=\"m/z tolerance\">\n\
+            <absolutetolerance>0.002</absolutetolerance>\n\
+            <ppmtolerance>0.0</ppmtolerance>\n\
+        </parameter>\n\
+        <parameter name=\"Retention time tolerance\" type=\"absolute\">0.2</parameter>\n\
     </batchstep>\n\
     <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.io.csvexport.CSVExportModule\">\n\
         <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
-        <parameter name=\"Filename\">{14}</parameter>\n\
+        <parameter name=\"Filename\">{1}</parameter>\n\
         <parameter name=\"Field separator\">,</parameter>\n\
         <parameter name=\"Export common elements\">\n\
             <item>Export row ID</item>\n\
             <item>Export row m/z</item>\n\
             <item>Export row retention time</item>\n\
-            <item>Export row identity (main ID)</item>\n\
-            <item>Export row identity (all IDs)</item>\n\
-            <item>Export row identity (main ID + details)</item>\n\
+            <item>Export row identity</item>\n\
             <item>Export row comment</item>\n\
             <item>Export row number of detected peaks</item>\n\
         </parameter>\n\
@@ -170,12 +253,11 @@ def batchfile_generator(xml_file, input_data, ms_level, detector_noiselevel, det
             <item>Peak m/z min</item>\n\
             <item>Peak m/z max</item>\n\
         </parameter>\n\
+        <parameter name=\"Export all IDs for peak\">true</parameter>\n\
         <parameter name=\"Export quantitation results and other information\">true</parameter>\n\
         <parameter name=\"Identification separator\">;</parameter>\n\
-        <parameter name=\"Filter rows\">ALL</parameter>\n\
     </batchstep>\n\
-</batch>\n".format(input_data, int(ms_level), float(detector_noiselevel), int(detector_scalelevel), float(detector_windowsize), float(buider_mintimespan), float(builder_minheight),
-                float(builder_abstolerance), float(builder_ppm), float(decov_snthreshold), float(decov_wavscamin), float(decov_wavscamax), float(decov_peadurmin), float(decov_peadurmax), output_data))
+</batch>".format(library, output_csv))
 
 if __name__ == '__main__':
 
@@ -185,53 +267,15 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-m', '--mzmine', help="define the location of the mzmine execution file;", dest = "mzmine", default="./docker/main/MZmine-2.38/startMZmine_MacOSX.command", required = False)
-    parser.add_argument(
         '-x', '--x_output', help="define the location of the xml file that needs to be generated;", dest = "x_output", default="config.xml", required = False)
     parser.add_argument(
-        '-i', '--input', help="define the location of input file (.xzXML format);", default="/app/data/DCSM/DCSM.mzXML", required = False)
+        '-l', '--library', help="define the location of the library file;", dest = "library", default="../data/Positive_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv", required = False)
     parser.add_argument(
-        '-ml', '--ms_level', help="define ms level of mass detector;", dest = 'ms_level', default=1, required = False)
+        '-i', '--input', help="define the location of input folder;", default="../../../data/metabolomics/fraction/grp1_fat/", required = False)
     parser.add_argument(
-        '-dn', '--detector_noiselevel', help="define the noise level of Wavelet transform in mass detector;", dest = 'detector_noiselevel', default=100, required = False)
-    parser.add_argument(
-        '-ds', '--detector_scalelevel', help="define the scale level of Wavelet transform in mass detector;", dest = 'detector_scalelevel', default=20, required = False)
-    parser.add_argument(
-        '-dw', '--detector_windowsize', help="define the window size of mass detector;", dest = 'detector_windowsize', default=0.3, required = False)
-    parser.add_argument(
-        '-bt', '--buider_mintimespan', help="define the Min time span (min) for chromatogram builder;", dest = 'buider_mintimespan', default=0.04, required = False)
-    parser.add_argument(
-        '-bh', '--builder_minheight', help="define the Min height for chromatogram builder;", dest = 'builder_minheight', default=5000.0, required = False)
-    parser.add_argument(
-        '-ba', '--builder_abstolerance', help="define the abosolute tolerance of m/z tolerance for chromatogram builder;", dest = 'builder_abstolerance', default=0.01, required = False)
-    parser.add_argument(
-        '-bp', '--builder_ppm', help="define the ppm of m/z tolerance for chromatogram builder;", dest = 'builder_ppm', default=5.0, required = False)
-    parser.add_argument(
-        '-dt', '--decov_snthreshold', help="define the S/N threshold for chromatogram deconvolution;", dest = 'decov_snthreshold', default=10.0, required = False)
-    parser.add_argument(
-        '-dwi', '--decov_wavscamin', help="define the min wavelet scale for chromatogram deconvolution;", dest = 'decov_wavscamin', default=0.02, required = False)
-    parser.add_argument(
-        '-dwa', '--decov_wavscamax', help="define the max wavelet scale for chromatogram deconvolution;", dest = 'decov_wavscamax', default=0.8, required = False)
-    parser.add_argument(
-        '-dpi', '--decov_peadurmin', help="define the min peak duration for chromatogram deconvolution;", dest = 'decov_peadurmin', default=0.02, required = False)
-    parser.add_argument(
-        '-dpa', '--decov_peadurmax', help="define the max peak duration for chromatogram deconvolution;", dest = 'decov_peadurmax', default=0.6, required = False)
-    parser.add_argument(
-        '-o', '--output', help="define the location of output file (.csv format);", default="/app/outputs/DCSM_peaks.csv", required = False)
-    parser.add_argument(
-        '-c', '--choice', help="choice of mode: b (generating batch file) and r (runing the mzmine using the generated batch file);", dest = 'choice', default="b", required = False)
-
+        '-o', '--output', help="define the location of output csv file;", default="../results/test.csv", required = False)
+    
     args = parser.parse_args()
-
-    if args.choice == "b":
-        batchfile_generator(args.x_output, args.input, args.ms_level, args.detector_noiselevel, args.detector_scalelevel, args.detector_windowsize, args.buider_mintimespan, args.builder_minheight,
-                            args.builder_abstolerance, args.builder_ppm, args.decov_snthreshold, args.decov_wavscamin, args.decov_wavscamax, args.decov_peadurmin, args.decov_peadurmax, args.output)
-    elif args.choice == "r":
-        print("start to run mzmine")
-#    print(args.mzmine + " " + args.x_output)
-        os.system(args.mzmine + " " + args.x_output)
-    else:
-        print("wrong choice of mode!")
-
+    batchfile_generator(args.x_output, args.input, args.library, args.output)
 
 
