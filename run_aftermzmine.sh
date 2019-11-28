@@ -20,5 +20,5 @@ TMPDIR=$(pwd)/tmp
 # XDG_RUNTIME_DIR=$(pwd)/singularity_cache
 export TMPDIR
 
-nextflow run_R_postprocessing.nf -with-singularity docker://galaxydream/mzmine_oldversion
+nextflow run_aftermzmine.nf -with-singularity docker://galaxydream/mzmine_oldversion
 date
