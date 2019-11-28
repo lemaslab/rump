@@ -52,7 +52,9 @@ NEG_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA}
 
 // Design files for positive data and negative data.
 POS_DESIGN = Channel.fromPath(params.POS_design_path)
+POS_DESIGN.into{POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG;}
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
+NEG_DESIGN.into{NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG;}
 
 // Pre-build MultiQC report information
 // EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
@@ -142,9 +144,9 @@ process blank_subtraction {
     input:
     file python_bs from PYTHON_BS
     file data_pos from POS_NOBG_FOR_BS
-    file pos_design from POS_DESIGN
+    file pos_design from POS_DESIGN_FOR_BS
     file data_neg from NEG_NOBG_FOR_BS
-    file neg_design from NEG_DESIGN
+    file neg_design from NEG_DESIGN_FOR_BS
 
     output:
     file params.pos_data_withbg into POS_DATA_WITHBG
@@ -167,7 +169,9 @@ process pca_nobg {
 
     input:
     file data_pos from POS_NOBG_FOR_PCA
+    file pos_design from POS_DESIGN_FOR_PCA_NOBG
     file data_neg from NEG_NOBG_FOR_PCA
+    file neg_design from NEG_DESIGN_FOR_PCA_NOBG
     file python_pca from PYTHON_PCA_NOBG
 
     output:
@@ -176,8 +180,8 @@ process pca_nobg {
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} -o ${params.pca_pos_nobg} -n p &&
-    python3 ${python_pca} -i ${data_neg} -o ${params.pca_neg_nobg} -n n
+    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_nobg} -n p &&
+    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_nobg} -n n
 
     """
 
@@ -190,7 +194,9 @@ process pca_withbg {
 
     input:
     file data_pos from POS_DATA_WITHBG
+    file pos_design from POS_DESIGN_FOR_PCA_WITHBG
     file data_neg from NEG_DATA_WITHBG
+    file neg_design from NEG_DESIGN_FOR_PCA_WITHBG
     file python_pca from PYTHON_PCA_WITHBG
 
     output:
@@ -199,8 +205,8 @@ process pca_withbg {
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} -o ${params.pca_pos_withbg} -n p &&
-    python3 ${python_pca} -i ${data_neg} -o ${params.pca_neg_withbg} -n n
+    python3 ${python_pca} -i ${data_pos} ${pos_design} -o ${params.pca_pos_withbg} -n p &&
+    python3 ${python_pca} -i ${data_neg} ${neg_design} -o ${params.pca_neg_withbg} -n n
 
     """
 
