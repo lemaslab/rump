@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nf_r_processing_sample
+#SBATCH --job-name=nf_aftermzmine
 #SBATCH --mail-type=ALL #Changed ALL to NONE
 #SBATCH --mail-user=xinsongdu@ufl.edu
 #SBATCH --ntasks=10
@@ -7,7 +7,7 @@
 #SBATCH --account=djlemas
 #SBATCH --qos=djlemas-b
 #SBATCH --time=10:00:00
-#SBATCH --output=./logs/nf_r_postprocessing_%j.log
+#SBATCH --output=./logs/nf_aftermzmine_%j.log
 pwd; hostname; date
 
 # load modules
