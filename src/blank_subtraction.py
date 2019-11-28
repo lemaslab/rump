@@ -40,7 +40,7 @@ def blank_subtraction(input_file, design_file, output_file):
     group2_columns = design[design.group == group2_name].sampleID.tolist()
     blank_columns = design[design.group == blank_group_name].sampleID.tolist()
 
-    data['threshold'] = data.apply(lambda row: add_threshold(row, blank_names), axis = 1)
+    data['threshold'] = data.apply(lambda row: add_threshold(row, blank_columns), axis = 1)
     data['group1_selected'] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns, "threshold", ratio_bar), axis = 1)
     data['group2_selected'] = data.apply(lambda row: blank_subtraction_flag(row, group2_columns, "threshold", ratio_bar), axis = 1)
 
