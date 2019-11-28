@@ -213,14 +213,17 @@ process neg_peakDetection_mzmine {
     """
 }
 
+POS_MZMINE_RESULT.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_PCA}
+NEG_MZMINE_RESULT.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA}
+
 // Background subtraction
 process blank_subtraction {
 
     input:
     file python_bs from PYTHON_BS
-    file data_pos from POS_MZMINE_RESULT
+    file data_pos from POS_NOBG_FOR_BS
     file pos_design from POS_DESIGN
-    file data_neg from NEG_MZMINE_RESULT
+    file data_neg from NEG_NOBG_FOR_BS
     file neg_design from NEG_DESIGN
 
     output:
@@ -243,8 +246,8 @@ process pca_nobg {
     publishDir './results/figs', mode: 'copy'
 
     input:
-    file data_pos from POS_MZMINE_RESULT
-    file data_neg from NEG_MZMINE_RESULT
+    file data_pos from POS_NOBG_FOR_PCA
+    file data_neg from NEG_NOBG_FOR_PCA
     file python_pca from PYTHON_PCA_NOBG
 
     output:
