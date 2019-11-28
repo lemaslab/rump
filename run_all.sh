@@ -19,5 +19,5 @@ export SINGULARITYENV_TMPDIR
 TMPDIR=$(pwd)/tmp
 export TMPDIR
 
-nextflow run_all.nf --pos_mzmine_peak_output pos_data.csv --neg_mzmine_peak_output neg_data.csv -with-singularity docker://galaxydream/mzmine_oldversion
+nextflow run_all.nf --pos_mzmine_peak_output pos_data.csv --neg_mzmine_peak_output neg_data.csv -with-singularity docker://galaxydream/metabolomics_pipeline
 date
