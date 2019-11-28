@@ -274,13 +274,13 @@ process pca_withbg {
     file python_pca from PYTHON_PCA_WITHBG
 
     output:
-    file params.pca_pos_nobg into PCA_POS_WITHBG
-    file params.pca_neg_nobg into PCA_NEG_WITHBG
+    file params.pca_pos_withbg into PCA_POS_WITHBG
+    file params.pca_neg_withbg into PCA_NEG_WITHBG
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} -o ${params.pca_pos_nobg} -n p &&
-    python3 ${python_pca} -i ${data_neg} -o ${params.pca_neg_nobg} -n n
+    python3 ${python_pca} -i ${data_pos} -o ${params.pca_pos_withbg} -n p &&
+    python3 ${python_pca} -i ${data_neg} -o ${params.pca_neg_withbg} -n n
 
     """
 
