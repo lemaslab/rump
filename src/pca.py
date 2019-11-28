@@ -147,7 +147,7 @@ def pca_3g(input_file, output_fig, ion):
 def pca_2g(input_file, design_file, output_fig, ion):
 
     # load design file
-    design = pd.read_csv('../data/two_groups/pos_design.csv')
+    design = pd.read_csv(design_file)
 
     group_names = list(set(design['group']))
     group_names.sort()
@@ -163,9 +163,9 @@ def pca_2g(input_file, design_file, output_fig, ion):
     group2_columns = design[design.group == group2_name].sampleID.tolist()
 #    blank_columns = design[design.group == blank_group_name].sampleID.tolist()
 
-    data_selected = data_pca[group1_columns + group2_columns]
+    data_filtered = data_pca[group1_columns + group2_columns]
 
-    x = milk_data.as_matrix().T
+    x = data_filtered.as_matrix().T
     x = StandardScaler().fit_transform(x)
 
     pca = PCA(n_components=min(x.shape))
@@ -178,7 +178,7 @@ def pca_2g(input_file, design_file, output_fig, ion):
     principal_df = pd.DataFrame(data = principal_components
              , columns = columns_components)
 
-    target_data = {"label": ["fat"] * 4 + ["whole"] * 4 + ["skim"] * 4}
+    target_data = {"label": [group1_name] * 4 + [group2_name] * 4}
 
     target_df = pd.DataFrame(target_data)
 
@@ -186,20 +186,18 @@ def pca_2g(input_file, design_file, output_fig, ion):
 
     # draw figure
 
-    x_fat = final_df[final_df.label == "fat"]["principal component 1"].as_matrix()
-    y_fat = final_df[final_df.label == "fat"]["principal component 2"].as_matrix()
-    x_whole = final_df[final_df.label == "whole"]["principal component 1"].as_matrix()
-    y_whole = final_df[final_df.label == "whole"]["principal component 2"].as_matrix()
-    x_skim = final_df[final_df.label == "skim"]["principal component 1"].as_matrix()
-    y_skim = final_df[final_df.label == "skim"]["principal component 2"].as_matrix()
+    x_group1 = final_df[final_df.label == group1_name]["principal component 1"].as_matrix()
+    y_group1 = final_df[final_df.label == group1_name]["principal component 2"].as_matrix()
+    x_group2 = final_df[final_df.label == group2_name]["principal component 1"].as_matrix()
+    y_group2 = final_df[final_df.label == group2_name]["principal component 2"].as_matrix()
 
     fig = plt.figure(figsize = (8,8))
     ax = fig.add_subplot(1,1,1) 
     ax.set_xlabel('Principal Component 1', fontsize = 15)
     ax.set_ylabel('Principal Component 2', fontsize = 15)
     ax.set_title('2 component PCA', fontsize = 20)
-    targets = ['fat', 'whole', 'skim']
-    colors = ['r', 'g', 'b']
+    targets = [group1_name, group2_name]
+    colors = ['r', 'b']
     for target, color in zip(targets,colors):
         indices_to_keep = final_df['label'] == target
         ax.scatter(final_df.loc[indices_to_keep, 'principal component 1']
@@ -208,9 +206,8 @@ def pca_2g(input_file, design_file, output_fig, ion):
                    , s = 50)
     ax.legend(targets)
     ax.grid()
-    confidence_ellipse(x_fat, y_fat, ax, n_std = 1.96, facecolor = "r", alpha = 0.1)
-    confidence_ellipse(x_whole, y_whole, ax, n_std = 1.96, facecolor = "g", alpha = 0.1)
-    confidence_ellipse(x_skim, y_skim, ax, n_std = 1.96, facecolor = "b", alpha = 0.1)
+    confidence_ellipse(x_group1, y_group1, ax, n_std = 1.96, facecolor = "r", alpha = 0.1)
+    confidence_ellipse(x_group2, y_group2, ax, n_std = 1.96, facecolor = "b", alpha = 0.1)
     plt.savefig(output_fig)
 
 if __name__ == '__main__':
@@ -223,11 +220,13 @@ if __name__ == '__main__':
     parser.add_argument(
         '-i', '--input', help="define the location of input csv file;", default="milk_data_pos_ph.csv", required = False)
     parser.add_argument(
+        '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
+    parser.add_argument(
         '-o', '--output', help="define the location of output figure;", default="pca_pos_withbg.png", required = False)
     parser.add_argument(
         '-n', '--ion', help="positive data or negative data;", default="p", dest = "ion", required = False)
     
     args = parser.parse_args()
-    pca_3g(args.input, args.output, args.ion)
+    pca_2g(args.input, args.design, args.output, args.ion)
 
 
