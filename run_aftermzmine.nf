@@ -205,8 +205,8 @@ process pca_withbg {
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} ${pos_design} -o ${params.pca_pos_withbg} -n p &&
-    python3 ${python_pca} -i ${data_neg} ${neg_design} -o ${params.pca_neg_withbg} -n n
+    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_withbg} -n p &&
+    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_withbg} -n n
 
     """
 
