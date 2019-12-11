@@ -261,7 +261,7 @@ process h_clustering_withbg {
     shell:
     """   
     python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} -n p &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_pos_withbg} -n n
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -n n
 
     """
 
