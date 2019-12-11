@@ -13,120 +13,66 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import copy
 import csv
 import seaborn as sns; sns.set(color_codes=True)
 
 import warnings
 warnings.filterwarnings('ignore')
 
-def data_grouping(input_file):
+def add_pvalue(row, left_names, right_names):
+    t, p = stats.ttest_ind(row[left_names], row[right_names])
+    return p
+
+def fold_change(row, left, right):
+    if row[right] == 0:
+        return np.inf
+    elif row[left] == 0:
+        return -np.inf
+    else:
+        result = row[left]/row[right]
+        return result if result >=1 else -1/result
+
+def H_clustering(input_file, design_file, output_fig, ion):
+
+    # load design file
+    design = pd.read_csv(design_file)
+
+    group_names = list(set(design['group']))
+    group_names.sort()
+#    blank_group_name = "zero-blank"
+    group1_name = group_names[0]
+    group2_name = group_names[1]
+    ratio_bar = 100
 
     data = pd.read_csv(input_file)
+#    data_pca.columns = data_pca.columns.str.replace("\"", "")
 
-    # Skim && Fat
-    skim_fat = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova>0.05) & 
-        (data.p_value_whole_skim_anova>0.05) & 
-        (data.p_value_skim_fat_anova<0.05) &
-        (abs(data.foldchange_skim_fat)>2)]
+    group1_columns = design[design.group == group1_name].sampleID.tolist()
+    group2_columns = design[design.group == group2_name].sampleID.tolist()
+#    blank_columns = design[design.group == blank_group_name].sampleID.tolist()
 
-    # Whole && Fat
-    whole_fat = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova>0.05) & 
-        (data.p_value_skim_fat_anova>0.05) &
-        (abs(data.foldchange_whole_fat)>2)]
+    data['group1_mean'] = data[group1_columns].mean(axis = 1)
+    data['group2_mean'] = data[group2_columns].mean(axis = 1)
 
-     # Whole && Skim
-    whole_skim = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova>0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova>0.05) & 
-        (abs(data.foldchange_whole_skim)>2)]
+    data['fold_change'] = data.apply(lambda row: fold_change(row, "group1_mean", "group2_mean"), axis = 1)
+    data['p_value'] = data.apply(lambda row: add_pvalue(row, group1_columns, group2_columns), axis = 1)
 
-    # Fat
-    fat = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova>0.05) & 
-        (data.p_value_skim_fat_anova<0.05) & 
-        (abs(data.foldchange_whole_fat)>2) &
-        (abs(data.foldchange_skim_fat)>2)]
+    data_filtered = copy.deepcopy(data)
+    data_filtered = data_filtered.sort_values(by = "p_value").iloc[0:50]
 
-    # Skim
-    skim = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova>0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova<0.05) & 
-        (abs(data.foldchange_whole_skim)>2) &
-        (abs(data.foldchange_skim_fat)>2)]
-
-    # Whole
-    whole = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova>0.05) & 
-        (abs(data.foldchange_whole_skim)>2) &
-        (abs(data.foldchange_whole_fat)>2)]
-
-    # Difference
-    different = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova<0.05) & 
-        (abs(data.foldchange_whole_skim)>2) &
-        (abs(data.foldchange_skim_fat)>2) &
-        (abs(data.foldchange_whole_fat)>2)]
-
-    return data, skim_fat, whole_fat, whole_skim, fat, skim, whole, different
-
-def H_clustering(input_file, ion, output_fig_fat, output_fig_whole, output_fig_skim):
-
-    data, skim_fat, whole_fat, whole_skim, fat, skim, whole, different = data_grouping(input_file)
-
-    fig_rowsize = 0.26315789 # the height of each row in the heatmap
-    n_samples = 12
-
-    # column names for each milk section
-    fat_names = ["X10_BLS010A_" + ion + "_mzXML_Peak_height", "X4_BLS002A_" + ion + "_mzXML_Peak_height", "X1_BLS001A_" + ion + "_mzXML_Peak_height", "X7_BLS003A_" + ion + "_mzXML_Peak_height"]
-    whole_names = ["X12_BLS010A_" + ion + "_mzXML_Peak_height", "X6_BLS002A_" + ion + "_mzXML_Peak_height", "X3_BLS001A_" + ion + "_mzXML_Peak_height", "X9_BLS003A_" + ion + "_mzXML_Peak_height"]
-    skim_names = ["X11_BLS010A_" + ion + "_mzXML_Peak_height", "X5_BLS002A_" + ion + "_mzXML_Peak_height", "X2_BLS001A_" + ion + "_mzXML_Peak_height", "X8_BLS003A_" + ion + "_mzXML_Peak_height"]
-
-    # Extract data for each milk section
-    milk_data = data[fat_names + whole_names + skim_names]
-    milk_data_fat_filtered = milk_data.iloc[fat.index]
-    milk_data_fat_filtered.index = fat.label
-    milk_data_whole_filtered = milk_data.iloc[whole.index]
-    milk_data_whole_filtered.index = whole.label
-    milk_data_skim_filtered = milk_data.iloc[skim.index]
-    milk_data_skim_filtered.index = skim.label
+    data_filtered = data[group1_columns + group2_columns]
 
     # rename for each milk section
-    for i, fat_name in enumerate(fat_names):
-        milk_data_fat_filtered.rename(columns = {fat_name: 'fat_' + str(i)}, inplace = True)
-    for i, whole_name in enumerate(whole_names):
-        milk_data_whole_filtered.rename(columns = {whole_name: 'whole_' + str(i)}, inplace = True)
-    for i, skim_name in enumerate(skim_names):
-        milk_data_skim_filtered.rename(columns = {skim_name: 'skim_' + str(i)}, inplace = True)
+    for i, group1_column in enumerate(group1_columns):
+        data_filtered.rename(columns = {group1_column: group1_name + '_' + str(i)}, inplace = True)
+    for i, group2_column in enumerate(group2_columns):
+        data_filtered.rename(columns = {group2_column: group2_name + '_' + str(i)}, inplace = True)
 
     # Plots
-    if len(milk_data_fat_filtered) > 0:
-        plot_fat = sns.clustermap(np.log2(milk_data_fat_filtered + 1), figsize = (max(fig_rowsize * len(milk_data_fat_filtered) / 2, n_samples), fig_rowsize * len(milk_data_fat_filtered)), xticklabels=True, yticklabels=True, cmap = "seismic", cbar_kws={'label': 'log2(intension)'}, method = 'ward')
-        plot_fat.savefig(output_fig_fat)
-    else:
-        plt.savefig(output_fig_fat)
-
-    if len(milk_data_whole_filtered) > 0:
-        plot_whole = sns.clustermap(np.log2(milk_data_whole_filtered + 1), figsize = (max(fig_rowsize * len(milk_data_whole_filtered) / 2, n_samples), fig_rowsize * len(milk_data_whole_filtered)), xticklabels=True, yticklabels=True, cmap = "seismic", cbar_kws={'label': 'log2(intension)'}, method = 'ward')
-        plot_whole.savefig(output_fig_whole)
-    else:
-        plt.savefig(output_fig_whole)
-
-    if len(milk_data_skim_filtered) > 0:
-        plot_skim = sns.clustermap(np.log2(milk_data_skim_filtered + 1), figsize = (max(fig_rowsize * len(milk_data_whole_filtered) / 2, n_samples), fig_rowsize * len(milk_data_skim_filtered)), xticklabels=True, yticklabels=True, cmap = "seismic", cbar_kws={'label': 'log2(intension)'}, method = 'ward')
-        plot_skim.savefig(output_fig_skim)
-    else:
-        plt.savefig(output_fig_skim)
-
+    g = sns.clustermap(np.log2(data_filtered + 1), figsize = (10, 20), xticklabels=True, yticklabels=True, cmap = "seismic", cbar_kws={'label': 'log2(intension)'}, method = 'ward')
+    plt.setp(g.ax_heatmap.get_yticklabels(), rotation=0)
+    g.savefig(output_fig)
 
 if __name__ == '__main__':
 
@@ -138,16 +84,13 @@ if __name__ == '__main__':
     parser.add_argument(
         '-i', '--input', help="define the location of input csv file;", default="milk_data_pos_ph.csv", required = False)
     parser.add_argument(
+        '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
+    parser.add_argument(
+        '-o', '--output', help="define the location of output figure;", default="h_cluster_pos_withbg.png", required = False)
+    parser.add_argument(
         '-n', '--ion', help="positive data or negative data;", default="p", dest = "ion", required = False)
-    parser.add_argument(
-        '-f1', '--fig1_out', help="define the location of first figure;", default="fat.csv", required = False)
-    parser.add_argument(
-        '-f2', '--fig2_out', help="define the location of second figure;", default="whole.csv", required = False)
-    parser.add_argument(
-        '-f3', '--fig3_out', help="define the location of third figure;", default="skim.csv", required = False)
 
-    
     args = parser.parse_args()
-    H_clustering(args.input, args.ion, args.fig1_out, args.fig2_out, args.fig3_out)
+    H_clustering(args.input, args.design, args.output, args.ion)
 
 
