@@ -13,6 +13,7 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from scipy import stats
 import copy
 import csv
 import seaborn as sns; sns.set(color_codes=True)
