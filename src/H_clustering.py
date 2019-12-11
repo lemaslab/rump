@@ -34,6 +34,12 @@ def fold_change(row, left, right):
         result = row[left]/row[right]
         return result if result >=1 else -1/result
 
+def add_label(row):
+    if pd.isnull(row["row identity"]):
+        return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
+    else:
+        return row["row identity"]
+
 def H_clustering(input_file, design_file, output_fig, ion):
 
     # load design file
@@ -47,6 +53,7 @@ def H_clustering(input_file, design_file, output_fig, ion):
     ratio_bar = 100
 
     data = pd.read_csv(input_file)
+    data['label'] = data.apply(lambda row: add_label(row), axis = 1)
 #    data_pca.columns = data_pca.columns.str.replace("\"", "")
 
     group1_columns = design[design.group == group1_name].sampleID.tolist()
@@ -61,8 +68,8 @@ def H_clustering(input_file, design_file, output_fig, ion):
 
     data_filtered = copy.deepcopy(data)
     data_filtered = data_filtered.sort_values(by = "p_value").iloc[0:50]
-
-    data_filtered = data[group1_columns + group2_columns]
+    data_filtered.index = data_filtered.label
+    data_filtered = data_filtered[group1_columns + group2_columns]
 
     # rename for each milk section
     for i, group1_column in enumerate(group1_columns):
@@ -70,9 +77,14 @@ def H_clustering(input_file, design_file, output_fig, ion):
     for i, group2_column in enumerate(group2_columns):
         data_filtered.rename(columns = {group2_column: group2_name + '_' + str(i)}, inplace = True)
 
+    logger.info(data_filtered.head())
+
     # Plots
+    logger.info("generating plot")
     g = sns.clustermap(np.log2(data_filtered + 1), figsize = (10, 20), xticklabels=True, yticklabels=True, cmap = "seismic", cbar_kws={'label': 'log2(intension)'}, method = 'ward')
+    logger.info("adjusting direction of words")
     plt.setp(g.ax_heatmap.get_yticklabels(), rotation=0)
+    logger.info("saving figures")
     g.savefig(output_fig)
 
 if __name__ == '__main__':
