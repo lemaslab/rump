@@ -227,9 +227,9 @@ process blank_subtraction {
     input:
     file python_bs from PYTHON_BS
     file data_pos from POS_NOBG_FOR_BS
-    file pos_design from POS_DESIGN
+    file pos_design from POS_DESIGN_FOR_BS
     file data_neg from NEG_NOBG_FOR_BS
-    file neg_design from NEG_DESIGN
+    file neg_design from NEG_DESIGN_FOR_BS
 
     output:
     file params.pos_data_withbg into POS_DATA_WITHBG
