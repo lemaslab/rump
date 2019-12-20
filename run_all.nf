@@ -36,8 +36,11 @@ MZMINE_RESULT_EXTRACTION = Channel.fromPath(params.mzmine_result_extraction) // 
 POS_DATA_DIR = Channel.fromPath(params.input_dir_pos, type: 'dir') // Location of folder storing positive data
 NEG_DATA_DIR = Channel.fromPath(params.input_dir_neg, type: 'dir') // Location of folder storing negative data
 
-PYTHON_PCA = Channel.fromPath(params.python_pca_path) // Chennel of Python code for principle component analysis
+PYTHON_PCA = Channel.fromPath(params.python_pca) // Chennel of Python code for principle component analysis
 PYTHON_PCA.into{PYTHON_PCA_NOBG; PYTHON_PCA_WITHBG} // Duplicate the above chennel to two channels, one the them processes result without background substraction, the other one processes processes result with background subtraction.
+
+PYTHON_HCLUSTERING = Channel.fromPath(params.python_hclustering) // Chennel of Python code for hierarchical clustering
+PYTHON_HCLUSTERING.into{PYTHON_HCLUSTERING_NOBG; PYTHON_HCLUSTERING_WITHBG}
 
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
 // PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
@@ -47,7 +50,9 @@ PYTHON_BS = Channel.fromPath(params.python_bs)
 
 // Design files for positive data and negative data.
 POS_DESIGN = Channel.fromPath(params.POS_design_path)
+POS_DESIGN.into{POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG;}
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
+NEG_DESIGN.into{NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG;}
 
 // Pre-build MultiQC report information
 // EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
@@ -213,8 +218,8 @@ process neg_peakDetection_mzmine {
     """
 }
 
-POS_MZMINE_RESULT.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_PCA}
-NEG_MZMINE_RESULT.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA}
+POS_MZMINE_RESULT.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
+NEG_MZMINE_RESULT.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
 
 // Background subtraction
 process blank_subtraction {
@@ -239,6 +244,8 @@ process blank_subtraction {
 }
 
 // split channel content for multiple-time use
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING}
 
 // process for PCA of "no background subtraction" results
 process pca_nobg {
@@ -247,7 +254,9 @@ process pca_nobg {
 
     input:
     file data_pos from POS_NOBG_FOR_PCA
+    file pos_design from POS_DESIGN_FOR_PCA_NOBG
     file data_neg from NEG_NOBG_FOR_PCA
+    file neg_design from NEG_DESIGN_FOR_PCA_NOBG
     file python_pca from PYTHON_PCA_NOBG
 
     output:
@@ -256,8 +265,8 @@ process pca_nobg {
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} -o ${params.pca_pos_nobg} -n p &&
-    python3 ${python_pca} -i ${data_neg} -o ${params.pca_neg_nobg} -n n
+    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_nobg} -n p &&
+    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_nobg} -n n
 
     """
 
@@ -269,8 +278,10 @@ process pca_withbg {
     publishDir './results/figs', mode: 'copy'
 
     input:
-    file data_pos from POS_DATA_WITHBG
-    file data_neg from NEG_DATA_WITHBG
+    file data_pos from POS_WITHBG_FOR_PCA
+    file pos_design from POS_DESIGN_FOR_PCA_WITHBG
+    file data_neg from NEG_WITHBG_FOR_PCA
+    file neg_design from NEG_DESIGN_FOR_PCA_WITHBG
     file python_pca from PYTHON_PCA_WITHBG
 
     output:
@@ -279,8 +290,58 @@ process pca_withbg {
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} -o ${params.pca_pos_withbg} -n p &&
-    python3 ${python_pca} -i ${data_neg} -o ${params.pca_neg_withbg} -n n
+    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_withbg} -n p &&
+    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_withbg} -n n
+
+    """
+
+}
+
+// process for hierarchical clustering of "no background subtraction" results
+process h_clustering_nobg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_NOBG_FOR_HCLUSTERING
+    file pos_design from POS_DESIGN_FOR_HCLUSTERING_NOBG
+    file data_neg from NEG_NOBG_FOR_HCLUSTERING
+    file neg_design from NEG_DESIGN_FOR_HCLUSTERING_NOBG
+    file python_hclustering from PYTHON_HCLUSTERING_NOBG
+
+    output:
+    file params.hclustering_pos_nobg into HCLUSTERING_POS_NOBG
+    file params.hclustering_neg_nobg into HCLUSTERING_NEG_NOBG
+
+    shell:
+    """   
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg} -n p &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg} -n n
+
+    """
+
+}
+
+// process for hierarchical clustering of "with background subtraction" results, here we use 100 as the threshold of background subtraction.
+process h_clustering_withbg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_WITHBG_FOR_HCLUSTERING
+    file pos_design from POS_DESIGN_FOR_HCLUSTERING_WITHBG
+    file data_neg from NEG_WITHBG_FOR_HCLUSTERING
+    file neg_design from NEG_DESIGN_FOR_HCLUSTERING_WITHBG
+    file python_hclustering from PYTHON_HCLUSTERING_WITHBG
+
+    output:
+    file params.hclustering_pos_withbg into HCLUSTERING_POS_WITHBG
+    file params.hclustering_neg_withbg into HCLUSTERING_NEG_WITHBG
+
+    shell:
+    """   
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} -n p &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -n n
 
     """
 

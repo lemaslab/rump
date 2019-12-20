@@ -141,6 +141,29 @@ if (params.help) {
     exit 1
 }
 
+// Prepare data information for multiQC.
+process mqc_data_info {
+
+    publishDir './results/mqc/', mode: 'copy'
+
+    input:
+    file get_data_info from PYTHON_DATA_INFO
+    file pos_data_dir from POS_DATA_DIR
+    file neg_data_dir from NEG_DATA_DIR
+
+
+    // POS_DATA and NEG_DATA are channels containing filtered POS and NEG data, which are ready to be input to R codes.
+    output:
+    file params.pos_data_info_mqc into POS_DATA_INFO_MQC
+    file params.neg_data_info_mqc into NEG_DATA_INFO_MQC
+
+    shell:
+    """
+    python3 ${get_data_info} -i ${pos_data_dir} -o $params.pos_data_info_mqc -n p &&
+    python3 ${get_data_info} -i ${neg_data_dir} -o $params.neg_data_info_mqc -n n
+    """
+}
+
 // Background subtraction
 process blank_subtraction {
 
