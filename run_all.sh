@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nf_r_processing_sample
+#SBATCH --job-name=nf_all
 #SBATCH --mail-type=ALL #Changed ALL to NONE
 #SBATCH --mail-user=xinsongdu@ufl.edu
 #SBATCH --ntasks=20
