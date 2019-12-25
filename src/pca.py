@@ -119,7 +119,7 @@ def pca_2g(input_file, design_file, output_fig, ion):
     principal_df = pd.DataFrame(data = principal_components
              , columns = columns_components)
 
-    target_data = {"label": [group1_name] * 4 + [group2_name] * 4}
+    target_data = {"label": [group1_name] * group_names.count(group1_name) + [group2_name] * group_names.count(group2_name)}
 
     target_df = pd.DataFrame(target_data)
 
