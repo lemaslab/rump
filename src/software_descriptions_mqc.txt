@@ -1,0 +1,11 @@
+# id: 'tools-html'
+# section_name: 'Experiments'
+# description: 'This section describes the experiments during the analysis'
+# plot_type: 'html'
+
+<dl>
+    <dt>Principle Component Analysis (PCA)</dt>
+    <dd>Test whether the milk metabolites are different among three parts (whole, skmi and fat)</dd>
+    <dt>Venn Diagram</dt>
+    <dd>This shows the number of metabolites that have relatively high volume in each section</dd>
+</dl>
