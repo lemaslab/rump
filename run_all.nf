@@ -148,7 +148,6 @@ process mqc_data_info {
     file pos_data_dir from POS_DATA_DIR_INFO // Location of positive data
     file neg_data_dir from NEG_DATA_DIR_INFO // Location of negative data
 
-
     // POS_DATA and NEG_DATA are channels containing filtered POS and NEG data, which are ready to be input to R codes.
     output:
     file params.pos_data_info_mqc into POS_DATA_INFO_MQC // file regarding positive data information that can be parsed by MultiQC
@@ -162,7 +161,6 @@ process mqc_data_info {
 }
 
 process batchfile_generation_mzmine {
-
 
     input:
     file batchfile_generator from BATCHFILE_GENERATOR // This channel stores Python code (~/src/batchfile_generator.py) for generating MzMine batchfile, which enables us to run MzMine in batch mode. 
@@ -235,6 +233,9 @@ process blank_subtraction {
     file data_neg from NEG_NOBG_FOR_BS
     file neg_design from NEG_DESIGN_FOR_BS
 
+    when:
+    params.bs == "1"
+
     output:
     file params.pos_data_withbg into POS_DATA_WITHBG
     file params.neg_data_withbg into NEG_DATA_WITHBG
@@ -263,6 +264,9 @@ process pca_nobg {
     file neg_design from NEG_DESIGN_FOR_PCA_NOBG
     file python_pca from PYTHON_PCA_NOBG
 
+    when:
+    params.bs == "1"
+
     output:
     file params.pca_pos_nobg into PCA_POS_NOBG
     file params.pca_neg_nobg into PCA_NEG_NOBG
@@ -287,6 +291,9 @@ process pca_withbg {
     file data_neg from NEG_WITHBG_FOR_PCA
     file neg_design from NEG_DESIGN_FOR_PCA_WITHBG
     file python_pca from PYTHON_PCA_WITHBG
+
+    when:
+    params.bs == "1"
 
     output:
     file params.pca_pos_withbg into PCA_POS_WITHBG
@@ -313,6 +320,9 @@ process h_clustering_nobg {
     file neg_design from NEG_DESIGN_FOR_HCLUSTERING_NOBG
     file python_hclustering from PYTHON_HCLUSTERING_NOBG
 
+    when:
+    params.bs == "1"
+
     output:
     file params.hclustering_pos_nobg into HCLUSTERING_POS_NOBG
     file params.hclustering_neg_nobg into HCLUSTERING_NEG_NOBG
@@ -337,6 +347,9 @@ process h_clustering_withbg {
     file data_neg from NEG_WITHBG_FOR_HCLUSTERING
     file neg_design from NEG_DESIGN_FOR_HCLUSTERING_WITHBG
     file python_hclustering from PYTHON_HCLUSTERING_WITHBG
+
+    when:
+    params.bs == "1"
 
     output:
     file params.hclustering_pos_withbg into HCLUSTERING_POS_WITHBG
