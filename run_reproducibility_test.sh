@@ -19,5 +19,5 @@ export SINGULARITYENV_TMPDIR
 TMPDIR=$(pwd)/tmp
 export TMPDIR
 
-nextflow run_all.nf --pos_mzmine_peak_output DCSM.csv --neg_mzmine_peak_output VT001.csv --input_dir_pos /ufrc/djlemas/xinsongdu/jupyter_notebook/projects/metabolomics_data_processing/data/DCSM --input_dir_neg /ufrc/djlemas/xinsongdu/jupyter_notebook/projects/metabolomics_data_processing/data/VT001 --bs 0 --batchfile_generator ./reproducibility_test/batchfile_generator.py -with-singularity docker://galaxydream/metabolomics_pipeline
+nextflow run_all.nf --pos_mzmine_peak_output DCSM.csv --mzmine_dir reproducibility_test/MZmine-2.28/ --neg_mzmine_peak_output VT001.csv --input_dir_pos /ufrc/djlemas/xinsongdu/jupyter_notebook/projects/metabolomics_data_processing/data/DCSM --input_dir_neg /ufrc/djlemas/xinsongdu/jupyter_notebook/projects/metabolomics_data_processing/data/VT001 --bs 0 --batchfile_generator ./reproducibility_test/batchfile_generator.py -with-singularity docker://galaxydream/metabolomics_pipeline
 date
