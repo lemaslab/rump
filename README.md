@@ -5,21 +5,23 @@ Data processing for metabolomics data. Pipeline overview (note: peak alignment a
 ![alt text](https://github.com/GalaxyDream/metabolomics_data_processing/blob/master/figs/pipeline.png)
 
 ---
-## Usage (for UFRC)
+## Usage 
 
-1. Load [Singularity](https://singularity.lbl.gov/), [Nextflow](https://www.nextflow.io/) and [MultiQC](https://multiqc.info/):
+#### For UFRC users
+
+Adjust Slurm parameters in `run_all.nf` and Nextflow parameters in `run_all.sh`, then use the following command to run the pipeline:
 ```
-ml singularity && ml nextflow && ml gcc/5.2.0 && ml multiqc/1.5
+sbatch run.sh
 ```
-2. Run pipeline on local machine using default parameters (Before running, change `input_file` in `nextflow.config` to the location of your input data file on your local machine; change `mzmine_dir` in `nextflow.config` to the location of the mzmine directory on your local machine):
+
+#### For other users
+
+1. Store your positive data to `data/POS` and negative data to `data/NEG`
+2. Adjust resource allocation in `nextflow.config` to make it fit to your local machine.
+3. Run the following code in terminal:
 ```
-nextflow run.nf -with-docker galaxydream/bioconductor_metabolomics
+nextflow run run_all.nf --pos_mzmine_peak_output pos_data.csv --mzmine_dir MZmine-2.28 --neg_mzmine_peak_output neg_data.csv --input_dir_pos data/POS --input_dir_neg data/NEG -with-docker galaxydream/metabolomics_pipeline
 ```
-3. Get report with MultiQC (under development):
-```
-multiqc results/
-```
-> R codes are stored in `xcms_R`
 
 ## Parameters description
 
