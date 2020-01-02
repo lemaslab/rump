@@ -270,7 +270,7 @@ process mqc_peak_number_comparison {
 
     shell:
     '''
-    python3 !{get_peak_number_comparison} -i1 $(cat !{pos_nobg} | wc -l) -i2 $(cat !{neg_nobg} | wc -l) -i3 $(cat !{pos_005} | wc -l) -i4 $(cat !{neg_005} | wc -l) -o !{params.peak_number_comparison_mqc}
+    python3 !{get_peak_number_comparison} -i1 $(cat !{pos_nobg} | wc -l) -i2 $(cat !{neg_nobg} | wc -l) -i3 $(cat !{pos_withbg} | wc -l) -i4 $(cat !{neg_withbg} | wc -l) -o !{params.peak_number_comparison_mqc}
     '''
 }
 
