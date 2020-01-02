@@ -57,8 +57,8 @@ NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
 NEG_DESIGN.into{NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG;}
 
 // Pre-build MultiQC report information
-// EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
-// MQC_CONFIG = Channel.fromPath(params.mqc_config)
+EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
+MQC_CONFIG = Channel.fromPath(params.mqc_config)
 
 // Result files used by MultiQC to generate report.
 // MQC_DIR = Channel.fromPath(params.mqc_dir, type: 'dir')
@@ -220,8 +220,8 @@ process neg_peakDetection_mzmine {
     """
 }
 
-POS_MZMINE_RESULT.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
-NEG_MZMINE_RESULT.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING}
+POS_MZMINE_RESULT.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
+NEG_MZMINE_RESULT.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING}
 
 // Background subtraction
 process blank_subtraction {
@@ -248,9 +248,31 @@ process blank_subtraction {
     """
 }
 
+
 // split channel content for multiple-time use
-POS_DATA_WITHBG.into{POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING}
-NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING}
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING}
+
+// Process for generating files that can be parsed by MultiQC regarding peak numbers when using different background subtraction threshold.
+process mqc_peak_number_comparison {
+
+    publishDir './results/mqc/', mode: 'copy'
+
+    input:
+    file get_peak_number_comparison from PYTHON_PEAK_NUMBER_COMPARISON
+    file pos_nobg from POS_NOBG_FOR_MQC
+    file neg_nobg from NEG_NOBG_FOR_MQC
+    file pos_withbg from POS_WITHBG_FOR_MQC
+    file neg_withbg from NEG_WITHBG_FOR_MQC
+
+    output:
+    file params.peak_number_comparison_mqc into PEAK_NUMBER_COMPARISON_MQC
+
+    shell:
+    '''
+    python3 !{get_peak_number_comparison} -i1 $(cat !{pos_nobg} | wc -l) -i2 $(cat !{neg_nobg} | wc -l) -i3 $(cat !{pos_005} | wc -l) -i4 $(cat !{neg_005} | wc -l) -o !{params.peak_number_comparison_mqc}
+    '''
+}
 
 // process for PCA of "no background subtraction" results
 process pca_nobg {
@@ -360,6 +382,60 @@ process h_clustering_withbg {
     python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} -n p &&
     python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -n n
 
+    """
+
+}
+
+process mqc_figs {
+
+    publishDir './results/mqc/', mode: 'copy'
+
+    input:
+    file pca_pos_nobg from PCA_POS_NOBG
+    file pca_neg_nobg from PCA_NEG_NOBG
+    file pca_pos_withbg from PCA_POS_WITHBG
+    file pca_neg_withbg from PCA_NEG_WITHBG
+    file hclustering_pos_nobg from HCLUSTERING_POS_NOBG
+    file hclustering_neg_nobg from HCLUSTERING_NEG_NOBG
+    file hclustering_pos_withbg from HCLUSTERING_POS_WITHBG
+    file hclustering_neg_withbg from HCLUSTERING_NEG_WITHBG
+
+    output:
+    file "*.png" into MQC_FIGS
+
+    shell:
+    """
+    mv $pca_pos_nobg "PCA_for_positive_no_background_subtraction_mqc.png" &&
+    mv $pca_neg_nobg "PCA_for_negative_no_background_subtraction_mqc.png" &&
+    mv $pca_pos_withbg "PCA_for_positive_with_background_subtraction_mqc.png" &&
+    mv $pca_neg_withbg "PCA_for_negative_with_background_subtraction_mqc.png" &&
+    mv $hclustering_pos_nobg "Hirerchical_clustering_for_positive_no_background_subtraction_mqc.png" &&
+    mv $hclustering_neg_nobg "Hirerchical_clustering_for_negative_no_background_subtraction_mqc.png" &&
+    mv $hclustering_pos_withbg "Hirerchical_clustering_for_positive_with_background_subtraction_mqc.png" &&
+    mv $hclustering_neg_withbg "Hirerchical_clustering_for_negative_with_background_subtraction_mqc.png" &&
+    """
+}
+
+// Process for running MultiQC and generating the report.
+process report_generator {
+
+    publishDir './results/mqc/', mode: 'copy'
+
+    input:
+//    file mqc_dir from MQC_DIR
+    file pos_data_info_mqc from POS_DATA_INFO_MQC
+    file neg_data_info_mqc from NEG_DATA_INFO_MQC
+    file experiments_info from EXPERIMENTS_INFO
+    file mqc_config from MQC_CONFIG
+    file peak_number_comparison_mqc from PEAK_NUMBER_COMPARISON_MQC
+    file '*' from MQC_FIGS
+
+    output:
+    file "multiqc_report.html" into MULTIQC_REPORT
+
+    shell:
+    """
+    multiqc .
     """
 
 }
