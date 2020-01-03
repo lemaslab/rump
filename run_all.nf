@@ -226,6 +226,8 @@ NEG_MZMINE_RESULT.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_
 // Background subtraction
 process blank_subtraction {
 
+    publishDir './results/mqc/', mode: 'copy'
+
     input:
     file python_bs from PYTHON_BS
     file data_pos from POS_NOBG_FOR_BS
