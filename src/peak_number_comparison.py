@@ -23,8 +23,8 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
 
     with open(output_txt, 'w') as txt_file:
         txt_file.write("# plot_type: 'table'\n\
-# section_name: 'Number of peaks corresponding to different threshold of background subtraction'\n\
-# description: 'Number of peaks for no background subtraction (BS), BS with threshold of 005, 100 and 200'\n\
+# section_name: 'Number of peaks before and after background subtraction (BS)'\n\
+# description: 'Number of peaks before and after BS'\n\
 # pconfig:\n\
 #     namespace: 'Cust Data'\n\
 # headers:\n\
