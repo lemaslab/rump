@@ -50,7 +50,7 @@ The MZmine parameters and steps we used for peak detection are:
 
 1. Create folders `reproducibility_test/POS/` and `reproducibility_test/NEG/`, store one mzXML file that you want to use as a test case under each of the folders.
 2. Store the MZmine-2.28 folder under `reproducibility_test/`
-3. Run the following code:
+3. Run the following code (the file `reproducibility_test/batchfile_generator.py` was created based on the MZmine parameters above):
 ```
 nextflow run_all.nf --pos_mzmine_peak_output pos.csv --mzmine_dir reproducibility/MZmine-2.28 --neg_mzmine_peak_output neg.csv --input_dir_pos reproducibility_test/POS --input_dir_neg reproducibility_test/NEG --bs 0 --batchfile_generator reproducibility_test/batchfile_generator.py -with-docker galaxydream/metabolomics_pipeline
 ```
@@ -63,6 +63,10 @@ nextflow run_all.nf --pos_mzmine_peak_output pos.csv --mzmine_dir reproducibilit
 2. Open the downloaded MZmine.
 3. Using the parameters described above for peak detection. The import files should be the mzXML files that you want to use as test cases. Record the number of peaks detected for each file.
 4. Repeat the above procedures using a different host machine (usually a different operating system) and a different version of MZmine (e.g., MZmine-2.38), the detected number of peaks should be obviously different.
+
+#### Our results
+
+![alt text](https://github.com/GalaxyDream/metabolomics_data_processing/blob/peak_detection_nobs/figs/reproducibility_test.png)
 
 ## R scripts notes:
 
