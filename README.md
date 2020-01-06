@@ -7,7 +7,7 @@ Data processing for metabolomics data. Pipeline overview (note: peak alignment a
 ---
 ## Usage 
 
-#### For UFRC users
+#### For SECIM and UFRC users
 
 Adjust Slurm parameters in `run_all.nf` and Nextflow parameters in `run_all.sh`, then use the following command to run the pipeline:
 ```
@@ -33,6 +33,36 @@ nextflow run.nf --help true
 ```
 nextflow run.nf --version true
 ```
+
+## Reproducibility test according to peak detection
+
+We aim to test whether using the exact same parameters for peak detection in MZmine is able to give us the same result. We tried it with different versions of MZmine and different operating systems, which simulates the situation that one research wants to reproduce the other researcher's published work with a different host machine.
+
+The MZmine parameters and steps we used for peak detection are:
+- Import mzXML files to MZmine
+- Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; MS level: 1)
+- Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.002 m/z or 5.0 ppm; Suffix: "chromatograms-1E5")
+- Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
+- Chromatogram deconvolution (Suffix: "deconvolutedTG-dd"; Algorithm: Local minimum search; Remove original peak list: True)
+- Export to CSV file.
+
+#### Using Nextflow pipeline
+
+1. Create folders `reproducibility_test/POS/` and `reproducibility_test/NEG/`, store one mzXML file that you want to use as a test case under each of the folders.
+2. Store the MZmine-2.28 folder under `reproducibility_test/`
+3. Run the following code:
+```
+nextflow run_all.nf --pos_mzmine_peak_output pos.csv --mzmine_dir reproducibility/MZmine-2.28 --neg_mzmine_peak_output neg.csv --input_dir_pos reproducibility_test/POS --input_dir_neg reproducibility_test/NEG --bs 0 --batchfile_generator reproducibility_test/batchfile_generator.py -with-docker galaxydream/metabolomics_pipeline
+```
+4. You will be able to see the peak detection results under `result` folder.
+5. Repeat the above procedures using a different host machine, you should be able to get very similar or exact same number of peaks.
+
+#### Without using Nextflow pipeline
+
+1. Download a random MZmine version (e.g., MZmine-2.11) from this download page.
+2. Open the downloaded MZmine.
+3. Using the parameters described above for peak detection. The import files should be the mzXML files that you want to use as test cases. Record the number of peaks detected for each file.
+4. Repeat the above procedures using a different host machine (usually a different operating system) and a different version of MZmine (e.g., MZmine-2.38), the detected number of peaks should be obviously different.
 
 ## R scripts notes:
 
