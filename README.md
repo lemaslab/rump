@@ -1,4 +1,4 @@
-# metabolomics_data_processing
+# metabolomics_data_processing_pipeline
 
 Data processing for metabolomics data. Pipeline overview (note: peak alignment and peak filling need to be done for multiple samples before merging peaks of the three tools, the process is also needed to be added to the following figure):
 
@@ -43,7 +43,7 @@ The MZmine parameters and steps we used for peak detection are:
 - Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; MS level: 1)
 - Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.002 m/z or 5.0 ppm; Suffix: "chromatograms-1E5")
 - Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
-- Chromatogram deconvolution (Suffix: "deconvolutedTG-dd"; Algorithm: Local minimum search; Remove original peak list: True)
+- Chromatogram deconvolution (Suffix: "deconvolutedTG-dd"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.05; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
 - Export to CSV file.
 
 #### Using Nextflow pipeline
