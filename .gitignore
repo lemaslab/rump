@@ -12,10 +12,7 @@ data/
 docker/
 materials/
 tmp/
-reproducibility_test/POS*
-reproducibility_test/NEG*
-reproducibility_test/MZ*
-reproducibility_test/run*
+reproducibility_test/tmp/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
