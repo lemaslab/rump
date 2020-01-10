@@ -8,6 +8,15 @@ import logging.handlers
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
+def batchfile_generator(xml_file, input_dir, library, output_csv):
+
+#    output = os.path.abspath(output_csv)
+
+    input_files = [os.path.abspath(os.path.join(input_dir, f)) for f in os.listdir(input_dir)]
+    input_str = ""
+    for i in input_files:
+        input_str += "            <file>" + i + "</file>\n"
+
     with open(xml_file, "w+") as f:
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
 <batch>\n\
