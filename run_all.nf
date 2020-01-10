@@ -196,7 +196,7 @@ process pos_peakDetection_mzmine {
 
     shell:
     """   
-    mv ${p_b} ${p_m} && ${p_m}/startMZmine-Linux ${p_b}
+    mv ${p_b} ${p_m} && cd ${p_m} && ./startMZmine-Linux ${p_b}
     """
 }
 
@@ -218,7 +218,7 @@ process neg_peakDetection_mzmine {
 
     shell:
     """   
-    mv ${n_b} ${n_m} && ${n_m}/startMZmine-Linux ${n_b}
+    mv ${n_b} ${n_m} && cd ${n_m} && ./startMZmine-Linux ${n_b}
     """
 }
 
