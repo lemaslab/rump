@@ -38,7 +38,7 @@ def add_label(row):
     if pd.isnull(row["row identity (main ID + details)"]):
         return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
     else:
-        return row["row identity"]
+        return row["row identity (main ID + details)"]
 
 def H_clustering(input_file, design_file, output_fig, ion):
 
