@@ -190,13 +190,13 @@ process pos_peakDetection_mzmine {
     file p_m from POS_MZMINE // Folder of MzMine tool
 
     output:
-    file "MZmine-2.28/${params.pos_mzmine_peak_output}" into POS_MZMINE_RESULT // MzMine processing result for positive data.
+    file "MZmine-2.53-Linux/${params.pos_mzmine_peak_output}" into POS_MZMINE_RESULT // MzMine processing result for positive data.
 
 // Change "startMZmine_Linux.sh" to "startMZmine_MacOSX.command" in the following code if running locally with Mac
 
     shell:
     """   
-    mv ${p_b} ${p_m} && ${p_m}/startMZmine_Linux.sh ${p_b}
+    mv ${p_b} ${p_m} && ${p_m}/startMZmine-Linux ${p_b}
     """
 }
 
@@ -211,14 +211,14 @@ process neg_peakDetection_mzmine {
     file n_m from NEG_MZMINE // Folder of MzMine tool
 
     output:
-    file "MZmine-2.28/${params.neg_mzmine_peak_output}" into NEG_MZMINE_RESULT // MzMine processing result for negative data.
+    file "MZmine-2.53-Linux/${params.neg_mzmine_peak_output}" into NEG_MZMINE_RESULT // MzMine processing result for negative data.
     stdout result
 
 // Change "startMZmine_Linux.sh" to "startMZmine_MacOSX.command" in the following code if running locally with Mac
 
     shell:
     """   
-    mv ${n_b} ${n_m} && ${n_m}/startMZmine_Linux.sh ${n_b}
+    mv ${n_b} ${n_m} && ${n_m}/startMZmine-Linux ${n_b}
     """
 }
 
