@@ -18,7 +18,7 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
         input_str += "            <file>" + i + "</file>\n"
 
     with open(xml_file, "w+") as f:
-        f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
+        f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><batch>\n\
     <batchstep method=\"io.github.mzmine.modules.io.rawdataimport.RawDataImportModule\">\n\
         <parameter name=\"Raw data file names\">\n" + input_str + 
 "        </parameter>\n\
