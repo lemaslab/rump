@@ -19,10 +19,10 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
 
     with open(xml_file, "w+") as f:
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
-<batch>\n\
     <batchstep method=\"io.github.mzmine.modules.io.rawdataimport.RawDataImportModule\">\n\
         <parameter name=\"Raw data file names\">\n" + input_str + 
 "        </parameter>\n\
+    </batchstep>\n\
     <batchstep method=\"io.github.mzmine.modules.dataprocessing.featdet_massdetection.MassDetectionModule\">\n\
         <parameter name=\"Raw data files\" type=\"BATCH_LAST_FILES\"/>\n\
         <parameter name=\"Scans\">\n\
