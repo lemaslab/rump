@@ -232,8 +232,8 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
     <batchstep method=\"io.github.mzmine.modules.dataprocessing.id_customdbsearch.CustomDBSearchModule\">\n\
         <parameter name=\"Feature lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
         <parameter name=\"Database file\">\n\
-            <current_file>{1}</current_file>\n\
-            <last_file>{1}</last_file>\n\
+            <current_file>{0}</current_file>\n\
+            <last_file>{0}</last_file>\n\
         </parameter>\n\
         <parameter name=\"Field separator\">,</parameter>\n\
         <parameter name=\"Field order\">\n\
@@ -249,6 +249,42 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
             <ppmtolerance>10.0</ppmtolerance>\n\
         </parameter>\n\
         <parameter name=\"Retention time tolerance\" type=\"absolute\">0.2</parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"io.github.mzmine.modules.io.csvexport.CSVExportModule\">\n\
+        <parameter name=\"Feature lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Filename\">{1}</parameter>\n\
+        <parameter name=\"Field separator\">,</parameter>\n\
+        <parameter name=\"Export common elements\">\n\
+            <item>Export row ID</item>\n\
+            <item>Export row m/z</item>\n\
+            <item>Export row retention time</item>\n\
+            <item>Export row identity (main ID)</item>\n\
+            <item>Export row identity (all IDs)</item>\n\
+            <item>Export row identity (main ID + details)</item>\n\
+            <item>Export row comment</item>\n\
+            <item>Export row number of detected peaks</item>\n\
+        </parameter>\n\
+        <parameter name=\"Export data file elements\">\n\
+            <item>Peak status</item>\n\
+            <item>Peak name</item>\n\
+            <item>Peak m/z</item>\n\
+            <item>Peak RT</item>\n\
+            <item>Peak RT start</item>\n\
+            <item>Peak RT end</item>\n\
+            <item>Peak duration time</item>\n\
+            <item>Peak height</item>\n\
+            <item>Peak area</item>\n\
+            <item>Peak charge</item>\n\
+            <item>Peak # data points</item>\n\
+            <item>Peak FWHM</item>\n\
+            <item>Peak tailing factor</item>\n\
+            <item>Peak asymmetry factor</item>\n\
+            <item>Peak m/z min</item>\n\
+            <item>Peak m/z max</item>\n\
+        </parameter>\n\
+        <parameter name=\"Export quantitation results and other information\">false</parameter>\n\
+        <parameter name=\"Identification separator\">;</parameter>\n\
+        <parameter name=\"Filter rows\">ALL</parameter>\n\
     </batchstep>\n\
 </batch>".format(library, output_csv))
 
