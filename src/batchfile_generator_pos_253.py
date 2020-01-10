@@ -233,7 +233,6 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
         <parameter name=\"Feature lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
         <parameter name=\"Database file\">\n\
             <current_file>{0}</current_file>\n\
-            <last_file>{0}</last_file>\n\
         </parameter>\n\
         <parameter name=\"Field separator\">,</parameter>\n\
         <parameter name=\"Field order\">\n\
@@ -252,7 +251,9 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
     </batchstep>\n\
     <batchstep method=\"io.github.mzmine.modules.io.csvexport.CSVExportModule\">\n\
         <parameter name=\"Feature lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
-        <parameter name=\"Filename\">{1}</parameter>\n\
+        <parameter name=\"Filename\">\n\
+            <current_file>{1}</current_file>\n\
+        </parameter>\n\
         <parameter name=\"Field separator\">,</parameter>\n\
         <parameter name=\"Export common elements\">\n\
             <item>Export row ID</item>\n\
