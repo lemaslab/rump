@@ -45,30 +45,6 @@ def blank_subtraction(input_file, design_file, output_file):
 
     data = pd.read_csv(input_file)
 
-    blank_group_name = "zero-blank"
-    design = pd.read_csv(design_file)
-    ratio_bar = 100
-
-    group_names = list(set(design['group']))
-    group_names.sort()
-
-    group1_name = group_names[0]
-    group2_name = group_names[1]
-
-    group1_columns = design[design.group == group1_name].sampleID.tolist()
-    group2_columns = design[design.group == group2_name].sampleID.tolist()
-    blank_columns = design[design.group == blank_group_name].sampleID.tolist()
-
-    data['group1_mean'] = data[group1_columns].mean(axis = 1)
-    data['group2_mean'] = data[group2_columns].mean(axis = 1)
-
-    data['label'] = data.apply(lambda row: add_label(row), axis = 1)
-    data['fold_change'] = data.apply(lambda row: fold_change(row, "group1_mean", "group2_mean"), axis = 1)
-    data['p_value'] = data.apply(lambda row: add_pvalue(row, group1_columns, group2_columns), axis = 1)
-    data['threshold'] = data.apply(lambda row: add_threshold(row, blank_columns), axis = 1)
-    data['group1_selected'] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns, "threshold", ratio_bar), axis = 1)
-    data['group2_selected'] = data.apply(lambda row: blank_subtraction_flag(row, group2_columns, "threshold", ratio_bar), axis = 1)
-
     data_withBS = data[(data.group1_selected == 1) | (data.group2_selected == 1)]
 
     data_withBS.to_csv(output_file)

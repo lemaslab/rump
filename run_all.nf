@@ -39,6 +39,8 @@ POS_DATA_DIR.into{POS_DATA_DIR_INFO; POS_DATA_DIR_BS}
 NEG_DATA_DIR = Channel.fromPath(params.input_dir_neg, type: 'dir') // Location of folder storing negative data
 NEG_DATA_DIR.into{NEG_DATA_DIR_INFO; NEG_DATA_DIR_BS}
 
+PYTHON_ADDSTATS = Channel.fromPath(params.python_addstats)
+
 PYTHON_PCA = Channel.fromPath(params.python_pca) // Chennel of Python code for principle component analysis
 PYTHON_PCA.into{PYTHON_PCA_NOBG; PYTHON_PCA_WITHBG} // Duplicate the above chennel to two channels, one the them processes result without background substraction, the other one processes processes result with background subtraction.
 
@@ -183,8 +185,6 @@ process batchfile_generation_mzmine {
 
 process pos_peakDetection_mzmine {
 
-    publishDir './results/', mode: 'copy'
-
     input:
     file p_b from POS_BATCHFILE // Batchfile for MzMine to process positive data.
     file p_m from POS_MZMINE // Folder of MzMine tool
@@ -202,10 +202,6 @@ process pos_peakDetection_mzmine {
 
 process neg_peakDetection_mzmine {
 
-    publishDir './results/', mode: 'copy'
-
-    echo true
-
     input:
     file n_b from NEG_BATCHFILE // Batchfile for MzMine to process negative data.
     file n_m from NEG_MZMINE // Folder of MzMine tool
@@ -222,8 +218,31 @@ process neg_peakDetection_mzmine {
     """
 }
 
-POS_MZMINE_RESULT.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
-NEG_MZMINE_RESULT.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING}
+process add_stats {
+
+    publishDir './results/peak_table/', mode: 'copy'
+
+    input:
+    file python_addstats from PYTHON_ADDSTATS
+    file data_pos from POS_MZMINE_RESULT
+    file pos_design from POS_DESIGN_FOR_BS
+    file data_neg from NEG_MZMINE_RESULT
+    file neg_design from NEG_DESIGN_FOR_BS
+
+    output:
+    file params.pos_data_nobg into POS_DATA_NOBG
+    file params.neg_data_nobg into NEG_DATA_NOBG
+
+    shell:
+    """   
+    python3 ${python_addstats} -i ${data_pos} -d ${pos_design} -o ${params.pos_data_nobg} &&
+    python3 ${python_addstats} -i ${data_neg} -d ${neg_design} -o ${params.neg_data_nobg} 
+
+    """
+}
+
+POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
+NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING}
 
 // Background subtraction
 process blank_subtraction {
@@ -243,6 +262,9 @@ process blank_subtraction {
     output:
     file params.pos_data_withbg into POS_DATA_WITHBG
     file params.neg_data_withbg into NEG_DATA_WITHBG
+
+    when:
+    params.bs == "1"
 
     shell:
     """   
@@ -272,6 +294,9 @@ process mqc_peak_number_comparison {
     output:
     file params.peak_number_comparison_mqc into PEAK_NUMBER_COMPARISON_MQC
 
+    when:
+    params.bs == "1"
+
     shell:
     '''
     python3 !{get_peak_number_comparison} -i1 $(cat !{pos_nobg} | wc -l) -i2 $(cat !{neg_nobg} | wc -l) -i3 $(cat !{pos_withbg} | wc -l) -i4 $(cat !{neg_withbg} | wc -l) -o !{params.peak_number_comparison_mqc}
@@ -289,9 +314,6 @@ process pca_nobg {
     file data_neg from NEG_NOBG_FOR_PCA
     file neg_design from NEG_DESIGN_FOR_PCA_NOBG
     file python_pca from PYTHON_PCA_NOBG
-
-    when:
-    params.bs == "1"
 
     output:
     file params.pca_pos_nobg into PCA_POS_NOBG
@@ -325,6 +347,9 @@ process pca_withbg {
     file params.pca_pos_withbg into PCA_POS_WITHBG
     file params.pca_neg_withbg into PCA_NEG_WITHBG
 
+    when:
+    params.bs == "1"
+
     shell:
     """   
     python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_withbg} -n p &&
@@ -345,9 +370,6 @@ process h_clustering_nobg {
     file data_neg from NEG_NOBG_FOR_HCLUSTERING
     file neg_design from NEG_DESIGN_FOR_HCLUSTERING_NOBG
     file python_hclustering from PYTHON_HCLUSTERING_NOBG
-
-    when:
-    params.bs == "1"
 
     output:
     file params.hclustering_pos_nobg into HCLUSTERING_POS_NOBG
@@ -407,6 +429,9 @@ process mqc_figs {
     output:
     file "*.png" into MQC_FIGS
 
+    when:
+    params.bs == "1"
+
     shell:
     """
     mv $pca_pos_nobg "PCA_for_positive_no_background_subtraction_mqc.png" &&
@@ -436,6 +461,9 @@ process report_generator {
 
     output:
     file "multiqc_report.html" into MULTIQC_REPORT
+
+    when:
+    params.bs == "1"
 
     shell:
     """
