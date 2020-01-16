@@ -47,7 +47,7 @@ def blank_subtraction(input_file, design_file, output_file):
 
     logger.info("start blank subtraction")
 
-    data_withBS = data[(data.group1_selected == 1) | (data.group2_selected == 1)]
+    data_withBS = data[(data[str(group1_name) + "_selected"] == 1) | (data[str(group2_name) + "_selected"] == 1)]
 
     logger.info("blank subtraction done")
 
