@@ -106,6 +106,6 @@ if __name__ == '__main__':
 
     
     args = parser.parse_args()
-    vd(args.input, args.design, args.output, args.blank_subtraction, args.group1, args.group2_csv, args.both_csv)
+    vd(args.input, args.design, args.output, args.blank_subtraction, args.group1_csv, args.group2_csv, args.both_csv)
 
 
