@@ -30,8 +30,8 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
     neg.append(len(data_neg_nobg_matched[data_neg_nobg_matched.p_value < 0.5]))
 
     if pos_withbg != "none":
-        steps = ["before blank subtraction", "match before blank subtraction", "significant match before blank subtraction", 
-                 "after blank subtraction", 'match after blank subtraction', "significant match after blank subtraction"]
+        steps = ["before_blank_subtraction", "match_before_blank_subtraction", "significant_match_before_blank_subtraction", 
+                 "after_blank_subtraction", 'match_after_blank_subtraction', "significant_match_after_blank_subtraction"]
         data_pos_withbg = pd.read_csv(pos_withbg)
         pos.append(len(data_pos_withbg))
         data_pos_withbg_matched = data_pos_withbg.dropna(subset = ["row identity (main ID)"])
@@ -45,7 +45,7 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
         neg.append(len(data_neg_withbg_matched[data_neg_withbg_matched.p_value < 0.5]))
 
     else:
-        steps = ["before blank subtraction", "match before blank subtraction", "significant match before blank subtraction"]
+        steps = ["before_blank_subtraction", "match_before_blank_subtraction", "significant_match_before_blank_subtraction"]
 
 
 #    data_category = ["pos", "neg"]
