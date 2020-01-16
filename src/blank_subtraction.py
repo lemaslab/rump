@@ -44,8 +44,15 @@ def add_label(row):
 def blank_subtraction(input_file, design_file, output_file):
 
     data = pd.read_csv(input_file)
+    design = pd.read_csv(design_file)
 
     logger.info("start blank subtraction")
+
+    group_names = list(set(design['group']))
+    group_names.sort()
+
+    group1_name = group_names[0]
+    group2_name = group_names[1]
 
     data_withBS = data[(data[str(group1_name) + "_selected"] == 1) | (data[str(group2_name) + "_selected"] == 1)]
 
