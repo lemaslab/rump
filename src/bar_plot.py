@@ -125,7 +125,7 @@ def bar_plot(input_file, design_file, output_fig):
 
     logger.info("saving bar plot")
 
-    plt.savefig(output_fig)
+    plt.savefig(output_fig, bbox_inches="tight")
 
 if __name__ == '__main__':
 

@@ -76,7 +76,7 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
 
     logger.info("saving venn diagram")
 
-    plt.savefig(output_fig)
+    plt.savefig(output_fig, bbox_inches="tight")
 
     only_group1.to_csv(group1_csv)
     only_group2.to_csv(group2_csv)

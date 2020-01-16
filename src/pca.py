@@ -154,7 +154,7 @@ def pca_2g(input_file, design_file, output_fig):
 
     logger.info("saving principal component analysis figure")
 
-    plt.savefig(output_fig)
+    plt.savefig(output_fig, bbox_inches="tight")
 
 if __name__ == '__main__':
 
