@@ -14,9 +14,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import csv
-from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from matplotlib_venn import venn3
+import math
+from scipy import stats
 
 import warnings
 warnings.filterwarnings('ignore')
