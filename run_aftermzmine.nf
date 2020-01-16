@@ -362,7 +362,7 @@ process venn_diagram_nobg {
     input:
     file data_pos from POS_NOBG_FOR_VD
     file pos_design from POS_DESIGN_FOR_VD_NOBG
-    file data_neg from NEG_NOBG_FOR_HCLUSTERING
+    file data_neg from NEG_NOBG_FOR_VD
     file neg_design from NEG_DESIGN_FOR_VD_NOBG
     file python_vd from PYTHON_VD_NOBG
 
