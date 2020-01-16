@@ -369,6 +369,12 @@ process venn_diagram_nobg {
     output:
     file params.vd_pos_nobg into VD_POS_NOBG
     file params.vd_neg_nobg into VD_NEG_NOBG
+    file params.pos_vd_group1_nobg into POS_VD_GROUP1_NOBG
+    file params.pos_vd_group2_nobg into POS_VD_GROUP2_NOBG
+    file params.pos_vd_both_nobg into POS_VD_BOTH_NOBG
+    file params.neg_vd_group1_nobg into NEG_VD_GROUP1_NOBG
+    file params.neg_vd_group2_nobg into NEG_VD_GROUP2_NOBG
+    file params.neg_vd_both_nobg into NEG_VD_BOTH_NOBG
 
     shell:
     """   
@@ -394,6 +400,12 @@ process venn_diagram_withbg {
     output:
     file params.vd_pos_withbg into VD_POS_WITHBG
     file params.vd_neg_withbg into VD_NEG_WITHBG
+    file params.pos_vd_group1_withbg into POS_VD_GROUP1_WITHBG
+    file params.pos_vd_group2_withbg into POS_VD_GROUP2_WITHBG
+    file params.pos_vd_both_withbg into POS_VD_BOTH_WITHBG
+    file params.neg_vd_group1_withbg into NEG_VD_GROUP1_WITHBG
+    file params.neg_vd_group2_withbg into NEG_VD_GROUP2_WITHBG
+    file params.neg_vd_both_withbg into NEG_VD_BOTH_WITHBG
 
     shell:
     """   
