@@ -82,7 +82,7 @@ def add_stats(input_file, design_file, output_file):
     data['p_value'] = data.apply(lambda row: add_pvalue(row, group1_columns, group2_columns), axis = 1)
     data[str(group1_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group1_columns), axis = 1)
     data[str(group2_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group2_columns), axis = 1)
-    if blank_group_name in data.columns:
+    if blank_group_name in group_names:
         blank_columns = design[design.group == blank_group_name].sampleID.tolist()
         data['threshold'] = data.apply(lambda row: add_threshold(row, blank_columns), axis = 1)
         data[str(group1_name) + "_selected"] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns, "threshold", ratio_bar), axis = 1)
