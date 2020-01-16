@@ -111,10 +111,10 @@ def bar_plot(input_file, design_file, output_fig):
     logger.info("generating bar plot")
 
     fold_change_sorted = data_matched_sign.sort_values(by=['fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')'])
-    n_pos = min(10, len(data_matched_sign[data_matched_sign.fold_change>=0]))
-    n_neg = min(10, len(data_matched_sign[data_matched_sign.fold_change<0]))
+    n_pos = min(10, len(data_matched_sign[data_matched_sign['fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')']>=0]))
+    n_neg = min(10, len(data_matched_sign[data_matched_sign['fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')']<0]))
     names = fold_change_sorted.label[0:n_pos].tolist() + fold_change_sorted.label[-n_neg:].tolist()
-    values = fold_change_sorted.log2_fold_change[0:n_pos].tolist() + fold_change_sorted.log2_fold_change[-n_neg:].tolist()
+    values = fold_change_sorted['log2_fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')'][0:n_pos].tolist() + fold_change_sorted['log2_fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')'][-n_neg:].tolist()
 
     index = np.arange(len(names))
     plt.barh(names, values, color = ["red"] * n_neg + ["green"] * n_pos)
