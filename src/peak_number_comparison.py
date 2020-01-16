@@ -10,16 +10,51 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %
 
 import yaml
 import csv
+import pandas as pd
 
 def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_txt):
 
-    data_category = ["pos", "neg"]
-    no_bg = [pos_nobg, neg_nobg]
-    with_bg = [pos_withbg, neg_withbg]
+    pos = []
+    neg = []
+
+    data_pos_nobg = pd.read_csv(pos_nobg)
+    pos.append(len(data_pos_nobg))
+    data_pos_nobg_matched = data_pos_nobg.dropna(subset = ["row identity (main ID)"])
+    pos.append(len(data_pos_nobg_matched))
+    pos.append(len(data_pos_nobg_matched[data_pos_nobg_matched.p_value < 0.5]))
+    
+    data_neg_nobg = pd.read_csv(neg_nobg)
+    neg.append(len(data_neg_nobg))
+    data_neg_nobg_matched = data_neg_nobg.dropna(subset = ["row identity (main ID)"])
+    pos.append(len(data_neg_nobg_matched))
+    pos.append(len(data_neg_nobg_matched[data_neg_nobg_matched.p_value < 0.5]))
+
+    if pos_withbg != "none":
+        steps = ["before blank subtraction", "match before blank subtraction", "significant match before blank subtraction", 
+                 "after blank subtraction", 'match after blank subtraction', "significant match after blank subtraction"]
+        data_pos_withbg = pd.read_csv(pos_withbg)
+        pos.append(len(data_pos_withbg))
+        data_pos_withbg_matched = data_pos_withbg.dropna(subset = ["row identity (main ID)"])
+        pos.append(len(data_pos_withbg_matched))
+        pos.append(len(data_pos_withbg_matched[data_pos_withbg_matched.p_value < 0.5]))
+
+        data_neg_withbg = pd.read_csv(neg_withbg)
+        neg.append(len(data_neg_withbg))
+        data_neg_withbg_matched = data_neg_withbg.dropna(subset = ["row identity (main ID)"])
+        neg.append(len(data_neg_withbg_matched))
+        neg.append(len(data_neg_withbg_matched[data_neg_withbg_matched.p_value < 0.5]))
+
+    else:
+        steps = ["before blank subtraction", "match before blank subtraction", "significant match before blank subtraction"]
+
+
+#    data_category = ["pos", "neg"]
+#    no_bg = [pos_nobg, neg_nobg]
+#    with_bg = [pos_withbg, neg_withbg]
 
     data = ""
-    for i in range(len(data_category)):
-        data += "{0}            {1}            {2}            \n".format(data_category[i], no_bg[i], with_bg[i])
+    for i in range(len(steps)):
+        data += "{0}            {1}            {2}            \n".format(steps[i], pos[i], neg[i])
 
     with open(output_txt, 'w') as txt_file:
         txt_file.write("# plot_type: 'table'\n\
@@ -29,12 +64,12 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
 #     namespace: 'Cust Data'\n\
 # headers:\n\
 #     col1:\n\
-#         title: 'no background subtraction'\n\
-#         description: 'Number of peaks detected without blank subtraction'\n\
+#         title: 'Positive'\n\
+#         description: 'Number of peaks detected for positive data'\n\
 #     col2:\n\
-#         title: 'with background subtraction'\n\
-#         description: 'Number of peaks detected with blank subtraction'\n\
-Data_category            col1            col2\n" + data)
+#         title: 'Negative'\n\
+#         description: 'Number of peaks detected for negative data'\n\
+Steps            col1            col2\n" + data)
 
 
 if __name__ == '__main__':
@@ -49,9 +84,9 @@ if __name__ == '__main__':
     parser.add_argument(
         '-i2', '--neg_nobg', help="number of peaks for negative and without background subtraction;", default="0", dest = "neg_nobg", required = False)
     parser.add_argument(
-        '-i3', '--pos_withbg', help="number of peaks for positive and after background subtraction;", default="0", dest = "pos_withbg", required = False)
+        '-i3', '--pos_withbg', help="number of peaks for positive and after background subtraction;", default="0", dest = "none", required = False)
     parser.add_argument(
-        '-i4', '--neg_withbg', help="number of peaks for negative and after background subtraction;", default="0", dest = "neg_withbg", required = False)
+        '-i4', '--neg_withbg', help="number of peaks for negative and after background subtraction;", default="0", dest = "none", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output csv file;", default="c_peak_number_comparison_mqc.txt", required = False)
     

@@ -90,60 +90,42 @@ def mean_fold_change(row, left, right, sign_left, sign_right):
     else:
         return (-row[left] + row[right])/2
 
-def bar_plot(input_file, output_fig_fat, output_fig_whole, output_fig_skim):
+def bar_plot(input_file, design_file, output_fig):
 
-    data, skim_fat, whole_fat, whole_skim, fat, skim, whole, different = data_grouping(input_file)
+    # load design file
+    design = pd.read_csv(design_file)
 
-    if len(fat) > 0:
-        fat["mean_foldchange_fat"] = data.apply(lambda row: mean_fold_change(row, 'logfoldchange_skim_fat', 'logfoldchange_whole_fat', 'n', 'n'), axis = 1)
-        fat_fold_change_sorted = fat.sort_values(by=["mean_foldchange_fat"])
-        n_pos = min(10, len(fat[fat.mean_foldchange_fat>=0]))
-        n_neg = min(10, len(fat[fat.mean_foldchange_fat<0]))
-        names_fat = fat_fold_change_sorted.label[0:n_pos].tolist() + fat_fold_change_sorted.label[-n_neg:].tolist()
-        values = fat_fold_change_sorted.mean_foldchange_fat[0:n_pos].tolist() + fat_fold_change_sorted.mean_foldchange_fat[-n_neg:].tolist()
+    group_names = list(set(design['group']))
+    group_names.sort()
+#    blank_group_name = "zero-blank"
+    group1_name = group_names[0]
+    group2_name = group_names[1]
 
-        index = np.arange(len(names_fat))
-        plt.barh(names_fat, values, color = ["red"] * n_neg + ["green"] * n_pos)
-        plt.xlabel('Mean Fold Change', fontsize=10)
-        plt.ylabel('Metabolites', fontsize=10)
-        plt.yticks(index, names_fat, fontsize=10)
-        plt.title('Log2 Mean Fold Change (Threshold is Fat)')
-    plt.savefig(output_fig_fat, bbox_inches="tight")
-    plt.clf()
+    data = pd.read_csv(input_file)
+    group1_columns = design[design.group == group1_name].sampleID.tolist()
+    group2_columns = design[design.group == group2_name].sampleID.tolist()
 
-    if len(whole) > 0:
-        whole["mean_foldchange_whole"] = data.apply(lambda row: mean_fold_change(row, 'logfoldchange_whole_skim', 'logfoldchange_whole_fat', 'p', 'p'), axis = 1)
-        whole_fold_change_sorted = whole.sort_values(by=["mean_foldchange_whole"])
-        n_pos = min(10, len(whole[whole.mean_foldchange_whole>=0]))
-        n_neg = min(10, len(whole[whole.mean_foldchange_whole<0]))
-        names_whole = whole_fold_change_sorted.label[0:n_pos].tolist() + whole_fold_change_sorted.label[-n_neg:].tolist()
-        values = whole_fold_change_sorted.mean_foldchange_whole[0:n_pos].tolist() + whole_fold_change_sorted.mean_foldchange_whole[-n_neg:].tolist()
+    data_matched = data.dropna(subset = ["row identity (main ID)"])
+    data_matched_sign = data_matched[data_matched.p_value < 0.05]
 
-        index = np.arange(len(names_whole))
-        plt.barh(names_whole, values, color = ["red"] * n_neg + ["green"] * n_pos)
-        plt.xlabel('Mean Fold Change', fontsize=10)
-        plt.ylabel('Metabolites', fontsize=10)
-        plt.yticks(index, names_whole, fontsize=10)
-        plt.title('Log2 Mean Fold Change (Threshold is whole)')
-    plt.savefig(output_fig_whole, bbox_inches="tight")
-    plt.clf()
+    logger.info("generating bar plot")
 
-    if len(skim) > 0:
-        skim["mean_foldchange_skim"] = data.apply(lambda row: mean_fold_change(row, 'logfoldchange_skim_fat', 'logfoldchange_whole_skim', 'p', 'n'), axis = 1)
-        skim_fold_change_sorted = skim.sort_values(by=["mean_foldchange_skim"])
-        n_pos = min(10, len(skim[skim.mean_foldchange_skim>=0]))
-        n_neg = min(10, len(skim[skim.mean_foldchange_skim<0]))
-        names_skim = skim_fold_change_sorted.label[0:n_pos].tolist() + skim_fold_change_sorted.label[-n_neg:].tolist()
-        values = skim_fold_change_sorted.mean_foldchange_skim[0:n_pos].tolist() + skim_fold_change_sorted.mean_foldchange_skim[-n_neg:].tolist()
+    fold_change_sorted = data_matched_sign.sort_values(by=["fold_change"])
+    n_pos = min(10, len(data_matched_sign[data_matched_sign.fold_change>=0]))
+    n_neg = min(10, len(data_matched_sign[data_matched_sign.fold_change<0]))
+    names = fold_change_sorted.label[0:n_pos].tolist() + fold_change_sorted.label[-n_neg:].tolist()
+    values = fold_change_sorted.log2_fold_change[0:n_pos].tolist() + fold_change_sorted.log2_fold_change[-n_neg:].tolist()
 
-        index = np.arange(len(names_skim))
-        plt.barh(names_skim, values, color = ["red"] * n_neg + ["green"] * n_pos)
-        plt.xlabel('Mean Fold Change', fontsize=10)
-        plt.ylabel('Metabolites', fontsize=10)
-        plt.yticks(index, names_skim, fontsize=10)
-        plt.title('Log2 Mean Fold Change (Threshold is skim)')
-    plt.savefig(output_fig_skim, bbox_inches="tight")
-    plt.clf()
+    index = np.arange(len(names))
+    plt.barh(names, values, color = ["red"] * n_neg + ["green"] * n_pos)
+    plt.xlabel('Fold Change' + "(" + str(group1_name) + " versus " + str(group2_name) + ")", fontsize=10)
+    plt.ylabel('Metabolites', fontsize=10)
+    plt.yticks(index, names, fontsize=10)
+    plt.title("Log2 Mean Fold Change"  + " (" + str(group1_name) + " versus " + str(group2_name) + ")")
+
+    logger.info("saving bar plot")
+
+    plt.savefig(output_fig)
 
 if __name__ == '__main__':
 
@@ -153,16 +135,14 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-i', '--input', help="define the location of input csv file;", default="milk_data_pos_ph.csv", required = False)
+        '-i', '--input', help="define the location of input csv file;", default="data_pos_ph.csv", required = False)
     parser.add_argument(
-        '-f1', '--fig1_out', help="define the location of first figure;", default="fat.png", required = False)
+        '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
     parser.add_argument(
-        '-f2', '--fig2_out', help="define the location of second figure;", default="whole.png", required = False)
-    parser.add_argument(
-        '-f3', '--fig3_out', help="define the location of third figure;", default="skim.png", required = False)
+        '-o', '--output', help="define the location of output figure;", default="barplot_pos_withbg.png", required = False)
 
     
     args = parser.parse_args()
-    bar_plot(args.input, args.fig1_out, args.fig2_out, args.fig3_out)
+    bar_plot(args.input, args.design, args.output)
 
 

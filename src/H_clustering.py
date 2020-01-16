@@ -40,7 +40,7 @@ def add_label(row):
     else:
         return row["row identity (main ID + details)"]
 
-def H_clustering(input_file, design_file, output_fig, ion):
+def H_clustering(input_file, design_file, output_fig):
 
     # load design file
     design = pd.read_csv(design_file)
@@ -84,15 +84,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-i', '--input', help="define the location of input csv file;", default="milk_data_pos_ph.csv", required = False)
+        '-i', '--input', help="define the location of input csv file;", default="data_pos_ph.csv", required = False)
     parser.add_argument(
         '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output figure;", default="h_cluster_pos_withbg.png", required = False)
-    parser.add_argument(
-        '-n', '--ion', help="positive data or negative data;", default="p", dest = "ion", required = False)
 
     args = parser.parse_args()
-    H_clustering(args.input, args.design, args.output, args.ion)
+    H_clustering(args.input, args.design, args.output)
 
 

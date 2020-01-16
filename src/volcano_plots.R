@@ -8,7 +8,7 @@ options(scipen=20)
 
 # Setting the correct working directory.
 # NOTE!!! -> Can be linked differently on different computers.
-setwd("/Users/xinsongdu/mnt/projects/milk_analysis")
+# setwd("/Users/xinsongdu/mnt/projects/milk_analysis")
 # Extra check
 getwd()
 
@@ -20,9 +20,9 @@ options(warn=-1)
 
 ## Define input and output arguments
 option_list = list(
-  make_option(c("-i", "--input_file"), type="character", default="./data/milk_data_pos_ph_summaries_filter_allgroups_threshold_100_modified.csv", 
+  make_option(c("-i", "--input_file"), type="character", default="pos_data.csv", 
               help="input csv file", metavar="character"),
-  make_option(c("-o", "--output_file"), type="character", default="./results/figs/volcano_plot", 
+  make_option(c("-o", "--output_file"), type="character", default="volcano_plot", 
               help="output plot file", metavar="character")
 ); 
 
@@ -43,15 +43,15 @@ df["group1"] <- "NotSignificant"
 
 # comparison of skim and whole
 # change the grouping for the entries with significance but not a large enough Fold change
-df[which(df['p_value_whole_skim_anova'] < 0.001 & abs(df['foldchange_skim_whole']) < 1.5 ),"group1"] <- "Significant"
+df[which(df['p_value'] < 0.001 & abs(df['fold_change']) < 1.5 ),"group1"] <- "Significant"
 # change the grouping for the entries a large enough Fold change but not a low enough p value
-df[which(df['p_value_whole_skim_anova'] > 0.001 & abs(df['foldchange_skim_whole']) > 1.5 ),"group1"] <- "FoldChange"
+df[which(df['p_value'] > 0.001 & abs(df['fold_change']) > 1.5 ),"group1"] <- "FoldChange"
 # change the grouping for the entries with both significance and large enough fold change
-df[which(df['p_value_whole_skim_anova'] < 0.001 & abs(df['foldchange_skim_whole']) > 1.5 ),"group1"] <- "Significant&FoldChange"
+df[which(df['p_value'] < 0.001 & abs(df['fold_change']) > 1.5 ),"group1"] <- "Significant&FoldChange"
 
 # Find and label the top peaks..
-top_peaks <- df[with(df, order(foldchange_skim_whole, p_value_whole_skim_anova)),][1:5,]
-top_peaks <- rbind(top_peaks, df[with(df, order(-foldchange_skim_whole, p_value_whole_skim_anova)),][1:5,])
+top_peaks <- df[with(df, order(log2_fold_change, p_value)),][1:5,]
+top_peaks <- rbind(top_peaks, df[with(df, order(-log2_fold_change, log2_p_value)),][1:5,])
 
 # Add labels for all of the top metabolites we found
 # here we are creating an empty list, and filling it with entries for each row in the dataframe
@@ -60,8 +60,8 @@ a <- list()
 for (i in seq_len(nrow(top_peaks))) {
   m <- top_peaks[i, ]
   a[[i]] <- list(
-    x = m[["foldchange_skim_whole"]],
-    y = -log10(m[["p_value_whole_skim_anova"]]),
+    x = m[["fold_change"]],
+    y = -log10(m[["p_value"]]),
     text = m[["label"]],
     xref = "x",
     yref = "y",
@@ -73,7 +73,7 @@ for (i in seq_len(nrow(top_peaks))) {
 }
 
 # make the Plot.ly plot
-p <- plot_ly(data = df, x = ~foldchange_skim_whole, y = ~logpvalue_whole_skim, text = ~label, mode = "markers", color = ~group1) %>% 
+p <- plot_ly(data = df, x = fold_change, y = -log10(m[["p_value"]], text = ~label, mode = "markers", color = ~group1) %>% 
   layout(title ="Volcano Plot") %>%
   layout(annotations = a)
 

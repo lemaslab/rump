@@ -42,22 +42,30 @@ PYTHON_PCA.into{PYTHON_PCA_NOBG; PYTHON_PCA_WITHBG} // Duplicate the above chenn
 PYTHON_HCLUSTERING = Channel.fromPath(params.python_hclustering) // Chennel of Python code for hierarchical clustering
 PYTHON_HCLUSTERING.into{PYTHON_HCLUSTERING_NOBG; PYTHON_HCLUSTERING_WITHBG}
 
+PYTHON_VD = Channel.fromPath(params.python_vd) // Chennel of Python code for venn diagram
+PYTHON_VD.into{PYTHON_VD_NOBG; PYTHON_VD_WITHBG}
+
+PYTHON_BARPLOT = Channel.fromPath(params.python_barplot) // Chennel of Python code for venn diagram
+PYTHON_BARPLOT.into{PYTHON_BARPLOT_NOBG; PYTHON_BARPLOT_WITHBG}
+
+PYTHON_ADDSTATS = Channel.fromPath(params.python_addstats)
+
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
-// PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
+PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
 
 // Following is Python code for background subtraction.
 PYTHON_BS = Channel.fromPath(params.python_bs)
 
-POS_NOBG = Channel.fromPath(params.pos_mzmine_peak_output)
-POS_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
-NEG_NOBG = Channel.fromPath(params.neg_mzmine_peak_output)
-NEG_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING}
+POS_MZMINE_RESULT = Channel.fromPath(params.pos_mzmine_peak_output)
+// POS_NOBG.into{POS_NOBG_FOR_AS; POS_NOBG_FOR_BS; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT}
+NEG_MZMINE_RESULT = Channel.fromPath(params.neg_mzmine_peak_output)
+// NEG_NOBG.into{POS_NOBG_FOR_AS; NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT}
 
 // Design files for positive data and negative data.
 POS_DESIGN = Channel.fromPath(params.POS_design_path)
-POS_DESIGN.into{POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG;}
+POS_DESIGN.into{POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG; POS_DESIGN_FOR_VD_WITHBG; POS_DESIGN_FOR_BARPLOT_WITHBG}
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
-NEG_DESIGN.into{NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG;}
+NEG_DESIGN.into{POS_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG; NEG_DESIGN_FOR_VD_WITHBG; NEG_DESIGN_FOR_BARPLOT_WITHBG}
 
 // Pre-build MultiQC report information
 // EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
@@ -164,8 +172,38 @@ process mqc_data_info {
     """
 }
 
+process add_stats {
+
+    publishDir './results/peak_table/', mode: 'copy'
+    echo true
+
+    input:
+    file python_addstats from PYTHON_ADDSTATS
+    file data_pos from POS_MZMINE_RESULT
+    file pos_design from POS_DESIGN_FOR_AS
+    file data_neg from NEG_MZMINE_RESULT
+    file neg_design from NEG_DESIGN_FOR_AS
+
+    output:
+    file params.pos_data_nobg into POS_DATA_NOBG
+    file params.neg_data_nobg into NEG_DATA_NOBG
+
+    shell:
+    """   
+    python3 ${python_addstats} -i ${data_pos} -d ${pos_design} -o ${params.pos_data_nobg} &&
+    python3 ${python_addstats} -i ${data_neg} -d ${neg_design} -o ${params.neg_data_nobg} 
+
+    """
+}
+
+// split channel content for multiple-time use
+POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT}
+NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT}
+
 // Background subtraction
 process blank_subtraction {
+
+    publishDir './results/peak_table/', mode: 'copy'
 
     input:
     file python_bs from PYTHON_BS
@@ -187,8 +225,34 @@ process blank_subtraction {
 }
 
 // split channel content for multiple-time use
-POS_DATA_WITHBG.into{POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING}
-NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING}
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT}
+
+// Process for generating files that can be parsed by MultiQC regarding peak numbers of different steps.
+process mqc_peak_number_comparison {
+
+    publishDir './results/mqc/', mode: 'copy'
+    echo true
+
+    input:
+    file get_peak_number_comparison from PYTHON_PEAK_NUMBER_COMPARISON
+    file pos_nobg from POS_NOBG_FOR_MQC
+    file neg_nobg from NEG_NOBG_FOR_MQC
+    file pos_withbg from POS_WITHBG_FOR_MQC
+    file neg_withbg from NEG_WITHBG_FOR_MQC
+
+    output:
+    file params.peak_number_comparison_mqc into PEAK_NUMBER_COMPARISON_MQC
+
+    when:
+    params.bs == "1"
+
+    shell:
+    """
+    python3 ${get_peak_number_comparison} -i1 ${pos_nobg} -i2 ${neg_nobg} -i3 ${pos_withbg} -i4 ${neg_withbg} -o ${params.peak_number_comparison_mqc}
+
+    """
+}
 
 // process for PCA of "no background subtraction" results
 process pca_nobg {
@@ -283,8 +347,108 @@ process h_clustering_withbg {
 
     shell:
     """   
-    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} -n p &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -n n
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg}
+
+    """
+
+}
+
+// process for venn diagram of "no background subtraction" results
+process venn_diagram_nobg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_NOBG_FOR_VD
+    file pos_design from POS_DESIGN_FOR_VD_NOBG
+    file data_neg from NEG_NOBG_FOR_HCLUSTERING
+    file neg_design from NEG_DESIGN_FOR_VD_NOBG
+    file python_vd from PYTHON_VD_NOBG
+
+    output:
+    file params.vd_pos_nobg into VD_POS_NOBG
+    file params.vd_neg_nobg into VD_NEG_NOBG
+
+    shell:
+    """   
+    python3 ${python_vd} -i ${data_pos} -d ${pos_design} -o ${params.vd_pos_nobg} -bs 0 -g1 ${params.pos_vd_group1_nobg} -g2 ${params.pos_vd_group2_nobg} -bt ${params.pos_vd_both_nobg} &&
+    python3 ${python_vd} -i ${data_neg} -d ${neg_design} -o ${params.vd_neg_nobg} -bs 0 -g1 ${params.neg_vd_group1_nobg} -g2 ${params.neg_vd_group2_nobg} -bt ${params.neg_vd_both_nobg}
+
+    """
+
+}
+
+// process for venn diagram of "with background subtraction" results, here we use 100 as the threshold of background subtraction.
+process venn_diagram_withbg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_WITHBG_FOR_VD
+    file pos_design from POS_DESIGN_FOR_VD_WITHBG
+    file data_neg from NEG_WITHBG_FOR_VD
+    file neg_design from NEG_DESIGN_FOR_VD_WITHBG
+    file python_vd from PYTHON_VD_WITHBG
+
+    output:
+    file params.vd_pos_withbg into VD_POS_WITHBG
+    file params.vd_neg_withbg into VD_NEG_WITHBG
+
+    shell:
+    """   
+    python3 ${python_vd} -i ${data_pos} -d ${pos_design} -o ${params.vd_pos_withbg} -bs 1 -g1 ${params.pos_vd_group1_withbg} -g2 ${params.pos_vd_group2_withbg} -bt ${params.pos_vd_both_withbg} &&
+    python3 ${python_vd} -i ${data_neg} -d ${neg_design} -o ${params.vd_pos_withbg} -bs 1 -g1 ${params.neg_vd_group1_withbg} -g2 ${params.neg_vd_group2_withbg} -bt ${params.neg_vd_both_withbg}
+
+    """
+
+}
+
+// process for bar plot of "no background subtraction" results
+process bar_plot_nobg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_NOBG_FOR_BARPLOT
+    file pos_design from POS_DESIGN_FOR_BARPLOT_NOBG
+    file data_neg from NEG_NOBG_FOR_BARPLOT
+    file neg_design from NEG_DESIGN_FOR_BARPLOT_NOBG
+    file python_barplot from PYTHON_BARPLOT_NOBG
+
+    output:
+    file params.barplot_pos_nobg into BARPLOT_POS_NOBG
+    file params.barplot_neg_nobg into BARPLOT_NEG_NOBG
+
+    shell:
+    """   
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_nobg} &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_nobg}
+
+    """
+
+}
+
+// process for bar plot of "with background subtraction" results, here we use 100 as the threshold of background subtraction.
+process bar_plot_withbg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_WITHBG_FOR_BARPLOT
+    file pos_design from POS_DESIGN_FOR_BARPLOT_WITHBG
+    file data_neg from NEG_WITHBG_FOR_BARPLOT
+    file neg_design from NEG_DESIGN_FOR_BARPLOT_WITHBG
+    file python_barplot from PYTHON_BARPLOT_WITHBG
+
+    output:
+    file params.barplot_pos_withbg into BARPLOT_POS_WITHBG
+    file params.barplot_neg_withbg into BARPLOT_NEG_WITHBG
+
+    shell:
+    """   
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg} &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg}
 
     """
 

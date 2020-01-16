@@ -45,7 +45,11 @@ def blank_subtraction(input_file, design_file, output_file):
 
     data = pd.read_csv(input_file)
 
+    logger.info("start blank subtraction")
+
     data_withBS = data[(data.group1_selected == 1) | (data.group2_selected == 1)]
+
+    logger.info("blank subtraction done")
 
     data_withBS.to_csv(output_file)
 

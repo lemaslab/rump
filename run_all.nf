@@ -55,9 +55,9 @@ PYTHON_BS = Channel.fromPath(params.python_bs)
 
 // Design files for positive data and negative data.
 POS_DESIGN = Channel.fromPath(params.POS_design_path)
-POS_DESIGN.into{POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG;}
+POS_DESIGN.into{POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG;}
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
-NEG_DESIGN.into{NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG;}
+NEG_DESIGN.into{NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG;}
 
 // Pre-build MultiQC report information
 EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
@@ -165,6 +165,8 @@ process mqc_data_info {
 
 process batchfile_generation_mzmine {
 
+    echo true
+
     input:
     file batchfile_generator_pos from BATCHFILE_GENERATOR_POS 
     file batchfile_generator_neg from BATCHFILE_GENERATOR_NEG
@@ -176,7 +178,8 @@ process batchfile_generation_mzmine {
     file params.neg_config into NEG_BATCHFILE // Generated batchfile for processing negative data
 
     shell:
-    """   
+    """  
+    echo "setting parameters for MZmine" &&
     python ${batchfile_generator_pos} -x ${params.pos_config} -i ${pos_data_dir} -l $params.library -o $params.pos_mzmine_peak_output &&
     python ${batchfile_generator_neg} -x ${params.neg_config} -i ${neg_data_dir} -l $params.library -o $params.neg_mzmine_peak_output
 
@@ -184,6 +187,8 @@ process batchfile_generation_mzmine {
 }
 
 process pos_peakDetection_mzmine {
+
+    echo true
 
     input:
     file p_b from POS_BATCHFILE // Batchfile for MzMine to process positive data.
@@ -196,6 +201,7 @@ process pos_peakDetection_mzmine {
 
     shell:
     """   
+    echo "peak detection and library matching for positive data" &&
     mv ${p_b} ${p_m} && cd ${p_m} && ./startMZmine-Linux ${p_b}
     """
 }
@@ -214,6 +220,7 @@ process neg_peakDetection_mzmine {
 
     shell:
     """   
+    echo "peak detection and library matching for negative data" &&
     mv ${n_b} ${n_m} && cd ${n_m} && ./startMZmine-Linux ${n_b}
     """
 }
@@ -221,13 +228,14 @@ process neg_peakDetection_mzmine {
 process add_stats {
 
     publishDir './results/peak_table/', mode: 'copy'
+    echo true
 
     input:
     file python_addstats from PYTHON_ADDSTATS
     file data_pos from POS_MZMINE_RESULT
-    file pos_design from POS_DESIGN_FOR_BS
+    file pos_design from POS_DESIGN_FOR_AS
     file data_neg from NEG_MZMINE_RESULT
-    file neg_design from NEG_DESIGN_FOR_BS
+    file neg_design from NEG_DESIGN_FOR_AS
 
     output:
     file params.pos_data_nobg into POS_DATA_NOBG
@@ -248,6 +256,7 @@ NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG
 process blank_subtraction {
 
     publishDir './results/peak_table/', mode: 'copy'
+    echo true
 
     input:
     file python_bs from PYTHON_BS
@@ -279,10 +288,11 @@ process blank_subtraction {
 POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING}
 NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING}
 
-// Process for generating files that can be parsed by MultiQC regarding peak numbers when using different background subtraction threshold.
+// Process for generating files that can be parsed by MultiQC regarding peak numbers of different steps.
 process mqc_peak_number_comparison {
 
     publishDir './results/mqc/', mode: 'copy'
+    echo true
 
     input:
     file get_peak_number_comparison from PYTHON_PEAK_NUMBER_COMPARISON
@@ -298,9 +308,10 @@ process mqc_peak_number_comparison {
     params.bs == "1"
 
     shell:
-    '''
-    python3 !{get_peak_number_comparison} -i1 $(cat !{pos_nobg} | wc -l) -i2 $(cat !{neg_nobg} | wc -l) -i3 $(cat !{pos_withbg} | wc -l) -i4 $(cat !{neg_withbg} | wc -l) -o !{params.peak_number_comparison_mqc}
-    '''
+    """
+    python3 ${get_peak_number_comparison} -i1 ${pos_nobg} -i2 ${neg_nobg} -i3 ${pos_withbg} -i4 ${neg_withbg} -o ${params.peak_number_comparison_mqc}
+
+    """
 }
 
 // process for PCA of "no background subtraction" results
@@ -377,8 +388,8 @@ process h_clustering_nobg {
 
     shell:
     """   
-    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg} -n p &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg} -n n
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg} &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg} 
 
     """
 
@@ -405,8 +416,8 @@ process h_clustering_withbg {
 
     shell:
     """   
-    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} -n p &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -n n
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg}
 
     """
 
@@ -427,7 +438,7 @@ process mqc_figs {
     file hclustering_neg_withbg from HCLUSTERING_NEG_WITHBG
 
     output:
-    file "*.png" into MQC_FIGS
+    file "*positive_with_background_subtraction_mqc.png" into MQC_FIGS
 
     when:
     params.bs == "1"

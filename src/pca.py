@@ -85,7 +85,7 @@ def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
     ellipse.set_transform(transf + ax.transData)
     return ax.add_patch(ellipse)
 
-def pca_2g(input_file, design_file, output_fig, ion):
+def pca_2g(input_file, design_file, output_fig):
 
     # load design file
     design = pd.read_csv(design_file)
@@ -103,6 +103,8 @@ def pca_2g(input_file, design_file, output_fig, ion):
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
 #    blank_columns = design[design.group == blank_group_name].sampleID.tolist()
+
+    logger.info("generating principal component analysis figure")
 
     data_filtered = data_pca[group1_columns + group2_columns]
 
@@ -149,6 +151,9 @@ def pca_2g(input_file, design_file, output_fig, ion):
     ax.grid()
     confidence_ellipse(x_group1, y_group1, ax, n_std = 1.96, facecolor = "r", alpha = 0.1)
     confidence_ellipse(x_group2, y_group2, ax, n_std = 1.96, facecolor = "b", alpha = 0.1)
+
+    logger.info("saving principal component analysis figure")
+
     plt.savefig(output_fig)
 
 if __name__ == '__main__':
@@ -159,15 +164,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-i', '--input', help="define the location of input csv file;", default="milk_data_pos_ph.csv", required = False)
+        '-i', '--input', help="define the location of input csv file;", default="data_pos_ph.csv", required = False)
     parser.add_argument(
         '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output figure;", default="pca_pos_withbg.png", required = False)
-    parser.add_argument(
-        '-n', '--ion', help="positive data or negative data;", default="p", dest = "ion", required = False)
     
     args = parser.parse_args()
-    pca_2g(args.input, args.design, args.output, args.ion)
+    pca_2g(args.input, args.design, args.output)
 
 
