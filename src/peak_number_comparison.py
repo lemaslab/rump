@@ -86,7 +86,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '-i3', '--pos_withbg', help="number of peaks for positive and after background subtraction;", default="0", dest = "pos_withbg", required = False)
     parser.add_argument(
-        '-i4', '--neg_withbg', help="number of peaks for negative and after background subtraction;", default="0", dest = "pos_withbg", required = False)
+        '-i4', '--neg_withbg', help="number of peaks for negative and after background subtraction;", default="0", dest = "neg_withbg", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output csv file;", default="c_peak_number_comparison_mqc.txt", required = False)
     
