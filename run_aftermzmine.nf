@@ -272,8 +272,8 @@ process pca_nobg {
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_nobg} -n p &&
-    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_nobg} -n n
+    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_nobg} &&
+    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_nobg} 
 
     """
 
@@ -297,8 +297,8 @@ process pca_withbg {
 
     shell:
     """   
-    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_withbg} -n p &&
-    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_withbg} -n n
+    python3 ${python_pca} -i ${data_pos} -d ${pos_design} -o ${params.pca_pos_withbg} &&
+    python3 ${python_pca} -i ${data_neg} -d ${neg_design} -o ${params.pca_neg_withbg} 
 
     """
 
