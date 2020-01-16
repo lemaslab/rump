@@ -39,6 +39,12 @@ POS_DATA_DIR.into{POS_DATA_DIR_INFO; POS_DATA_DIR_BS}
 NEG_DATA_DIR = Channel.fromPath(params.input_dir_neg, type: 'dir') // Location of folder storing negative data
 NEG_DATA_DIR.into{NEG_DATA_DIR_INFO; NEG_DATA_DIR_BS}
 
+PYTHON_VD = Channel.fromPath(params.python_vd) // Chennel of Python code for venn diagram
+PYTHON_VD.into{PYTHON_VD_NOBG; PYTHON_VD_WITHBG}
+
+PYTHON_BARPLOT = Channel.fromPath(params.python_barplot) // Chennel of Python code for venn diagram
+PYTHON_BARPLOT.into{PYTHON_BARPLOT_NOBG; PYTHON_BARPLOT_WITHBG}
+
 PYTHON_ADDSTATS = Channel.fromPath(params.python_addstats)
 
 PYTHON_PCA = Channel.fromPath(params.python_pca) // Chennel of Python code for principle component analysis
@@ -249,8 +255,8 @@ process add_stats {
     """
 }
 
-POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING}
-NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING}
+POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT}
+NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT}
 
 // Background subtraction
 process blank_subtraction {
@@ -285,8 +291,8 @@ process blank_subtraction {
 
 
 // split channel content for multiple-time use
-POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING}
-NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING}
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT}
 
 // Process for generating files that can be parsed by MultiQC regarding peak numbers of different steps.
 process mqc_peak_number_comparison {
@@ -423,6 +429,118 @@ process h_clustering_withbg {
 
 }
 
+// process for venn diagram of "no background subtraction" results
+process venn_diagram_nobg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_NOBG_FOR_VD
+    file pos_design from POS_DESIGN_FOR_VD_NOBG
+    file data_neg from NEG_NOBG_FOR_VD
+    file neg_design from NEG_DESIGN_FOR_VD_NOBG
+    file python_vd from PYTHON_VD_NOBG
+
+    output:
+    file params.vd_pos_nobg into VD_POS_NOBG
+    file params.vd_neg_nobg into VD_NEG_NOBG
+    file params.pos_vd_group1_nobg into POS_VD_GROUP1_NOBG
+    file params.pos_vd_group2_nobg into POS_VD_GROUP2_NOBG
+    file params.pos_vd_both_nobg into POS_VD_BOTH_NOBG
+    file params.neg_vd_group1_nobg into NEG_VD_GROUP1_NOBG
+    file params.neg_vd_group2_nobg into NEG_VD_GROUP2_NOBG
+    file params.neg_vd_both_nobg into NEG_VD_BOTH_NOBG
+
+    shell:
+    """   
+    python3 ${python_vd} -i ${data_pos} -d ${pos_design} -o ${params.vd_pos_nobg} -bs 0 -g1 ${params.pos_vd_group1_nobg} -g2 ${params.pos_vd_group2_nobg} -bt ${params.pos_vd_both_nobg} &&
+    python3 ${python_vd} -i ${data_neg} -d ${neg_design} -o ${params.vd_neg_nobg} -bs 0 -g1 ${params.neg_vd_group1_nobg} -g2 ${params.neg_vd_group2_nobg} -bt ${params.neg_vd_both_nobg}
+
+    """
+
+}
+
+// process for venn diagram of "with background subtraction" results, here we use 100 as the threshold of background subtraction.
+process venn_diagram_withbg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_WITHBG_FOR_VD
+    file pos_design from POS_DESIGN_FOR_VD_WITHBG
+    file data_neg from NEG_WITHBG_FOR_VD
+    file neg_design from NEG_DESIGN_FOR_VD_WITHBG
+    file python_vd from PYTHON_VD_WITHBG
+
+    output:
+    file params.vd_pos_withbg into VD_POS_WITHBG
+    file params.vd_neg_withbg into VD_NEG_WITHBG
+    file params.pos_vd_group1_withbg into POS_VD_GROUP1_WITHBG
+    file params.pos_vd_group2_withbg into POS_VD_GROUP2_WITHBG
+    file params.pos_vd_both_withbg into POS_VD_BOTH_WITHBG
+    file params.neg_vd_group1_withbg into NEG_VD_GROUP1_WITHBG
+    file params.neg_vd_group2_withbg into NEG_VD_GROUP2_WITHBG
+    file params.neg_vd_both_withbg into NEG_VD_BOTH_WITHBG
+
+    shell:
+    """   
+    python3 ${python_vd} -i ${data_pos} -d ${pos_design} -o ${params.vd_pos_withbg} -bs 1 -g1 ${params.pos_vd_group1_withbg} -g2 ${params.pos_vd_group2_withbg} -bt ${params.pos_vd_both_withbg} &&
+    python3 ${python_vd} -i ${data_neg} -d ${neg_design} -o ${params.vd_neg_withbg} -bs 1 -g1 ${params.neg_vd_group1_withbg} -g2 ${params.neg_vd_group2_withbg} -bt ${params.neg_vd_both_withbg}
+
+    """
+
+}
+
+// process for bar plot of "no background subtraction" results
+process bar_plot_nobg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_NOBG_FOR_BARPLOT
+    file pos_design from POS_DESIGN_FOR_BARPLOT_NOBG
+    file data_neg from NEG_NOBG_FOR_BARPLOT
+    file neg_design from NEG_DESIGN_FOR_BARPLOT_NOBG
+    file python_barplot from PYTHON_BARPLOT_NOBG
+
+    output:
+    file params.barplot_pos_nobg into BARPLOT_POS_NOBG
+    file params.barplot_neg_nobg into BARPLOT_NEG_NOBG
+
+    shell:
+    """   
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_nobg} &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_nobg}
+
+    """
+
+}
+
+// process for bar plot of "with background subtraction" results, here we use 100 as the threshold of background subtraction.
+process bar_plot_withbg {
+    
+    publishDir './results/figs', mode: 'copy'
+
+    input:
+    file data_pos from POS_WITHBG_FOR_BARPLOT
+    file pos_design from POS_DESIGN_FOR_BARPLOT_WITHBG
+    file data_neg from NEG_WITHBG_FOR_BARPLOT
+    file neg_design from NEG_DESIGN_FOR_BARPLOT_WITHBG
+    file python_barplot from PYTHON_BARPLOT_WITHBG
+
+    output:
+    file params.barplot_pos_withbg into BARPLOT_POS_WITHBG
+    file params.barplot_neg_withbg into BARPLOT_NEG_WITHBG
+
+    shell:
+    """   
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg} &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg}
+
+    """
+
+}
+
 process mqc_figs {
 
     publishDir './results/mqc/', mode: 'copy'
@@ -436,6 +554,14 @@ process mqc_figs {
     file hclustering_neg_nobg from HCLUSTERING_NEG_NOBG
     file hclustering_pos_withbg from HCLUSTERING_POS_WITHBG
     file hclustering_neg_withbg from HCLUSTERING_NEG_WITHBG
+    file vd_pos_nobg from VD_POS_NOBG
+    file vd_neg_nobg from VD_NEG_NOBG
+    file vd_pos_withbg from VD_POS_WITHBG
+    file vd_neg_withbg from VD_NEG_WITHBG
+    file barplot_pos_nobg from BARPLOT_POS_NOBG
+    file barplot_neg_nobg from BARPLOT_NEG_NOBG
+    file barplot_pos_withbg from BARPLOT_POS_WITHBG
+    file barplot_neg_withbg from BARPLOT_NEG_WITHBG
 
     output:
     file "*positive_with_background_subtraction_mqc.png" into MQC_FIGS
@@ -453,6 +579,14 @@ process mqc_figs {
     mv $hclustering_neg_nobg "Hirerchical_clustering_for_negative_no_background_subtraction_mqc.png" &&
     mv $hclustering_pos_withbg "Hirerchical_clustering_for_positive_with_background_subtraction_mqc.png" &&
     mv $hclustering_neg_withbg "Hirerchical_clustering_for_negative_with_background_subtraction_mqc.png"
+    mv $vd_pos_nobg "Venn_diagram_for_positive_no_background_subtraction_mqc.png" &&
+    mv $vd_neg_nobg "Venn_diagram_for_negative_no_background_subtraction_mqc.png" &&
+    mv $vd_pos_withbg "Venn_diagram_for_positive_with_background_subtraction_mqc.png" &&
+    mv $vd_neg_withbg "Venn_diagram_for_negative_with_background_subtraction_mqc.png" &&
+    mv $barplot_pos_nobg "Bar_plot_clustering_for_positive_no_background_subtraction_mqc.png" &&
+    mv $barplot_neg_nobg "Bar_plot_clustering_for_negative_no_background_subtraction_mqc.png" &&
+    mv $barplot_pos_withbg "Bar_plot_clustering_for_positive_with_background_subtraction_mqc.png" &&
+    mv $barplot_neg_withbg "Bar_plot_clustering_for_negative_with_background_subtraction_mqc.png"
     """
 }
 

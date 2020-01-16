@@ -45,10 +45,10 @@ def fold_change(row, left, right):
         return result if result >=1 else -1/result
 
 def add_label(row):
-    if pd.isnull(row["row identity (main ID + details)"]):
+    if pd.isnull(row["row identity (main ID)"]):
         return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
     else:
-        return row["row identity (main ID + details)"]
+        return row["row identity (main ID)"]
 
 def add_stats(input_file, design_file, output_file):
 
