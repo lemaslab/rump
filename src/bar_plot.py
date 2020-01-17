@@ -20,76 +20,6 @@ import seaborn as sns; sns.set(color_codes=True)
 import warnings
 warnings.filterwarnings('ignore')
 
-def data_grouping(input_file):
-
-    data = pd.read_csv(input_file)
-
-    # Skim && Fat
-    skim_fat = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova>0.05) & 
-        (data.p_value_whole_skim_anova>0.05) & 
-        (data.p_value_skim_fat_anova<0.05) &
-        (abs(data.foldchange_skim_fat)>2)]
-
-    # Whole && Fat
-    whole_fat = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova>0.05) & 
-        (data.p_value_skim_fat_anova>0.05) &
-        (abs(data.foldchange_whole_fat)>2)]
-
-     # Whole && Skim
-    whole_skim = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova>0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova>0.05) & 
-        (abs(data.foldchange_whole_skim)>2)]
-
-    # Fat
-    fat = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova>0.05) & 
-        (data.p_value_skim_fat_anova<0.05) & 
-        (abs(data.foldchange_whole_fat)>2) &
-        (abs(data.foldchange_skim_fat)>2)]
-
-    # Skim
-    skim = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova>0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova<0.05) & 
-        (abs(data.foldchange_whole_skim)>2) &
-        (abs(data.foldchange_skim_fat)>2)]
-
-    # Whole
-    whole = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova>0.05) & 
-        (abs(data.foldchange_whole_skim)>2) &
-        (abs(data.foldchange_whole_fat)>2)]
-
-    # Difference
-    different = data[(data.p_value_f_anova<0.05) & 
-        (data.p_value_whole_fat_anova<0.05) & 
-        (data.p_value_whole_skim_anova<0.05) & 
-        (data.p_value_skim_fat_anova<0.05) & 
-        (abs(data.foldchange_whole_skim)>2) &
-        (abs(data.foldchange_skim_fat)>2) &
-        (abs(data.foldchange_whole_fat)>2)]
-
-    return data, skim_fat, whole_fat, whole_skim, fat, skim, whole, different
-
-def mean_fold_change(row, left, right, sign_left, sign_right):
-    if sign_left == sign_right == "p":
-        return (row[left]+row[right])/2
-    elif sign_left == sign_right == "n":
-        return -(row[left]+row[right])/2
-    elif sign_left == "p" and sign_right == "n":
-        return (row[left] - row[right])/2
-    else:
-        return (-row[left] + row[right])/2
-
 def bar_plot(input_file, design_file, output_fig):
 
     # load design file
@@ -118,7 +48,7 @@ def bar_plot(input_file, design_file, output_fig):
 
     index = np.arange(len(names))
     plt.barh(names, values, color = ["red"] * n_neg + ["green"] * n_pos)
-    plt.xlabel('Fold Change' + "(" + str(group1_name) + " versus " + str(group2_name) + ")", fontsize=10)
+    plt.xlabel('Log2 Fold Change' + "(" + str(group1_name) + " versus " + str(group2_name) + ")", fontsize=10)
     plt.ylabel('Metabolites', fontsize=10)
     plt.yticks(index, names, fontsize=10)
     plt.title("Log2 Mean Fold Change"  + " (" + str(group1_name) + " versus " + str(group2_name) + ")")
