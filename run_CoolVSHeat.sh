@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nf_humanbovine
+#SBATCH --job-name=nf_coolheat
 #SBATCH --mail-type=ALL #Changed ALL to NONE
 #SBATCH --mail-user=xinsongdu@ufl.edu
 #SBATCH --ntasks=20
@@ -7,7 +7,7 @@
 #SBATCH --account=djlemas
 #SBATCH --qos=djlemas-b
 #SBATCH --time=20:00:00
-#SBATCH --output=./logs/nf_humanbovine%j.log
+#SBATCH --output=./logs/nf_coolheat%j.log
 pwd; hostname; date
 
 # load modules
