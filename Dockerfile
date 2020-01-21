@@ -35,6 +35,7 @@ RUN apt-get update -qq && \
     python3-pip\
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
+RUN pip install mummichog
 RUN pip3 install --upgrade setuptools
 RUN pip3 install numpy scipy pandas 'matplotlib<3.0.0,>=2.1.1' plotly seaborn sklearn matplotlib_venn multiqc
 RUN echo "alias python=python3" >> ~/.bash_profile
