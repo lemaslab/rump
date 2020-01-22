@@ -38,8 +38,6 @@ RUN apt-get update -qq && \
 
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
-RUN pip install setuptools
-RUN pip install mummichog
 RUN pip3 install --upgrade setuptools
 RUN pip3 install numpy scipy pandas 'matplotlib<3.0.0,>=2.1.1' plotly seaborn sklearn matplotlib_venn multiqc
 RUN echo "alias python=python3" >> ~/.bash_profile
@@ -69,5 +67,6 @@ COPY accessibility.properties /app
 # use the following line to install required R libraries for xcms
 # RUN Rscript libs.R
 RUN mv accessibility.properties /etc/java-8-openjdk/
+RUN pip install mummichog
 
 RUN echo "alias python=python3" >> ~/.bashrc
