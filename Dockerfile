@@ -31,6 +31,7 @@ RUN apt-get update -qq && \
     cmake \
     default-jdk \
     python\
+    python-dev\
     software-properties-common\
     python-pip\
     python3-pip\
