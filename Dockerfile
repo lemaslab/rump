@@ -32,7 +32,10 @@ RUN apt-get update -qq && \
     default-jdk \
     python\
     software-properties-common\
+    python-pip\
     python3-pip\
+    python-tk\
+
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
 RUN pip install mummichog
@@ -56,14 +59,14 @@ RUN mkdir app
 
 # define work dir
 WORKDIR /app
-COPY MZmine-2.28 /app
-COPY xcms-docker.tar.gz /app
-COPY libs.R /app
+# COPY MZmine-2.28 /app
+# COPY xcms-docker.tar.gz /app
+# COPY libs.R /app
 COPY accessibility.properties /app
 
 # RUN R -f /tmp/install.R # comment out this line
 # use the following line to install required R libraries for xcms
-RUN Rscript libs.R
+# RUN Rscript libs.R
 RUN mv accessibility.properties /etc/java-8-openjdk/
 
 RUN echo "alias python=python3" >> ~/.bashrc
