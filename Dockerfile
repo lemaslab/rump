@@ -67,6 +67,7 @@ COPY accessibility.properties /app
 # use the following line to install required R libraries for xcms
 # RUN Rscript libs.R
 RUN mv accessibility.properties /etc/java-8-openjdk/
+RUN pip install --upgrade setuptools
 RUN pip install mummichog
 
 RUN echo "alias python=python3" >> ~/.bashrc
