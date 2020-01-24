@@ -19,5 +19,5 @@ export SINGULARITYENV_TMPDIR
 TMPDIR=$(pwd)/tmp
 export TMPDIR
 
-nextflow run_all.nf --pos_mzmine_peak_output pos_data.csv --neg_mzmine_peak_output neg_data.csv --input_dir_pos /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/POS_HumanVSBovine --input_dir_neg /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/NEG_HumanVSBovine --POS_design_path ./data/pos_design_HumanVSBovine.csv --NEG_design_path ./data/neg_design_HumanVSBovine.csv -with-singularity docker://galaxydream/metabolomics_pipeline
+nextflow run_all.nf --cutoff 0.000004 --pos_mzmine_peak_output pos_data.csv --neg_mzmine_peak_output neg_data.csv --input_dir_pos /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/POS_HumanVSBovine --input_dir_neg /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/NEG_HumanVSBovine --POS_design_path ./data/pos_design_HumanVSBovine.csv --NEG_design_path ./data/neg_design_HumanVSBovine.csv -with-singularity docker://galaxydream/metabolomics_pipeline
 date
