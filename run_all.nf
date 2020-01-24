@@ -55,6 +55,7 @@ PYTHON_HCLUSTERING.into{PYTHON_HCLUSTERING_NOBG; PYTHON_HCLUSTERING_WITHBG}
 
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
 PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
+PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
 
 // Following is Python code for background subtraction.
 PYTHON_BS = Channel.fromPath(params.python_bs)
@@ -255,8 +256,8 @@ process add_stats {
     """
 }
 
-POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT}
-NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT}
+POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT; POS_NOBG_FOR_MUMMICHOG}
+NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT; NEG_NOBG_FOR_MUMMICHOG}
 
 // Background subtraction
 process blank_subtraction {
@@ -291,8 +292,8 @@ process blank_subtraction {
 
 
 // split channel content for multiple-time use
-POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT}
-NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT}
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT; POS_WITHBG_FOR_MUMMICHOG}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT; NEG_WITHBG_FOR_MUMMICHOG}
 
 // Process for generating files that can be parsed by MultiQC regarding peak numbers of different steps.
 process mqc_peak_number_comparison {
@@ -390,12 +391,16 @@ process h_clustering_nobg {
 
     output:
     file params.hclustering_pos_nobg into HCLUSTERING_POS_NOBG
+    file params.hclustering_pos_nobg_om into HCLUSTERING_POS_NOBG_OM
     file params.hclustering_neg_nobg into HCLUSTERING_NEG_NOBG
+    file params.hclustering_neg_nobg_om into HCLUSTERING_NEG_NOBG_OM
 
     shell:
     """   
-    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg} &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg} 
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg} -m 0 -bs 0 &&
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg_om} -m 1 -bs 0 &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg} -m 0 -bs 0 &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg_om} -m 1 -bs 0
 
     """
 
@@ -418,12 +423,16 @@ process h_clustering_withbg {
 
     output:
     file params.hclustering_pos_withbg into HCLUSTERING_POS_WITHBG
+    file params.hclustering_pos_withbg_om into HCLUSTERING_POS_WITHBG_OM
     file params.hclustering_neg_withbg into HCLUSTERING_NEG_WITHBG
+    file params.hclustering_neg_withbg_om into HCLUSTERING_NEG_WITHBG_OM
 
     shell:
     """   
-    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg}
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} -m 0 -bs 1 &&
+    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg_om} -m 1 -bs 1 &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -m 0 -bs 1 &&
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg_om} -m 1 -bs 1
 
     """
 
@@ -505,12 +514,16 @@ process bar_plot_nobg {
 
     output:
     file params.barplot_pos_nobg into BARPLOT_POS_NOBG
+    file params.barplot_pos_nobg_om into BARPLOT_POS_NOBG_OM
     file params.barplot_neg_nobg into BARPLOT_NEG_NOBG
+    file params.barplot_neg_nobg_om into BARPLOT_NEG_NOBG_OM
 
     shell:
     """   
-    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_nobg} &&
-    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_nobg}
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_nobg} -m 0 -bs 0 &&
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_nobg_om} -m 1 -bs 0 &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_nobg} -m 0 -bs 0 &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_nobg_om} -m 1 -bs 0 &&
 
     """
 
@@ -530,12 +543,16 @@ process bar_plot_withbg {
 
     output:
     file params.barplot_pos_withbg into BARPLOT_POS_WITHBG
+    file params.barplot_pos_withbg_om into BARPLOT_POS_WITHBG_OM
     file params.barplot_neg_withbg into BARPLOT_NEG_WITHBG
+    file params.barplot_neg_withbg_om into BARPLOT_NEG_WITHBG_OM
 
     shell:
     """   
-    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg} &&
-    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg}
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg} -m 0 -bs 1 &&
+    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg_om} -m 1 -bs 1 &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg} -m 0 -bs 1 &&
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg_om} -m 1 -bs 1
 
     """
 
@@ -551,17 +568,25 @@ process mqc_figs {
     file pca_pos_withbg from PCA_POS_WITHBG
     file pca_neg_withbg from PCA_NEG_WITHBG
     file hclustering_pos_nobg from HCLUSTERING_POS_NOBG
+    file hclustering_pos_nobg_om from HCLUSTERING_POS_NOBG_OM
     file hclustering_neg_nobg from HCLUSTERING_NEG_NOBG
+    file hclustering_neg_nobg_om from HCLUSTERING_NEG_NOBG_OM
     file hclustering_pos_withbg from HCLUSTERING_POS_WITHBG
+    file hclustering_pos_withbg_om from HCLUSTERING_POS_WITHBG_OM
     file hclustering_neg_withbg from HCLUSTERING_NEG_WITHBG
+    file hclustering_neg_withbg_om from HCLUSTERING_NEG_WITHBG_OM
     file vd_pos_nobg from VD_POS_NOBG
     file vd_neg_nobg from VD_NEG_NOBG
     file vd_pos_withbg from VD_POS_WITHBG
     file vd_neg_withbg from VD_NEG_WITHBG
     file barplot_pos_nobg from BARPLOT_POS_NOBG
+    file barplot_pos_nobg_om from BARPLOT_POS_NOBG_OM
     file barplot_neg_nobg from BARPLOT_NEG_NOBG
+    file barplot_neg_nobg_om from BARPLOT_NEG_NOBG_OM
     file barplot_pos_withbg from BARPLOT_POS_WITHBG
+    file barplot_pos_withbg_om from BARPLOT_POS_WITHBG_OM
     file barplot_neg_withbg from BARPLOT_NEG_WITHBG
+    file barplot_neg_withbg_om from BARPLOT_NEG_WITHBG_OM
 
     output:
     file "*positive_with_background_subtraction_mqc.png" into MQC_FIGS
@@ -576,17 +601,25 @@ process mqc_figs {
     mv $pca_pos_withbg "PCA_for_positive_with_background_subtraction_mqc.png" &&
     mv $pca_neg_withbg "PCA_for_negative_with_background_subtraction_mqc.png" &&
     mv $hclustering_pos_nobg "Hirerchical_clustering_for_positive_no_background_subtraction_mqc.png" &&
+    mv $hclustering_pos_nobg_om "Hirerchical_clustering_for_positive_no_background_subtraction_matched_only_mqc.png" &&
     mv $hclustering_neg_nobg "Hirerchical_clustering_for_negative_no_background_subtraction_mqc.png" &&
+    mv $hclustering_neg_nobg_om "Hirerchical_clustering_for_negative_no_background_subtraction_matched_only_mqc.png" &&
     mv $hclustering_pos_withbg "Hirerchical_clustering_for_positive_with_background_subtraction_mqc.png" &&
-    mv $hclustering_neg_withbg "Hirerchical_clustering_for_negative_with_background_subtraction_mqc.png"
+    mv $hclustering_pos_withbg_om "Hirerchical_clustering_for_positive_with_background_subtraction_matched_only_mqc.png" &&
+    mv $hclustering_neg_withbg "Hirerchical_clustering_for_negative_with_background_subtraction_mqc.png" &&
+    mv $hclustering_neg_withbg_om "Hirerchical_clustering_for_negative_with_background_subtraction_matched_only_mqc.png" &&
     mv $vd_pos_nobg "Venn_diagram_for_positive_no_background_subtraction_mqc.png" &&
     mv $vd_neg_nobg "Venn_diagram_for_negative_no_background_subtraction_mqc.png" &&
     mv $vd_pos_withbg "Venn_diagram_for_positive_with_background_subtraction_mqc.png" &&
     mv $vd_neg_withbg "Venn_diagram_for_negative_with_background_subtraction_mqc.png" &&
     mv $barplot_pos_nobg "Bar_plot_clustering_for_positive_no_background_subtraction_mqc.png" &&
+    mv $barplot_pos_nobg_om "Bar_plot_clustering_for_positive_no_background_subtraction_matched_only_mqc.png" &&
     mv $barplot_neg_nobg "Bar_plot_clustering_for_negative_no_background_subtraction_mqc.png" &&
+    mv $barplot_neg_nobg_om "Bar_plot_clustering_for_negative_no_background_subtraction_matched_only_mqc.png" &&
     mv $barplot_pos_withbg "Bar_plot_clustering_for_positive_with_background_subtraction_mqc.png" &&
-    mv $barplot_neg_withbg "Bar_plot_clustering_for_negative_with_background_subtraction_mqc.png"
+    mv $barplot_pos_withbg_om "Bar_plot_clustering_for_positive_with_background_subtraction_matched_only_mqc.png" &&
+    mv $barplot_neg_withbg "Bar_plot_clustering_for_negative_with_background_subtraction_mqc.png" &&
+    mv $barplot_neg_withbg_om "Bar_plot_clustering_for_negative_with_background_subtraction_matched_only_mqc.png"
     """
 }
 
@@ -613,6 +646,30 @@ process report_generator {
     shell:
     """
     multiqc .
+    """
+
+}
+
+process mummichog_report {
+
+    publishDir './results/mummichog/', mode: 'copy'
+
+    input:
+
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE
+    file pos_data from POS_WITHBG_FOR_MUMMICHOG
+
+    output:
+    file "*" into MUMMICHOG_REPORT
+
+    when:
+    params.bs == "1"
+
+    shell:
+    """
+    echo "generating mommichog report"
+    python3 ${python_mummichog_input_prepare} -i ${pos_data} -o ${params.data_pos_withbg_mummichog} &&
+    mommichog -f ${params.data_pos_withbg_mummichog} -o ${params.data_pos_withbg_mummichog_out} -c ${params.cutoff}
     """
 
 }
