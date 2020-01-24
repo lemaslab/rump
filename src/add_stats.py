@@ -31,9 +31,13 @@ def blank_subtraction_flag(row, name_group, name_threshold, bar):
 def zero_intension_flag(row, name_group):
     return np.mean(row[name_group]) <= 0
 
-def add_pvalue(row, left_names, right_names):
-    t, p = stats.ttest_ind(row[left_names], row[right_names])
+def add_pvalue(row, left_names, right_names, n_comp):
+    _, p = stats.ttest_ind(row[left_names], row[right_names])
     return p
+
+def add_tvalue(row, left_names, right_names, n_comp):
+    t, _ = stats.ttest_ind(row[left_names], row[right_names])
+    return t
 
 def fold_change(row, left, right):
     if row[right] == 0:
@@ -53,6 +57,7 @@ def add_label(row):
 def add_stats(input_file, design_file, output_file):
 
     data = pd.read_csv(input_file)
+    data["number of comparisons"] = len(data)
 
     blank_group_name = "zero-blank"
     design = pd.read_csv(design_file)
@@ -80,6 +85,7 @@ def add_stats(input_file, design_file, output_file):
     logger.info("calculating t-test p-value")
 
     data['p_value'] = data.apply(lambda row: add_pvalue(row, group1_columns, group2_columns), axis = 1)
+    data['t_value'] = data.apply(lambda row: add_tvalue(row, group1_columns, group2_columns), axis = 1)
     data[str(group1_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group1_columns), axis = 1)
     data[str(group2_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group2_columns), axis = 1)
     if blank_group_name in group_names:
@@ -88,7 +94,7 @@ def add_stats(input_file, design_file, output_file):
         data[str(group1_name) + "_selected"] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns, "threshold", ratio_bar), axis = 1)
         data[str(group2_name) + "_selected"] = data.apply(lambda row: blank_subtraction_flag(row, group2_columns, "threshold", ratio_bar), axis = 1)
 
-    data.to_csv(output_file)
+    data.to_csv(output_file, index = False)
 
 if __name__ == '__main__':
 

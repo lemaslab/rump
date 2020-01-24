@@ -20,7 +20,7 @@ import seaborn as sns; sns.set(color_codes=True)
 import warnings
 warnings.filterwarnings('ignore')
 
-def bar_plot(input_file, design_file, output_fig):
+def bar_plot(input_file, design_file, output_fig, only_matched, BS):
 
     # load design file
     design = pd.read_csv(design_file)
@@ -34,9 +34,22 @@ def bar_plot(input_file, design_file, output_fig):
     data = pd.read_csv(input_file)
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
+    sign_threshold = 0.05/data["number of comparisons"].iloc[0]
 
-    data_matched = data.dropna(subset = ["row identity (main ID)"])
-    data_matched_sign = data_matched[data_matched.p_value < 0.05]
+    if BS == "1":
+        only_group1 = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == False)]
+        only_group2 = data[(data[str(group1_name) + "_selected"] == False) & (data[str(group2_name) + "_selected"] == True)]
+        both = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == True)]
+    else:
+        only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
+        only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
+        both = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == True)]
+
+    if only_matched == "1":
+        data_matched = both.dropna(subset = ["row identity (main ID)"])
+    else:
+        data_matched = both
+    data_matched_sign = data_matched[data_matched.p_value < sign_threshold]
 
     logger.info("generating bar plot")
 
@@ -75,9 +88,12 @@ if __name__ == '__main__':
         '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output figure;", default="barplot_pos_withbg.png", required = False)
-
+    parser.add_argument(
+        '-m', '--only_matched', help="if only include matched metabolites;", default="1", dest = "only_matched", required = True)
+    parser.add_argument(
+        '-bs', '--blank_subtraction', help="whether use blank subtraction;", dest = "blank_subtraction", default="1", required = False)
     
     args = parser.parse_args()
-    bar_plot(args.input, args.design, args.output)
+    bar_plot(args.input, args.design, args.output, args.only_matched, args.blank_subtraction)
 
 

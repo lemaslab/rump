@@ -40,7 +40,7 @@ def add_label(row):
     else:
         return row["row identity (main ID + details)"]
 
-def H_clustering(input_file, design_file, output_fig):
+def H_clustering(input_file, design_file, output_fig, only_matched, BS):
 
     # load design file
     design = pd.read_csv(design_file)
@@ -54,9 +54,22 @@ def H_clustering(input_file, design_file, output_fig):
     data = pd.read_csv(input_file)
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
+    sign_threshold = 0.05/data_filtered["number of comparisons"].iloc[0]
 
-    data_filtered = copy.deepcopy(data)
-    data_filtered = data_filtered.sort_values(by = "p_value").iloc[0:50]
+    if BS == "1":
+        only_group1 = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == False)]
+        only_group2 = data[(data[str(group1_name) + "_selected"] == False) & (data[str(group2_name) + "_selected"] == True)]
+        both = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == True)]
+    else:
+        only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
+        only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
+        both = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == True)]
+
+    if only_matched == "1":
+        both.dropna(subset = ["row identity (main ID)"], inplace = True)
+    data_filtered = copy.deepcopy(both)
+    n_rows = min(50, len(data_filtered[data_filtered.p_value < sign_threshold]))
+    data_filtered = data_filtered.sort_values(by = "fold_change").iloc[0:n_rows]
     data_filtered.index = data_filtered.label
     data_filtered = data_filtered[group1_columns + group2_columns]
 
@@ -89,8 +102,12 @@ if __name__ == '__main__':
         '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output figure;", default="h_cluster_pos_withbg.png", required = False)
+    parser.add_argument(
+        '-m', '--only_matched', help="if only include matched metabolites;", default="0", dest = "only_matched", required = False)
+    parser.add_argument(
+        '-bs', '--blank_subtraction', help="whether use blank subtraction;", dest = "blank_subtraction", default="1", required = False)
 
     args = parser.parse_args()
-    H_clustering(args.input, args.design, args.output)
+    H_clustering(args.input, args.design, args.output, args.only_matched, args.blank_subtraction)
 
 

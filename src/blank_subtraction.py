@@ -58,7 +58,7 @@ def blank_subtraction(input_file, design_file, output_file):
 
     logger.info("blank subtraction done")
 
-    data_withBS.to_csv(output_file)
+    data_withBS.to_csv(output_file, index = False)
 
 if __name__ == '__main__':
 
