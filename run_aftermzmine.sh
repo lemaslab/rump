@@ -2,8 +2,8 @@
 #SBATCH --job-name=nf_aftermzmine
 #SBATCH --mail-type=ALL #Changed ALL to NONE
 #SBATCH --mail-user=xinsongdu@ufl.edu
-#SBATCH --ntasks=10
-#SBATCH --mem=20gb
+#SBATCH --ntasks=1
+#SBATCH --mem=5gb
 #SBATCH --account=djlemas
 #SBATCH --qos=djlemas-b
 #SBATCH --time=10:00:00
