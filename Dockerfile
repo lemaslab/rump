@@ -70,5 +70,6 @@ COPY accessibility.properties /app
 RUN mv accessibility.properties /etc/java-8-openjdk/
 RUN pip install --upgrade setuptools
 RUN pip install mummichog
+RUN pip3 install fastcluster
 
 RUN echo "alias python=python3" >> ~/.bashrc
