@@ -20,5 +20,5 @@ TMPDIR=$(pwd)/tmp
 # XDG_RUNTIME_DIR=$(pwd)/singularity_cache
 export TMPDIR
 
-nextflow run_aftermzmine.nf --input_dir_pos /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/POS_HumanVSBovine --input_dir_neg /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/NEG_HumanVSBovine --POS_design_path ./data/pos_design_HumanVSBovine.csv --NEG_design_path ./data/neg_design_HumanVSBovine.csv -with-singularity docker://galaxydream/metabolomics_pipeline
+nextflow run_aftermzmine.nf --cutoff 0.000004 --input_dir_pos /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/POS_HumanVSBovine --input_dir_neg /ufrc/djlemas/xinsongdu/jupyter_notebook/data/metabolomics/Human_Bovine/mzXML/NEG_HumanVSBovine --POS_design_path ./data/pos_design_HumanVSBovine.csv --NEG_design_path ./data/neg_design_HumanVSBovine.csv -with-singularity docker://galaxydream/metabolomics_pipeline
 date
