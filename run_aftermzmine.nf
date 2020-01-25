@@ -52,6 +52,7 @@ PYTHON_ADDSTATS = Channel.fromPath(params.python_addstats)
 
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
 PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
+PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
 
 // Following is Python code for background subtraction.
 PYTHON_BS = Channel.fromPath(params.python_bs)
@@ -197,8 +198,8 @@ process add_stats {
 }
 
 // split channel content for multiple-time use
-POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT}
-NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT}
+POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT; POS_NOBG_FOR_MUMMICHOG}
+NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT; NEG_NOBG_FOR_MUMMICHOG}
 
 // Background subtraction
 process blank_subtraction {
@@ -225,8 +226,8 @@ process blank_subtraction {
 }
 
 // split channel content for multiple-time use
-POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT}
-NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT}
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT; POS_WITHBG_FOR_MUMMICHOG}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT; NEG_WITHBG_FOR_MUMMICHOG}
 
 // Process for generating files that can be parsed by MultiQC regarding peak numbers of different steps.
 process mqc_peak_number_comparison {
@@ -470,6 +471,30 @@ process bar_plot_withbg {
     python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg} -m 0 -bs 1 &&
     python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg_om} -m 1 -bs 1
 
+    """
+
+}
+
+process mummichog_report {
+
+    publishDir './results/mummichog/', mode: 'copy'
+
+    input:
+
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE
+    file pos_data from POS_WITHBG_FOR_MUMMICHOG
+
+    output:
+    file "*" into MUMMICHOG_REPORT
+
+    when:
+    params.bs == "1"
+
+    shell:
+    """
+    echo "generating mommichog report"
+    python3 ${python_mummichog_input_prepare} -i ${pos_data} -o ${params.data_pos_withbg_mummichog} &&
+    mommichog -f ${params.data_pos_withbg_mummichog} -o ${params.data_pos_withbg_mummichog_out} -c ${params.cutoff}
     """
 
 }

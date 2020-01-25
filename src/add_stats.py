@@ -31,11 +31,11 @@ def blank_subtraction_flag(row, name_group, name_threshold, bar):
 def zero_intension_flag(row, name_group):
     return np.mean(row[name_group]) <= 0
 
-def add_pvalue(row, left_names, right_names, n_comp):
+def add_pvalue(row, left_names, right_names):
     _, p = stats.ttest_ind(row[left_names], row[right_names])
     return p
 
-def add_tvalue(row, left_names, right_names, n_comp):
+def add_tvalue(row, left_names, right_names):
     t, _ = stats.ttest_ind(row[left_names], row[right_names])
     return t
 
