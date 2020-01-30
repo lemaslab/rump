@@ -92,8 +92,6 @@ def add_stats(input_file, design_file, output_file, library):
     data[str(group1_name) + '_mean'] = data[group1_columns].mean(axis = 1)
     data[str(group2_name) + '_mean'] = data[group2_columns].mean(axis = 1)
 
-    data['label'] = data.apply(lambda row: add_label(row, group1_name, group2_name), axis = 1)
-
     logger.info("calculating fold change")
 
     data['fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')'] = data.apply(lambda row: fold_change(row, str(group1_name) + '_mean', str(group2_name) + '_mean'), axis = 1)
@@ -106,6 +104,7 @@ def add_stats(input_file, design_file, output_file, library):
     data['t_value'] = data.apply(lambda row: add_tvalue(row, group1_columns, group2_columns), axis = 1)
     data[str(group1_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group1_columns), axis = 1)
     data[str(group2_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group2_columns), axis = 1)
+    data['label'] = data.apply(lambda row: add_label(row, group1_name, group2_name), axis = 1)
     if blank_group_name in group_names:
         blank_columns = design[design.group == blank_group_name].sampleID.tolist()
         data['threshold'] = data.apply(lambda row: add_threshold(row, blank_columns), axis = 1)
