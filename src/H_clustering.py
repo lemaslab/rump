@@ -21,25 +21,6 @@ import seaborn as sns; sns.set(color_codes=True)
 import warnings
 warnings.filterwarnings('ignore')
 
-def add_pvalue(row, left_names, right_names):
-    t, p = stats.ttest_ind(row[left_names], row[right_names])
-    return p
-
-def fold_change(row, left, right):
-    if row[right] == 0:
-        return np.inf
-    elif row[left] == 0:
-        return -np.inf
-    else:
-        result = row[left]/row[right]
-        return result if result >=1 else -1/result
-
-def add_label(row):
-    if pd.isnull(row["row identity (main ID + details)"]):
-        return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
-    else:
-        return row["row identity (main ID + details)"]
-
 def H_clustering(input_file, design_file, output_fig, only_matched, BS):
 
     # load design file
@@ -63,7 +44,7 @@ def H_clustering(input_file, design_file, output_fig, only_matched, BS):
     else:
         only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
-        both = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == True)]
+        both = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == False)]
 
     if only_matched == "1":
         both.dropna(subset = ["row identity (main ID)"], inplace = True)

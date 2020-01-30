@@ -43,7 +43,7 @@ def bar_plot(input_file, design_file, output_fig, only_matched, BS):
     else:
         only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
-        both = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == True)]
+        both = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == False)]
 
     if only_matched == "1":
         data_matched = both.dropna(subset = ["row identity (main ID)"])
