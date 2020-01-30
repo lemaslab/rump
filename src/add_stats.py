@@ -62,7 +62,7 @@ def add_ppm(row, library_df):
     mz_theoretical = mzs[diff.index(min(diff))]
     return abs((mz_observe-mz_theoretical)*10e6/mz_theoretical)
 
-def add_label(row):
+def add_label(row, group1_name, group2_name):
     if pd.isnull(row["row identity (main ID)"]):
         return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
     else:
@@ -92,7 +92,7 @@ def add_stats(input_file, design_file, output_file, library):
     data[str(group1_name) + '_mean'] = data[group1_columns].mean(axis = 1)
     data[str(group2_name) + '_mean'] = data[group2_columns].mean(axis = 1)
 
-    data['label'] = data.apply(lambda row: add_label(row), axis = 1)
+    data['label'] = data.apply(lambda row: add_label(row, group1_name, group2_name), axis = 1)
 
     logger.info("calculating fold change")
 
