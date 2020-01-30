@@ -48,16 +48,33 @@ def fold_change(row, left, right):
         result = row[left]/row[right]
         return result if result >=1 else -1/result
 
+def abs_fold_change(row, fold_change_column):
+        return abs(row[fold_change_column])
+
+def add_ppm(row, library_df):
+    if pd.isnull(row['row identity (main ID)']):
+        return None
+    mzs = list(library_df[library_df.Name.str.strip() == row['row identity (main ID)']]['M/Z'])
+    mz_observe = row["row m/z"]
+    diff = []
+    for mz in mzs:
+        diff.append(abs(mz_observe - mz))
+    mz_theoretical = mzs[diff.index(min(diff))]
+    return abs((mz_observe-mz_theoretical)*10e6/mz_theoretical)
+
 def add_label(row):
     if pd.isnull(row["row identity (main ID)"]):
         return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
     else:
-        return row["row identity (main ID)"]
+        return str(row["row identity (main ID)"]) + "/" + str(round(row["fold_change" + "(" + str(group1_name) + " versus " + str(group2_name) + ")"], 2))
 
-def add_stats(input_file, design_file, output_file):
+def add_stats(input_file, design_file, output_file, library):
 
     data = pd.read_csv(input_file)
     data["number of comparisons"] = len(data)
+
+    data_library = pd.read_csv(library)
+    data["ppm"] = data.apply(lambda row: add_ppm(row, data_library), axis = 1)
 
     blank_group_name = "zero-blank"
     design = pd.read_csv(design_file)
@@ -81,6 +98,7 @@ def add_stats(input_file, design_file, output_file):
 
     data['fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')'] = data.apply(lambda row: fold_change(row, str(group1_name) + '_mean', str(group2_name) + '_mean'), axis = 1)
     data['log2_fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')'] = np.log2(data[str(group1_name) + '_mean']/data[str(group2_name) + '_mean'])
+    data['abs_fold_change' + "(" + str(group1_name) + " versus " + str(group2_name) + ")"] = data.apply(lambda row: abs_fold_change(row, 'fold_change' + "(" + str(group1_name) + " versus " + str(group2_name) + ")"), axis = 1)
 
     logger.info("calculating t-test p-value")
 
