@@ -127,9 +127,11 @@ if __name__ == '__main__':
         '-d', '--design', help="define the location of input design csv file;", default="pos_design.csv", dest = "design", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output figure;", default="pos_withstats.csv", required = False)
+    parser.add_argument(
+        '-l', '--library', help="define the location of library file;", default="library.csv", dest = "library", required = False)
 
     
     args = parser.parse_args()
-    add_stats(args.input, args.design, args.output)
+    add_stats(args.input, args.design, args.output, args.library)
 
 
