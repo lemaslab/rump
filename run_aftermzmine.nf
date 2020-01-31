@@ -493,6 +493,7 @@ process mummichog_report {
     shell:
     """
     echo "generating mommichog report" &&
+    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
     python3 ${python_mummichog_input_prepare} -i ${pos_data} -o ${params.data_pos_withbg_mummichog} &&
     mummichog -f ${params.data_pos_withbg_mummichog} -o ${params.data_pos_withbg_mummichog_out} -c ${params.cutoff}
     """
