@@ -64,6 +64,11 @@ def bar_plot(input_file, design_file, output_fig, only_matched, BS):
         names = fold_change_sorted.label[0:n_pos].tolist()
         values = fold_change_sorted['log2_fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')'][0:n_pos].tolist()
 
+    if len(names) == 0:
+        logger.info("empty fig")
+        plt.savefig(output_fig)
+        exit()
+
     index = np.arange(len(names))
     plt.barh(names, values, color = ["red"] * n_neg + ["green"] * n_pos)
     plt.xlabel('Log2 Fold Change' + "(" + str(group1_name) + " versus " + str(group2_name) + ")", fontsize=10)
