@@ -492,9 +492,9 @@ process mummichog_report {
 
     shell:
     """
-    echo "generating mommichog report"
+    echo "generating mommichog report" &&
     python3 ${python_mummichog_input_prepare} -i ${pos_data} -o ${params.data_pos_withbg_mummichog} &&
-    mommichog -f ${params.data_pos_withbg_mummichog} -o ${params.data_pos_withbg_mummichog_out} -c ${params.cutoff}
+    mummichog -f ${params.data_pos_withbg_mummichog} -o ${params.data_pos_withbg_mummichog_out} -c ${params.cutoff}
     """
 
 }
