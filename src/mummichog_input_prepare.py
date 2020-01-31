@@ -28,7 +28,7 @@ def mummichog_input_prepare(input_file, output_file):
     data_formummichog = data[["row m/z", "row retention time", "p_value", "t_value", "label"]]
     data_formummichog.rename(columns = {"row m/z": "m/z", "row retention time": "retention_time", "p_value": "p-value", "t_value": "t-score", "label": "custom_id"}, inplace = True)
 
-    data.to_csv(output_file, index = False, sep = "\t")
+    data.to_txt(output_file, index = False, sep = "\t")
 
 if __name__ == '__main__':
 
