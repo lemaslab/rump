@@ -44,6 +44,6 @@ if __name__ == '__main__':
 
     
     args = parser.parse_args()
-    add_stats(args.input, args.output)
+    mummichog_input_prepare(args.input, args.output)
 
 
