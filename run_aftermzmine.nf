@@ -489,7 +489,7 @@ process mummichog_report_nobg {
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
 //    file pos_data from POS_WITHBG_FOR_MUMMICHOG
     file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
-    file pos_vd_group2_nobg from POS_VD_GROUP1_NOBG
+    file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG
     file "*" from POS_NOBG_CUTOFFS
 
@@ -521,7 +521,7 @@ process mummichog_report_withbg {
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
     file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
-    file pos_vd_group2_withbg from POS_VD_GROUP1_WITHBG
+    file pos_vd_group2_withbg from POS_VD_GROUP2_WITHBG
     file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
     file "*" from POS_WITHBG_CUTOFFS
 
