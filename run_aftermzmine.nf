@@ -53,6 +53,7 @@ PYTHON_ADDSTATS = Channel.fromPath(params.python_addstats)
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
 PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
 PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
+PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG}
 
 // Following is Python code for background subtraction.
 PYTHON_BS = Channel.fromPath(params.python_bs)
@@ -380,6 +381,8 @@ process venn_diagram_nobg {
     file params.neg_vd_group1_nobg into NEG_VD_GROUP1_NOBG
     file params.neg_vd_group2_nobg into NEG_VD_GROUP2_NOBG
     file params.neg_vd_both_nobg into NEG_VD_BOTH_NOBG
+    file "pos*.txt" into POS_NOBG_CUTOFFS
+    file "neg*.txt" into NEG_NOBG_CUTOFFS
 
     shell:
     """   
@@ -411,6 +414,8 @@ process venn_diagram_withbg {
     file params.neg_vd_group1_withbg into NEG_VD_GROUP1_WITHBG
     file params.neg_vd_group2_withbg into NEG_VD_GROUP2_WITHBG
     file params.neg_vd_both_withbg into NEG_VD_BOTH_WITHBG
+    file "pos*.txt" into POS_WITHBG_CUTOFFS
+    file "neg*.txt" into NEG_WITHBG_CUTOFFS
 
     shell:
     """   
@@ -475,27 +480,70 @@ process bar_plot_withbg {
 
 }
 
-process mummichog_report {
+process mummichog_report_nobg {
 
-    publishDir './results/mummichog/', mode: 'copy'
+    publishDir './results/mummichog/before_blank_subtraction', mode: 'copy'
 
     input:
 
-    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE
-    file pos_data from POS_WITHBG_FOR_MUMMICHOG
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
+//    file pos_data from POS_WITHBG_FOR_MUMMICHOG
+    file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
+    file pos_vd_group2_nobg from POS_VD_GROUP1_NOBG
+    file pos_vd_both_nobg from POS_VD_BOTH_NOBG
+    file "*" from POS_NOBG_CUTOFFS
 
     output:
-    file "*" into MUMMICHOG_REPORT
+    file "*" into MUMMICHOG_REPORT_NOBG
+
+    shell:
+    """
+    echo "generating mommichog report for peaks before blank subtraction" &&
+    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
+    group1_cutoff=$(<pos_vd_group1_nobg_cutoff.txt) &&
+    group2_cutoff=$(<pos_vd_group2_nobg_cutoff.txt) &&
+    both_cutoff=$(<pos_vd_both_nobg_cutoff.txt) &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c $group1_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c $group2_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c $both_cutoff
+    """
+
+}
+
+process mummichog_report_withbg {
+
+    publishDir './results/mummichog/after_blank_subtraction', mode: 'copy'
+
+    input:
+
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
+    file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
+    file pos_vd_group2_withbg from POS_VD_GROUP1_WITHBG
+    file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
+    file "*" from POS_WITHBG_CUTOFFS
+
+    output:
+    file "*" into MUMMICHOG_REPORT_WITHBG
 
     when:
     params.bs == "1"
 
     shell:
     """
-    echo "generating mommichog report" &&
+    echo "generating mommichog report for peaks after blank subtraction" &&
     echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
-    python3 ${python_mummichog_input_prepare} -i ${pos_data} -o ${params.data_pos_withbg_mummichog} &&
-    mummichog -f ${params.data_pos_withbg_mummichog} -o ${params.data_pos_withbg_mummichog_out} -c ${params.cutoff}
+    group1_cutoff=$(<pos_vd_group1_withbg_cutoff.txt) &&
+    group2_cutoff=$(<pos_vd_group2_withbg_cutoff.txt) &&
+    both_cutoff=$(<pos_vd_both_withbg_cutoff.txt) &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c $group1_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c $group2_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c $both_cutoff
     """
 
 }

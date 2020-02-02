@@ -82,6 +82,13 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     only_group2.to_csv(group2_csv)
     both.to_csv(both_csv)
 
+    with open(group1_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
+        f.write(str(0.05/len(only_group1)))
+    with open(group2_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
+        f.write(str(0.05/len(only_group2)))
+    with open(both_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
+        f.write(str(0.05/len(both)))
+
 if __name__ == '__main__':
 
     logger.info('generating venn diagram...')
