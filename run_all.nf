@@ -457,6 +457,8 @@ process venn_diagram_nobg {
     file params.neg_vd_group1_nobg into NEG_VD_GROUP1_NOBG
     file params.neg_vd_group2_nobg into NEG_VD_GROUP2_NOBG
     file params.neg_vd_both_nobg into NEG_VD_BOTH_NOBG
+    file "pos*.txt" into POS_NOBG_CUTOFFS
+    file "neg*.txt" into NEG_NOBG_CUTOFFS
 
     shell:
     """   
@@ -488,6 +490,8 @@ process venn_diagram_withbg {
     file params.neg_vd_group1_withbg into NEG_VD_GROUP1_WITHBG
     file params.neg_vd_group2_withbg into NEG_VD_GROUP2_WITHBG
     file params.neg_vd_both_withbg into NEG_VD_BOTH_WITHBG
+    file "pos*.txt" into POS_WITHBG_CUTOFFS
+    file "neg*.txt" into NEG_WITHBG_CUTOFFS
 
     when:
     params.bs == "1"
