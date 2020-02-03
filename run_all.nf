@@ -70,6 +70,10 @@ NEG_DESIGN.into{NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; N
 EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
 MQC_CONFIG = Channel.fromPath(params.mqc_config)
 
+// Python code for mummichog input files
+PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
+PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG}
+
 // Result files used by MultiQC to generate report.
 // MQC_DIR = Channel.fromPath(params.mqc_dir, type: 'dir')
 
@@ -272,9 +276,6 @@ process blank_subtraction {
     file data_neg from NEG_NOBG_FOR_BS
     file neg_design from NEG_DESIGN_FOR_BS
 
-    when:
-    params.bs == "1"
-
     output:
     file params.pos_data_withbg into POS_DATA_WITHBG
     file params.neg_data_withbg into NEG_DATA_WITHBG
@@ -357,9 +358,6 @@ process pca_withbg {
     file data_neg from NEG_WITHBG_FOR_PCA
     file neg_design from NEG_DESIGN_FOR_PCA_WITHBG
     file python_pca from PYTHON_PCA_WITHBG
-
-    when:
-    params.bs == "1"
 
     output:
     file params.pca_pos_withbg into PCA_POS_WITHBG
@@ -491,6 +489,9 @@ process venn_diagram_withbg {
     file params.neg_vd_group2_withbg into NEG_VD_GROUP2_WITHBG
     file params.neg_vd_both_withbg into NEG_VD_BOTH_WITHBG
 
+    when:
+    params.bs == "1"
+
     shell:
     """   
     python3 ${python_vd} -i ${data_pos} -d ${pos_design} -o ${params.vd_pos_withbg} -bs 1 -g1 ${params.pos_vd_group1_withbg} -g2 ${params.pos_vd_group2_withbg} -bt ${params.pos_vd_both_withbg} &&
@@ -547,6 +548,9 @@ process bar_plot_withbg {
     file params.barplot_neg_withbg into BARPLOT_NEG_WITHBG
     file params.barplot_neg_withbg_om into BARPLOT_NEG_WITHBG_OM
 
+    when:
+    params.bs == "1"
+
     shell:
     """   
     python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg} -m 0 -bs 1 &&
@@ -590,9 +594,6 @@ process mqc_figs {
 
     output:
     file "*positive_with_background_subtraction_mqc.png" into MQC_FIGS
-
-    when:
-    params.bs == "1"
 
     shell:
     """
@@ -640,9 +641,6 @@ process report_generator {
     output:
     file "multiqc_report.html" into MULTIQC_REPORT
 
-    when:
-    params.bs == "1"
-
     shell:
     """
     multiqc .
@@ -650,26 +648,69 @@ process report_generator {
 
 }
 
-process mummichog_report {
+process mummichog_report_nobg {
 
-    publishDir './results/mummichog/', mode: 'copy'
+    publishDir './results/mummichog/before_blank_subtraction', mode: 'copy'
 
     input:
 
-    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE
-    file pos_data from POS_WITHBG_FOR_MUMMICHOG
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
+    file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
+    file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
+    file pos_vd_both_nobg from POS_VD_BOTH_NOBG
+    file "*" from POS_NOBG_CUTOFFS
 
     output:
-    file "*" into MUMMICHOG_REPORT
+    file "*" into MUMMICHOG_REPORT_NOBG
+
+    shell:
+    """
+    echo "generating mommichog report for peaks before blank subtraction" &&
+    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
+    group1_cutoff=`cat pos_vd_group1_nobg_cutoff.txt` &&
+    group2_cutoff=`cat pos_vd_group2_nobg_cutoff.txt` &&
+    both_cutoff=`cat pos_vd_both_nobg_cutoff.txt` &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c \$group1_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c \$group2_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c \$both_cutoff
+    """
+
+}
+
+process mummichog_report_withbg {
+
+    publishDir './results/mummichog/after_blank_subtraction', mode: 'copy'
+
+    input:
+
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
+    file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
+    file pos_vd_group2_withbg from POS_VD_GROUP2_WITHBG
+    file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
+    file "*" from POS_WITHBG_CUTOFFS
+
+    output:
+    file "*" into MUMMICHOG_REPORT_WITHBG
 
     when:
     params.bs == "1"
 
     shell:
     """
-    echo "generating mommichog report"
-    python3 ${python_mummichog_input_prepare} -i ${pos_data} -o ${params.data_pos_withbg_mummichog} &&
-    mommichog -f ${params.data_pos_withbg_mummichog} -o ${params.data_pos_withbg_mummichog_out} -c ${params.cutoff}
+    echo "generating mommichog report for peaks after blank subtraction" &&
+    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
+    group1_cutoff=`cat pos_vd_group1_withbg_cutoff.txt` &&
+    group2_cutoff=`cat pos_vd_group2_withbg_cutoff.txt` &&
+    both_cutoff=`cat pos_vd_both_withbg_cutoff.txt` &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c \$group1_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c \$group2_cutoff &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c \$both_cutoff
     """
 
 }

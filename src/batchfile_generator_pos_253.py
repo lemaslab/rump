@@ -229,6 +229,54 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
         <parameter name=\"Require same identification\">false</parameter>\n\
         <parameter name=\"Remove original peaklist\">false</parameter>\n\
     </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.identification.adductsearch.AdductSearchModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"RT tolerance\" type=\"absolute\">0.05</parameter>\n\
+        <parameter name=\"Adducts\">\n\
+            <adduct mass_difference=\"21.9825\" name=\"[M+Na-H]\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"37.9559\" name=\"[M+K-H]\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"21.9694\" name=\"[M+Mg-2H]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"17.0265\" name=\"[M+NH3]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"97.9769\" name=\"[M+H3PO4]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"97.9674\" name=\"[M+H2SO4]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"62.0004\" name=\"[M+H2CO3]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"5.0\" name=\"[(Deuterium)]glycerol\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"-18.0106\" name=\"[M-H2O+H]\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"-17.0265\" name=\"[M-NH3+H]\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"-46.0055\" name=\"[M-HCOOH+H]\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"-42.0338\" name=\"[M+ACN+H]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"42.0338\" name=\"[M+ACN+H]\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"34.9694\" name=\"[M+35]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"36.9664\" name=\"[M+37]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"-17.0265\" name=\"[M-NH3+H]+\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"-18.01057\" name=\"[M-H2O+H]+\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"-46.0055\" name=\"[M-HCOOH+H]+\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"42.0338\" name=\"[M+ACN}\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"67.9874\" name=\"[M+CHOONa] 67.9874 m/z\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"-18.01056\" name=\"[M-H2O+H]\" selected=\"true\"/>\n\
+            <adduct mass_difference=\"67.98742\" name=\"[M+CHOONa]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"34.96885\" name=\"[M+Cl]-\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"67.9874\" name=\"[M+HCOONa]\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"67.9874\" name=\"[M+HCOONa}\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"-18.0106\" name=\"[M-H2O+H]+\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"42.0338\" name=\"[M+ACN+H]+\" selected=\"false\"/>\n\
+        </parameter>\n\
+        <parameter name=\"m/z tolerance\">\n\
+            <absolutetolerance>0.003</absolutetolerance>\n\
+            <ppmtolerance>5.0</ppmtolerance>\n\
+        </parameter>\n\
+        <parameter name=\"Max relative adduct peak height\">0.4</parameter>\n\
+    </batchstep>\n\
+    <batchstep method=\"net.sf.mzmine.modules.peaklistmethods.identification.complexsearch.ComplexSearchModule\">\n\
+        <parameter name=\"Peak lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
+        <parameter name=\"Ionization method\">[M+H]+</parameter>\n\
+        <parameter name=\"Retention time tolerance\" type=\"absolute\">0.05</parameter>\n\
+        <parameter name=\"m/z tolerance\">\n\
+            <absolutetolerance>0.002</absolutetolerance>\n\
+            <ppmtolerance>5.0</ppmtolerance>\n\
+        </parameter>\n\
+        <parameter name=\"Max complex peak height\">0.5</parameter>\n\
+    </batchstep>\n\
     <batchstep method=\"io.github.mzmine.modules.dataprocessing.id_customdbsearch.CustomDBSearchModule\">\n\
         <parameter name=\"Feature lists\" type=\"BATCH_LAST_PEAKLISTS\"/>\n\
         <parameter name=\"Database file\">\n\

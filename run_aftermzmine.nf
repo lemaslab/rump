@@ -25,7 +25,7 @@
 // Those variable names which are all uppercase are channel names
 
 version='0.0.0'
-timestamp='20190916'
+timestamp='20200202'
 
 MZMINE = Channel.fromPath(params.mzmine_dir, type: 'dir') // The location of folder of MzMine
 MZMINE.into{POS_MZMINE; NEG_MZMINE} // Duplicate the MZMINE chennel into two channels, one of which deals with positive sample while the other deals with negative sample.
