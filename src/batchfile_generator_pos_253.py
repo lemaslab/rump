@@ -251,13 +251,13 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
             <adduct mass_difference=\"-17.0265\" name=\"[M-NH3+H]+\" selected=\"true\"/>\n\
             <adduct mass_difference=\"-18.01057\" name=\"[M-H2O+H]+\" selected=\"false\"/>\n\
             <adduct mass_difference=\"-46.0055\" name=\"[M-HCOOH+H]+\" selected=\"true\"/>\n\
-            <adduct mass_difference=\"42.0338\" name=\"[M+ACN}\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"42.0338\" name=\"[M+ACN}}\" selected=\"false\"/>\n\
             <adduct mass_difference=\"67.9874\" name=\"[M+CHOONa] 67.9874 m/z\" selected=\"false\"/>\n\
             <adduct mass_difference=\"-18.01056\" name=\"[M-H2O+H]\" selected=\"true\"/>\n\
             <adduct mass_difference=\"67.98742\" name=\"[M+CHOONa]\" selected=\"false\"/>\n\
             <adduct mass_difference=\"34.96885\" name=\"[M+Cl]-\" selected=\"false\"/>\n\
             <adduct mass_difference=\"67.9874\" name=\"[M+HCOONa]\" selected=\"false\"/>\n\
-            <adduct mass_difference=\"67.9874\" name=\"[M+HCOONa}\" selected=\"false\"/>\n\
+            <adduct mass_difference=\"67.9874\" name=\"[M+HCOONa}}\" selected=\"false\"/>\n\
             <adduct mass_difference=\"-18.0106\" name=\"[M-H2O+H]+\" selected=\"false\"/>\n\
             <adduct mass_difference=\"42.0338\" name=\"[M+ACN+H]+\" selected=\"false\"/>\n\
         </parameter>\n\
