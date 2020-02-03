@@ -45,7 +45,7 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     else:
         only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
-        both = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == True)]
+        both = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == False)]
 
     v2 = venn2(subsets = {'10': len(only_group1),
                           '01': len(only_group2),
