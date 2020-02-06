@@ -36,6 +36,8 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
 
+    sign_threshold = 0.05/data["number of comparisons"].iloc[0]
+
     logger.info("generating venn diagram")
 
     if BS == "1":
