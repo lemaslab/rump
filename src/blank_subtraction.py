@@ -18,10 +18,17 @@ pd.set_option('display.max_columns', 500)
 def blank_subtraction(input_file, design_file, output_file):
 
     data = pd.read_csv(input_file)
+    design = pd.read_csv(design_file)
+
+    group_names = list(set(design['group']))
+    group_names.sort()
+
+    group1_name = group_names[0]
+    group2_name = group_names[1]
 
     logger.info("start blank subtraction")
 
-    data_withBS = data[data["selected"] == 1]
+    data_withBS = data[(data[str(group1_name) + "_selected"] == 1) | (data[str(group2_name) + "_selected"] == 1)]
 
     logger.info("blank subtraction done")
 
