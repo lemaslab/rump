@@ -104,7 +104,7 @@ def add_stats(input_file, design_file, output_file, library):
     data['label'] = data.apply(lambda row: add_label(row, group1_name, group2_name), axis = 1)
     if blank_group_name in group_names:
         blank_columns = design[design.group == blank_group_name].sampleID.tolist()
-        data["selected"] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns group2_columns, blank_columns), axis = 1)
+        data["selected"] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns + group2_columns, blank_columns), axis = 1)
 
     data.to_csv(output_file, index = False)
 
