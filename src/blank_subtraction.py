@@ -15,46 +15,13 @@ import warnings
 warnings.filterwarnings('ignore')
 pd.set_option('display.max_columns', 500)
 
-def add_threshold(row, names):
-    value = np.mean(row[names]) + 3*np.std(row[names])
-    return value if value >0 else 5000 
-
-def blank_subtraction_flag(row, name_group, name_threshold, bar):
-    return (np.mean(row[name_group]) - row[name_threshold])/row[name_threshold] > bar
-
-def add_pvalue(row, left_names, right_names):
-    t, p = stats.ttest_ind(row[left_names], row[right_names])
-    return p
-
-def fold_change(row, left, right):
-    if row[right] == 0:
-        return np.inf
-    elif row[left] == 0:
-        return -np.inf
-    else:
-        result = row[left]/row[right]
-        return result if result >=1 else -1/result
-
-def add_label(row):
-    if pd.isnull(row["row identity (main ID + details)"]):
-        return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
-    else:
-        return row["row identity (main ID + details)"]
-
 def blank_subtraction(input_file, design_file, output_file):
 
     data = pd.read_csv(input_file)
-    design = pd.read_csv(design_file)
 
     logger.info("start blank subtraction")
 
-    group_names = list(set(design['group']))
-    group_names.sort()
-
-    group1_name = group_names[0]
-    group2_name = group_names[1]
-
-    data_withBS = data[(data[str(group1_name) + "_selected"] == 1) | (data[str(group2_name) + "_selected"] == 1)]
+    data_withBS = data[data["selected"] == 1]
 
     logger.info("blank subtraction done")
 

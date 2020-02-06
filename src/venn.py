@@ -39,9 +39,9 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     logger.info("generating venn diagram")
 
     if BS == "1":
-        only_group1 = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == False)]
-        only_group2 = data[(data[str(group1_name) + "_selected"] == False) & (data[str(group2_name) + "_selected"] == True)]
-        both = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == True)]
+        only_group1 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean'])]
+        only_group2 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] < data[str(group2_name) + '_mean'])]
+        both = data[data.p_value >= sign_threshold]
     else:
         only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]

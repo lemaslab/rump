@@ -38,17 +38,17 @@ def H_clustering(input_file, design_file, output_fig, only_matched, BS):
     sign_threshold = 0.05/data["number of comparisons"].iloc[0]
 
     if BS == "1":
-        only_group1 = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == False)]
-        only_group2 = data[(data[str(group1_name) + "_selected"] == False) & (data[str(group2_name) + "_selected"] == True)]
-        both = data[(data[str(group1_name) + "_selected"] == True) & (data[str(group2_name) + "_selected"] == True)]
+        only_group1 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean'])]
+        only_group2 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] < data[str(group2_name) + '_mean'])]
+        both = data[data.p_value >= sign_threshold]
     else:
         only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
         both = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == False)]
 
     if only_matched == "1":
-        both.dropna(subset = ["row identity (main ID)"], inplace = True)
-    data_filtered = copy.deepcopy(both)
+        data = data[data.ppm < 5]
+    data_filtered = copy.deepcopy(data)
     n_rows = min(50, len(data_filtered[data_filtered.p_value < sign_threshold]))
     data_filtered = data_filtered.sort_values(by = 'abs_fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')').iloc[0:n_rows]
     data_filtered.index = data_filtered.label
