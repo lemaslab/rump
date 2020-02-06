@@ -21,8 +21,12 @@ from scipy import stats
 import warnings
 warnings.filterwarnings('ignore')
 
-def blank_subtraction_flag(row, name_group, blank_group):
-    return np.quantile(row[name_group], 0.25) - (np.mean(row[blank_group] + 10*np.std(row[blank_group]))) > 0
+def add_threshold(row, names):
+    value = np.mean(row[names]) + 3*np.std(row[names])
+    return value if value >0 else 5000 
+
+def blank_subtraction_flag(row, name_group, name_threshold, bar):
+    return (np.mean(row[name_group]) - row[name_threshold])/row[name_threshold] > bar
 
 def zero_intension_flag(row, name_group):
     return np.mean(row[name_group]) <= 0
@@ -55,8 +59,6 @@ def add_ppm(row, library_df):
     diff = []
     for mz in mzs:
         diff.append(abs(mz_observe - mz))
-    if len(diff) == 0:
-        return None
     mz_theoretical = mzs[diff.index(min(diff))]
     return abs((mz_observe-mz_theoretical)*10e6/mz_theoretical)
 
@@ -69,7 +71,7 @@ def add_label(row, group1_name, group2_name):
 def add_stats(input_file, design_file, output_file, library):
 
     data = pd.read_csv(input_file)
-    data = data[~(data["row identity (main ID)"].str.contains("adduct", na = False)) | (data["row identity (main ID)"].str.contains("Complex", na = False))]
+    data = data[~(data["row identity (main ID)"].str.contains("adduct", na = False)) | (data["row identity (main ID)"].str.contains("Complex", na = False))].dropna(subset = ["row identity (main ID)"])
     data["number of comparisons"] = len(data)
 
     data_library = pd.read_csv(library)
@@ -106,7 +108,9 @@ def add_stats(input_file, design_file, output_file, library):
     data['label'] = data.apply(lambda row: add_label(row, group1_name, group2_name), axis = 1)
     if blank_group_name in group_names:
         blank_columns = design[design.group == blank_group_name].sampleID.tolist()
-        data["selected"] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns + group2_columns, blank_columns), axis = 1)
+        data['threshold'] = data.apply(lambda row: add_threshold(row, blank_columns), axis = 1)
+        data[str(group1_name) + "_selected"] = data.apply(lambda row: blank_subtraction_flag(row, group1_columns, "threshold", ratio_bar), axis = 1)
+        data[str(group2_name) + "_selected"] = data.apply(lambda row: blank_subtraction_flag(row, group2_columns, "threshold", ratio_bar), axis = 1)
 
     data.to_csv(output_file, index = False)
 
