@@ -55,6 +55,8 @@ def add_ppm(row, library_df):
     diff = []
     for mz in mzs:
         diff.append(abs(mz_observe - mz))
+    if len(diff) == 0:
+        return None
     mz_theoretical = mzs[diff.index(min(diff))]
     return abs((mz_observe-mz_theoretical)*10e6/mz_theoretical)
 
