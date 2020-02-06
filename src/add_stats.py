@@ -71,7 +71,7 @@ def add_label(row, group1_name, group2_name):
 def add_stats(input_file, design_file, output_file, library):
 
     data = pd.read_csv(input_file)
-    data = data[~(data["row identity (main ID)"].str.contains("adduct", na = False)) | (data["row identity (main ID)"].str.contains("Complex", na = False))].dropna(subset = ["row identity (main ID)"])
+    data = data[~(data["row identity (main ID)"].str.contains("adduct|Complex", na = False, regex = True))]
     data["number of comparisons"] = len(data)
 
     data_library = pd.read_csv(library)
