@@ -40,7 +40,7 @@ RUN apt-get update -qq && \
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
 RUN pip3 install --upgrade setuptools
-RUN pip3 install numpy scipy pandas 'matplotlib<3.0.0,>=2.1.1' plotly seaborn sklearn matplotlib_venn multiqc
+RUN pip3 install numpy scipy pandas 'matplotlib<3.0.0,>=2.1.1' plotly seaborn sklearn matplotlib_venn multiqc statsmodels
 RUN echo "alias python=python3" >> ~/.bash_profile
 
 # RUN bash -i -c 'wget -O libSBML-5.10.2-core-src.tar.gz http://downloads.sourceforge.net/project/sbml/libsbml/5.10.2/stable/libSBML-5.10.2-core-src.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fsbml%2Ffiles%2Flibsbml%2F5.10.2%2Fstable%2F && tar xzvf libSBML-5.10.2-core-src.tar.gz ; cd libsbml-5.10.2 && CXXFLAGS=-fPIC CFLAGS=-fPIC ./configure --prefix=/usr && make && make install && ldconfig'
@@ -70,5 +70,6 @@ COPY accessibility.properties /app
 RUN mv accessibility.properties /etc/java-8-openjdk/
 RUN pip install --upgrade setuptools
 RUN pip install mummichog
+RUN pip3 install fastcluster
 
 RUN echo "alias python=python3" >> ~/.bashrc
