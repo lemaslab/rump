@@ -38,6 +38,9 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
 
     sign_threshold = 0.05/data["number of comparisons"].iloc[0]
 
+    group1 = data[data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean']]
+    group2 = data[data[str(group1_name) + '_mean'] < data[str(group2_name) + '_mean']]
+
     logger.info("generating venn diagram")
 
     if BS == "1":
@@ -80,9 +83,9 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
 
     plt.savefig(output_fig, bbox_inches="tight")
 
-    only_group1.to_csv(group1_csv)
-    only_group2.to_csv(group2_csv)
-    both.to_csv(both_csv)
+    group1.to_csv(group1_csv)
+    group2.to_csv(group2_csv)
+    data.to_csv(both_csv)
 
     with open(group1_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
         f.write(str(0.05/len(only_group1)))
