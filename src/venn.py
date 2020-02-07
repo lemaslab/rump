@@ -44,9 +44,9 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     logger.info("generating venn diagram")
 
     if BS == "1":
-        only_group1 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean'])]
-        only_group2 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] < data[str(group2_name) + '_mean'])]
-        both = data[data.p_value >= sign_threshold]
+        only_group1 = data[(data.adjusted_p_value < 0.05) & (data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean'])]
+        only_group2 = data[(data.adjusted_p_value < 0.05) & (data[str(group1_name) + '_mean'] < data[str(group2_name) + '_mean'])]
+        both = data[data.adjusted_p_value >= 0.05]
     else:
         only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
@@ -83,16 +83,16 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
 
     plt.savefig(output_fig, bbox_inches="tight")
 
-    group1.to_csv(group1_csv)
-    group2.to_csv(group2_csv)
-    data.to_csv(both_csv)
+    group1.to_csv(group1_csv, index = False)
+    group2.to_csv(group2_csv, index = False)
+    data.to_csv(both_csv, index = False)
 
     with open(group1_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
         f.write(str(0.05/len(only_group1)))
     with open(group2_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
         f.write(str(0.05/len(only_group2)))
     with open(both_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
-        f.write(str(0.05/len(both)))
+        f.write(str(0.05/len(data)))
 
 if __name__ == '__main__':
 

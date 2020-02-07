@@ -15,6 +15,7 @@ import pandas as pd
 import numpy as np
 import csv
 from sklearn.preprocessing import StandardScaler
+from statsmodels.stats.multitest import multipletests
 import math
 from scipy import stats
 
@@ -101,11 +102,14 @@ def add_stats(input_file, design_file, output_file, library):
 
     logger.info("calculating t-test p-value")
 
-    data['p_value'] = data.apply(lambda row: add_pvalue(row, group1_columns, group2_columns), axis = 1)
+    data['p_value'] = data.apply(lambda row: add_pvalue(row, group1_columns, group2_columns), axis = 1)   
     data['t_value'] = data.apply(lambda row: add_tvalue(row, group1_columns, group2_columns), axis = 1)
+    data.dropna(subset = ["p_value"], inplace = True)
     data[str(group1_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group1_columns), axis = 1)
     data[str(group2_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group2_columns), axis = 1)
     data['label'] = data.apply(lambda row: add_label(row, group1_name, group2_name), axis = 1)
+    judge, adjust_p = multipletests(pvals = data.p_value.tolist(), alpha = 0.05, method = "fdr_bh")[:2]
+    data["adjusted_p_value"] = adjust_p
     if blank_group_name in group_names:
         blank_columns = design[design.group == blank_group_name].sampleID.tolist()
         data['threshold'] = data.apply(lambda row: add_threshold(row, blank_columns), axis = 1)

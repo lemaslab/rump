@@ -37,9 +37,9 @@ def bar_plot(input_file, design_file, output_fig, only_matched, BS):
     sign_threshold = 0.05/data["number of comparisons"].iloc[0]
 
     if BS == "1":
-        only_group1 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean'])]
-        only_group2 = data[(data.p_value < sign_threshold) & (data[str(group1_name) + '_mean'] < data[str(group2_name) + '_mean'])]
-        both = data[data.p_value >= sign_threshold]
+        only_group1 = data[(data.adjusted_p_value < 0.05) & (data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean'])]
+        only_group2 = data[(data.adjusted_p_value < 0.05) & (data[str(group1_name) + '_mean'] < data[str(group2_name) + '_mean'])]
+        both = data[data.adjusted_p_value >= 0.05]
     else:
         only_group1 = data[(data[str(group1_name) + "_zero"] == True) & (data[str(group2_name) + "_zero"] == False)]
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
