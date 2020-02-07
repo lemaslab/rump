@@ -396,9 +396,7 @@ process h_clustering_nobg {
     shell:
     """   
     python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg} -m 0 -bs 0 &&
-    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_nobg_om} -m 1 -bs 0 &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg} -m 0 -bs 0 &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg_om} -m 1 -bs 0
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_nobg} -m 0 -bs 0
 
     """
 
@@ -428,9 +426,7 @@ process h_clustering_withbg {
     shell:
     """   
     python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg} -m 0 -bs 1 &&
-    python3 ${python_hclustering} -i ${data_pos} -d ${pos_design} -o ${params.hclustering_pos_withbg_om} -m 1 -bs 1 &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -m 0 -bs 1 &&
-    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg_om} -m 1 -bs 1
+    python3 ${python_hclustering} -i ${data_neg} -d ${neg_design} -o ${params.hclustering_neg_withbg} -m 0 -bs 1
 
     """
 
@@ -526,9 +522,7 @@ process bar_plot_nobg {
     shell:
     """   
     python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_nobg} -m 0 -bs 0 &&
-    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_nobg_om} -m 1 -bs 0 &&
     python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_nobg} -m 0 -bs 0 &&
-    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_nobg_om} -m 1 -bs 0
 
     """
 
@@ -558,9 +552,7 @@ process bar_plot_withbg {
     shell:
     """   
     python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg} -m 0 -bs 1 &&
-    python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg_om} -m 1 -bs 1 &&
-    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg} -m 0 -bs 1 &&
-    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg_om} -m 1 -bs 1
+    python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg} -m 0 -bs 1
 
     """
 
@@ -671,15 +663,15 @@ process mummichog_report_nobg {
     """
     echo "generating mommichog report for peaks before blank subtraction" &&
     echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
-    group1_cutoff=`cat pos_vd_group1_nobg_cutoff.txt` &&
-    group2_cutoff=`cat pos_vd_group2_nobg_cutoff.txt` &&
-    both_cutoff=`cat pos_vd_both_nobg_cutoff.txt` &&
+//    group1_cutoff=`cat pos_vd_group1_nobg_cutoff.txt` &&
+//    group2_cutoff=`cat pos_vd_group2_nobg_cutoff.txt` &&
+//    both_cutoff=`cat pos_vd_both_nobg_cutoff.txt` &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c \$group1_cutoff &&
+    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c \$group2_cutoff &&
+    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c \$both_cutoff
+    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out}
     """
 
 }
@@ -706,15 +698,15 @@ process mummichog_report_withbg {
     """
     echo "generating mommichog report for peaks after blank subtraction" &&
     echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
-    group1_cutoff=`cat pos_vd_group1_withbg_cutoff.txt` &&
-    group2_cutoff=`cat pos_vd_group2_withbg_cutoff.txt` &&
-    both_cutoff=`cat pos_vd_both_withbg_cutoff.txt` &&
+//    group1_cutoff=`cat pos_vd_group1_withbg_cutoff.txt` &&
+//    group2_cutoff=`cat pos_vd_group2_withbg_cutoff.txt` &&
+//    both_cutoff=`cat pos_vd_both_withbg_cutoff.txt` &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c \$group1_cutoff &&
+    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c \$group2_cutoff &&
+    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c \$both_cutoff
+    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out}
     """
 
 }
