@@ -12,7 +12,7 @@ pwd; hostname; date
 
 # load modules
 ml R
-ml nextflow/19.07.0
+ml nextflow/0.26.3
 ml singularity
 SINGULARITYENV_TMPDIR=$(pwd)/tmp
 export SINGULARITYENV_TMPDIR
