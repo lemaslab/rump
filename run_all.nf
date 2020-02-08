@@ -663,9 +663,6 @@ process mummichog_report_nobg {
     """
     echo "generating mommichog report for peaks before blank subtraction" &&
     echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
-//    group1_cutoff=`cat pos_vd_group1_nobg_cutoff.txt` &&
-//    group2_cutoff=`cat pos_vd_group2_nobg_cutoff.txt` &&
-//    both_cutoff=`cat pos_vd_both_nobg_cutoff.txt` &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
     mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
@@ -698,9 +695,6 @@ process mummichog_report_withbg {
     """
     echo "generating mommichog report for peaks after blank subtraction" &&
     echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
-//    group1_cutoff=`cat pos_vd_group1_withbg_cutoff.txt` &&
-//    group2_cutoff=`cat pos_vd_group2_withbg_cutoff.txt` &&
-//    both_cutoff=`cat pos_vd_both_withbg_cutoff.txt` &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
     mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
