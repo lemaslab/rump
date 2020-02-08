@@ -48,7 +48,7 @@ def H_clustering(input_file, design_file, output_fig, only_matched, BS):
     if only_matched == "1":
         data = data[data.ppm < 5]
     data_filtered = copy.deepcopy(data)
-    n_rows = min(50, len(data_filtered[data_filtered.p_value < sign_threshold]))
+    n_rows = min(50, len(data_filtered[data_filtered.adjusted_p_value < 0.05]))
     data_filtered = data_filtered.sort_values(by = 'abs_fold_change' + '(' + str(group1_name) + ' versus ' + str(group2_name) + ')').iloc[0:n_rows]
     data_filtered.index = data_filtered.label
     data_filtered = data_filtered[group1_columns + group2_columns]
