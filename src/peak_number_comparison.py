@@ -21,13 +21,13 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
     pos.append(len(data_pos_nobg))
     data_pos_nobg_matched = data_pos_nobg[data_pos_nobg.ppm < 5]
     pos.append(len(data_pos_nobg_matched))
-    pos.append(len(data_pos_nobg_matched[data_pos_nobg_matched.p_value < 0.5]))
+    pos.append(len(data_pos_nobg_matched[data_pos_nobg_matched.adjusted_p_value < 0.05]))
     
     data_neg_nobg = pd.read_csv(neg_nobg)
     neg.append(len(data_neg_nobg))
     data_neg_nobg_matched = data_neg_nobg[data_neg_nobg.ppm < 5]
     neg.append(len(data_neg_nobg_matched))
-    neg.append(len(data_neg_nobg_matched[data_neg_nobg_matched.p_value < 0.5]))
+    neg.append(len(data_neg_nobg_matched[data_neg_nobg_matched.adjusted_p_value < 0.05]))
 
     if pos_withbg != "none":
         steps = ["before_blank_subtraction", "match_before_blank_subtraction", "significant_match_before_blank_subtraction", 
@@ -36,13 +36,13 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
         pos.append(len(data_pos_withbg))
         data_pos_withbg_matched = data_pos_withbg[data_pos_withbg.ppm < 5]
         pos.append(len(data_pos_withbg_matched))
-        pos.append(len(data_pos_withbg_matched[data_pos_withbg_matched.p_value < 0.5]))
+        pos.append(len(data_pos_withbg_matched[data_pos_withbg_matched.adjusted_p_value < 0.05]))
 
         data_neg_withbg = pd.read_csv(neg_withbg)
         neg.append(len(data_neg_withbg))
         data_neg_withbg_matched = data_neg_withbg[data_neg_withbg.ppm < 5]
         neg.append(len(data_neg_withbg_matched))
-        neg.append(len(data_neg_withbg_matched[data_neg_withbg_matched.p_value < 0.5]))
+        neg.append(len(data_neg_withbg_matched[data_neg_withbg_matched.adjusted_p_value < 0.05]))
 
     else:
         steps = ["before_blank_subtraction", "match_before_blank_subtraction", "significant_match_before_blank_subtraction"]
