@@ -61,11 +61,11 @@ def add_ppm(row, library_df):
     for mz in mzs:
         diff.append(abs(mz_observe - mz))
     mz_theoretical = mzs[diff.index(min(diff))]
-    return abs((mz_observe-mz_theoretical)*10e6/mz_theoretical)
+    return abs((mz_observe-mz_theoretical)*10e5/mz_theoretical)
 
 def add_label(row, group1_name, group2_name):
     if pd.isnull(row["row identity (main ID)"]):
-        return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2))
+        return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2)) + "/" + str(round(row["fold_change" + "(" + str(group1_name) + " versus " + str(group2_name) + ")"], 2))
     else:
         return str(row["row identity (main ID)"]) + "/" + str(round(row["fold_change" + "(" + str(group1_name) + " versus " + str(group2_name) + ")"], 2))
 
