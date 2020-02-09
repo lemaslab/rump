@@ -560,25 +560,17 @@ process mqc_figs {
     file pca_pos_withbg from PCA_POS_WITHBG
     file pca_neg_withbg from PCA_NEG_WITHBG
     file hclustering_pos_nobg from HCLUSTERING_POS_NOBG
-    file hclustering_pos_nobg_om from HCLUSTERING_POS_NOBG_OM
     file hclustering_neg_nobg from HCLUSTERING_NEG_NOBG
-    file hclustering_neg_nobg_om from HCLUSTERING_NEG_NOBG_OM
     file hclustering_pos_withbg from HCLUSTERING_POS_WITHBG
-    file hclustering_pos_withbg_om from HCLUSTERING_POS_WITHBG_OM
     file hclustering_neg_withbg from HCLUSTERING_NEG_WITHBG
-    file hclustering_neg_withbg_om from HCLUSTERING_NEG_WITHBG_OM
     file vd_pos_nobg from VD_POS_NOBG
     file vd_neg_nobg from VD_NEG_NOBG
     file vd_pos_withbg from VD_POS_WITHBG
     file vd_neg_withbg from VD_NEG_WITHBG
     file barplot_pos_nobg from BARPLOT_POS_NOBG
-    file barplot_pos_nobg_om from BARPLOT_POS_NOBG_OM
     file barplot_neg_nobg from BARPLOT_NEG_NOBG
-    file barplot_neg_nobg_om from BARPLOT_NEG_NOBG_OM
     file barplot_pos_withbg from BARPLOT_POS_WITHBG
-    file barplot_pos_withbg_om from BARPLOT_POS_WITHBG_OM
     file barplot_neg_withbg from BARPLOT_NEG_WITHBG
-    file barplot_neg_withbg_om from BARPLOT_NEG_WITHBG_OM
 
     output:
     file "*positive_with_background_subtraction_mqc.png" into MQC_FIGS
@@ -590,25 +582,17 @@ process mqc_figs {
     mv $pca_pos_withbg "PCA_for_positive_with_background_subtraction_mqc.png" &&
     mv $pca_neg_withbg "PCA_for_negative_with_background_subtraction_mqc.png" &&
     mv $hclustering_pos_nobg "Hirerchical_clustering_for_positive_no_background_subtraction_mqc.png" &&
-    mv $hclustering_pos_nobg_om "Hirerchical_clustering_for_positive_no_background_subtraction_matched_only_mqc.png" &&
     mv $hclustering_neg_nobg "Hirerchical_clustering_for_negative_no_background_subtraction_mqc.png" &&
-    mv $hclustering_neg_nobg_om "Hirerchical_clustering_for_negative_no_background_subtraction_matched_only_mqc.png" &&
     mv $hclustering_pos_withbg "Hirerchical_clustering_for_positive_with_background_subtraction_mqc.png" &&
-    mv $hclustering_pos_withbg_om "Hirerchical_clustering_for_positive_with_background_subtraction_matched_only_mqc.png" &&
     mv $hclustering_neg_withbg "Hirerchical_clustering_for_negative_with_background_subtraction_mqc.png" &&
-    mv $hclustering_neg_withbg_om "Hirerchical_clustering_for_negative_with_background_subtraction_matched_only_mqc.png" &&
     mv $vd_pos_nobg "Venn_diagram_for_positive_no_background_subtraction_mqc.png" &&
     mv $vd_neg_nobg "Venn_diagram_for_negative_no_background_subtraction_mqc.png" &&
     mv $vd_pos_withbg "Venn_diagram_for_positive_with_background_subtraction_mqc.png" &&
     mv $vd_neg_withbg "Venn_diagram_for_negative_with_background_subtraction_mqc.png" &&
     mv $barplot_pos_nobg "Bar_plot_clustering_for_positive_no_background_subtraction_mqc.png" &&
-    mv $barplot_pos_nobg_om "Bar_plot_clustering_for_positive_no_background_subtraction_matched_only_mqc.png" &&
     mv $barplot_neg_nobg "Bar_plot_clustering_for_negative_no_background_subtraction_mqc.png" &&
-    mv $barplot_neg_nobg_om "Bar_plot_clustering_for_negative_no_background_subtraction_matched_only_mqc.png" &&
     mv $barplot_pos_withbg "Bar_plot_clustering_for_positive_with_background_subtraction_mqc.png" &&
-    mv $barplot_pos_withbg_om "Bar_plot_clustering_for_positive_with_background_subtraction_matched_only_mqc.png" &&
-    mv $barplot_neg_withbg "Bar_plot_clustering_for_negative_with_background_subtraction_mqc.png" &&
-    mv $barplot_neg_withbg_om "Bar_plot_clustering_for_negative_with_background_subtraction_matched_only_mqc.png"
+    mv $barplot_neg_withbg "Bar_plot_clustering_for_negative_with_background_subtraction_mqc.png"
     """
 }
 
