@@ -389,9 +389,7 @@ process h_clustering_nobg {
 
     output:
     file params.hclustering_pos_nobg into HCLUSTERING_POS_NOBG
-    file params.hclustering_pos_nobg_om into HCLUSTERING_POS_NOBG_OM
     file params.hclustering_neg_nobg into HCLUSTERING_NEG_NOBG
-    file params.hclustering_neg_nobg_om into HCLUSTERING_NEG_NOBG_OM
 
     shell:
     """   
@@ -419,9 +417,7 @@ process h_clustering_withbg {
 
     output:
     file params.hclustering_pos_withbg into HCLUSTERING_POS_WITHBG
-    file params.hclustering_pos_withbg_om into HCLUSTERING_POS_WITHBG_OM
     file params.hclustering_neg_withbg into HCLUSTERING_NEG_WITHBG
-    file params.hclustering_neg_withbg_om into HCLUSTERING_NEG_WITHBG_OM
 
     shell:
     """   
@@ -515,9 +511,7 @@ process bar_plot_nobg {
 
     output:
     file params.barplot_pos_nobg into BARPLOT_POS_NOBG
-    file params.barplot_pos_nobg_om into BARPLOT_POS_NOBG_OM
     file params.barplot_neg_nobg into BARPLOT_NEG_NOBG
-    file params.barplot_neg_nobg_om into BARPLOT_NEG_NOBG_OM
 
     shell:
     """   
@@ -542,9 +536,7 @@ process bar_plot_withbg {
 
     output:
     file params.barplot_pos_withbg into BARPLOT_POS_WITHBG
-    file params.barplot_pos_withbg_om into BARPLOT_POS_WITHBG_OM
     file params.barplot_neg_withbg into BARPLOT_NEG_WITHBG
-    file params.barplot_neg_withbg_om into BARPLOT_NEG_WITHBG_OM
 
     when:
     params.bs == "1"
