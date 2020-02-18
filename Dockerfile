@@ -1,6 +1,4 @@
-# DO NOT EDIT FILES CALLED 'Dockerfile'; they are automatically
-# generated. Edit 'Dockerfile.in' and generate the 'Dockerfile'
-# with the 'rake' command.
+# Dockerfile for UMPIRE
 
 FROM rocker/r-ver:3.5.2
 
@@ -36,16 +34,14 @@ RUN apt-get update -qq && \
     python-pip\
     python3-pip\
     python-tk\
+    python3-tk\
 
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
+# Install python3-based necessary dependencies for UMPIRE
 RUN pip3 install --upgrade setuptools
-RUN pip3 install numpy scipy pandas 'matplotlib<3.0.0,>=2.1.1' plotly seaborn sklearn matplotlib_venn multiqc statsmodels
+RUN pip3 install 'numpy==1.18.1' 'scipy==1.4.1' 'pandas==0.25.3' 'matplotlib<3.0.0,>=2.1.1' 'plotly==4.5.0' 'seaborn==0.9.1' 'sklearn==0.22.1' matplotlib_venn 'multiqc==1.8' 'statsmodels==0.11.0' 'fastcluster==1.1.26'
 RUN echo "alias python=python3" >> ~/.bash_profile
-
-# RUN bash -i -c 'wget -O libSBML-5.10.2-core-src.tar.gz http://downloads.sourceforge.net/project/sbml/libsbml/5.10.2/stable/libSBML-5.10.2-core-src.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fsbml%2Ffiles%2Flibsbml%2F5.10.2%2Fstable%2F && tar xzvf libSBML-5.10.2-core-src.tar.gz ; cd libsbml-5.10.2 && CXXFLAGS=-fPIC CFLAGS=-fPIC ./configure --prefix=/usr && make && make install && ldconfig'
-
-# RUN R CMD javareconf
 
 ENV NETCDF_INCLUDE=/usr/include
 
@@ -59,17 +55,14 @@ RUN mkdir app
 
 # define work dir
 WORKDIR /app
-# COPY MZmine-2.28 /app
-# COPY xcms-docker.tar.gz /app
-# COPY libs.R /app
 COPY accessibility.properties /app
 
-# RUN R -f /tmp/install.R # comment out this line
-# use the following line to install required R libraries for xcms
-# RUN Rscript libs.R
+# Fix a bug for java
 RUN mv accessibility.properties /etc/java-8-openjdk/
+
+# Install mummichog
 RUN pip install --upgrade setuptools
 RUN pip install mummichog
-RUN pip3 install fastcluster
 
+# Set default Python to Python3
 RUN echo "alias python=python3" >> ~/.bashrc

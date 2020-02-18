@@ -1,8 +1,8 @@
 #!/usr/bin/env nextflow
 
 /**
-    Metabolomics Pipeline for Suptercomputers (MPS)
-    Copyright (C) lemas-research-group          
+    UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline
+    Copyright (C) LemasLab         
           
     This script is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_
 
 if (params.version) {
     System.out.println("")
-    System.out.println("METAGENOMIC PIPELINE FOR SUPERCOMPUTERS (MPS) - Version: $version ($timestamp)")
+    System.out.println("UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
     exit 1
 }
 
@@ -93,7 +93,7 @@ if (params.version) {
 
 if (params.help) {
     System.out.println("")
-    System.out.println("Metabolomics Pipeline for Suptercomputers (MPS) - Version: $version ($timestamp)")
+    System.out.println("UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
     System.out.println("This pipeline is distributed in the hope that it will be useful")
     System.out.println("but WITHOUT ANY WARRANTY. See the GNU GPL v3.0 for more details.")
     System.out.println("")
@@ -103,51 +103,19 @@ if (params.help) {
     System.out.println("[wiki placeholder]")
     System.out.println("")
     System.out.println("Usage:  ")
-    System.out.println("   nextflow run.nf [options] -with-docker galaxydream/mzmine_oldversion")
+    System.out.println("   nextflow run_all.nf [options] -with-docker galaxydream/metabolomics_pipeline")
     System.out.println("")
     System.out.println("Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:")
     System.out.println("----------------------------- common parameters ----------------------------------")
     System.out.println("    --version                               whether to show version information or not, default is null")
     System.out.println("    --help                                  whether to show help information or not, default is null")
-    System.out.println("    --input_dir_pos                         location of your input metabolomics data (positive part) folder")
-    System.out.println("    --input_dir_neg                         location of your input metabolomics data (negative part) folder")
-    System.out.println("    --mzmine_dir                            location of your MzMine software, here we use MzMine-2.28")
-    System.out.println("    --library                               location of your customized library for matching matabolites")
-    System.out.println("    --pos_config                            location of generated MzMine batchfile for positive data")
-    System.out.println("    --neg_config                            location of generated MzMine batchfile for negative data")
-    System.out.println("    --batchfile_generator                   location of the Python code for generating MzMine batchfile")
-    System.out.println("    --mzmine_result_extraction              location of the Python code for reformating MzMine processed result so that those result files can be input appropriately to R scripts for background subtraction")
-    System.out.println("    --raw_stats_merge_path                  location of the Python code for merging files of raw intension and the corresponding stats")
-    System.out.println("    --venn_path                             location of the Python code for generating venn diagram")
-    System.out.println("    --python_pca_path                       location of the Python code for generating PCA analysis result")
-    System.out.println("    --data_info                             location of the Python code for generating file regarding data information that can be parsed by MultiQC")
-    System.out.println("    --peak_number_comparison_path           location of the Python code for generating file that can be parsed by MultiQC regarding identified number of peaks corresponding to different background subtraction threshold")
-    System.out.println("    --R_01_path                             Part of the R script for background subtraction")
-    System.out.println("    --R_02_threshold_path                   Part of the R script for background subtraction")
-    System.out.println("    --R_02_blankbased_path                  Part of the R script for background subtraction")
-    System.out.println("    --R_03_anova_path                       Part of the R script for background subtraction")
-    System.out.println("    --R_03_kruskalwallis_path               Part of the R script for background subtraction")
-    System.out.println("    --R_04_path                             Part of the R script for background subtraction")
-    System.out.println("    --mqc_dir                               path of the folder containing all files that need to be parsed by MultiQC to generate the report")
-    System.out.println("    --pos_data_info_mqc                     name of the file ending with '.yaml' regarding positive data information that can be parsed by MultiQC")
-    System.out.println("    --neg_data_info_mqc                     name of the file ending with '.yaml' regarding negative data information that can be parsed by MultiQC")
-    System.out.println("    --POS_design_path                       location of the input file design file for positive data background subtraction")
-    System.out.println("    --NEG_design_path                       location of the input file design file for negative data background subtraction")
-    System.out.println("    --pos_nobg_ready                        name of the positive peak detection result (csv file) without background subtraction")
-    System.out.println("    --neg_nobg_ready                        name of the negative peak detection result (csv file) without background subtraction")
-    System.out.println("    --pos_005_withbg_ready                  name of the positive peak detection result (csv file) with a background subtraction threshold of 005")
-    System.out.println("    --neg_005_withbg_ready                  name of the negative peak detection result (csv file) with a background subtraction threshold of 005")
-    System.out.println("    --pos_100_withbg_ready                  name of the positive peak detection result (csv file) with a background subtraction threshold of 100")
-    System.out.println("    --neg_100_withbg_ready                  name of the negative peak detection result (csv file) with a background subtraction threshold of 100")
-    System.out.println("    --pos_200_withbg_ready                  name of the positive peak detection result (csv file) with a background subtraction threshold of 200")
-    System.out.println("    --neg_200_withbg_ready                  name of the negative peak detection result (csv file) with a background subtraction threshold of 200")
     System.out.println("Please refer to nextflow.config for more options.")
     System.out.println("")
     System.out.println("Container:")
     System.out.println("    Docker image to use with -with-docker|-with-singularity options is")
-    System.out.println("    'docker://galaxydream/bioconductor_metabolomics'")
+    System.out.println("    'docker://galaxydream/metabolomics_pipeline'")
     System.out.println("")
-    System.out.println("MPS supports mzXML format files.")
+    System.out.println("UMPIRE supports .mzXML format files.")
     System.out.println("")
     exit 1
 }
