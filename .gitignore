@@ -9,7 +9,6 @@ work/
 *.img
 trace*
 timeline*
-data/
 docker/
 materials/
 tmp/
