@@ -155,7 +155,7 @@ if (params.help) {
 // Process for generating MultiQC report regarding data information
 process mqc_data_info {
 
-    publishDir './results/mqc/', mode: 'copy'
+    publishDir './results/mqc/', mode: 'copy' //copy the output files to the folder "./results/mqc"
 
     input:
     file get_data_info from PYTHON_DATA_INFO // Python code for generating MultiQC file regarding data information including file name and file size.
