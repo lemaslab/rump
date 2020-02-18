@@ -1,4 +1,5 @@
 history/
+nextflow_report*
 results/
 *backups/
 logs/
