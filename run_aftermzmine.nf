@@ -462,7 +462,8 @@ process mummichog_report_nobg {
     shell:
     """
     echo "generating mommichog report for peaks before blank subtraction" &&
-    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
+    mkdir -p /root/.config/matplotlib/ &&
+    echo "backend: Agg" > /root/.config/matplotlib/matplotlibrc &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
     mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c 0.05 &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
@@ -494,7 +495,8 @@ process mummichog_report_withbg {
     shell:
     """
     echo "generating mommichog report for peaks after blank subtraction" &&
-    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
+    mkdir -p /root/.config/matplotlib/ &&
+    echo "backend: Agg" > /root/.config/matplotlib/matplotlibrc &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
     mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c 0.05 &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
