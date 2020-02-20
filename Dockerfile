@@ -64,4 +64,4 @@ RUN mv accessibility.properties /etc/java-8-openjdk/
 RUN pip install --upgrade setuptools
 RUN pip install mummichog
 
-RUN echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc
+RUN echo "backend: Agg" > /root/.config/matplotlib/matplotlibrc
