@@ -99,7 +99,7 @@ bash clear.sh
 ### Running tests on local machine
 
 ```
-nextflow run_all.nf --input_dir_pos data/sample_data/POS/ --input_dir_neg data/sample_data/NEG mzXML/NEG_HumanVSBovine --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
+nextflow run_all.nf --input_dir_pos data/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
 ```
 
 ### Running tests on high-performance computing
@@ -113,5 +113,5 @@ cd ../../
 ```
 - Run pipeline
 ```
-Nextflow run_all.nf --input_dir_pos data/sample_data/POS/ --input_dir_neg data/sample_data/NEG mzXML/NEG_HumanVSBovine --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-singularity docker://galaxydream/metabolomics_pipeline
+Nextflow run_all.nf --input_dir_pos data/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-singularity docker://galaxydream/metabolomics_pipeline
 ```

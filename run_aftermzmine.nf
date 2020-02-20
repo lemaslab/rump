@@ -63,6 +63,9 @@ POS_MZMINE_RESULT = Channel.fromPath(params.pos_mzmine_peak_output)
 NEG_MZMINE_RESULT = Channel.fromPath(params.neg_mzmine_peak_output)
 // NEG_NOBG.into{NEG_NOBG_FOR_AS; NEG_NOBG_FOR_BS; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT}
 
+// Library
+LIBRARY_STAT = Channel.fromPath(params.library)
+
 // Design files for positive data and negative data.
 POS_DESIGN = Channel.fromPath(params.POS_design_path)
 POS_DESIGN.into{POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG; POS_DESIGN_FOR_VD_NOBG; POS_DESIGN_FOR_VD_WITHBG; POS_DESIGN_FOR_BARPLOT_NOBG; POS_DESIGN_FOR_BARPLOT_WITHBG}
@@ -153,6 +156,7 @@ process add_stats {
     file pos_design from POS_DESIGN_FOR_AS
     file data_neg from NEG_MZMINE_RESULT
     file neg_design from NEG_DESIGN_FOR_AS
+    file library from LIBRARY_STAT
 
     output:
     file params.pos_data_nobg into POS_DATA_NOBG
@@ -160,8 +164,8 @@ process add_stats {
 
     shell:
     """   
-    python3 ${python_addstats} -i ${data_pos} -d ${pos_design} -o ${params.pos_data_nobg} -l $params.library &&
-    python3 ${python_addstats} -i ${data_neg} -d ${neg_design} -o ${params.neg_data_nobg} -l $params.library
+    python3 ${python_addstats} -i ${data_pos} -d ${pos_design} -o ${params.pos_data_nobg} -l ${library} &&
+    python3 ${python_addstats} -i ${data_neg} -d ${neg_design} -o ${params.neg_data_nobg} -l ${library}
 
     """
 }
@@ -447,7 +451,6 @@ process mummichog_report_nobg {
     input:
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
-//    file pos_data from POS_WITHBG_FOR_MUMMICHOG
     file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
     file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG

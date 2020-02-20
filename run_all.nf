@@ -66,6 +66,10 @@ POS_DESIGN.into{POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; P
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
 NEG_DESIGN.into{NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG; NEG_DESIGN_FOR_VD_NOBG; NEG_DESIGN_FOR_VD_WITHBG; NEG_DESIGN_FOR_BARPLOT_NOBG; NEG_DESIGN_FOR_BARPLOT_WITHBG}
 
+// Library
+LIBRARY = Channel.fromPath(params.library)
+LIBRARY.into{LIBRARY_POS; LIBRARY_NEG; LIBRARY_STAT}
+
 // Pre-build MultiQC report information
 EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
 MQC_CONFIG = Channel.fromPath(params.mqc_config)
@@ -171,6 +175,7 @@ process pos_peakDetection_mzmine {
 
     input:
     file p_b from POS_BATCHFILE // Batchfile for MzMine to process positive data.
+    file library from LIBRARY_POS // Location of library file for positive samples
     file p_m from POS_MZMINE // Folder of MzMine tool
 
     output:
@@ -181,7 +186,7 @@ process pos_peakDetection_mzmine {
     shell:
     """   
     echo "peak detection and library matching for positive data" &&
-    mv ${p_b} ${p_m} && cd ${p_m} && ./startMZmine-Linux ${p_b}
+    mv ${p_b} ${p_m} && mv ${library} ${p_m} && cd ${p_m} && ./startMZmine-Linux ${p_b}
     """
 }
 
@@ -189,6 +194,7 @@ process neg_peakDetection_mzmine {
 
     input:
     file n_b from NEG_BATCHFILE // Batchfile for MzMine to process negative data.
+    file library from LIBRARY_NEG // Location of library file for negative samples (currently still use the positive library)
     file n_m from NEG_MZMINE // Folder of MzMine tool
 
     output:
@@ -200,7 +206,7 @@ process neg_peakDetection_mzmine {
     shell:
     """   
     echo "peak detection and library matching for negative data" &&
-    mv ${n_b} ${n_m} && cd ${n_m} && ./startMZmine-Linux ${n_b}
+    mv ${n_b} ${n_m} && mv ${library} ${n_m} && cd ${n_m} && ./startMZmine-Linux ${n_b}
     """
 }
 
@@ -215,6 +221,7 @@ process add_stats {
     file pos_design from POS_DESIGN_FOR_AS
     file data_neg from NEG_MZMINE_RESULT
     file neg_design from NEG_DESIGN_FOR_AS
+    file library from LIBRARY_STAT
 
     output:
     file params.pos_data_nobg into POS_DATA_NOBG
@@ -222,8 +229,8 @@ process add_stats {
 
     shell:
     """   
-    python3 ${python_addstats} -i ${data_pos} -d ${pos_design} -o ${params.pos_data_nobg} -l $params.library &&
-    python3 ${python_addstats} -i ${data_neg} -d ${neg_design} -o ${params.neg_data_nobg} -l $params.library
+    python3 ${python_addstats} -i ${data_pos} -d ${pos_design} -o ${params.pos_data_nobg} -l ${library} &&
+    python3 ${python_addstats} -i ${data_neg} -d ${neg_design} -o ${params.neg_data_nobg} -l ${library}
 
     """
 }

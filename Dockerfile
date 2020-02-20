@@ -63,6 +63,3 @@ RUN mv accessibility.properties /etc/java-8-openjdk/
 # Install mummichog
 RUN pip install --upgrade setuptools
 RUN pip install mummichog
-
-# Set default Python to Python3
-RUN echo "alias python=python3" >> ~/.bashrc
