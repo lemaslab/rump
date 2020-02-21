@@ -88,11 +88,11 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     data.to_csv(both_csv, index = False)
 
     with open(group1_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
-        f.write(str(0.05/len(only_group1)))
+        f.write(str(0.05))
     with open(group2_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
-        f.write(str(0.05/len(only_group2)))
+        f.write(str(0.05))
     with open(both_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
-        f.write(str(0.05/len(data)))
+        f.write(str(0.05))
 
 if __name__ == '__main__':
 

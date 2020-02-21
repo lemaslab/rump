@@ -1,7 +1,13 @@
 sampleID,group
 QE2_sbs_11_1[blank]n.mzXML Peak height,zero-blank
 QE2_sbs_11_2[blank]n.mzXML Peak height,zero-blank
-QE2_sbs_11_8[9N]n.mzXML Peak height,Nicotine
-QE2_sbs_11_19[16N]n.mzXML Peak height,Nicotine
-QE2_sbs_11_9[5S]n.mzXML Peak height,Saline
-QE2_sbs_11_10[2S]n.mzXML Peak height,Saline
+QE2_sbs_11_3[blank]n.mzXML Peak height,zero-blank
+QE2_sbs_11_29[blank]n.mzXML Peak height,zero-blank
+QE2_sbs_11_8[9N]n.mzXML Peak height,group1
+QE2_sbs_11_19[16N]n.mzXML Peak height,group1
+QE2_sbs_11_20[11N]n.mzXML Peak height,group1
+QE2_sbs_11_28[12N]n.mzXML Peak height,group1
+QE2_sbs_11_11[27NOC]n.mzXML Peak height,group2
+QE2_sbs_11_12[30NOC]n.mzXML Peak height,group2
+QE2_sbs_11_15[29NOC]n.mzXML Peak height,group2
+QE2_sbs_11_22[26NOC]n.mzXML Peak height,group2
