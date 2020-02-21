@@ -1,5 +1,4 @@
-data/neg*
-data/pos*
+data/
 history/
 nextflow_report*
 results/
