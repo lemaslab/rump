@@ -40,9 +40,8 @@ RUN apt-get update -qq && \
 
 # Install python3-based necessary dependencies for UMPIRE
 RUN pip3 install --upgrade setuptools
-RUN pip3 install 'numpy==1.18.1' 'scipy==1.4.1' 'pandas==0.25.3' 'matplotlib<3.0.0,>=2.1.1' 'plotly==4.5.0' 'seaborn==0.9.1' 'sklearn==0.22.1' matplotlib_venn 'multiqc==1.8' 'statsmodels==0.11.0' 'fastcluster==1.1.26'
+RUN pip3 install 'numpy==1.18.1' 'scipy==1.4.1' 'pandas==0.25.3' 'matplotlib<3.0.0,>=2.1.1' 'plotly==4.5.0' 'seaborn==0.9.1' 'scikit-learn==0.22.1' matplotlib_venn 'multiqc==1.8' 'statsmodels==0.11.0' 'fastcluster==1.1.26'
 RUN echo "alias python=python3" >> ~/.bash_profile
-RUN echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc
 
 ENV NETCDF_INCLUDE=/usr/include
 
