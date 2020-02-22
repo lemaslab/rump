@@ -12,7 +12,7 @@ This program is released as open source software under the terms of [GNU GPL-v3.
 
 # Installing
 
-You can install bionitio directly from the source code or build and run it from within Docker container.
+UMPIRE can be run in any UNIX-like system. [Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
 
 1. Clone this repository: 
 ```
@@ -26,11 +26,10 @@ $ cd metabolomics_data_processing
 ```
 curl -s https://get.nextflow.io | bash && wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip && unzip MZmine-2.53-Linux.zip && rm MZmine-2.53-Linux.zip
 ```
-4. Pull singularity if using high-performance computing (**if using local machine, skip this step**)
+4. Pull singularity image if using high-performance computing (**if using local machine, skip this step**)
 ```
 mkdir -p work/singularity && singularity pull --name work/singularity/galaxydream-metabolomics_pipeline.img docker://galaxydream/metabolomics_pipeline
 ```
-[Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
 
 # General Behavior
 
@@ -48,8 +47,8 @@ UMPIRE accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using
 * *Student t-test*: Test if there is a significant statistical difference of certain peak intensities between the two groups of samples.
 * *Venn diagram*: Report the number of peaks that are significantly enriched in one of the groups, and the number of peaks that have no significant difference between two groups.
 * *Principal component analysis*: Dimensional reduction using the peak intensities of the two group samples, and visualize the difference.
-* *hierarchical clustering*: Cluster all samples and plot a heatmap to show the difference between samples and peaks.
-* *bar plot*: plot the metabolites with top-10 and bottom-10 fold-change for the comparison between two groups. (note: the figure will display abnormally if there is an infinite fold change value)
+* *Hierarchical clustering*: Cluster all samples and plot a heatmap to show the difference between samples and peaks.
+* *Bar plot*: plot the metabolites with top-10 and bottom-10 fold-change for the comparison between two groups. (note: the figure will display abnormally if there is an infinite fold change value)
 
 ### Process your own data
 
@@ -102,13 +101,13 @@ bash clear.sh
 ### Running tests on local machine
 
 ```
-NXF_VER=18.10.1 nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
+nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
 ```
 
 ### Running tests on high-performance computing
 
 ```
-NXF_VER=18.10.1 nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
+nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
 ```
 
 # Bug reporting and feature requests
