@@ -1,12 +1,12 @@
 sudo: required
 jdk: openjdk8
 services:
-- docker
+  - docker
 install:
-- sudo apt-get -qq update
-- sudo apt-get -qq -y install graphviz realpath
-- curl -fsSL get.nextflow.io | bash
-- mkdir -p ~/bin; cp nextflow ~/bin
+  - sudo apt-get -qq update
+  - sudo apt-get -qq -y install graphviz realpath
+  - curl -fsSL get.nextflow.io | bash
+  - mkdir -p ~/bin; cp nextflow ~/bin
 script:
-# Functional tests
-- bash functional_test/UMPIRE-test.sh
+  # Functional tests
+  - bash functional_test/UMPIRE-test.sh
