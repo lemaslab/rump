@@ -10,4 +10,4 @@ install:
   - mkdir -p ~/bin; cp nextflow ~/bin
 script:
   # Functional tests
-  - bash functional_test/UMPIRE-test.sh
+  - travis_wait 720 bash functional_test/UMPIRE-test.sh
