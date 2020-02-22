@@ -5,6 +5,7 @@ python:
   - "3.7"
 
 before_install:
+  - curl -s https://get.nextflow.io | bash
 
 script:
   # Functional tests

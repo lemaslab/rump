@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Install Nextflow
-curl -s https://get.nextflow.io | bash
-
 # Pull MZmine-2.53
 wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip && unzip MZmine-2.53-Linux.zip && rm MZmine-2.53-Linux.zip
 
