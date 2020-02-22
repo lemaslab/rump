@@ -102,13 +102,13 @@ bash clear.sh
 ### Running tests on local machine
 
 ```
-NXF_VER=18.10.1 nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
+NXF_VER=18.10.1 nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
 ```
 
 ### Running tests on high-performance computing
 
 ```
-NXF_VER=18.10.1 Nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
+NXF_VER=18.10.1 nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
 ```
 
 # Bug reporting and feature requests
