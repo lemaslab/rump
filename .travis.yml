@@ -1,12 +1,24 @@
+language: groovy
+jdk:
+  - openjdk8
 services:
   - docker
-language: python 
-python:
-  - "3.7"
-
 before_install:
-  - curl -s https://get.nextflow.io | bash
-
+  - sudo apt-get -qq update
+  - sudo apt-get -qq -y install graphviz
+  - sudo pip install awscli
+install:
+  - sudo apt-get install -y realpath
+git:
+  submodules: true
+env:
+  global:
+  - GRADLE_OPTS='-Dorg.gradle.daemon=false'
+before_script:
+  - rm $HOME/.gitconfig
+  - mkdir -p "$HOME/.nextflow" && echo "providers.github.auth='$NXF_GITHUB_ACCESS_TOKEN'" > "$HOME/.nextflow/scm"
+  - make assemble
+  - wget -qO- https://get.nextflow.io | bash
 script:
   # Functional tests
   - bash functional_test/UMPIRE-test.sh
