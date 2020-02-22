@@ -507,7 +507,16 @@ process mummichog_report_withbg {
 
 }
 
-process mummichog_report_nobg_singularity {
+if (params.use_singularity == "1") {
+    mat_config_dir = "~/.config/matplotlib/"
+}
+else {
+    mat_config_dir = "/root/.config/matplotlib/"
+}
+
+mat_confit_file = mat_config_dir + "matplotlibrc"
+
+process mummichog_report_nobg {
 
     publishDir './results/mummichog/before_blank_subtraction', mode: 'copy'
 
@@ -522,14 +531,11 @@ process mummichog_report_nobg_singularity {
     output:
     file "*" into MUMMICHOG_REPORT_NOBG
 
-    when:
-    params.use_singularity == "1"
-
     shell:
     """
     echo "generating mommichog report for peaks before blank subtraction" &&
-    mkdir -p /root/.config/matplotlib/ &&
-    echo "backend: Agg" > /root/.config/matplotlib/matplotlibrc &&
+    mkdir -p !{mat_config_dir} &&
+    echo "backend: Agg" > !{mat_config_file} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
     mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c 0.05 &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
@@ -540,7 +546,7 @@ process mummichog_report_nobg_singularity {
 
 }
 
-process mummichog_report_withbg_singularity {
+process mummichog_report_withbg {
 
     publishDir './results/mummichog/after_blank_subtraction', mode: 'copy'
 
@@ -556,13 +562,13 @@ process mummichog_report_withbg_singularity {
     file "*" into MUMMICHOG_REPORT_WITHBG
 
     when:
-    params.bs == "1" && params.use_singularity == "1"
+    params.bs == "1"
 
     shell:
     """
     echo "generating mommichog report for peaks after blank subtraction" &&
-    mkdir -p /root/.config/matplotlib/ &&
-    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
+    mkdir -p !{mat_config_dir} &&
+    echo "backend: Agg" > !{mat_config_file} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
     mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c 0.05 &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
