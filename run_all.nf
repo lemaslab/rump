@@ -657,3 +657,69 @@ process mummichog_report_withbg {
     """
 
 }
+
+process mummichog_report_nobg_singularity {
+
+    publishDir './results/mummichog/before_blank_subtraction', mode: 'copy'
+
+    input:
+
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
+    file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
+    file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
+    file pos_vd_both_nobg from POS_VD_BOTH_NOBG
+    file "*" from POS_NOBG_CUTOFFS
+
+    output:
+    file "*" into MUMMICHOG_REPORT_NOBG
+
+    when:
+    params.use_singularity == "1"
+
+    shell:
+    """
+    echo "generating mommichog report for peaks before blank subtraction" &&
+    mkdir -p /root/.config/matplotlib/ &&
+    echo "backend: Agg" > /root/.config/matplotlib/matplotlibrc &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c 0.05 &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c 0.05 &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
+    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c 0.05
+    """
+
+}
+
+process mummichog_report_withbg_singularity {
+
+    publishDir './results/mummichog/after_blank_subtraction', mode: 'copy'
+
+    input:
+
+    file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
+    file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
+    file pos_vd_group2_withbg from POS_VD_GROUP2_WITHBG
+    file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
+    file "*" from POS_WITHBG_CUTOFFS
+
+    output:
+    file "*" into MUMMICHOG_REPORT_WITHBG
+
+    when:
+    params.bs == "1" && params.use_singularity == "1"
+
+    shell:
+    """
+    echo "generating mommichog report for peaks after blank subtraction" &&
+    mkdir -p /root/.config/matplotlib/ &&
+    echo "backend: Agg" > ~/.config/matplotlib/matplotlibrc &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c 0.05 &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c 0.05 &&
+    python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
+    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c 0.05
+    """
+
+}

@@ -1,0 +1,364 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+C06010	(S)-2-Acetolactate; (S)-2-Hydroxy-2-methyl-3-oxobutanoate	2.78633135379	row1900	E688
+C00051	Reduced glutathione	4.5678820853	row4065	E177
+C02198	Thromboxane A2; (5Z,13E)-(15S)-9alpha,11alpha-Epoxy-15-hydroxythromboxa-5,13-dienoate; (5Z,9alpha,11alpha,13E,15S)-9,11-Epoxy-15-hydroxythromboxa-5,13-dien-1-oic acid	2.83044980669	row4830	E1272
+C01097	D-Tagatose 6-phosphate	3.03956291593	row6299	E1080
+C00097	L-Cysteine	2.61465437878	row1439	E1219
+C05959	11-epi-Prostaglandin F2alpha; 11-epi-Prostaglandin F2a; 11-epi-PGF2alpha; 11-epi-PGF2a	9.1760993985	row4733	E949
+C01097	D-Tagatose 6-phosphate	2.15978099945	row6528	E1080
+C01172	beta-D-glucose 6-phosphate	2.15978099945	row6528	E1080
+C05938	L-4-Hydroxyglutamate semialdehyde	3.73047512633	row5876	E912
+C00431	5-Aminopentanoate; 5-Aminopentanoic acid; 5-Aminovaleric acid	2.26262798868	row5337	E946
+CE5535		13.3517169569	row4766	E1141
+CE5537		3.4096800302	row5147	E28
+C05955	Prostaglandin C2; PGC2	4.55779759903	row2559	E28
+C00696	Prostaglandin D2	2.78438243488	row2610	E394
+C05955	Prostaglandin C2; PGC2	2.59544764799	row4284	E28
+C00427	Prostaglandin H2	2.78438243488	row2610	E394
+C00584	Prostaglandin E2	3.32780853145	row3951	E394
+C01220	1D-myo-Inositol 1,4-bisphosphate	3.41265858732	row1754	E19
+C00245	Taurine	3.95863510819	row1303	E953
+C00252	Isomaltose; Brachiose	3.95659781867	row6480	E554
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	2.15978099945	row6528	E1080
+C04006	1D-myo-Inositol 3-phosphate	2.14596415701	row1148	E1080
+C00025	L-Glutamate	5.14667083774	row974	E912
+C02165	Leukotriene B4	8.3666862556	row2816	E346
+C03546	1D-myo-Inositol 4-phosphate	2.14596415701	row1148	E1080
+C03546	1D-myo-Inositol 4-phosphate	2.15978099945	row6528	E1080
+CE5537		4.16877184213	row4111	E28
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	2.401533956	row1552	E1042
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	2.14596415701	row1148	E1080
+C00312	L-Xylulose	4.35207625052	row1202	E781
+C05356	5-Hydroperoxy-6-trans-8,11,14-cis-eicosatetraenoate	8.56387247965	row2599	E346
+C00750	Spermine	3.32316042371	row5871	E386
+C14781	15H-11,12-EETA; 15-Hydroxy-11,12-epoxyeicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyeicosa-5,8,13-trienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyicosa-5,8,13-trienoic acid	8.3666862556	row2816	E346
+C00103	D-Glucose 1-phosphate	3.03956291593	row6299	E1080
+C14814	11,14,15-THETA; 11,14,15-Trihydroxyicosatrienoic acid; (5Z,8Z,12E)-11,14,15-Trihydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-11,14,15-Trihydroxyicosa-5,8,12-trienoic acid	9.1760993985	row4733	E949
+C05963		3.52535703177	row2519	E936
+C00164	Acetoacetate	2.1802623324	row1464	E775
+C00299	Uridine	2.75674092478	row1687	E1271
+C00245	Taurine	3.38853540582	row5706	E61
+C03693	D-Mannose 1,6-bisphosphate	3.41265858732	row1754	E19
+C04853	w-hydroxyl leukotriene B4	2.368699922	row4649	E394
+CE5925		4.16877184213	row4111	E28
+C04685	(13E)-(15S)-15-Hydroxy-9-oxoprosta-10,13-dienoate; Prostaglandin A1; PGA1	7.20273727239	row6257	E346
+C03862	Dolichyl phosphate D-mannose	2.15978099945	row6528	E1080
+C00085	D-Fructose 6-phosphate	2.14596415701	row1148	E1080
+C00245	Taurine	3.79250852469	row1006	E953
+C05400	Epimelibiose	3.95659781867	row6480	E554
+CE5928		7.92175476011	row2619	E1141
+C02976	Fructose 1-phosphate	2.15978099945	row6528	E1080
+C04853	w-hydroxyl leukotriene B4	2.78438243488	row2610	E394
+C00639	Prostaglandin F2alpha; (5Z,13E)-(15S)-9alpha,11alpha,15-Trihydroxyprosta-5,13-dienoate; (+)-Prostaglandin F2a; 7-[3,5-Dihydroxy-2-(3-hydroxy-1-octenyl)cyclopentyl]-5-heptenoic acid; 9a,11a-PGF2; Amoglandin; Cyclosin; Dinoprost; Enzaprost; Enzaprost F; Panacelan; PGF2a; 9,11,15-Trihydroxy-(5Z,9a,11a,13E,15S)-prosta-5,13-dien-1-oic acid; Prostaglandin F2a; Prostin F 2 alpha; Protamodin; U 14583	3.52838642447	row4531	E949
+C01171	alpha-D-Hexose 1-phosphate	2.14596415701	row1148	E1080
+C01094	D-Fructose 1-phosphate	3.03956291593	row6299	E1080
+C00427	Prostaglandin H2	2.83044980669	row4830	E1272
+C00051	Reduced glutathione	2.78251532561	row4686	E481
+C05378	beta-D-Fructose 1,6-bisphosphate	3.41265858732	row1754	E19
+C06373	beta-D-Gal-(1->4)-D-Glc	3.95659781867	row6480	E554
+C00909	Leukotriene A4	4.19398254976	row2793	E663
+C05954	Prostaglandin B2; PGB2	4.55779759903	row2559	E28
+C04671	(5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprostanoate	2.83044980669	row4830	E1272
+C02965	D-Hexose 6-phosphate	3.03956291593	row6299	E1080
+C00183	L-Valine	2.99049078324	row4325	E331
+C00299	Uridine	4.98069992418	row115	E1210
+C06314	Lipoxin A4; LXA4; 5S,6R,15S-Trihydroxy-7E,9E,11Z,13E-eicosatetraenoic acid; (7E,9E,11Z,13E)-(5S,6R,15S)-5,6,15-Trihydroxyicosa-7,9,11,13-tetraenoic acid	3.32780853145	row3951	E394
+C00475	Cytidine	10.3208339981	row1007	E969
+C00121	D-Ribose	2.401533956	row1552	E1042
+C01312	Prostaglandin I2; (5Z,13E)-(15S)-6,9alpha-Epoxy-11alpha,15-dihydroxyprosta-5,13-dienoate; Prostacyclin; PGI2; Epoprostenol	2.78438243488	row2610	E394
+C00696	Prostaglandin D2	2.368699922	row4649	E394
+C00957	Mercaptopyruvate	2.28921186045	row373	E223
+CE5537		3.78737004648	row2563	E28
+C00387	Guanosine	2.56711845624	row1730	E349
+C00217	D-Glutamate; D-Glutamic acid; D-Glutaminic acid; D-2-Aminoglutaric acid	3.73047512633	row5876	E912
+C00349	2-Methyl-3-oxopropanoate; 3-Oxo-2-methylpropanoate; Methylmalonate semialdehyde	2.54274705646	row2496	E645
+C00959	Prostaglandin B1	8.3666862556	row2816	E346
+C00584	Prostaglandin E2	2.78438243488	row2610	E394
+C06314	Lipoxin A4; LXA4; 5S,6R,15S-Trihydroxy-7E,9E,11Z,13E-eicosatetraenoic acid; (7E,9E,11Z,13E)-(5S,6R,15S)-5,6,15-Trihydroxyicosa-7,9,11,13-tetraenoic acid	2.83044980669	row4830	E1272
+C00109	2-Oxobutanoate	2.54274705646	row2496	E645
+C00245	Taurine	3.92523475174	row1034	E953
+C04006	1D-myo-Inositol 3-phosphate	3.03956291593	row6299	E1080
+C00275	D-Mannose 6-phosphate	3.03956291593	row6299	E1080
+C04686	(13E)-(15S)-15-Hydroxy-9-oxoprosta-11,13-dienoate; Prostaglandin C1	7.20273727239	row6257	E346
+C00042	Succinate	2.60478056795	row5941	E853
+CE5535		4.16877184213	row4111	E28
+C14813	11H-14,15-EETA; 11-Hydroxy-14,15-EETA; 11-Hydroxy-14,15-epoxyeicosatrienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyicosa-5,8,12-trienoic acid	8.56387247965	row2599	E346
+C00147	Adenine	4.32362726572	row1999	E789
+C00446	alpha-D-Galactose 1-phosphate	2.15978099945	row6528	E1080
+C05957	Prostaglandin J2; PGJ2	7.92175476011	row2619	E1141
+C00243	Lactose	3.95659781867	row6480	E554
+C00183	L-Valine	2.26262798868	row5337	E946
+C04849	(5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoic acid; (5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoate; Hepoxilin A3	8.56387247965	row2599	E346
+C01177	1D-myo-Inositol 1-phosphate	3.03956291593	row6299	E1080
+C00072	L-Ascorbate	2.37538013612	row505	E1269
+C04853	w-hydroxyl leukotriene B4	3.32780853145	row3951	E394
+C05966	15(S)-HPETE; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoic acid; 15-Hydroperoxyeicosatetraenoate; 15-Hydroperoxyicosatetraenoate; 15-Hydroperoxyeicosatetraenoic acid; 15-Hydroperoxyicosatetraenoic acid; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoate	7.20273727239	row6257	E346
+C00909	Leukotriene A4	8.25682959546	row2627	E663
+C00245	Taurine	3.57716062701	row2455	E953
+C00519	Hypotaurine	4.52074647542	row4529	E371
+C00957	Mercaptopyruvate	3.43171655306	row3457	E223
+CE5537		13.3517169569	row4766	E1141
+C00696	Prostaglandin D2	3.32780853145	row3951	E394
+C00959	Prostaglandin B1	8.56387247965	row2599	E346
+C05953	Prostaglandin A2; PGA2; Medullin	3.78737004648	row2563	E28
+C05957	Prostaglandin J2; PGJ2	2.59544764799	row4284	E28
+C06315	Lipoxin B4; LXB4; 5S,14R,15S-Trihydroxy-6E,8Z,10E,12E-eicosatetraenoic acid; (6E,8Z,10E,12E)-(5S,14R,15S)-Trihydroxyicosa-6,8,10,12-tetraenoic acid	3.32780853145	row3951	E394
+C02198	Thromboxane A2; (5Z,13E)-(15S)-9alpha,11alpha-Epoxy-15-hydroxythromboxa-5,13-dienoate; (5Z,9alpha,11alpha,13E,15S)-9,11-Epoxy-15-hydroxythromboxa-5,13-dien-1-oic acid	3.32780853145	row3951	E394
+CE5928		2.59544764799	row4284	E28
+C06144	3-Butynoate	5.19627843163	row1292	E631
+C00232	Succinate semialdehyde; Succinic semialdehyde; 4-Oxobutanoate	2.54274705646	row2496	E645
+C04849	(5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoic acid; (5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoate; Hepoxilin A3	7.20273727239	row6257	E346
+C05345	beta-D-Fructose 6-phosphate	2.14596415701	row1148	E1080
+C00072	L-Ascorbate	2.71845840237	row991	E311
+C04843	(5Z,9E,14Z)-(8xi,11xi,12S)-8,11,12-Trihydroxyicosa-5,9,14-trienoate; (5Z,9E,14Z)-(8xi,11xi,12S)-8,11,12-Trihydroxyicosa-5,9,14-trienoic acid; Trioxilin A3	8.2129481934	row2542	E949
+C00636	D-Mannose 1-phosphate	3.03956291593	row6299	E1080
+CE5925		13.3517169569	row4766	E1141
+C05522	Cytosine (in DNA)	7.15639274003	row999	E722
+C05345	beta-D-Fructose 6-phosphate	2.15978099945	row6528	E1080
+C00310	D-Xylulose	4.35207625052	row1202	E781
+C05356	5-Hydroperoxy-6-trans-8,11,14-cis-eicosatetraenoate	7.20273727239	row6257	E346
+C14782	11,12,15-THETA; 11,12,15-Trihydroxyicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12,15-Trihydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,13E)-(15S)-11,12,15-Trihydroxyicosa-5,8,12-trienoic acid	9.1760993985	row4733	E949
+C05965	12(S)-HPETE; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoic acid; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoate; 12-Hydroperoxyeicosatetraenoate; 12-Hydroperoxyicosatetraenoate; 12-Hydroperoxyeicosatetraenoic acid; 12-Hydroperoxyicosatetraenoic acid	8.3666862556	row2816	E346
+C00147	Adenine	3.82380010971	row985	E782
+C05966	15(S)-HPETE; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoic acid; 15-Hydroperoxyeicosatetraenoate; 15-Hydroperoxyicosatetraenoate; 15-Hydroperoxyeicosatetraenoic acid; 15-Hydroperoxyicosatetraenoic acid; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoate	8.56387247965	row2599	E346
+C00310	D-Xylulose	2.401533956	row1552	E1042
+CE5928		4.55779759903	row2559	E28
+C04843	(5Z,9E,14Z)-(8xi,11xi,12S)-8,11,12-Trihydroxyicosa-5,9,14-trienoate; (5Z,9E,14Z)-(8xi,11xi,12S)-8,11,12-Trihydroxyicosa-5,9,14-trienoic acid; Trioxilin A3	3.52838642447	row4531	E949
+C00446	alpha-D-Galactose 1-phosphate	2.14596415701	row1148	E1080
+C05938	L-4-Hydroxyglutamate semialdehyde	5.14667083774	row974	E912
+C04741	Alprostadil; Prostaglandin E1; (13E)-(15S)-11alpha,15-Dihydroxy-9-oxoprost-13-enoate	9.1760993985	row4733	E949
+C06315	Lipoxin B4; LXB4; 5S,14R,15S-Trihydroxy-6E,8Z,10E,12E-eicosatetraenoic acid; (6E,8Z,10E,12E)-(5S,14R,15S)-Trihydroxyicosa-6,8,10,12-tetraenoic acid	2.83044980669	row4830	E1272
+C04686	(13E)-(15S)-15-Hydroxy-9-oxoprosta-11,13-dienoate; Prostaglandin C1	8.56387247965	row2599	E346
+C00183	L-Valine	2.74783773368	row3056	E376
+C05954	Prostaglandin B2; PGB2	3.4096800302	row5147	E28
+C00109	2-Oxobutanoate	3.75575601421	row2469	E775
+C05953	Prostaglandin A2; PGA2; Medullin	4.16877184213	row4111	E28
+C14813	11H-14,15-EETA; 11-Hydroxy-14,15-EETA; 11-Hydroxy-14,15-epoxyeicosatrienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyicosa-5,8,12-trienoic acid	7.20273727239	row6257	E346
+C00584	Prostaglandin E2	2.20349016116	row6134	E1272
+CE5928		3.4096800302	row5147	E28
+C04853	w-hydroxyl leukotriene B4	2.20349016116	row6134	E1272
+C00719	Glycine betaine	2.74783773368	row3056	E376
+C00349	2-Methyl-3-oxopropanoate; 3-Oxo-2-methylpropanoate; Methylmalonate semialdehyde	3.75575601421	row2469	E775
+C01171	alpha-D-Hexose 1-phosphate	2.15978099945	row6528	E1080
+glac	D-glucurono-6,3-lactone	2.38972940088	row984	E311
+C00618	3-Dehydro-L-gulonate	3.21466724992	row5056	E92
+C00668	alpha-D-Glucose 6-phosphate	2.14596415701	row1148	E1080
+C05954	Prostaglandin B2; PGB2	3.78737004648	row2563	E28
+C14814	11,14,15-THETA; 11,14,15-Trihydroxyicosatrienoic acid; (5Z,8Z,12E)-11,14,15-Trihydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-11,14,15-Trihydroxyicosa-5,8,12-trienoic acid	8.2129481934	row2542	E949
+C00559	Deoxyadenosine	2.39454163897	row4791	E35
+C00275	D-Mannose 6-phosphate	2.14596415701	row1148	E1080
+C02670	D-glucurono-6,3-lactone	2.71845840237	row991	E311
+C00181	D-Xylose	2.401533956	row1552	E1042
+C05963		2.57581114107	row5974	E936
+C00085	D-Fructose 6-phosphate	3.03956291593	row6299	E1080
+C05356	5-Hydroperoxy-6-trans-8,11,14-cis-eicosatetraenoate	8.3666862556	row2816	E346
+C00051	Reduced glutathione	2.58953079334	row2241	E481
+C04063	D-myo-Inositol 3,4-bisphosphate; 1D-myo-Inositol 3,4-bisphosphate; Inositol 3,4-bisphosphate	3.41265858732	row1754	E19
+C06315	Lipoxin B4; LXB4; 5S,14R,15S-Trihydroxy-6E,8Z,10E,12E-eicosatetraenoic acid; (6E,8Z,10E,12E)-(5S,14R,15S)-Trihydroxyicosa-6,8,10,12-tetraenoic acid	2.368699922	row4649	E394
+CE3075	sorbitol 3-phosphate	2.14596415701	row1148	E1080
+C00665	D-Fructose 2,6-bisphosphate	3.41265858732	row1754	E19
+C05963		3.2019751079	row5306	E936
+CE5925		3.78737004648	row2563	E28
+C05345	beta-D-Fructose 6-phosphate	3.03956291593	row6299	E1080
+C04654	(13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate	3.32780853145	row3951	E394
+C00696	Prostaglandin D2	2.83044980669	row4830	E1272
+CE5535		3.78737004648	row2563	E28
+C00089	Sucrose	3.95659781867	row6480	E554
+C06144	3-Butynoate	2.4974019527	row5124	E914
+C00719	Glycine betaine	2.26262798868	row5337	E946
+C01817		3.48396960878	row1875	E523
+C00164	Acetoacetate	3.75575601421	row2469	E775
+C05957	Prostaglandin J2; PGJ2	13.3517169569	row4766	E1141
+C05965	12(S)-HPETE; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoic acid; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoate; 12-Hydroperoxyeicosatetraenoate; 12-Hydroperoxyicosatetraenoate; 12-Hydroperoxyeicosatetraenoic acid; 12-Hydroperoxyicosatetraenoic acid	8.56387247965	row2599	E346
+C00097	L-Cysteine	2.20255191023	row3896	E1014
+C02976	Fructose 1-phosphate	2.14596415701	row1148	E1080
+C04853	w-hydroxyl leukotriene B4	2.83044980669	row4830	E1272
+C05522	Cytosine (in DNA)	2.92517939947	row4057	E628
+C00085	D-Fructose 6-phosphate	2.15978099945	row6528	E1080
+C03862	Dolichyl phosphate D-mannose	2.14596415701	row1148	E1080
+C05953	Prostaglandin A2; PGA2; Medullin	3.4096800302	row5147	E28
+C04671	(5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprostanoate	2.20349016116	row6134	E1272
+C00259	L-Arabinose	4.35207625052	row1202	E781
+CE5535		7.92175476011	row2619	E1141
+C03785	D-Tagatose 1,6-bisphosphate	3.41265858732	row1754	E19
+C05955	Prostaglandin C2; PGC2	7.92175476011	row2619	E1141
+C00661	DL-Glyceraldehyde 3-phosphate	3.21876363753	row4952	E1147
+C02965	D-Hexose 6-phosphate	2.14596415701	row1148	E1080
+C14781	15H-11,12-EETA; 15-Hydroxy-11,12-epoxyeicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyeicosa-5,8,13-trienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyicosa-5,8,13-trienoic acid	8.56387247965	row2599	E346
+C00097	L-Cysteine	2.93053443665	row3447	E1014
+C01171	alpha-D-Hexose 1-phosphate	3.03956291593	row6299	E1080
+glac	D-glucurono-6,3-lactone	2.37538013612	row505	E1269
+C01172	beta-D-glucose 6-phosphate	2.14596415701	row1148	E1080
+C01097	D-Tagatose 6-phosphate	2.14596415701	row1148	E1080
+C15650	2,3-diketo-5-methylthio-1-phosphopentane	2.19999978766	row1830	E848
+C04843	(5Z,9E,14Z)-(8xi,11xi,12S)-8,11,12-Trihydroxyicosa-5,9,14-trienoate; (5Z,9E,14Z)-(8xi,11xi,12S)-8,11,12-Trihydroxyicosa-5,9,14-trienoic acid; Trioxilin A3	9.1760993985	row4733	E949
+CE5925		7.92175476011	row2619	E1141
+C04686	(13E)-(15S)-15-Hydroxy-9-oxoprosta-11,13-dienoate; Prostaglandin C1	8.3666862556	row2816	E346
+C00147	Adenine	3.0822080999	row4497	E1132
+C00217	D-Glutamate; D-Glutamic acid; D-Glutaminic acid; D-2-Aminoglutaric acid	5.14667083774	row974	E912
+C05955	Prostaglandin C2; PGC2	3.78737004648	row2563	E28
+C00959	Prostaglandin B1	7.20273727239	row6257	E346
+C00542	Cystathionine	2.9755465734	row2099	E1220
+C04006	1D-myo-Inositol 3-phosphate	2.15978099945	row6528	E1080
+C14782	11,12,15-THETA; 11,12,15-Trihydroxyicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12,15-Trihydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,13E)-(15S)-11,12,15-Trihydroxyicosa-5,8,12-trienoic acid	8.2129481934	row2542	E949
+C00349	2-Methyl-3-oxopropanoate; 3-Oxo-2-methylpropanoate; Methylmalonate semialdehyde	2.1802623324	row1464	E775
+C00957	Mercaptopyruvate	3.85950620323	row2761	E223
+C03862	Dolichyl phosphate D-mannose	3.03956291593	row6299	E1080
+C00431	5-Aminopentanoate; 5-Aminopentanoic acid; 5-Aminovaleric acid	2.2940872535	row4604	E946
+C04062	D-myo-Inositol 1,3-bisphosphate; 1D-myo-Inositol 1,3-bisphosphate; myo-Inositol 1,3-bisphosphate; Inositol 1,3-bisphosphate	3.41265858732	row1754	E19
+C06314	Lipoxin A4; LXA4; 5S,6R,15S-Trihydroxy-7E,9E,11Z,13E-eicosatetraenoic acid; (7E,9E,11Z,13E)-(5S,6R,15S)-5,6,15-Trihydroxyicosa-7,9,11,13-tetraenoic acid	2.368699922	row4649	E394
+C00103	D-Glucose 1-phosphate	2.14596415701	row1148	E1080
+C06472	L-Iduronic acid	3.21466724992	row5056	E92
+C00427	Prostaglandin H2	3.32780853145	row3951	E394
+C00668	alpha-D-Glucose 6-phosphate	3.03956291593	row6299	E1080
+C00103	D-Glucose 1-phosphate	2.15978099945	row6528	E1080
+C00900	2-Acetolactate	2.88430084103	row2731	E711
+C00097	L-Cysteine	3.63581184348	row1350	E293
+C00097	L-Cysteine	3.33377182948	row1476	E586
+C00508	L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose	2.401533956	row1552	E1042
+C05954	Prostaglandin B2; PGB2	13.3517169569	row4766	E1141
+C14813	11H-14,15-EETA; 11-Hydroxy-14,15-EETA; 11-Hydroxy-14,15-epoxyeicosatrienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-14,15-Epoxy-11-hydroxyicosa-5,8,12-trienoic acid	8.3666862556	row2816	E346
+C00312	L-Xylulose	2.401533956	row1552	E1042
+C00897	alpha-Maltose; alpha-Malt sugar	3.95659781867	row6480	E554
+C00881	Deoxycytidine	2.1919691435	row4356	E1261
+C04671	(5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprostanoate	2.368699922	row4649	E394
+C00636	D-Mannose 1-phosphate	2.15978099945	row6528	E1080
+C00232	Succinate semialdehyde; Succinic semialdehyde; 4-Oxobutanoate	3.75575601421	row2469	E775
+C01312	Prostaglandin I2; (5Z,13E)-(15S)-6,9alpha-Epoxy-11alpha,15-dihydroxyprosta-5,13-dienoate; Prostacyclin; PGI2; Epoprostenol	2.20349016116	row6134	E1272
+C00164	Acetoacetate	2.54274705646	row2496	E645
+C00259	L-Arabinose	2.401533956	row1552	E1042
+C01817		3.24912358737	row2352	E523
+C03735	alpha-D-Hexose 6-phosphate	2.14596415701	row1148	E1080
+C14781	15H-11,12-EETA; 15-Hydroxy-11,12-epoxyeicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyeicosa-5,8,13-trienoic acid; (5Z,8Z,13E)-(15S)-11,12-Epoxy-15-hydroxyicosa-5,8,13-trienoic acid	7.20273727239	row6257	E346
+C01177	1D-myo-Inositol 1-phosphate	2.15978099945	row6528	E1080
+C05954	Prostaglandin B2; PGB2	7.92175476011	row2619	E1141
+C00431	5-Aminopentanoate; 5-Aminopentanoic acid; 5-Aminovaleric acid	2.15297797827	row2456	E376
+C05955	Prostaglandin C2; PGC2	4.16877184213	row4111	E28
+CE5928		13.3517169569	row4766	E1141
+C04654	(13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate	2.83044980669	row4830	E1272
+C00696	Prostaglandin D2	2.20349016116	row6134	E1272
+C05965	12(S)-HPETE; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoic acid; (5Z,8Z,10E,14Z)-(12S)-12-Hydroperoxyicosa-5,8,10,14-tetraenoate; 12-Hydroperoxyeicosatetraenoate; 12-Hydroperoxyicosatetraenoate; 12-Hydroperoxyeicosatetraenoic acid; 12-Hydroperoxyicosatetraenoic acid	7.20273727239	row6257	E346
+C02965	D-Hexose 6-phosphate	2.15978099945	row6528	E1080
+C01094	D-Fructose 1-phosphate	2.14596415701	row1148	E1080
+C15651	2-Hydroxy-3-keto-5-methylthiopentenyl-1-phosphate; 2-Hydroxy-5-(methylthio)-3-oxopent-1-enyl phosphate	2.19999978766	row1830	E848
+C06315	Lipoxin B4; LXB4; 5S,14R,15S-Trihydroxy-6E,8Z,10E,12E-eicosatetraenoic acid; (6E,8Z,10E,12E)-(5S,14R,15S)-Trihydroxyicosa-6,8,10,12-tetraenoic acid	2.20349016116	row6134	E1272
+CE3075	sorbitol 3-phosphate	3.03956291593	row6299	E1080
+C02198	Thromboxane A2; (5Z,13E)-(15S)-9alpha,11alpha-Epoxy-15-hydroxythromboxa-5,13-dienoate; (5Z,9alpha,11alpha,13E,15S)-9,11-Epoxy-15-hydroxythromboxa-5,13-dien-1-oic acid	2.78438243488	row2610	E394
+CE5537		2.59544764799	row4284	E28
+CE3075	sorbitol 3-phosphate	2.15978099945	row6528	E1080
+C04685	(13E)-(15S)-15-Hydroxy-9-oxoprosta-10,13-dienoate; Prostaglandin A1; PGA1	8.3666862556	row2816	E346
+C00427	Prostaglandin H2	2.368699922	row4649	E394
+CE5535		3.4096800302	row5147	E28
+C14782	11,12,15-THETA; 11,12,15-Trihydroxyicosatrienoic acid; (5Z,8Z,13E)-(15S)-11,12,15-Trihydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,13E)-(15S)-11,12,15-Trihydroxyicosa-5,8,12-trienoic acid	3.52838642447	row4531	E949
+CE5535		4.55779759903	row2559	E28
+C02291	L-Cystathionine	2.9755465734	row2099	E1220
+C05959	11-epi-Prostaglandin F2alpha; 11-epi-Prostaglandin F2a; 11-epi-PGF2alpha; 11-epi-PGF2a	8.2129481934	row2542	E949
+C00446	alpha-D-Galactose 1-phosphate	3.03956291593	row6299	E1080
+CE5925		4.55779759903	row2559	E28
+C01235	1-alpha-D-Galactosyl-myo-inositol; 1-O-alpha-D-Galactosyl-D-myo-inositol; Galactinol	3.95659781867	row6480	E554
+C06002	(S)-Methylmalonate semialdehyde	2.54274705646	row2496	E645
+C04849	(5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoic acid; (5Z,9E,14Z)-(8xi,11R,12S)-11,12-Epoxy-8-hydroxyicosa-5,9,14-trienoate; Hepoxilin A3	8.3666862556	row2816	E346
+C00719	Glycine betaine	2.99049078324	row4325	E331
+C00275	D-Mannose 6-phosphate	2.15978099945	row6528	E1080
+CE5928		4.16877184213	row4111	E28
+glac	D-glucurono-6,3-lactone	2.71845840237	row991	E311
+C02976	Fructose 1-phosphate	3.03956291593	row6299	E1080
+C06002	(S)-Methylmalonate semialdehyde	2.1802623324	row1464	E775
+C00957	Mercaptopyruvate	2.71284582678	row3442	E223
+C00957	Mercaptopyruvate	3.49942836286	row6347	E223
+C04741	Alprostadil; Prostaglandin E1; (13E)-(15S)-11alpha,15-Dihydroxy-9-oxoprost-13-enoate	3.52838642447	row4531	E949
+C06315	Lipoxin B4; LXB4; 5S,14R,15S-Trihydroxy-6E,8Z,10E,12E-eicosatetraenoic acid; (6E,8Z,10E,12E)-(5S,14R,15S)-Trihydroxyicosa-6,8,10,12-tetraenoic acid	2.78438243488	row2610	E394
+C01083	Trehalose	3.95659781867	row6480	E554
+C00183	L-Valine	2.2940872535	row4604	E946
+C02670	D-glucurono-6,3-lactone	2.37538013612	row505	E1269
+C00185	Cellobiose	3.95659781867	row6480	E554
+C05966	15(S)-HPETE; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoic acid; 15-Hydroperoxyeicosatetraenoate; 15-Hydroperoxyicosatetraenoate; 15-Hydroperoxyeicosatetraenoic acid; 15-Hydroperoxyicosatetraenoic acid; (5Z,8Z,11Z,13E)-(15S)-15-Hydroperoxyicosa-5,8,11,13-tetraenoate	8.3666862556	row2816	E346
+C05955	Prostaglandin C2; PGC2	13.3517169569	row4766	E1141
+C00380	Cytosine	2.92517939947	row4057	E628
+C05953	Prostaglandin A2; PGA2; Medullin	7.92175476011	row2619	E1141
+C00668	alpha-D-Glucose 6-phosphate	2.15978099945	row6528	E1080
+C00900	2-Acetolactate	2.78633135379	row1900	E688
+C00121	D-Ribose	4.35207625052	row1202	E781
+CE5537		7.92175476011	row2619	E1141
+C00109	2-Oxobutanoate	2.1802623324	row1464	E775
+C00957	Mercaptopyruvate	2.17288976422	row3455	E223
+C05953	Prostaglandin A2; PGA2; Medullin	4.55779759903	row2559	E28
+C01312	Prostaglandin I2; (5Z,13E)-(15S)-6,9alpha-Epoxy-11alpha,15-dihydroxyprosta-5,13-dienoate; Prostacyclin; PGI2; Epoprostenol	3.32780853145	row3951	E394
+C05954	Prostaglandin B2; PGB2	4.16877184213	row4111	E28
+C05957	Prostaglandin J2; PGJ2	4.55779759903	row2559	E28
+CE5925		3.4096800302	row5147	E28
+C00191	D-Glucuronate	3.21466724992	row5056	E92
+C00431	5-Aminopentanoate; 5-Aminopentanoic acid; 5-Aminovaleric acid	2.74783773368	row3056	E376
+C06314	Lipoxin A4; LXA4; 5S,6R,15S-Trihydroxy-7E,9E,11Z,13E-eicosatetraenoic acid; (7E,9E,11Z,13E)-(5S,6R,15S)-5,6,15-Trihydroxyicosa-7,9,11,13-tetraenoic acid	2.20349016116	row6134	E1272
+CE5928		3.78737004648	row2563	E28
+C04654	(13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate	2.368699922	row4649	E394
+C00111	Dihydroxyacetone phosphate	3.21876363753	row4952	E1147
+C00026	2-Oxoglutarate	2.32595976844	row2656	E483
+C00208	Maltose	3.95659781867	row6480	E554
+C05957	Prostaglandin J2; PGJ2	3.78737004648	row2563	E28
+C05953	Prostaglandin A2; PGA2; Medullin	2.59544764799	row4284	E28
+C05959	11-epi-Prostaglandin F2alpha; 11-epi-Prostaglandin F2a; 11-epi-PGF2alpha; 11-epi-PGF2a	3.52838642447	row4531	E949
+C02670	D-glucurono-6,3-lactone	2.38972940088	row984	E311
+C00957	Mercaptopyruvate	2.14833808076	row474	E223
+C00584	Prostaglandin E2	2.83044980669	row4830	E1272
+C04741	Alprostadil; Prostaglandin E1; (13E)-(15S)-11alpha,15-Dihydroxy-9-oxoprost-13-enoate	8.2129481934	row2542	E949
+C01231	alpha-D-Glucose 1,6-bisphosphate; alpha-D-Glucose 1,6-biphosphate	3.41265858732	row1754	E19
+C06010	(S)-2-Acetolactate; (S)-2-Hydroxy-2-methyl-3-oxobutanoate	2.88430084103	row2731	E711
+C00232	Succinate semialdehyde; Succinic semialdehyde; 4-Oxobutanoate	2.1802623324	row1464	E775
+C06314	Lipoxin A4; LXA4; 5S,6R,15S-Trihydroxy-7E,9E,11Z,13E-eicosatetraenoic acid; (7E,9E,11Z,13E)-(5S,6R,15S)-5,6,15-Trihydroxyicosa-7,9,11,13-tetraenoic acid	2.78438243488	row2610	E394
+C00639	Prostaglandin F2alpha; (5Z,13E)-(15S)-9alpha,11alpha,15-Trihydroxyprosta-5,13-dienoate; (+)-Prostaglandin F2a; 7-[3,5-Dihydroxy-2-(3-hydroxy-1-octenyl)cyclopentyl]-5-heptenoic acid; 9a,11a-PGF2; Amoglandin; Cyclosin; Dinoprost; Enzaprost; Enzaprost F; Panacelan; PGF2a; 9,11,15-Trihydroxy-(5Z,9a,11a,13E,15S)-prosta-5,13-dien-1-oic acid; Prostaglandin F2a; Prostin F 2 alpha; Protamodin; U 14583	8.2129481934	row2542	E949
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	4.35207625052	row1202	E781
+C00181	D-Xylose	4.35207625052	row1202	E781
+C00170	5-Methylthioadenosine	5.17977449329	row3799	E700
+C05402	Melibiose	3.95659781867	row6480	E554
+C00519	Hypotaurine	5.63560067145	row1201	E371
+C00025	L-Glutamate	3.73047512633	row5876	E912
+C04671	(5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprostanoate	3.32780853145	row3951	E394
+C04671	(5Z)-(15S)-11alpha-Hydroxy-9,15-dioxoprostanoate	2.78438243488	row2610	E394
+C00302	DL-Glutamate; DL-Glutaminic acid; 2-Aminoglutaric acid; Glutamate	5.14667083774	row974	E1041
+CE5925		2.59544764799	row4284	E28
+C01094	D-Fructose 1-phosphate	2.15978099945	row6528	E1080
+C00262	Hypoxanthine	2.37090871142	row1269	E277
+C05957	Prostaglandin J2; PGJ2	4.16877184213	row4111	E28
+C03735	alpha-D-Hexose 6-phosphate	3.03956291593	row6299	E1080
+C01172	beta-D-glucose 6-phosphate	3.03956291593	row6299	E1080
+C00385	Xanthine	3.79710879615	row1225	E67
+C05954	Prostaglandin B2; PGB2	2.59544764799	row4284	E28
+C00508	L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose	4.35207625052	row1202	E781
+C05963		7.89928560782	row2642	E1254
+C01177	1D-myo-Inositol 1-phosphate	2.14596415701	row1148	E1080
+C02170	Methylmalonate; Methylmalonic acid	2.60478056795	row5941	E853
+C06006	(S)-2-Aceto-2-hydroxybutanoate; (S)-2-Hydroxy-2-ethyl-3-oxobutanoate	6.30820601561	row2025	E55
+C03735	alpha-D-Hexose 6-phosphate	2.15978099945	row6528	E1080
+C05955	Prostaglandin C2; PGC2	3.4096800302	row5147	E28
+C00639	Prostaglandin F2alpha; (5Z,13E)-(15S)-9alpha,11alpha,15-Trihydroxyprosta-5,13-dienoate; (+)-Prostaglandin F2a; 7-[3,5-Dihydroxy-2-(3-hydroxy-1-octenyl)cyclopentyl]-5-heptenoic acid; 9a,11a-PGF2; Amoglandin; Cyclosin; Dinoprost; Enzaprost; Enzaprost F; Panacelan; PGF2a; 9,11,15-Trihydroxy-(5Z,9a,11a,13E,15S)-prosta-5,13-dien-1-oic acid; Prostaglandin F2a; Prostin F 2 alpha; Protamodin; U 14583	9.1760993985	row4733	E949
+C00072	L-Ascorbate	2.38972940088	row984	E311
+CE5535		2.59544764799	row4284	E28
+C04654	(13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate	2.20349016116	row6134	E1272
+C00183	L-Valine	2.15297797827	row2456	E376
+C00584	Prostaglandin E2	2.368699922	row4649	E394
+C00719	Glycine betaine	2.2940872535	row4604	E946
+C02198	Thromboxane A2; (5Z,13E)-(15S)-9alpha,11alpha-Epoxy-15-hydroxythromboxa-5,13-dienoate; (5Z,9alpha,11alpha,13E,15S)-9,11-Epoxy-15-hydroxythromboxa-5,13-dien-1-oic acid	2.368699922	row4649	E394
+CE5537		4.55779759903	row2559	E28
+C02198	Thromboxane A2; (5Z,13E)-(15S)-9alpha,11alpha-Epoxy-15-hydroxythromboxa-5,13-dienoate; (5Z,9alpha,11alpha,13E,15S)-9,11-Epoxy-15-hydroxythromboxa-5,13-dien-1-oic acid	2.20349016116	row6134	E1272
+C04654	(13E)-11alpha-Hydroxy-9,15-dioxoprost-13-enoate	2.78438243488	row2610	E394
+C01312	Prostaglandin I2; (5Z,13E)-(15S)-6,9alpha-Epoxy-11alpha,15-dihydroxyprosta-5,13-dienoate; Prostacyclin; PGI2; Epoprostenol	2.368699922	row4649	E394
+C00427	Prostaglandin H2	2.20349016116	row6134	E1272
+C00909	Leukotriene A4	3.52063321895	row2969	E663
+C02165	Leukotriene B4	8.56387247965	row2599	E346
+C00719	Glycine betaine	2.15297797827	row2456	E376
+C02165	Leukotriene B4	7.20273727239	row6257	E346
+C00354	D-Fructose 1,6-bisphosphate	3.41265858732	row1754	E19
+C00118	Glyceraldehyde 3-phosphate	3.21876363753	row4952	E1147
+C01312	Prostaglandin I2; (5Z,13E)-(15S)-6,9alpha-Epoxy-11alpha,15-dihydroxyprosta-5,13-dienoate; Prostacyclin; PGI2; Epoprostenol	2.83044980669	row4830	E1272
+C05953	Prostaglandin A2; PGA2; Medullin	13.3517169569	row4766	E1141
+C00245	Taurine	2.50437597242	row5991	E785
+C06002	(S)-Methylmalonate semialdehyde	3.75575601421	row2469	E775
+C14814	11,14,15-THETA; 11,14,15-Trihydroxyicosatrienoic acid; (5Z,8Z,12E)-11,14,15-Trihydroxyeicosa-5,8,12-trienoic acid; (5Z,8Z,12E)-11,14,15-Trihydroxyicosa-5,8,12-trienoic acid	3.52838642447	row4531	E949
+C04685	(13E)-(15S)-15-Hydroxy-9-oxoprosta-10,13-dienoate; Prostaglandin A1; PGA1	8.56387247965	row2599	E346
+C00097	L-Cysteine	2.46529240224	row1781	E1014
+C03546	1D-myo-Inositol 4-phosphate	3.03956291593	row6299	E1080
+C05957	Prostaglandin J2; PGJ2	3.4096800302	row5147	E28
+C00431	5-Aminopentanoate; 5-Aminopentanoic acid; 5-Aminovaleric acid	2.99049078324	row4325	E331
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	3.03956291593	row6299	E1080
+C00636	D-Mannose 1-phosphate	2.14596415701	row1148	E1080

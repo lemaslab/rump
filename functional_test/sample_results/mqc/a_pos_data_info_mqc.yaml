@@ -1,0 +1,56 @@
+id: 'download_links_p'
+section_name: 'p data information'
+description: ''
+plot_type: 'table'
+pconfig:
+    id: 'download_links_table'
+    namespace: 'Download links'
+    title: 'p data information'
+    scale: false
+data:
+   QE2_sbs_11_11[27NOC].mzXML:
+        size: 82.94 MB
+   QE2_sbs_11_12[30NOC].mzXML:
+        size: 86.39 MB
+   QE2_sbs_11_15[29NOC].mzXML:
+        size: 86.65 MB
+   QE2_sbs_11_16[blank].mzXML:
+        size: 77.31 MB
+   QE2_sbs_11_19[16N].mzXML:
+        size: 80.37 MB
+   QE2_sbs_11_1[blank].mzXML:
+        size: 71.86 MB
+   QE2_sbs_11_20[11N].mzXML:
+        size: 80.78 MB
+   QE2_sbs_11_22[26NOC].mzXML:
+        size: 84.28 MB
+   QE2_sbs_11_23[28NOC].mzXML:
+        size: 84.27 MB
+   QE2_sbs_11_28[12N].mzXML:
+        size: 81.69 MB
+   QE2_sbs_11_29[blank].mzXML:
+        size: 73.41 MB
+   QE2_sbs_11_2[blank].mzXML:
+        size: 69.64 MB
+   QE2_sbs_11_32[15N].mzXML:
+        size: 78.6 MB
+   QE2_sbs_11_33[25NOC].mzXML:
+        size: 79.79 MB
+   QE2_sbs_11_36[31NOC].mzXML:
+        size: 87.66 MB
+   QE2_sbs_11_3[blank].mzXML:
+        size: 69.49 MB
+   QE2_sbs_11_40[13N].mzXML:
+        size: 83.45 MB
+   QE2_sbs_11_41[32NOC].mzXML:
+        size: 84.66 MB
+   QE2_sbs_11_42[blank].mzXML:
+        size: 75.65 MB
+   QE2_sbs_11_46[14N].mzXML:
+        size: 79.73 MB
+   QE2_sbs_11_7[10N].mzXML:
+        size: 87.78 MB
+   QE2_sbs_11_8[9N].mzXML:
+        size: 84.93 MB
+   Total:
+        size: 1.73 GB

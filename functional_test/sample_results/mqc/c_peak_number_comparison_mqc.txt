@@ -1,0 +1,19 @@
+# plot_type: 'table'
+# section_name: 'Number of peaks before and after background subtraction (BS)'
+# description: 'Number of peaks before and after BS'
+# pconfig:
+#     namespace: 'Cust Data'
+# headers:
+#     col1:
+#         title: 'Positive'
+#         description: 'Number of peaks detected for positive data'
+#     col2:
+#         title: 'Negative'
+#         description: 'Number of peaks detected for negative data'
+Steps            col1            col2
+before_blank_subtraction            14391            3301            
+match_before_blank_subtraction            130            4            
+significant_match_before_blank_subtraction            6            1            
+after_blank_subtraction            834            601            
+match_after_blank_subtraction            71            0            
+significant_match_after_blank_subtraction            6            0            

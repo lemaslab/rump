@@ -14,17 +14,23 @@ This program is released as open source software under the terms of [GNU GPL-v3.
 
 You can install bionitio directly from the source code or build and run it from within Docker container.
 
-Clone this repository: 
+1. Clone this repository: 
 ```
 $ git clone https://github.com/GalaxyDream/metabolomics_data_processing.git
 ```
-
-Move into the repository directory:
+2. Move into the repository directory:
 ```
 $ cd metabolomics_data_processing
 ```
-
-[Nextflow](https://www.nextflow.io/) and [Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
+3. Download [Nextflow](https://www.nextflow.io/) and [MZmine-2.53](https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip) to the repository
+```
+curl -s https://get.nextflow.io | bash && wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip && unzip MZmine-2.53-Linux.zip && rm MZmine-2.53-Linux.zip
+```
+4. Pull singularity if using high-performance computing (**if using local machine, skip this step**)
+```
+mkdir -p work/singularity && singularity pull --name work/singularity/galaxydream-metabolomics_pipeline.img docker://galaxydream/metabolomics_pipeline
+```
+[Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
 
 # General Behavior
 
@@ -55,11 +61,7 @@ Nextflow run_all.nf -with-docker galaxydream/metabolomics_pipeline
 ```
 - Process your data with default parameters using high-performance computing
 ```
-mkdir -p work/singularity &&
-cd work/singularity &&
-singularity pull --name galaxydream-metabolomics_pipeline.img docker://galaxydream/metabolomics_pipeline &&
-cd ../../ &&
-Nextflow run_all.nf -with-singularity docker://galaxydream/metabolomics_pipeline
+Nextflow run_all.nf --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
 ```
 
 ### Process dataframe generatd by MZmine-2.53
@@ -93,25 +95,24 @@ bash clear.sh
 
 ### Test data
 
-- Sample test input files are provided in the `data/sample_data/POS` and `data/sample_data/NEG` folders, which are from [Metabolomics Workbench PR000188](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR000188)
-- Design files are `data/sample_data/pos_design.csv` and `data/sample_data/neg_design.csv`
+- Sample test input files are provided in the `functional_test/sample_data/POS` and `functional_test/sample_data/NEG` folders, which are from [Metabolomics Workbench PR000188](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR000188).
+- Design files are `functional_test/sample_data/pos_design.csv` and `functional_test/sample_data/neg_design.csv`.
+- It may take around 6 hours to finish if using default resource settings in `nextflow.config`. See `functional_test/sample_Nextflow_output/timeline.html` for detail.
 
 ### Running tests on local machine
 
 ```
-nextflow run_all.nf --input_dir_pos data/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
+NXF_VER=18.10.1 nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
 ```
 
 ### Running tests on high-performance computing
 
-- Pull docker container to `work/singularity/` folder
 ```
-mkdir -p work/singularity &&
-cd work/singularity &&
-singularity pull --name galaxydream-metabolomics_pipeline.img docker://galaxydream/metabolomics_pipeline &&
-cd ../../
+NXF_VER=18.10.1 Nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
 ```
-- Run pipeline
-```
-Nextflow run_all.nf --input_dir_pos data/sample_data/POS/ --input_dir_neg data/sample_data/NEG --POS_design_path data/sample_data/pos_design.csv --NEG_design_path data/sample_data/neg_design.csv -with-singularity docker://galaxydream/metabolomics_pipeline
-```
+
+# Bug reporting and feature requests
+
+Please submit bug reports and feature requests to the issue tracker on GitHub:
+
+[UMPIRE issue tracker](https://github.com/GalaxyDream/metabolomics_data_processing/issues)
