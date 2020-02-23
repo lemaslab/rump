@@ -61,7 +61,7 @@ def bar_plot(input_file, design_file, output_fig, only_matched, BS):
         data_matched = data[data.ppm < 5]
     else:
         data_matched = data
-    data_matched_sign = data_matched[data_matched.p_value < sign_threshold]
+    data_matched_sign = data_matched[data_matched.adjusted_p_value < 0.05]
 
     logger.info("generating bar plot")
 
