@@ -47,7 +47,6 @@ def bar_plot(input_file, design_file, output_fig, only_matched, BS):
     data = pd.read_csv(input_file)
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
-    sign_threshold = 0.05/data["number of comparisons"].iloc[0]
 
     if BS == "1":
         only_group1 = data[(data.adjusted_p_value < 0.05) & (data[str(group1_name) + '_mean'] > data[str(group2_name) + '_mean'])]

@@ -109,6 +109,10 @@ def pca_2g(input_file, design_file, output_fig):
     ratio_bar = 100
 
     data_pca = pd.read_csv(input_file)
+    if len(data_pca) <= 2:
+        logger.info("empty fig")
+        plt.savefig(output_fig)
+        exit()
 #    data_pca.columns = data_pca.columns.str.replace("\"", "")
 
     group1_columns = design[design.group == group1_name].sampleID.tolist()
