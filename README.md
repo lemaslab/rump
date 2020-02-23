@@ -1,7 +1,7 @@
-# UMPIRE
-
 [![travis](https://travis-ci.com/GalaxyDream/UMPIRE.svg?branch=master)](https://travis-ci.com/GalaxyDream/UMPIRE)
 [![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/GalaxyDream/UMPIRE/blob/master/LICENSE)
+
+# Overview
 
 Data processing for metabolomics data. Pipeline overview:
 
