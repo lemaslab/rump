@@ -11,6 +11,7 @@ Usage       : python batchfile_generator_neg_253.py -x $batchfile_output_locatio
                                                     -i $input_negative_data_location 
                                                     -l $library_location 
                                                     -o $output_peak_table_location
+                                                    -n $number_of_input_files_wanted
 '''
 
 import os
@@ -20,13 +21,15 @@ import logging.handlers
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
-def batchfile_generator(xml_file, input_dir, library, output_csv):
+def batchfile_generator(xml_file, input_dir, library, output_csv, n):
 
 #    output = os.path.abspath(output_csv)
 
     input_files = [os.path.abspath(os.path.join(input_dir, f)) for f in os.listdir(input_dir)]
     input_str = ""
     for i in input_files:
+        if i == int(n):
+            break
         input_str += "            <file>" + i + "</file>\n"
 
     with open(xml_file, "w+") as f:
@@ -342,13 +345,15 @@ if __name__ == '__main__':
     parser.add_argument(
         '-x', '--x_output', help="define the location of the xml file that needs to be generated;", dest = "x_output", default="config.xml", required = False)
     parser.add_argument(
-        '-l', '--library', help="define the location of the library file;", dest = "library", default="../data/Positive_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv", required = False)
+        '-l', '--library', help="define the location of the library file;", dest = "library", default="Negative_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv", required = False)
     parser.add_argument(
         '-i', '--input', help="define the location of input folder;", default="../../../data/metabolomics/fraction/grp1_fat/", required = False)
     parser.add_argument(
         '-o', '--output', help="define the location of output csv file;", default="../results/test.csv", required = False)
+    parser.add_argument(
+        '-n', '--n_files', help="define the number of input files wanted;", dest = "n_files", default="10000", required = False)
     
     args = parser.parse_args()
-    batchfile_generator(args.x_output, args.input, args.library, args.output)
+    batchfile_generator(args.x_output, args.input, args.library, args.output, args.n_files)
 
 

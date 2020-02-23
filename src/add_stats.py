@@ -106,6 +106,9 @@ def add_stats(input_file, design_file, output_file, library):
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
 
+    group1_columns = list(set(group1_columns) & set(data.columns))
+    group2_columns = list(set(group2_columns) & set(data.columns)) 
+
     data[str(group1_name) + '_mean'] = data[group1_columns].mean(axis = 1)
     data[str(group2_name) + '_mean'] = data[group2_columns].mean(axis = 1)
 

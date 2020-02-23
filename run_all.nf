@@ -115,6 +115,7 @@ if (params.help) {
     System.out.println("    --input_dir_neg                         folder location for positive data, default is 'data/NEG'")
     System.out.println("    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'")
     System.out.println("    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'")
+    System.out.println("    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05")
     System.out.println("    --version                               whether to show version information or not, default is null")
     System.out.println("    --help                                  whether to show help information or not, default is null")
     System.out.println("Please refer to nextflow.config for more options.")
@@ -635,11 +636,11 @@ process mummichog_report_nobg {
     mkdir -p !{mat_config_dir_nobg} &&
     echo "backend: Agg" > !{mat_config_file_nobg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c 0.05 &&
+    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c 0.05 &&
+    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c 0.05
+    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
@@ -670,11 +671,11 @@ process mummichog_report_withbg {
     mkdir -p !{mat_config_dir_withbg} &&
     echo "backend: Agg" > !{mat_config_file_withbg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c 0.05 &&
+    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c 0.05 &&
+    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c 0.05
+    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
