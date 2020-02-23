@@ -101,7 +101,7 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
                 <parameter name=\"Derivative threshold level\"/>\n\
             </module>\n\
             <module name=\"Local minimum search\">\n\
-                <parameter name=\"Chromatographic threshold\">0.0095</parameter>\n\
+                <parameter name=\"Chromatographic threshold\">0.95</parameter>\n\
                 <parameter name=\"Search minimum in RT range (min)\">0.05</parameter>\n\
                 <parameter name=\"Minimum relative height\">5.0E-4</parameter>\n\
                 <parameter name=\"Minimum absolute height\">30000.0</parameter>\n\

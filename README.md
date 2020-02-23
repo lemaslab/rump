@@ -16,11 +16,11 @@ UMPIRE can be run in any UNIX-like system. [Docker](https://www.docker.com/) (or
 
 1. Clone this repository: 
 ```
-$ git clone https://github.com/GalaxyDream/metabolomics_data_processing.git
+$ git clone https://github.com/GalaxyDream/UMPIRE.git
 ```
 2. Move into the repository directory:
 ```
-$ cd metabolomics_data_processing
+$ cd UMPIRE
 ```
 3. Download [Nextflow](https://www.nextflow.io/) and [MZmine-2.53](https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip) to the repository
 ```
