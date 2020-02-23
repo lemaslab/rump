@@ -167,8 +167,8 @@ process batchfile_generation_mzmine {
     shell:
     """  
     echo "setting parameters for MZmine" &&
-    python ${batchfile_generator_pos} -x ${params.pos_config} -i ${pos_data_dir} -l $params.library -o $params.pos_mzmine_peak_output &&
-    python ${batchfile_generator_neg} -x ${params.neg_config} -i ${neg_data_dir} -l $params.library -o $params.neg_mzmine_peak_output
+    python ${batchfile_generator_pos} -x ${params.pos_config} -i ${pos_data_dir} -l $params.pos_library -o $params.pos_mzmine_peak_output &&
+    python ${batchfile_generator_neg} -x ${params.neg_config} -i ${neg_data_dir} -l $params.neg_library -o $params.neg_mzmine_peak_output
 
     """
 }
