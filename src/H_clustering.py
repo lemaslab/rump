@@ -74,7 +74,7 @@ def H_clustering(input_file, design_file, output_fig, only_matched, BS):
 
     logger.info(data_filtered.head())
 
-    if len(data_filtered) == 0:
+    if len(data_filtered) <= 2:
         logger.info("empty fig")
         plt.savefig(output_fig)
         exit()

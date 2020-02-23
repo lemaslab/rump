@@ -72,11 +72,13 @@ def add_ppm(row, library_df):
     diff = []
     for mz in mzs:
         diff.append(abs(mz_observe - mz))
+    if len(diff) == 0:
+        return None
     mz_theoretical = mzs[diff.index(min(diff))]
     return abs((mz_observe-mz_theoretical)*10e5/mz_theoretical)
 
 def add_label(row, group1_name, group2_name):
-    if pd.isnull(row["row identity (main ID)"]):
+    if pd.isnull(row["row identity (main ID)"]) or row["row identity (main ID)"] == "nan" or row["row identity (main ID)"] == None:
         return str(round(row["row m/z"],2)) + "/" + str(round(row["row retention time"], 2)) + "/" + str(round(row["fold_change" + "(" + str(group1_name) + " versus " + str(group2_name) + ")"], 2))
     else:
         return str(row["row identity (main ID)"]) + "/" + str(round(row["fold_change" + "(" + str(group1_name) + " versus " + str(group2_name) + ")"], 2))
@@ -84,6 +86,7 @@ def add_label(row, group1_name, group2_name):
 def add_stats(input_file, design_file, output_file, library):
 
     data = pd.read_csv(input_file)
+    data["row identity (main ID)"] = data["row identity (main ID)"].apply(str)
     data = data[~(data["row identity (main ID)"].str.contains("adduct|Complex", na = False, regex = True))]
     data["number of comparisons"] = len(data)
 
