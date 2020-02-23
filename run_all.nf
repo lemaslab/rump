@@ -601,13 +601,16 @@ process report_generator {
 }
 
 if (params.use_singularity == "1") {
-    mat_config_dir = "~/.config/matplotlib/"
+    MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
+    MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
 }
 else {
-    mat_config_dir = "/root/.config/matplotlib/"
+    MAT_CONFIG_DIR = Channel.from('/root/.config/matplotlib/')
+    MAT_CONFIG_FILE = Channel.from('/root/.config/matplotlib/matplotlibrc')
 }
 
-mat_confit_file = mat_config_dir + "matplotlibrc"
+MAT_CONFIG_DIR.into{MAT_CONFIG_DIR_NOBG; MAT_CONFIG_DIR_WITHBG}
+MAT_CONFIG_FILE.into{MAT_CONFIG_FILE_NOBG; MAT_CONFIG_FILE_WITHBG}
 
 process mummichog_report_nobg {
 
@@ -619,6 +622,8 @@ process mummichog_report_nobg {
     file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
     file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG
+    file mat_config_dir_nobg from MAT_CONFIG_DIR_NOBG
+    file mat_config_file_nobg from MAT_CONFIG_FILE_NOBG
     file "*" from POS_NOBG_CUTOFFS
 
     output:
@@ -627,8 +632,8 @@ process mummichog_report_nobg {
     shell:
     """
     echo "generating mommichog report for peaks before blank subtraction" &&
-    mkdir -p !{mat_config_dir} &&
-    echo "backend: Agg" > !{mat_config_file} &&
+    mkdir -p !{mat_config_dir_nobg} &&
+    echo "backend: Agg" > !{mat_config_file_nobg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
     mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c 0.05 &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
@@ -649,6 +654,8 @@ process mummichog_report_withbg {
     file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
     file pos_vd_group2_withbg from POS_VD_GROUP2_WITHBG
     file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
+    file mat_config_dir_withbg from MAT_CONFIG_DIR_WITHBG
+    file mat_config_file_withbg from MAT_CONFIG_FILE_WITHBG
     file "*" from POS_WITHBG_CUTOFFS
 
     output:
@@ -660,8 +667,8 @@ process mummichog_report_withbg {
     shell:
     """
     echo "generating mommichog report for peaks after blank subtraction" &&
-    mkdir -p !{mat_config_dir} &&
-    echo "backend: Agg" > !{mat_config_file} &&
+    mkdir -p !{mat_config_dir_withbg} &&
+    echo "backend: Agg" > !{mat_config_file_withbg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
     mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c 0.05 &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
