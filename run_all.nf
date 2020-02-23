@@ -2,7 +2,10 @@
 
 /**
     UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline
-    Copyright (C) LemasLab         
+    Description : A Nextflow-based reproducible pipeline for untargeted metabolomics data analysis
+    Copyright   : (C) LemasLab
+    Author      : Xinsong Du
+    License     : GNU GPL-v3.0 License
           
     This script is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -11,15 +14,15 @@
     
     This script is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU General Public License for more details.
     
     You should have received a copy of the GNU General Public License
     along with this script.  If not, see <http://www.gnu.org/licenses/>.
     
     For any bugs or problems found, please contact us at
-    - [email placeholder]; 
-    - [github placeholder]
+    - xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu; 
+    - https://github.com/GalaxyDream/UMPIRE
 */
 
 // Those variable names which are all uppercase are channel names
@@ -623,8 +626,8 @@ process mummichog_report_nobg {
     file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
     file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG
-    file mat_config_dir_nobg from MAT_CONFIG_DIR_NOBG
-    file mat_config_file_nobg from MAT_CONFIG_FILE_NOBG
+    val mat_config_dir_nobg from MAT_CONFIG_DIR_NOBG
+    val mat_config_file_nobg from MAT_CONFIG_FILE_NOBG
     file "*" from POS_NOBG_CUTOFFS
 
     output:
@@ -655,8 +658,8 @@ process mummichog_report_withbg {
     file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
     file pos_vd_group2_withbg from POS_VD_GROUP2_WITHBG
     file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
-    file mat_config_dir_withbg from MAT_CONFIG_DIR_WITHBG
-    file mat_config_file_withbg from MAT_CONFIG_FILE_WITHBG
+    val mat_config_dir_withbg from MAT_CONFIG_DIR_WITHBG
+    val mat_config_file_withbg from MAT_CONFIG_FILE_WITHBG
     file "*" from POS_WITHBG_CUTOFFS
 
     output:
