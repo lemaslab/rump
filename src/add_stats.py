@@ -109,8 +109,8 @@ def add_stats(input_file, design_file, output_file, library):
     group1_columns = list(set(group1_columns) & set(data.columns))
     group2_columns = list(set(group2_columns) & set(data.columns)) 
 
-    data[str(group1_name) + '_mean'] = data[group1_columns].mean(axis = 1)
-    data[str(group2_name) + '_mean'] = data[group2_columns].mean(axis = 1)
+#    data[str(group1_name) + '_mean'] = data[group1_columns].mean(axis = 1)
+#    data[str(group2_name) + '_mean'] = data[group2_columns].mean(axis = 1)
 
     logger.info("calculating fold change")
 
