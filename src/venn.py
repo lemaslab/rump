@@ -66,11 +66,6 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
         only_group2 = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == True)]
         both = data[(data[str(group1_name) + "_zero"] == False) & (data[str(group2_name) + "_zero"] == False)]
 
-    if len(both) * len(only_group1) * len(only_group2) == 0:
-        logger.info("empty fig")
-        plt.savefig(output_fig)
-        exit()
-
     group1.to_csv(group1_csv, index = False)
     group2.to_csv(group2_csv, index = False)
     data.to_csv(both_csv, index = False)
@@ -81,6 +76,11 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
         f.write(str(0.05))
     with open(both_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
         f.write(str(0.05))
+
+    if len(both) * len(only_group1) * len(only_group2) == 0:
+        logger.info("empty fig")
+        plt.savefig(output_fig)
+        exit()
 
     v2 = venn2(subsets = {'10': len(only_group1),
                           '01': len(only_group2),
