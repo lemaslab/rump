@@ -1,6 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Description : This code generate file that can be parsed by MultiQC, including number of peaks in different data analysis stage
+Copyright   : (c) LemasLab, 02/23/2020
+Author      : Xinsong Du
+License     : GNU GPL-v3.0 License 
+Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
+Usage       : python peak_number_comparison.py -i1 $peak_table_for_positive_before_blank_subtraction
+                                               -i2 $peak_table_for_negative_before_blank_subtraction
+                                               -i3 $peak_table_for_positive_after_blank_subtraction
+                                               -i4 $peak_table_for_negative_after_blank_subtraction
+                                               -o $output_file
+'''
+
 import os
 import logging
 import logging.handlers

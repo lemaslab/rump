@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Description : This code generates batchfile for MZmine-2.53 to process negative data
+Copyright   : (c) LemasLab, 02/23/2020
+Author      : Xinsong Du
+License     : GNU GPL-v3.0 License 
+Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
+Usage       : python batchfile_generator_pos_253.py -x $batchfile_output_location 
+                                                    -i $input_negative_data_location 
+                                                    -l $library_location 
+                                                    -o $output_peak_table_location
+'''
+
 import os
 import logging
 import logging.handlers

@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Description : This code generates yaml file that can be parsed by MultiQC, including input data information
+Copyright   : (c) LemasLab, 02/23/2020
+Author      : Xinsong Du
+License     : GNU GPL-v3.0 License 
+Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
+Usage       : python data_info.py -i $input_data_location 
+                                  -o $output_yaml_file
+                                  -n $ion_mode
+'''
+
 import os
 import logging
 import logging.handlers

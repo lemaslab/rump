@@ -1,6 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Description : This code generates two-group comparison venn diagram for MZmine-2.53 to process positive data
+Copyright   : (c) LemasLab, 02/23/2020
+Author      : Xinsong Du
+License     : GNU GPL-v3.0 License 
+Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
+Usage       : python venn.py -i $input_peak_table 
+                             -d $design_file_location 
+                             -o $output_figure_location 
+                             -m $only_use_identified_metabolites_or_not 
+                             -bs $do_blank_subtraction_or_not
+                             -g1 $peak_table_for_metabolites_enriched_in_group1
+                             -g2 $peak_table_for_metabolites_enriched_in_group1
+                             -bt $peak_table_for_metabolites_have_similar_volume_in_two_groups
+'''
+
 import os
 import logging
 import logging.handlers

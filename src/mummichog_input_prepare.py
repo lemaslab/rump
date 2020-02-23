@@ -1,6 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Description : This code generate file that can be used by mummichog for pathway analysi, according to peak table
+Copyright   : (c) LemasLab, 02/23/2020
+Author      : Xinsong Du
+License     : GNU GPL-v3.0 License 
+Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
+Usage       : python mummichog_input_prepare.py -i $input_peak_table
+                                                -o $output_file
+'''
+
 import os
 import logging
 import logging.handlers
