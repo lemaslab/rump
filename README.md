@@ -1,4 +1,7 @@
-# Overview
+# UMPIRE
+
+[![travis](https://travis-ci.com/GalaxyDream/UMPIRE.svg?branch=master)](https://travis-ci.com/GalaxyDream/UMPIRE)
+[![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/GalaxyDream/UMPIRE/blob/master/LICENSE)
 
 Data processing for metabolomics data. Pipeline overview:
 
@@ -8,7 +11,7 @@ Data processing for metabolomics data. Pipeline overview:
 
 # Licence
 
-This program is released as open source software under the terms of [GNU GPL-v3.0 License](https://github.com/GalaxyDream/metabolomics_data_processing/blob/master/LICENSE).
+This program is released as open source software under the terms of [GNU GPL-v3.0 License](https://github.com/GalaxyDream/UMPIRE/blob/master/LICENSE).
 
 # Installing
 
