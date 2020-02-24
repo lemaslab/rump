@@ -7,8 +7,6 @@ Data processing for metabolomics data. Pipeline overview:
 
 ![alt text](https://github.com/GalaxyDream/metabolomics_data_processing/blob/master/figs/pipeline.png)
 
----
-
 # Licence
 
 This program is released as open source software under the terms of [GNU GPL-v3.0 License](https://github.com/GalaxyDream/UMPIRE/blob/master/LICENSE).
