@@ -29,7 +29,7 @@ curl -s https://get.nextflow.io | bash && wget https://github.com/mzmine/mzmine2
 ```
 4. Pull singularity image if using high-performance computing (**if using local machine, skip this step**)
 ```
-mkdir -p work/singularity && singularity pull --name work/singularity/galaxydream-metabolomics_pipeline.img docker://galaxydream/metabolomics_pipeline
+mkdir -p work/singularity && singularity pull --name work/singularity/xinsongdu-lemaslab_reump.img docker://xinsongdu/lemaslab_reump:v0.0.0
 ```
 
 # General Behavior
@@ -78,11 +78,11 @@ Negative mode:
 - Create design files for positve data and negative data, indicating the group of each file. Sample design file can be found in `data/sample_data/pos_design.csv` and `data/sample_data/neg_design.csv`
 - Process your data with default parameters using local machine
 ```
-Nextflow run_all.nf -with-docker galaxydream/metabolomics_pipeline
+Nextflow run_all.nf -with-docker xinsongdu/lemaslab_reump:v0.0.0
 ```
 - Process your data with default parameters using high-performance computing (It is recommended to maximize CPU and memory in pos_peakDetection_mzmine and neg_peakDetection_mzmine processes in `nextflow.config` if using high-performance computing)
 ```
-Nextflow run_all.nf --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
+Nextflow run_all.nf --use_singularity 1 -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
 ```
 
 ### Process dataframe generatd by MZmine-2.53
@@ -91,7 +91,7 @@ Nextflow run_all.nf --use_singularity 1 -with-singularity docker://galaxydream/m
 - Create design files describing the group of each column of positive/negative data, save them to `data/pos_design.csv` and `data/neg_design.csv`
 - Get statistical analysis and pathway analysis
 ```
-Nextflow run_aftermzmine.nf -with-docker galaxydream/metabolomics_pipeline
+Nextflow run_aftermzmine.nf -with-docker xinsongdu/lemaslab_reump:v0.0.0
 ```
 
 ### Help message
@@ -123,13 +123,13 @@ bash clear.sh
 ### Running tests on local machine
 
 ```
-nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker galaxydream/metabolomics_pipeline
+nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker xinsongdu/lemaslab_reump:v0.0.0
 ```
 
 ### Running tests on high-performance computing
 
 ```
-nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://galaxydream/metabolomics_pipeline
+nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
 ```
 
 # Bug reporting and feature requests
