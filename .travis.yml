@@ -10,5 +10,5 @@ install:
   - mkdir -p ~/bin; cp nextflow ~/bin
 script:
   # Functional tests
-  - travis_wait 35 bash .travis/UMPIRE-test_all.sh
-  - bash .travis/UMPIRE-test_aftermzmine.sh
+  - travis_wait 35 bash .travis/ReUMP-test_all.sh
+  - bash .travis/ReUMP-test_aftermzmine.sh
