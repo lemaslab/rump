@@ -1,5 +1,5 @@
-[![travis](https://travis-ci.com/GalaxyDream/UMPIRE.svg?branch=master)](https://travis-ci.com/GalaxyDream/UMPIRE)
-[![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/GalaxyDream/UMPIRE/blob/master/LICENSE)
+[![travis](https://travis-ci.com/lemaslab/UMPIRE.svg?branch=master)](https://travis-ci.com/lemaslab/UMPIRE)
+[![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/UMPIRE/blob/master/LICENSE)
 
 # Overview
 
@@ -36,12 +36,33 @@ mkdir -p work/singularity && singularity pull --name work/singularity/galaxydrea
 
 UMPIRE accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); and pathway analysis are done with [mummichog](http://mummichog.org/).
 
-### Default parameter settings for MZmine-2.53:
+#### Default parameter settings for MZmine-2.53 (the following parameters are specifically for data processed by [SECIM Core](http://secim.ufl.edu/)):
 
-- Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; MS level: 1)
+Positive ion mode:
+- Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; Scans: MS level - 1)
 - Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.002 m/z or 5.0 ppm; Suffix: "chromatograms-1E5")
 - Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
-- Chromatogram deconvolution (Suffix: "deconvolutedTG-dd"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.05; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
+- Chromatogram deconvolution (Suffix: "deconvoluted"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.05; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
+- Isotopic peak grouper (Name suffix: deisopoted; m/z tolerance: 0.002 m/z or 5.0 ppm; Retention time tolerance: 0.05; Monotonic shape: false; Maximum charge: 3; Representative isotope: Most intense; Remove original peaklist: true)
+- Join aligner (Feature list name: Aligned feature list; m/z tolerance: 0.003 m/z or 5.0 ppm; Weight for m/z: 20.0; Retention time tolerance: 0.05; Weight for RT: 20.0; Require same charge state: false; Require same ID: false; Compare isotope pattern: false; compare spectra similarity: false)
+- Peak finder (Name suffix: gap-filled; intensity tolerance: 0.25; m/z tolerance: 0.003 m/z or 5.0 ppm; Retention time tolerance: absolute, 0.05; RT correction: false; Parallel: false; Remove original feature list: false)
+- Duplicate peak filter (Name suffix: filtered; Filter mode: NEW AVERAGE; m/z tolerance: 0.002 m/z or 5.0 ppm; RT tolerance: absolute, 0.05; Require same identification: false; Remove original peaklist: false)
+- Adduct search (RT tolerance: absolute, 0.05; select all Adducts; m/z tolerance: 0.003 m/z or 5.0 ppm; Max relative adduct peak height: 0.4)
+- Complex search (Ionization method: [M+H]+; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.002 m/z or 5.0 ppm; Max complex peak height: 5.0)
+- Custom database search (m/z tolerance: 0.001 m/z or 5.0 ppm; Retention time tolerance: absolute, 0.2)
+
+Negative mode:
+- Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; Scans: MS level - 1)
+- Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.005 m/z or 10.0 ppm; Suffix: "chromatograms-1E5")
+- Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
+- Chromatogram deconvolution (Suffix: "deconvoluted"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.2; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
+- Isotopic peak grouper (Name suffix: deisopoted; m/z tolerance: 0.005 m/z or 10.0 ppm; Retention time tolerance: 0.05; Monotonic shape: false; Maximum charge: 2; Representative isotope: Most intense; Remove original peaklist: true)
+- Join aligner (Feature list name: Aligned feature list; m/z tolerance: 0.005 m/z or 10.0 ppm; Weight for m/z: 20.0; Retention time tolerance: 0.05; Weight for RT: 15.0; Require same charge state: false; Require same ID: false; Compare isotope pattern: false; compare spectra similarity: false)
+- Peak finder (Name suffix: gap-filled; intensity tolerance: 0.25; m/z tolerance: 0.005 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.3; RT correction: false; Parallel: false; Remove original feature list: false)
+- Duplicate peak filter (Name suffix: filtered; Filter mode: NEW AVERAGE; m/z tolerance: 0.003 m/z or 10.0 ppm; RT tolerance: absolute, 0.05; Require same identification: false; Remove original peaklist: false)
+- Adduct search (RT tolerance: absolute, 0.05; select all Adducts; m/z tolerance: 0.003 m/z or 10.0 ppm; Max relative adduct peak height: 0.4)
+- Complex search (Ionization method: [M-H]-; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.003 m/z or 10.0 ppm; Max complex peak height: 0.4)
+- Custom database search (m/z tolerance: 0.003 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.2)
 
 ### Following statistics are currently included in UMPIRE
 
