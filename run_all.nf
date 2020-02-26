@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 
 /**
-    UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline
+    ReUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline
     Description : A Nextflow-based reproducible pipeline for untargeted metabolomics data analysis
     Copyright   : (C) LemasLab
     Author      : Xinsong Du
@@ -22,7 +22,7 @@
     
     For any bugs or problems found, please contact us at
     - xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu; 
-    - https://github.com/GalaxyDream/UMPIRE
+    - https://github.com/lemaslab/UMPIRE
 */
 
 // Those variable names which are all uppercase are channel names
@@ -604,7 +604,7 @@ process report_generator {
 
 }
 
-if (params.use_singularity == "1") {
+if (params.container != "Docker") {
     MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
     MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
 }
