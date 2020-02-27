@@ -90,7 +90,7 @@ PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_
 
 if (params.version) {
     System.out.println("")
-    System.out.println("UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
+    System.out.println("ReUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
     exit 1
 }
 
