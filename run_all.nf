@@ -125,7 +125,7 @@ if (params.help) {
     System.out.println("")
     System.out.println("Container:")
     System.out.println("    Docker image to use with -with-docker|-with-singularity options is")
-    System.out.println("    'docker://galaxydream/metabolomics_pipeline'")
+    System.out.println("    'docker://xinsongdu/lemaslab_reump:v0.0.0'")
     System.out.println("")
     System.out.println("UMPIRE supports .mzXML format files.")
     System.out.println("")
