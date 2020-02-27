@@ -18,7 +18,7 @@
     GNU General Public License for more details.
     
     You should have received a copy of the GNU General Public License
-    along with this script.  If not, see <http://www.gnu.org/licenses/>.
+    along with this script. If not, see <http://www.gnu.org/licenses/>.
     
     For any bugs or problems found, please contact us at
     - xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu; 
@@ -28,7 +28,7 @@
 // Those variable names which are all uppercase are channel names
 
 version='0.0.0'
-timestamp='20190916'
+timestamp='20200226'
 
 MZMINE = Channel.fromPath(params.mzmine_dir, type: 'dir') // The location of folder of MzMine
 MZMINE.into{POS_MZMINE; NEG_MZMINE} // Duplicate the MZMINE chennel into two channels, one of which deals with positive sample while the other deals with negative sample.
@@ -90,7 +90,7 @@ PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_
 
 if (params.version) {
     System.out.println("")
-    System.out.println("UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
+    System.out.println("ReUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
     exit 1
 }
 
@@ -125,7 +125,7 @@ if (params.help) {
     System.out.println("")
     System.out.println("Container:")
     System.out.println("    Docker image to use with -with-docker|-with-singularity options is")
-    System.out.println("    'docker://galaxydream/metabolomics_pipeline'")
+    System.out.println("    'docker://xinsongdu/lemaslab_reump:v0.0.0'")
     System.out.println("")
     System.out.println("UMPIRE supports .mzXML format files.")
     System.out.println("")
