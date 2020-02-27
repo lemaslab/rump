@@ -18,7 +18,7 @@
     GNU General Public License for more details.
     
     You should have received a copy of the GNU General Public License
-    along with this script.  If not, see <http://www.gnu.org/licenses/>.
+    along with this script. If not, see <http://www.gnu.org/licenses/>.
     
     For any bugs or problems found, please contact us at
     - xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu; 
@@ -90,7 +90,7 @@ PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_
 
 if (params.version) {
     System.out.println("")
-    System.out.println("UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
+    System.out.println("ReUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
     exit 1
 }
 

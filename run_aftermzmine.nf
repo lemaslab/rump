@@ -89,7 +89,7 @@ NEG_DESIGN.into{NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; N
 
 if (params.version) {
     System.out.println("")
-    System.out.println("UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
+    System.out.println("ReUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
     exit 1
 }
 
