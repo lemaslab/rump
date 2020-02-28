@@ -1,14 +1,14 @@
 MZmine-2.53-Linux/
 history/
-# nextflow_report*
+nextflow_report*
 *backups/
 logs/
 work/
 .nextflow*
 .DS_Store
 *.img
-# trace*
-# timeline*
+trace*
+timeline*
 docker/
 materials/
 tmp/
