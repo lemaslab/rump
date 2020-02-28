@@ -1,18 +1,19 @@
+MZmine-2.53-Linux/
 history/
-nextflow_report*
-results/
+# nextflow_report*
 *backups/
 logs/
 work/
 .nextflow*
 .DS_Store
 *.img
-trace*
-timeline*
+# trace*
+# timeline*
 docker/
 materials/
 tmp/
 reproducibility_test/
+results/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

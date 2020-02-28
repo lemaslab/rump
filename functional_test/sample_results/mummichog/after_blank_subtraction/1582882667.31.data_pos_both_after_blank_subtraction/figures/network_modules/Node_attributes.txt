@@ -1,0 +1,58 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+C01094	D-Fructose 1-phosphate	2.14596415701	row286	E5
+C00275	D-Mannose 6-phosphate	2.14596415701	row286	E5
+C00047	L-Lysine	-2.17687795712	row48	E79
+C03862	Dolichyl phosphate D-mannose	2.14596415701	row286	E5
+C01110	5-Amino-2-oxopentanoic acid; 5-Amino-2-oxopentanoate; 2-Oxo-5-amino-pentanoate; 2-Oxo-5-aminopentanoate; alpha-Keto-delta-aminopentanoate; 2-Oxo-5-aminovalerate	-2.30364983358	row133	E264
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	2.14596415701	row286	E5
+C01177	1D-myo-Inositol 1-phosphate	2.14596415701	row286	E5
+glac	D-glucurono-6,3-lactone	2.38972940088	row38	E182
+C01172	beta-D-glucose 6-phosphate	2.14596415701	row286	E5
+C00085	D-Fructose 6-phosphate	2.14596415701	row286	E5
+C01042	N-Acetyl-L-aspartate	2.52830296211	row20	E114
+C03735	alpha-D-Hexose 6-phosphate	2.14596415701	row286	E5
+C02965	D-Hexose 6-phosphate	2.14596415701	row286	E5
+C00725	Lipoate; Lipoic acid; alpha-Lipoic acid; Thioctic acid	-3.21428645788	row214	E64
+C00072	L-Ascorbate	2.38972940088	row38	E182
+C05635	5-Hydroxyindoleacetate	-3.24836841912	row489	E187
+C01165	L-Glutamate 5-semialdehyde; L-Glutamate gamma-semialdehyde	-2.30364983358	row133	E264
+C00217	D-Glutamate; D-Glutamic acid; D-Glutaminic acid; D-2-Aminoglutaric acid	-4.15172010743	row109	E302
+C02670	D-glucurono-6,3-lactone	2.71845840237	row47	E182
+C00103	D-Glucose 1-phosphate	2.14596415701	row286	E5
+CE3075	sorbitol 3-phosphate	2.14596415701	row286	E5
+C16582	2-Hydroxyfelbamate	-4.52591128228	row619	E89
+C01045	N-Formyl-L-glutamate	2.52830296211	row20	E114
+C00430	5-Aminolevulinate; 5-Amino-4-oxopentanoate; 5-Amino-4-oxovaleric acid	-2.30364983358	row133	E264
+C01045	N-Formyl-L-glutamate	2.15403221161	row16	E114
+C05938	L-4-Hydroxyglutamate semialdehyde	-4.15172010743	row109	E302
+C01097	D-Tagatose 6-phosphate	2.14596415701	row286	E5
+C05938	L-4-Hydroxyglutamate semialdehyde	5.14667083774	row9	E96
+C03440	cis-4-Hydroxy-D-proline	-2.30364983358	row133	E264
+glac	D-glucurono-6,3-lactone	2.71845840237	row47	E182
+C01171	alpha-D-Hexose 1-phosphate	2.14596415701	row286	E5
+C05345	beta-D-Fructose 6-phosphate	2.14596415701	row286	E5
+C05520	2-Amino-3-oxoadipate; 2-Amino-3-oxohexanedioic acid	2.52830296211	row20	E114
+C00302	DL-Glutamate; DL-Glutaminic acid; 2-Aminoglutaric acid; Glutamate	-4.15172010743	row109	E302
+C05520	2-Amino-3-oxoadipate; 2-Amino-3-oxohexanedioic acid	2.15403221161	row16	E114
+C00217	D-Glutamate; D-Glutamic acid; D-Glutaminic acid; D-2-Aminoglutaric acid	5.14667083774	row9	E96
+C00025	L-Glutamate	5.14667083774	row9	E96
+C02225	2-Methylcitrate; 2-Hydroxybutane-1,2,3-tricarboxylate; (2R,3S)-2-Hydroxybutane-1,2,3-tricarboxylate	-3.21428645788	row214	E64
+C04593	(2S,3R)-3-Hydroxybutane-1,2,3-tricarboxylate; Methylisocitrate; Methylisocitric acid	-3.21428645788	row214	E64
+C01157	trans-4-Hydroxy-L-proline	-2.30364983358	row133	E264
+C00668	alpha-D-Glucose 6-phosphate	2.14596415701	row286	E5
+C00072	L-Ascorbate	2.71845840237	row47	E182
+C02976	Fructose 1-phosphate	2.14596415701	row286	E5
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-5.20313850612	row417	E50
+C00636	D-Mannose 1-phosphate	2.14596415701	row286	E5
+C16584	p-Hydroxyfelbamate	-4.52591128228	row619	E89
+C02670	D-glucurono-6,3-lactone	2.38972940088	row38	E182
+C00302	DL-Glutamate; DL-Glutaminic acid; 2-Aminoglutaric acid; Glutamate	5.14667083774	row9	E96
+C04006	1D-myo-Inositol 3-phosphate	2.14596415701	row286	E5
+C00270	N-Acetylneuraminate; N-Acetylneuraminic acid; 5-Acetamido-3,5-dideoxy-D-glycero-D-galacto-2-nonulosonic acid; Neu5Ac	2.46765527741	row282	E110
+C00025	L-Glutamate	-4.15172010743	row109	E302
+C01042	N-Acetyl-L-aspartate	2.15403221161	row16	E114
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-5.20313850612	row417	E50
+C16596	5-Phenyl-1,3-oxazinane-2,4-dione	-3.24836841912	row489	E187
+C03546	1D-myo-Inositol 4-phosphate	2.14596415701	row286	E5
+C00446	alpha-D-Galactose 1-phosphate	2.14596415701	row286	E5
+C03341	2-Amino-4-oxopentanoic acid; 2-Amino-4-oxopentanoate	-2.30364983358	row133	E264
