@@ -1,0 +1,46 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+C05938	L-4-Hydroxyglutamate semialdehyde	-4.15172010743	row67	E66
+C00217	D-Glutamate; D-Glutamic acid; D-Glutaminic acid; D-2-Aminoglutaric acid	-4.15172010743	row67	E66
+C03415	N2-Succinyl-L-ornithine; (2S)-5-Amino-2-(3-carboxypropanoylamino)pentanoic acid	-4.52591128228	row380	E41
+C02727	N6-Acetyl-L-lysine	-3.17475794357	row114	E145
+C00302	DL-Glutamate; DL-Glutaminic acid; 2-Aminoglutaric acid; Glutamate	-4.15172010743	row67	E66
+C00430	5-Aminolevulinate; 5-Amino-4-oxopentanoate; 5-Amino-4-oxovaleric acid	-2.30364983358	row80	E29
+C00025	L-Glutamate	-4.15172010743	row67	E66
+C16582	2-Hydroxyfelbamate	-4.52591128228	row380	E101
+C02727	N6-Acetyl-L-lysine	-2.30153945589	row239	E134
+C00315	Spermidine	-2.91160222279	row16	E85
+C03440	cis-4-Hydroxy-D-proline	-2.30364983358	row80	E29
+C00315	Spermidine	-2.4989133645	row399	E85
+C01110	5-Amino-2-oxopentanoic acid; 5-Amino-2-oxopentanoate; 2-Oxo-5-amino-pentanoate; 2-Oxo-5-aminopentanoate; alpha-Keto-delta-aminopentanoate; 2-Oxo-5-aminovalerate	-2.30364983358	row80	E29
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-5.20313850612	row252	E131
+C02452	Perillyl alcohol; (-)-Perillyl alcohol; p-Mentha-1,8-dien-7-ol; (-)-Perillylalcohol	-2.58696014911	row374	E1
+CE1938	spermic acid 2	-2.26702851457	row197	E162
+C03341	2-Amino-4-oxopentanoic acid; 2-Amino-4-oxopentanoate	-2.30364983358	row80	E29
+C02727	N6-Acetyl-L-lysine	-3.46844933093	row451	E32
+C16596	5-Phenyl-1,3-oxazinane-2,4-dione	-3.24836841912	row287	E64
+C02576	Perillyl aldehyde; Perillaldehyde	-2.32068262461	row357	E61
+C02759		-2.58696014911	row374	E1
+C00402	D-Aspartate	-4.84899064512	row17	E118
+C04593	(2S,3R)-3-Hydroxybutane-1,2,3-tricarboxylate; Methylisocitrate; Methylisocitric acid	-3.21428645788	row126	E82
+C00049	L-Aspartate	-4.84899064512	row17	E118
+C16584	p-Hydroxyfelbamate	-4.52591128228	row380	E101
+C05635	5-Hydroxyindoleacetate	-3.24836841912	row287	E64
+C02225	2-Methylcitrate; 2-Hydroxybutane-1,2,3-tricarboxylate; (2R,3S)-2-Hydroxybutane-1,2,3-tricarboxylate	-3.21428645788	row126	E82
+C03415	N2-Succinyl-L-ornithine; (2S)-5-Amino-2-(3-carboxypropanoylamino)pentanoic acid	-2.73490550568	row217	E65
+CE1938	spermic acid 2	-2.87382597765	row402	E28
+C00725	Lipoate; Lipoic acid; alpha-Lipoic acid; Thioctic acid	-3.21428645788	row126	E82
+CE5586	dehydrospermidine	-2.91160222279	row16	E85
+C03740	5-L-Glutamyl-L-alanine	-2.32068262461	row357	E115
+C00047	L-Lysine	-2.17687795712	row31	E11
+C02727	N6-Acetyl-L-lysine	-3.30027590728	row112	E8
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-5.20313850612	row252	E131
+C00062	L-Arginine	-2.51611685431	row6	E42
+CE1938	spermic acid 2	-2.48833150037	row297	E106
+C01165	L-Glutamate 5-semialdehyde; L-Glutamate gamma-semialdehyde	-2.30364983358	row80	E29
+C00792	D-Arginine; D-2-Amino-5-guanidinovaleric acid	-2.51611685431	row6	E42
+C00964	(-)-trans-Carveol	-2.58696014911	row374	E1
+CE5586	dehydrospermidine	-2.4989133645	row399	E85
+C11409	(+)-trans-Carveol; (4S,6R)-trans-Carveol	-2.58696014911	row374	E1
+C01157	trans-4-Hydroxy-L-proline	-2.30364983358	row80	E29
+CE1938	spermic acid 2	-4.99136025053	row54	E33
+C00437	N2-Acetyl-L-ornithine	-2.58696014911	row374	E117

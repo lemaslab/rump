@@ -1,0 +1,31 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+C01094	D-Fructose 1-phosphate	2.14596415701	row117	E24
+C00025	L-Glutamate	5.14667083774	row3	E2
+C05345	beta-D-Fructose 6-phosphate	2.14596415701	row117	E24
+C00636	D-Mannose 1-phosphate	2.14596415701	row117	E24
+CE3075	sorbitol 3-phosphate	2.14596415701	row117	E24
+C03735	alpha-D-Hexose 6-phosphate	2.14596415701	row117	E24
+C00475	Cytidine	10.3208339981	row29	E153
+C05711	gamma-Glutamyl-beta-cyanoalanine	10.3208339981	row29	E153
+C00275	D-Mannose 6-phosphate	2.14596415701	row117	E24
+C00217	D-Glutamate; D-Glutamic acid; D-Glutaminic acid; D-2-Aminoglutaric acid	5.14667083774	row3	E2
+C00270	N-Acetylneuraminate; N-Acetylneuraminic acid; 5-Acetamido-3,5-dideoxy-D-glycero-D-galacto-2-nonulosonic acid; Neu5Ac	2.46765527741	row115	E137
+C02965	D-Hexose 6-phosphate	2.14596415701	row117	E24
+C00446	alpha-D-Galactose 1-phosphate	2.14596415701	row117	E24
+C03546	1D-myo-Inositol 4-phosphate	2.14596415701	row117	E24
+C05938	L-4-Hydroxyglutamate semialdehyde	5.14667083774	row3	E2
+C04006	1D-myo-Inositol 3-phosphate	2.14596415701	row117	E24
+C00085	D-Fructose 6-phosphate	2.14596415701	row117	E24
+C00302	DL-Glutamate; DL-Glutaminic acid; 2-Aminoglutaric acid; Glutamate	5.14667083774	row3	E2
+C05522	Cytosine (in DNA)	7.15639274003	row23	E68
+C03862	Dolichyl phosphate D-mannose	2.14596415701	row117	E24
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	2.14596415701	row117	E24
+C00380	Cytosine	7.15639274003	row23	E68
+C01177	1D-myo-Inositol 1-phosphate	2.14596415701	row117	E24
+C01171	alpha-D-Hexose 1-phosphate	2.14596415701	row117	E24
+C02976	Fructose 1-phosphate	2.14596415701	row117	E24
+C00668	alpha-D-Glucose 6-phosphate	2.14596415701	row117	E24
+C00103	D-Glucose 1-phosphate	2.14596415701	row117	E24
+C01172	beta-D-glucose 6-phosphate	2.14596415701	row117	E24
+C00906	5,6-Dihydrothymine	2.4726762487	row20	E17
+C01097	D-Tagatose 6-phosphate	2.14596415701	row117	E24

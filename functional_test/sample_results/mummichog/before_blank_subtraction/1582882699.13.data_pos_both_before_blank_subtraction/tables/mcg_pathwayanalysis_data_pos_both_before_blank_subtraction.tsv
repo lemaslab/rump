@@ -1,0 +1,120 @@
+pathway	overlap_size	pathway_size	p-value	overlap_EmpiricalCompounds (id)	overlap_features (id)	overlap_features (name)
+Drug metabolism - cytochrome P450	11	16	0.00302495588606	E801,E995,E744,E560,E523,E49,E229,E666,E169,E647,E1488	C07501,C16595/C16587,C05635/C16596,C16561,C07501,C16584/C16582,C16560,C16550,C16584/C16582,C07572,C16584/C16582	Felbamate$4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one/3-Carbamoyl-2-phenylpropionaldehyde$5-Hydroxyindoleacetate/5-Phenyl-1,3-oxazinane-2,4-dione$Monoethylglycinexylidide$Felbamate$p-Hydroxyfelbamate/2-Hydroxyfelbamate$3-Hydroxylidocaine$Dechloroethylcyclophosphamide; 3-Dechloroethylifosfamide$p-Hydroxyfelbamate/2-Hydroxyfelbamate$Citalopram$p-Hydroxyfelbamate/2-Hydroxyfelbamate
+Pentose and Glucuronate Interconversions	5	6	0.0140324342492	E398,E19,E298,E1155,E718	C00618/C06472/C00191,C00532/C00379/CE5276,C00310/C00508/CE5277/C00312/C00181/C00259/C00309/C00121,C00310/C00312/C00181/C00259/C00309/C00121,C00618/C06472/C00191	3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$L-Arabinitol/Xylitol/dopamine o-quinone$D-Xylulose/L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose/aminochrome o-semiquinone/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$D-Xylulose/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate
+Porphyrin metabolism	7	12	0.0573061087304	E8,E1113,E690,E282,E1454,E398,E718	,,,,,C00618/C06472/C00191,C00618/C06472/C00191	$$$$$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate
+Chondroitin sulfate degradation	4	6	0.0770523485421	E398,E718,E298,E1155	C00618/C06472/C00191,C00618/C06472/C00191,C00310/C00508/CE5277/C00312/C00181/C00259/C00309/C00121,C00310/C00312/C00181/C00259/C00309/C00121	3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$D-Xylulose/L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose/aminochrome o-semiquinone/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$D-Xylulose/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose
+Heparan sulfate degradation	4	6	0.0770523485421	E398,E718,E298,E1155	C00618/C06472/C00191,C00618/C06472/C00191,C00310/C00508/CE5277/C00312/C00181/C00259/C00309/C00121,C00310/C00312/C00181/C00259/C00309/C00121	3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$D-Xylulose/L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose/aminochrome o-semiquinone/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$D-Xylulose/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose
+Nitrogen metabolism	4	6	0.0770523485421	E1149,E577,E822,E206	,,,	$$$
+Purine metabolism	22	52	0.0902445172675	E8,E203,E662,E1437,E478,E1457,E403,E1155,E705,E537,E822,E298,E1479,E763,E1149,E255,E4,E103,E187,E577,E47,E262	,,,,,,,C00310/C00312/C00181/C00259/C00309/C00121,,,,C00310/C00508/CE5277/C00312/C00181/C00259/C00309/C00121,,,,,,,,,,	$$$$$$$D-Xylulose/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$$$$D-Xylulose/L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose/aminochrome o-semiquinone/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$$$$$$$$$$
+Beta-Alanine metabolism	8	16	0.100915889421	E584,E481,E577,E1050,E822,E1149,E1211,E1183	,,,,,,,	$$$$$$$
+Lipoate metabolism	3	5	0.163683724057	E223,E927,E145	,,	$$
+Phosphatidylinositol phosphate metabolism	5	10	0.167044786152	E6,E398,E436,E1338,E718	,C00618/C06472/C00191,,,C00618/C06472/C00191	$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$$$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate
+Hyaluronan Metabolism	2	3	0.192756911184	E398,E718	C00618/C06472/C00191,C00618/C06472/C00191	3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate
+Glyoxylate and Dicarboxylate Metabolism	2	3	0.192756911184	E298,E1155	C00310/C00508/CE5277/C00312/C00181/C00259/C00309/C00121,C00310/C00312/C00181/C00259/C00309/C00121	D-Xylulose/L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose/aminochrome o-semiquinone/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$D-Xylulose/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose
+Butanoate metabolism	15	38	0.215023947567	E700,E1303,E1176,E1200,E601,E577,E354,E862,E159,E183,E1050,E1065,E1149,E1081,E586	,,,,,,,,,,,,,,	$$$$$$$$$$$$$$
+Pyrimidine metabolism	20	53	0.250651205781	E55,E187,E958,E206,E1038,E1026,E1158,E577,E1020,E1415,E53,E6,E481,E1050,E822,E734,E1149,E290,E432,E1062	,,,,,,,,,,,,,,,,,,,	$$$$$$$$$$$$$$$$$$$
+Biopterin metabolism	3	6	0.252919922696	E1471,E395,E769	,,	$$
+Drug metabolism - other enzymes	3	6	0.252919922696	E851,E238,E7	,,	$$
+Vitamin B9 (folate) metabolism	4	9	0.290731871271	E403,E1149,E577,E1454	,,,	$$$
+Vitamin B6 (pyridoxine) metabolism	4	9	0.290731871271	E1070,E1423,E411,E131	,,,	$$$
+Leukotriene metabolism	9	23	0.307117048987	E778,E516,E1104,E865,E476,E268,E96,E1153,E1149	,,,,,,,,	$$$$$$$$
+Fructose and mannose metabolism	5	12	0.330812536762	E6,E1346,E540,E436,E382	,,,,	$$$$
+Aspartate and asparagine metabolism	29	82	0.38736240652	E1333,E206,E577,E57,E772,E1114,E954,E142,E1174,E1176,E145,E690,E967,E1281,E665,E822,E1217,E1297,E1440,E223,E260,E1149,E251,E279,E913,E1100,E1050,E1211,E1128	,,,,,,,,,,,,,,,,,,,,,,,,,,,,	$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Arginine and Proline Metabolism	15	42	0.405596168389	E1281,E1114,E690,E967,E577,E763,E772,E537,E183,E822,E1297,E1149,E680,E1217,E1447	,,,,,,,,,,,,,,	$$$$$$$$$$$$$$
+Pentose phosphate pathway	6	16	0.410721788085	E298,E6,E1058,E1155,E283,E574	C00310/C00508/CE5277/C00312/C00181/C00259/C00309/C00121,,,C00310/C00312/C00181/C00259/C00309/C00121,,	D-Xylulose/L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose/aminochrome o-semiquinone/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$$$D-Xylulose/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$$
+Glutathione Metabolism	9	25	0.424754222334	E1114,E481,E913,E577,E1100,E665,E142,E1149,E1174	,,,,,,,,	$$$$$$$$
+Hexose phosphorylation	3	8	0.456768338795	E6,E1338,E187	,,	$$
+Carbon fixation	3	8	0.456768338795	E6,E436,E822	,,	$$
+Glycolysis and Gluconeogenesis	7	20	0.458112763633	E436,E1200,E6,E862,E345,E159,E227	,,,,,,	$$$$$$
+Starch and Sucrose Metabolism	2	5	0.458953029157	E6,E1338	,	$
+C5-Branched dibasic acid metabolism	1	2	0.463490462986	E439		
+Prostaglandin formation from dihomo gama-linoleic acid	1	2	0.463490462986	E68		
+Lysine metabolism	13	39	0.494664313923	E1143,E145,E63,E1172,E530,E967,E577,E819,E223,E183,E582,E1149,E1217	,,,,,,,,,,,,	$$$$$$$$$$$$
+Arachidonic acid metabolism	7	21	0.502730862953	E778,E68,E577,E268,E96,E1153,E1149	,,,,,,	$$$$$$
+Putative anti-Inflammatory metabolites formation from EPA	3	9	0.533988740442	E778,E1149,E577	,,	$$
+Vitamin H (biotin) metabolism	3	9	0.533988740442	E223,E1372,E145	,,	$$
+Linoleate metabolism	8	25	0.553146794387	E244,E884,E8,E1151,E1445,E1323,E589,E1293	,,,,,,,	$$$$$$$
+Alanine and Aspartate Metabolism	7	22	0.55675993614	E481,E206,E577,E1454,E772,E822,E1149	,,,,,,	$$$$$$
+3-oxo-10R-octadecatrienoate beta-oxidation	1	3	0.583312326695	E476		
+Glycosylphosphatidylinositol(GPI)-anchor biosynthesis	1	3	0.583312326695	E6		
+Nucleotide Sugar Metabolism	1	3	0.583312326695	E6		
+Galactose metabolism	3	10	0.589782371229	E6,E436,E1338	,,	$$
+Propanoate metabolism	3	10	0.589782371229	E927,E1176,E1373	,,	$$
+Vitamin B3 (nicotinate and nicotinamide) metabolism	5	17	0.612049407613	E772,E1149,E577,E822,E1271	,,,,	$$$$
+Squalene and cholesterol biosynthesis	2	7	0.621208301823	E400,E775	,	$
+TCA cycle	3	11	0.654314763465	E295,E183,E227	,,	$$
+Valine, leucine and isoleucine degradation	5	18	0.659524409713	E1149,E577,E1176,E183,E1050	,,,,	$$$$
+Aminosugars metabolism	5	18	0.659524409713	E6,E316,E1149,E577,E1369	,,,,	$$$$
+Prostaglandin formation from arachidonate	8	28	0.661625073523	E8,E68,E268,E863,E1383,E1153,E673,E90	,,,,,,,	$$$$$$$
+D4&E4-neuroprostanes formation	1	4	0.670952020839	E8		
+Fatty acid oxidation, peroxisome	1	4	0.670952020839	E183		
+1- and 2-Methylnaphthalene degradation	1	4	0.670952020839	E343		
+Vitamin B1 (thiamin) metabolism	2	8	0.674229056382	E530,E345	,	$
+Alkaloid biosynthesis II	3	12	0.684984455088	E122,E465,E84	,,	$$
+Tryptophan metabolism	15	52	0.687757331317	E1163,E95,E287,E769,E530,E481,E577,E466,E1471,E940,E744,E12,E1149,E395,E1418	,,,,,,,,,,C05635/C16596,,,,	$$$$$$$$$$5-Hydroxyindoleacetate/5-Phenyl-1,3-oxazinane-2,4-dione$$$$
+Urea cycle/amino group metabolism	19	65	0.693975296194	E680,E733,E1297,E1333,E481,E690,E1381,E967,E577,E772,E103,E692,E1050,E822,E1420,E1149,E1211,E1217,E1447	,,,,,,,,,,,,,,,,,,	$$$$$$$$$$$$$$$$$$
+Ascorbate (Vitamin C) and Aldarate Metabolism	6	23	0.70052936728	E8,E295,E927,E398,E718,E619	,,,C00618/C06472/C00191,C00618/C06472/C00191,	$$$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$3-Dehydro-L-gulonate/L-Iduronic acid/D-Glucuronate$
+Sialic acid metabolism	3	13	0.718427022939	E6,E1338,E1369	,,	$$
+Keratan sulfate degradation	1	5	0.718427022939	E1369		
+N-Glycan biosynthesis	1	5	0.718427022939	E6		
+Saturated fatty acids beta-oxidation	1	5	0.718427022939	E63		
+N-Glycan Degradation	1	5	0.718427022939	E1369		
+Glutamate metabolism	6	24	0.722880430216	E680,E481,E577,E1050,E1149,E183	,,,,,	$$$$$
+Glycine, serine, alanine and threonine metabolism	14	51	0.724392908159	E429,E20,E481,E690,E761,E733,E849,E772,E577,E665,E1050,E1149,E318,E1174	,,,,,,,,,,,,,	$$$$$$$$$$$$$
+Methionine and cysteine metabolism	14	51	0.724392908159	E429,E780,E419,E913,E352,E577,E603,E533,E591,E865,E271,E318,E1149,E1447	,,,,,,,,,,,,,	$$$$$$$$$$$$$
+Histidine metabolism	9	35	0.732459457188	E1183,E584,E481,E150,E577,E1416,E447,E1149,E410	,,,,,,,,	$$$$$$$$
+Vitamin E metabolism	2	10	0.740862112428	E923,E649	,	$
+Androgen and estrogen biosynthesis and metabolism	4	18	0.746407864885	E189,E810,E1476,E1290	,,,	$$$
+Bile acid biosynthesis	1	6	0.752709856315	E352		
+C21-steroid hormone biosynthesis and metabolism	3	15	0.760692378792	E189,E1476,E1290	,,	$$
+Vitamin A (retinol) metabolism	2	11	0.763213175363	E977,E105	,	$
+Glycosphingolipid metabolism	2	11	0.763213175363	E284,E1369	,	$
+Limonene and pinene degradation	2	11	0.763213175363	E1021,E5	,	$
+Glycerophospholipid metabolism	7	32	0.785732291404	E6,E652,E1218,E379,E284,E969,E316	,,,,,,	$$$$$$
+Fatty Acid Metabolism	1	8	0.789765565919	E63		
+Phytanic acid peroxisomal oxidation	1	8	0.789765565919	E183		
+Vitamin B5 - CoA biosynthesis from pantothenate	2	13	0.790605831443	E1482,E913	,	$
+CoA Catabolism	1	9	0.795983530796	E1482		
+Carnitine shuttle	1	10	0.802285522225	E63		
+Tyrosine metabolism	21	86	0.803461893958	E429,E33,E1045,E318,E298,E8,E769,E116,E19,E1381,E913,E713,E1471,E577,E1073,E1411,E910,E481,E809,E1149,E395	,,,,C00310/C00508/CE5277/C00312/C00181/C00259/C00309/C00121,,,,C00532/C00379/CE5276,,,,,,,,,,,,	$$$$D-Xylulose/L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose/aminochrome o-semiquinone/L-Xylulose/D-Xylose/L-Arabinose/D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose/D-Ribose$$$$L-Arabinitol/Xylitol/dopamine o-quinone$$$$$$$$$$$$
+Pyruvate Metabolism	1	11	0.806486849845	E227		
+Xenobiotics metabolism	5	34	0.811444416436	E355,E1069,E1163,E1122,E1096	,,,,	$$$$
+Selenoamino acid metabolism	1	16	0.812116628855	E481		
+Vitamin D3 (cholecalciferol) metabolism	0	1	0.812452735064			
+Vitamin B2 (riboflavin) metabolism	0	5	0.812452735064			
+Di-unsaturated fatty acid beta-oxidation	0	6	0.812452735064			
+Glycerolipid metabolism	0	0	0.812452735064			
+R Group Synthesis	0	0	0.812452735064			
+Glycosphingolipid biosynthesis - ganglioseries	0	4	0.812452735064			
+Parathio degradation	0	2	0.812452735064			
+Electron transport chain	0	1	0.812452735064			
+Blood Group Biosynthesis	0	1	0.812452735064			
+Glycosphingolipid biosynthesis - lactoseries	0	1	0.812452735064			
+Glycosphingolipid biosynthesis - globoseries	0	3	0.812452735064			
+Heparan sulfate biosynthesis	0	0	0.812452735064			
+Caffeine metabolism	0	4	0.812452735064			
+De novo fatty acid biosynthesis	0	13	0.812452735064			
+Fatty acid oxidation	0	0	0.812452735064			
+ROS Detoxification	0	0	0.812452735064			
+Glycosaminoglycan degradation	0	0	0.812452735064			
+Omega-3 fatty acid metabolism	0	6	0.812452735064			
+Mono-unsaturated fatty acid beta-oxidation	0	4	0.812452735064			
+Glycosphingolipid biosynthesis - neolactoseries	0	1	0.812452735064			
+Keratan sulfate biosynthesis	0	2	0.812452735064			
+Dynorphin metabolism	0	0	0.812452735064			
+Vitamin D	0	1	0.812452735064			
+Sphingolipid metabolism	0	0	0.812452735064			
+O-Glycan biosynthesis	0	1	0.812452735064			
+Geraniol degradation	0	0	0.812452735064			
+3-Chloroacrylic acid degradation	0	1	0.812452735064			
+Polyunsaturated fatty acid biosynthesis	0	1	0.812452735064			
+Proteoglycan biosynthesis	0	1	0.812452735064			
+Vitamin K metabolism	0	0	0.812452735064			
+Benzoate degradation via CoA ligation	0	0	0.812452735064			
+Dimethyl-branched-chain fatty acid mitochondrial beta-oxidation	0	1	0.812452735064			
+Fatty acid activation	0	12	0.812452735064			
+Vitamin B12 (cyanocobalamin) metabolism	0	1	0.812452735064			
+Ubiquinone Biosynthesis	0	6	0.812452735064			
+Atrazine degradation	0	0	0.812452735064			
+Trihydroxycoprostanoyl-CoA beta-oxidation	0	0	0.812452735064			
+Omega-6 fatty acid metabolism	0	5	0.812452735064			

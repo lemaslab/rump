@@ -1,0 +1,3 @@
+MODULE	p-value	size	members (name)	members (id)	This module overlaps with
+module_1	0.00705882352941	10	D-Ribose$Xanthine$Guanosine$Adenine$Uridine$5-Methylthioadenosine$Deoxyadenosine$Hypoxanthine$Cytidine$Deoxycytidine	C00121,C00385,C00387,C00147,C00299,C00170,C00559,C00262,C00475,C00881	(6, 'Purine metabolism');(3, 'Pyrimidine metabolism');(2, 'Arginine and Proline Metabolism')
+module_2	0.0345098039216	5	Cytidine$Guanosine$Deoxyadenosine$Deoxycytidine$Uridine	C00475,C00387,C00559,C00881,C00299	(3, 'Pyrimidine metabolism');(2, 'Purine metabolism')

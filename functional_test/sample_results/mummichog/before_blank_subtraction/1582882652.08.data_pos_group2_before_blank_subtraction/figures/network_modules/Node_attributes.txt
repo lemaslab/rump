@@ -1,0 +1,126 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+C16560	3-Hydroxylidocaine	-2.89910238092	row2169	E776
+C00792	D-Arginine; D-2-Amino-5-guanidinovaleric acid	-2.51611685431	row295	E146
+C00049	L-Aspartate	-2.34488501	row1435	E374
+C05936	N4-Acetylaminobutanal	-2.39372722774	row358	E98
+C03740	5-L-Glutamyl-L-alanine	-3.20389023495	row1431	E373
+C00133	D-Alanine	-2.23942715556	row2697	E657
+C03196	(S)-2-Hydroxyglutarate	-4.02643623042	row2158	E236
+C06001	(S)-3-Hydroxyisobutyrate	-3.11668151977	row2408	E481
+C05984	2-Hydroxybutyrate	-2.95750089975	row1560	E481
+C00989	4-Hydroxybutanoic acid; 4-Hydroxybutanoate; 4-Hydroxybutyric acid	-3.11668151977	row2408	E481
+C00047	L-Lysine	-2.17687795712	row322	E302
+C00152	L-Asparagine	-2.94001236202	row2817	E440
+C00099	beta-Alanine	-2.23942715556	row2697	E657
+C07501	Felbamate	-3.61881279624	row2690	E250
+CE5586	dehydrospermidine	-2.4989133645	row985	E544
+C00408	L-Pipecolate; Pipecolinic acid; Pipecolic acid; 2-Piperidinecarboxylic acid	-2.39372722774	row358	E98
+C00133	D-Alanine	-2.3935378527	row2759	E657
+C05984	2-Hydroxybutyrate	-3.11668151977	row2408	E481
+C00025	L-Glutamate	-4.15172010743	row362	E589
+C00062	L-Arginine	-2.51611685431	row295	E146
+C03197	(S)-3-Hydroxybutanoate	-2.95750089975	row1560	E481
+C00379	Xylitol	-2.26668147123	row70	E401
+C03197	(S)-3-Hydroxybutanoate	-3.11668151977	row2408	E481
+C03740	5-L-Glutamyl-L-alanine	-3.86946377271	row774	E93
+C01188	3-Hydroxy-2-methylpropanoate; 3-Hydroxyisobutyrate; 3-Hydroxyisobutyric acid	-2.95750089975	row1560	E481
+C01157	trans-4-Hydroxy-L-proline	-2.30364983358	row377	E800
+C00062	L-Arginine	-3.34652115139	row2537	E146
+C00437	N2-Acetyl-L-ornithine	-2.58696014911	row863	E155
+C00181	D-Xylose	-4.42947609427	row865	E494
+C00148	L-Proline	-3.86822210256	row3332	E439
+C00430	5-Aminolevulinate; 5-Amino-4-oxopentanoate; 5-Amino-4-oxovaleric acid	-2.30364983358	row377	E800
+C07572	Citalopram	-2.66192346158	row2110	E915
+C03740	5-L-Glutamyl-L-alanine	-2.32068262461	row802	E373
+C00430	5-Aminolevulinate; 5-Amino-4-oxopentanoate; 5-Amino-4-oxovaleric acid	-2.42582768498	row488	E800
+C02266		-4.02643623042	row2158	E236
+C00637	Indole-3-acetaldehyde	-3.56581982347	row2209	E409
+C01026	N,N-Dimethylglycine; Dimethylglycine	-2.59785329643	row3112	E865
+C03415	N2-Succinyl-L-ornithine; (2S)-5-Amino-2-(3-carboxypropanoylamino)pentanoic acid	-2.73490550568	row551	E447
+C05635	5-Hydroxyindoleacetate	-3.24836841912	row669	E421
+C00121	D-Ribose	-4.42947609427	row865	E494
+C00430	5-Aminolevulinate; 5-Amino-4-oxopentanoate; 5-Amino-4-oxovaleric acid	-2.64393240877	row880	E800
+C01089	(R)-3-Hydroxybutanoate; (R)-3-Hydroxybutanoic acid; (R)-3-Hydroxybutyric acid	-3.11668151977	row2408	E481
+C01089	(R)-3-Hydroxybutanoate; (R)-3-Hydroxybutanoic acid; (R)-3-Hydroxybutyric acid	-2.95750089975	row1560	E481
+C00312	L-Xylulose	-4.42947609427	row865	E494
+C00618	3-Dehydro-L-gulonate	-2.99032910391	row1277	E796
+C00402	D-Aspartate	-4.84899064512	row307	E374
+C00402	D-Aspartate	-2.34488501	row1435	E374
+C03440	cis-4-Hydroxy-D-proline	-2.30364983358	row377	E800
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-5.20313850612	row603	E785
+C04043	3,4-Dihydroxyphenylacetaldehyde; Protocatechuatealdehyde	-2.8668129317	row3282	E623
+C00259	L-Arabinose	-4.42947609427	row865	E494
+CE5586	dehydrospermidine	-4.0544183044	row1565	E544
+C00213	Sarcosine; N-Methylglycine	-2.3935378527	row2759	E657
+C03440	cis-4-Hydroxy-D-proline	-2.64393240877	row880	E800
+C05145	3-Aminoisobutyric acid; 3-Aminoisobutanoate; 3-Amino-2-methylpropanoate	-2.59785329643	row3112	E865
+C03284	L-3-Amino-isobutanoate	-2.59785329643	row3112	E865
+C03740	5-L-Glutamyl-L-alanine	-3.98276970041	row2112	E93
+CE1938	spermic acid 2	-2.36379705799	row1370	E605
+C06472	L-Iduronic acid	-2.99032910391	row1277	E796
+C00049	L-Aspartate	-2.83292914209	row2454	E374
+C03440	cis-4-Hydroxy-D-proline	-2.42582768498	row488	E800
+C00310	D-Xylulose	-4.42947609427	row865	E494
+C00049	L-Aspartate	-4.84899064512	row307	E374
+C05938	L-4-Hydroxyglutamate semialdehyde	-4.15172010743	row362	E589
+C00217	D-Glutamate; D-Glutamic acid; D-Glutaminic acid; D-2-Aminoglutaric acid	-4.15172010743	row362	E589
+C00508	L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose	-4.42947609427	row865	E494
+C00135	L-Histidine	-2.19837689353	row176	E296
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-5.20313850612	row603	E785
+C06001	(S)-3-Hydroxyisobutyrate	-2.95750089975	row1560	E481
+CE4788	acetamidopropanal	-3.86822210256	row3332	E439
+C05587	3-Methoxytyramine	-2.25709716617	row3572	E68
+CE5277	aminochrome o-semiquinone	-4.42947609427	row865	E494
+CE5276	dopamine o-quinone	-2.26668147123	row70	E401
+C05589	L-Normetanephrine	-2.17819999312	row2820	E543
+C00315	Spermidine	-2.4989133645	row985	E544
+C01165	L-Glutamate 5-semialdehyde; L-Glutamate gamma-semialdehyde	-2.30364983358	row377	E800
+C03415	N2-Succinyl-L-ornithine; (2S)-5-Amino-2-(3-carboxypropanoylamino)pentanoic acid	-4.52591128228	row881	E757
+CE1938	spermic acid 2	-4.99136025053	row347	E171
+C01110	5-Amino-2-oxopentanoic acid; 5-Amino-2-oxopentanoate; 2-Oxo-5-amino-pentanoate; 2-Oxo-5-aminopentanoate; alpha-Keto-delta-aminopentanoate; 2-Oxo-5-aminovalerate	-2.42582768498	row488	E800
+C00989	4-Hydroxybutanoic acid; 4-Hydroxybutanoate; 4-Hydroxybutyric acid	-2.95750089975	row1560	E481
+C00213	Sarcosine; N-Methylglycine	-2.23942715556	row2697	E657
+C02630	(S)-2-Hydroxyglutarate	-4.02643623042	row2158	E236
+C01188	3-Hydroxy-2-methylpropanoate; 3-Hydroxyisobutyrate; 3-Hydroxyisobutyric acid	-3.11668151977	row2408	E481
+C01205	D-3-Amino-isobutanoate	-2.59785329643	row3112	E865
+C01110	5-Amino-2-oxopentanoic acid; 5-Amino-2-oxopentanoate; 2-Oxo-5-amino-pentanoate; 2-Oxo-5-aminopentanoate; alpha-Keto-delta-aminopentanoate; 2-Oxo-5-aminovalerate	-2.64393240877	row880	E800
+C05127	N-Methylhistamine	-6.08482596083	row441	E674
+C00302	DL-Glutamate; DL-Glutaminic acid; 2-Aminoglutaric acid; Glutamate	-4.15172010743	row362	E589
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	-4.42947609427	row865	E494
+C07501	Felbamate	-3.93626412408	row904	E720
+C01110	5-Amino-2-oxopentanoic acid; 5-Amino-2-oxopentanoate; 2-Oxo-5-amino-pentanoate; 2-Oxo-5-aminopentanoate; alpha-Keto-delta-aminopentanoate; 2-Oxo-5-aminovalerate	-2.30364983358	row377	E800
+CE1938	spermic acid 2	-2.48833150037	row690	E158
+C03341	2-Amino-4-oxopentanoic acid; 2-Amino-4-oxopentanoate	-2.30364983358	row377	E800
+C01165	L-Glutamate 5-semialdehyde; L-Glutamate gamma-semialdehyde	-2.42582768498	row488	E800
+C03341	2-Amino-4-oxopentanoic acid; 2-Amino-4-oxopentanoate	-2.42582768498	row488	E800
+C05332	Phenethylamine	-6.29999041734	row3197	E346
+C01165	L-Glutamate 5-semialdehyde; L-Glutamate gamma-semialdehyde	-2.64393240877	row880	E800
+CE5586	dehydrospermidine	-2.91160222279	row306	E544
+C00191	D-Glucuronate	-2.99032910391	row1277	E796
+C00792	D-Arginine; D-2-Amino-5-guanidinovaleric acid	-3.34652115139	row2537	E146
+C03341	2-Amino-4-oxopentanoic acid; 2-Amino-4-oxopentanoate	-2.64393240877	row880	E800
+C00788	L-Adrenaline; (R)-(-)-Adrenaline; (R)-(-)-Epinephrine; (R)-(-)-Epirenamine; (R)-(-)-Adnephrine; 4-[(1R)-1-Hydroxy-2-(methylamino)ethyl]-1,2-benzenediol	-2.17819999312	row2820	E543
+CE1938	spermic acid 2	-3.40250480019	row3638	E500
+C00334	4-Aminobutanoate	-2.59785329643	row3112	E865
+C02642	N-Carbamoyl-beta-alanine	-2.94001236202	row2817	E440
+C00099	beta-Alanine	-2.3935378527	row2759	E657
+CE1938	spermic acid 2	-2.87382597765	row999	E500
+C07572	Citalopram	-2.74237643895	row3100	E915
+C00402	D-Aspartate	-2.83292914209	row2454	E374
+C16596	5-Phenyl-1,3-oxazinane-2,4-dione	-3.24836841912	row669	E421
+C16584	p-Hydroxyfelbamate	-4.52591128228	row881	E816
+C00532	L-Arabinitol	-2.26668147123	row70	E401
+C00315	Spermidine	-4.0544183044	row1565	E544
+C16582	2-Hydroxyfelbamate	-3.74827429106	row2368	E687
+C01157	trans-4-Hydroxy-L-proline	-2.42582768498	row488	E800
+C00041	L-Alanine	-2.23942715556	row2697	E657
+C16584	p-Hydroxyfelbamate	-3.74827429106	row2368	E687
+C02356	(S)-2-Aminobutanoate; (S)-2-Aminobutanoic acid; (S)-2-Aminobutyric acid	-2.59785329643	row3112	E865
+C01087	(R)-2-Hydroxyglutarate	-4.02643623042	row2158	E236
+C00763	D-Proline	-3.86822210256	row3332	E439
+CE1938	spermic acid 2	-2.26702851457	row528	E605
+C01157	trans-4-Hydroxy-L-proline	-2.64393240877	row880	E800
+C03415	N2-Succinyl-L-ornithine; (2S)-5-Amino-2-(3-carboxypropanoylamino)pentanoic acid	-3.74827429106	row2368	E510
+C16582	2-Hydroxyfelbamate	-4.52591128228	row881	E816
+C00315	Spermidine	-2.91160222279	row306	E544
+C00041	L-Alanine	-2.3935378527	row2759	E657

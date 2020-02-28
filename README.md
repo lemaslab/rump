@@ -82,7 +82,7 @@ Nextflow run_all.nf -with-docker xinsongdu/lemaslab_reump:v0.0.0
 ```
 - Process your data with default parameters using high-performance computing (It is recommended to maximize CPU and memory in pos_peakDetection_mzmine and neg_peakDetection_mzmine processes in `nextflow.config` if using high-performance computing)
 ```
-Nextflow run_all.nf --use_singularity 1 -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
+Nextflow run_all.nf --container singularity -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
 ```
 
 ### Process dataframe generatd by MZmine-2.53
@@ -118,7 +118,7 @@ bash clear.sh
 
 - Sample test input files are provided in the `functional_test/sample_data/POS` and `functional_test/sample_data/NEG` folders, which are from [Metabolomics Workbench PR000188](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR000188).
 - Design files are `functional_test/sample_data/pos_design.csv` and `functional_test/sample_data/neg_design.csv`.
-- It may take around 6 hours to finish if using default resource settings in `nextflow.config`. See `functional_test/sample_Nextflow_output/timeline.html` for detail.
+- It may take around 8 hours to finish if using default resource settings in `nextflow.config`. See `functional_test/sample_Nextflow_output/timeline.html` for detail.
 
 ### Running tests on local machine
 
@@ -129,7 +129,7 @@ nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir
 ### Running tests on high-performance computing
 
 ```
-nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --use_singularity 1 -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
+nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --container singularity -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
 ```
 
 # Bug reporting and feature requests

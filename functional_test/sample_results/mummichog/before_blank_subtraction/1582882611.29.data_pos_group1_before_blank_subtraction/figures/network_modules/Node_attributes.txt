@@ -1,0 +1,139 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+C01094	D-Fructose 1-phosphate	2.14596415701	row496	E27
+C00636	D-Mannose 1-phosphate	2.15978099945	row2544	E27
+C03693	D-Mannose 1,6-bisphosphate	3.41265858732	row1043	E362
+C14826	12(13)-EpOME; (12R,13S)-(9Z)-12,13-Epoxyoctadecenoic acid	8.25682959546	row1495	E483
+C14762	13(S)-HODE; (13S)-Hydroxyoctadecadienoic acid; (9Z, 11E)-(13S)-13-Hydroxyoctadeca-9,11-dienoic acid	8.25682959546	row1495	E483
+C02976	Fructose 1-phosphate	2.15978099945	row2544	E27
+C14765	13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid	3.95448078099	row2413	E397
+C02965	D-Hexose 6-phosphate	3.03956291593	row2568	E27
+C01177	1D-myo-Inositol 1-phosphate	2.15978099945	row2544	E27
+C04062	D-myo-Inositol 1,3-bisphosphate; 1D-myo-Inositol 1,3-bisphosphate; myo-Inositol 1,3-bisphosphate; Inositol 1,3-bisphosphate	3.41265858732	row1043	E362
+C03735	alpha-D-Hexose 6-phosphate	2.14596415701	row496	E27
+C01172	beta-D-glucose 6-phosphate	3.03956291593	row2568	E27
+C01094	D-Fructose 1-phosphate	2.15978099945	row2544	E27
+C01171	alpha-D-Hexose 1-phosphate	2.15978099945	row2544	E27
+C00310	D-Xylulose	4.35207625052	row548	E641
+C06373	beta-D-Gal-(1->4)-D-Glc	3.95659781867	row2517	E17
+C00312	L-Xylulose	4.35207625052	row548	E641
+CE5527		5.81451180618	row1554	E205
+C02965	D-Hexose 6-phosphate	2.15978099945	row2544	E27
+C01231	alpha-D-Glucose 1,6-bisphosphate; alpha-D-Glucose 1,6-biphosphate	3.41265858732	row1043	E362
+C00181	D-Xylose	4.35207625052	row548	E641
+C01097	D-Tagatose 6-phosphate	3.03956291593	row2568	E27
+C03862	Dolichyl phosphate D-mannose	2.15978099945	row2544	E27
+C00668	alpha-D-Glucose 6-phosphate	2.14596415701	row496	E27
+C14765	13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid	5.81451180618	row1554	E205
+C00121	D-Ribose	2.32284518493	row1386	E537
+C02670	D-glucurono-6,3-lactone	2.71845840237	row350	E647
+C00181	D-Xylose	2.32284518493	row1386	E537
+C02670	D-glucurono-6,3-lactone	2.38972940088	row343	E647
+C04006	1D-myo-Inositol 3-phosphate	3.03956291593	row2568	E27
+C01220	1D-myo-Inositol 1,4-bisphosphate	3.41265858732	row1043	E362
+C14827	9(S)-HPODE; 9(S)-HPOD; (10E,12Z)-(9S)-9-Hydroperoxyoctadeca-10,12-dienoic acid	8.13406584906	row2199	E569
+glac	D-glucurono-6,3-lactone	2.38972940088	row343	E647
+C03546	1D-myo-Inositol 4-phosphate	3.03956291593	row2568	E27
+C00259	L-Arabinose	2.32284518493	row1386	E537
+C00299	Uridine	2.75674092478	row976	E451
+CE3075	sorbitol 3-phosphate	2.14596415701	row496	E27
+C00387	Guanosine	2.56711845624	row1020	E377
+C00121	D-Ribose	4.35207625052	row548	E641
+CE5527		3.95448078099	row2413	E397
+C00618	3-Dehydro-L-gulonate	3.21466724992	row2048	E583
+C00636	D-Mannose 1-phosphate	2.14596415701	row496	E27
+C03862	Dolichyl phosphate D-mannose	2.14596415701	row496	E27
+C00103	D-Glucose 1-phosphate	3.03956291593	row2568	E27
+C14826	12(13)-EpOME; (12R,13S)-(9Z)-12,13-Epoxyoctadecenoic acid	4.19398254976	row1575	E483
+CE5526		3.84142404048	row1533	E397
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	2.14596415701	row496	E27
+C00275	D-Mannose 6-phosphate	2.14596415701	row496	E27
+C03785	D-Tagatose 1,6-bisphosphate	3.41265858732	row1043	E362
+C14827	9(S)-HPODE; 9(S)-HPOD; (10E,12Z)-(9S)-9-Hydroperoxyoctadeca-10,12-dienoic acid	3.74313135321	row1441	E569
+C03546	1D-myo-Inositol 4-phosphate	2.14596415701	row496	E27
+C01177	1D-myo-Inositol 1-phosphate	2.14596415701	row496	E27
+C00185	Cellobiose	3.95659781867	row2517	E17
+C04717	(9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoic acid; (9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoate; 13(S)-HPODE; 13S-Hydroperoxy-9Z,11E-octadecadienoic acid	8.13406584906	row2199	E569
+C14762	13(S)-HODE; (13S)-Hydroxyoctadecadienoic acid; (9Z, 11E)-(13S)-13-Hydroxyoctadeca-9,11-dienoic acid	4.19398254976	row1575	E483
+C00259	L-Arabinose	4.35207625052	row548	E641
+C00085	D-Fructose 6-phosphate	3.03956291593	row2568	E27
+C00275	D-Mannose 6-phosphate	2.15978099945	row2544	E27
+C00446	alpha-D-Galactose 1-phosphate	2.15978099945	row2544	E27
+C00446	alpha-D-Galactose 1-phosphate	3.03956291593	row2568	E27
+C00275	D-Mannose 6-phosphate	3.03956291593	row2568	E27
+C01171	alpha-D-Hexose 1-phosphate	2.14596415701	row496	E27
+C14825	9(10)-EpOME; (9R,10S)-(12Z)-9,10-Epoxyoctadecenoic acid	8.25682959546	row1495	E483
+C00085	D-Fructose 6-phosphate	2.15978099945	row2544	E27
+C01097	D-Tagatose 6-phosphate	2.14596415701	row496	E27
+C00191	D-Glucuronate	3.21466724992	row2048	E583
+C00668	alpha-D-Glucose 6-phosphate	2.15978099945	row2544	E27
+C01235	1-alpha-D-Galactosyl-myo-inositol; 1-O-alpha-D-Galactosyl-D-myo-inositol; Galactinol	3.95659781867	row2517	E17
+C04717	(9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoic acid; (9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoate; 13(S)-HPODE; 13S-Hydroperoxy-9Z,11E-octadecadienoic acid	3.74313135321	row1441	E569
+C00208	Maltose	3.95659781867	row2517	E17
+C14826	12(13)-EpOME; (12R,13S)-(9Z)-12,13-Epoxyoctadecenoic acid	3.52063321895	row1609	E483
+C00170	5-Methylthioadenosine	5.17977449329	row1772	E130
+C03735	alpha-D-Hexose 6-phosphate	3.03956291593	row2568	E27
+C00252	Isomaltose; Brachiose	3.95659781867	row2517	E17
+C01097	D-Tagatose 6-phosphate	2.15978099945	row2544	E27
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	3.03956291593	row2568	E27
+C00072	L-Ascorbate	2.71845840237	row350	E647
+C04063	D-myo-Inositol 3,4-bisphosphate; 1D-myo-Inositol 3,4-bisphosphate; Inositol 3,4-bisphosphate	3.41265858732	row1043	E362
+C01171	alpha-D-Hexose 1-phosphate	3.03956291593	row2568	E27
+C01094	D-Fructose 1-phosphate	3.03956291593	row2568	E27
+CE5526		5.81451180618	row1554	E205
+C01177	1D-myo-Inositol 1-phosphate	3.03956291593	row2568	E27
+glac	D-glucurono-6,3-lactone	2.71845840237	row350	E647
+C01172	beta-D-glucose 6-phosphate	2.15978099945	row2544	E27
+C00668	alpha-D-Glucose 6-phosphate	3.03956291593	row2568	E27
+C00475	Cytidine	9.80703620853	row1607	E378
+C05400	Epimelibiose	3.95659781867	row2517	E17
+C00665	D-Fructose 2,6-bisphosphate	3.41265858732	row1043	E362
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	4.35207625052	row548	E641
+C00354	D-Fructose 1,6-bisphosphate	3.41265858732	row1043	E362
+C05402	Melibiose	3.95659781867	row2517	E17
+C04006	1D-myo-Inositol 3-phosphate	2.15978099945	row2544	E27
+C03546	1D-myo-Inositol 4-phosphate	2.15978099945	row2544	E27
+C06472	L-Iduronic acid	3.21466724992	row2048	E583
+C14825	9(10)-EpOME; (9R,10S)-(12Z)-9,10-Epoxyoctadecenoic acid	3.52063321895	row1609	E483
+C00072	L-Ascorbate	2.38972940088	row343	E647
+C00475	Cytidine	10.3208339981	row365	E378
+C00243	Lactose	3.95659781867	row2517	E17
+C05345	beta-D-Fructose 6-phosphate	2.14596415701	row496	E27
+C00092	D-Glucose 6-phosphate; Glucose 6-phosphate; Robison ester	2.15978099945	row2544	E27
+C14765	13-OxoODE; 13-KODE; (9Z,11E)-13-Oxooctadeca-9,11-dienoic acid	3.84142404048	row1533	E397
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	2.32284518493	row1386	E537
+CE3075	sorbitol 3-phosphate	3.03956291593	row2568	E27
+C14762	13(S)-HODE; (13S)-Hydroxyoctadecadienoic acid; (9Z, 11E)-(13S)-13-Hydroxyoctadeca-9,11-dienoic acid	3.52063321895	row1609	E483
+C02965	D-Hexose 6-phosphate	2.14596415701	row496	E27
+C00147	Adenine	3.82380010971	row344	E601
+C00085	D-Fructose 6-phosphate	2.14596415701	row496	E27
+C00636	D-Mannose 1-phosphate	3.03956291593	row2568	E27
+CE5526		3.95448078099	row2413	E397
+C00299	Uridine	4.98069992418	row118	E495
+C00508	L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose	4.35207625052	row548	E641
+C00897	alpha-Maltose; alpha-Malt sugar	3.95659781867	row2517	E17
+CE5527		3.84142404048	row1533	E397
+C00103	D-Glucose 1-phosphate	2.15978099945	row2544	E27
+C00446	alpha-D-Galactose 1-phosphate	2.14596415701	row496	E27
+C05378	beta-D-Fructose 1,6-bisphosphate	3.41265858732	row1043	E362
+C14825	9(10)-EpOME; (9R,10S)-(12Z)-9,10-Epoxyoctadecenoic acid	4.19398254976	row1575	E483
+C00262	Hypoxanthine	2.416534719	row608	E522
+C05345	beta-D-Fructose 6-phosphate	3.03956291593	row2568	E27
+C05345	beta-D-Fructose 6-phosphate	2.15978099945	row2544	E27
+C00508	L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose	2.32284518493	row1386	E537
+C00089	Sucrose	3.95659781867	row2517	E17
+C03735	alpha-D-Hexose 6-phosphate	2.15978099945	row2544	E27
+C01083	Trehalose	3.95659781867	row2517	E17
+C02976	Fructose 1-phosphate	3.03956291593	row2568	E27
+C04006	1D-myo-Inositol 3-phosphate	2.14596415701	row496	E27
+C14827	9(S)-HPODE; 9(S)-HPOD; (10E,12Z)-(9S)-9-Hydroperoxyoctadeca-10,12-dienoic acid	4.68388245695	row1437	E66
+C02976	Fructose 1-phosphate	2.14596415701	row496	E27
+C00881	Deoxycytidine	2.1919691435	row2000	E317
+C00385	Xanthine	3.79710879615	row568	E325
+C00310	D-Xylulose	2.32284518493	row1386	E537
+CE3075	sorbitol 3-phosphate	2.15978099945	row2544	E27
+C03862	Dolichyl phosphate D-mannose	3.03956291593	row2568	E27
+C01172	beta-D-glucose 6-phosphate	2.14596415701	row496	E27
+C04717	(9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoic acid; (9Z,11E)-(13S)-13-Hydroperoxyoctadeca-9,11-dienoate; 13(S)-HPODE; 13S-Hydroperoxy-9Z,11E-octadecadienoic acid	4.68388245695	row1437	E66
+C00312	L-Xylulose	2.32284518493	row1386	E537
+C00559	Deoxyadenosine	2.39454163897	row1904	E124
+C00103	D-Glucose 1-phosphate	2.14596415701	row496	E27

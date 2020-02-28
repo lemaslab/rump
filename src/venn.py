@@ -14,7 +14,7 @@ Usage       : python venn.py -i $input_peak_table
                              -bs $do_blank_subtraction_or_not
                              -g1 $peak_table_for_metabolites_enriched_in_group1
                              -g2 $peak_table_for_metabolites_enriched_in_group1
-                             -bt $peak_table_for_metabolites_have_similar_volume_in_two_groups
+                             -bt $peak_table_for_all_metabolites_in_two_groups
 '''
 
 import os

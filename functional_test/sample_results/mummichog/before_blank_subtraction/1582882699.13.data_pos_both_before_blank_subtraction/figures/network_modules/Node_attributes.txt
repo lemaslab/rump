@@ -1,0 +1,47 @@
+CPD_ID	CPD_NAME	mz_row_Statistic	From_mz_row	From_EmpiricalCompound
+C00312	L-Xylulose	-4.42947609427	row1637	E298
+C00508	L-Ribulose; L-erythro-Pentulose; L-Arabinoketose; L-Arabinulose; L-Riboketose	-4.42947609427	row1637	E298
+C00181	D-Xylose	-4.42947609427	row1637	E298
+C16595	4-Hydroxy-5-phenyltetrahydro-1,3-oxazin-2-one	-5.20313850612	row1185	E995
+C00312	L-Xylulose	2.32284518493	row2967	E1155
+C16596	5-Phenyl-1,3-oxazinane-2,4-dione	-3.24836841912	row1304	E744
+C16560	3-Hydroxylidocaine	-2.89910238092	row3835	E229
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	-4.42947609427	row1637	E298
+C00310	D-Xylulose	2.32284518493	row2967	E1155
+C16584	p-Hydroxyfelbamate	-3.74827429106	row4065	E49
+C07572	Citalopram	-2.74237643895	row5323	E647
+C00259	L-Arabinose	4.35207625052	row1100	E1155
+C07572	Citalopram	-2.66192346158	row3771	E647
+C06472	L-Iduronic acid	-2.99032910391	row2393	E398
+C00191	D-Glucuronate	-2.99032910391	row2393	E398
+CE5277	aminochrome o-semiquinone	-4.42947609427	row1637	E298
+C00121	D-Ribose	4.35207625052	row1100	E1155
+C16582	2-Hydroxyfelbamate	3.37236028095	row3351	E169
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	2.32284518493	row2967	E1155
+C07501	Felbamate	-3.93626412408	row1703	E801
+C16584	p-Hydroxyfelbamate	3.37236028095	row3351	E169
+C16561	Monoethylglycinexylidide	2.16621620345	row4872	E560
+C00259	L-Arabinose	-4.42947609427	row1637	E298
+C00181	D-Xylose	2.32284518493	row2967	E1155
+C00309	D-Ribulose; D-erythro-2-Pentulose; D-Arabinoketose; D-Arabinulose; D-Riboketose	4.35207625052	row1100	E1155
+C16582	2-Hydroxyfelbamate	-3.74827429106	row4065	E49
+C07501	Felbamate	-3.61881279624	row4467	E523
+C16587	3-Carbamoyl-2-phenylpropionaldehyde	-5.20313850612	row1185	E995
+C00181	D-Xylose	4.35207625052	row1100	E1155
+CE5276	dopamine o-quinone	-2.26668147123	row141	E19
+C00618	3-Dehydro-L-gulonate	-2.99032910391	row2393	E398
+C00312	L-Xylulose	4.35207625052	row1100	E1155
+C05635	5-Hydroxyindoleacetate	-3.24836841912	row1304	E744
+C00121	D-Ribose	2.32284518493	row2967	E1155
+C00191	D-Glucuronate	3.21466724992	row4897	E718
+C06472	L-Iduronic acid	3.21466724992	row4897	E718
+C00310	D-Xylulose	4.35207625052	row1100	E1155
+C00532	L-Arabinitol	-2.26668147123	row141	E19
+C16582	2-Hydroxyfelbamate	-4.52591128228	row1671	E1488
+C16550	Dechloroethylcyclophosphamide; 3-Dechloroethylifosfamide	2.55541291811	row1034	E666
+C00121	D-Ribose	-4.42947609427	row1637	E298
+C00379	Xylitol	-2.26668147123	row141	E19
+C00310	D-Xylulose	-4.42947609427	row1637	E298
+C00618	3-Dehydro-L-gulonate	3.21466724992	row4897	E718
+C16584	p-Hydroxyfelbamate	-4.52591128228	row1671	E1488
+C00259	L-Arabinose	2.32284518493	row2967	E1155
