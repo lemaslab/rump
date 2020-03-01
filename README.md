@@ -98,7 +98,39 @@ Nextflow run_aftermzmine.nf -with-docker xinsongdu/lemaslab_reump:v0.0.0
 
 ReUMP can display usage information on the command line:
 ```
-Nextflow run_all.nf --help true
+$ Nextflow run_all.nf --help true
+N E X T F L O W  ~  version 19.01.0
+Launching `run_all.nf` [happy_heyrovsky] - revision: ae03ed6970
+WARN: There's no process matching config selector: raw_stats_merge_nobg
+
+UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: 0.0.0 (20200226)
+This pipeline is distributed in the hope that it will be useful
+but WITHOUT ANY WARRANTY. See the GNU GPL v3.0 for more details.
+
+Please report comments and bugs to xinsongdu@ufl.edu
+or at https://github.com/lemaslab/ReUMP/issues.
+Check https://github.com/lemaslab/ReUMP for updates, and refer to
+https://github.com/lemaslab/ReUMP/wiki
+
+Usage:
+   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_reump:v0.0.0
+
+Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:
+----------------------------- common parameters ----------------------------------
+    --input_dir_pos                         folder location for positive data, default is 'data/POS'
+    --input_dir_neg                         folder location for positive data, default is 'data/NEG'
+    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'
+    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'
+    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05
+    --version                               whether to show version information or not, default is null
+    --help                                  whether to show help information or not, default is null
+Please refer to nextflow.config for more options.
+
+Container:
+    Docker image to use with -with-docker|-with-singularity options is
+    'docker://xinsongdu/lemaslab_reump:v0.0.0'
+
+ReUMP supports .mzXML format files.
 ```
 
 ### Logging
