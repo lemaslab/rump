@@ -1,6 +1,6 @@
+MZmine-2.53-Linux/
 history/
 nextflow_report*
-results/
 *backups/
 logs/
 work/
@@ -13,6 +13,7 @@ docker/
 materials/
 tmp/
 reproducibility_test/
+results/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
