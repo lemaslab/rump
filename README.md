@@ -1,27 +1,27 @@
-[![travis](https://travis-ci.com/lemaslab/ReUMP.svg?branch=master)](https://travis-ci.com/lemaslab/ReUMP)
-[![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/ReUMP/blob/master/LICENSE)
+[![travis](https://travis-ci.com/lemaslab/RUMP.svg?branch=master)](https://travis-ci.com/lemaslab/RUMP)
+[![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 
 # Overview
 
 Data processing for metabolomics data. Pipeline overview:
 
-![alt text](https://github.com/lemaslab/ReUMP/blob/master/figs/pipeline.png)
+![alt text](https://github.com/lemaslab/RUMP/blob/master/figs/pipeline.png)
 
 # Licence
 
-This program is released as open source software under the terms of [GNU GPL-v3.0 License](https://github.com/GalaxyDream/ReUMP/blob/master/LICENSE).
+This program is released as open source software under the terms of [GNU GPL-v3.0 License](https://github.com/GalaxyDream/RUMP/blob/master/LICENSE).
 
 # Installing
 
-ReUMP can be run in any UNIX-like system. [Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
+RUMP can be run in any UNIX-like system. [Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
 
 1. Clone this repository: 
 ```
-$ git clone https://github.com/lemaslab/ReUMP.git
+$ git clone https://github.com/lemaslab/RUMP.git
 ```
 2. Move into the repository directory:
 ```
-$ cd ReUMP
+$ cd RUMP
 ```
 3. Download [Nextflow](https://www.nextflow.io/) and [MZmine-2.53](https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip) to the repository
 ```
@@ -29,12 +29,12 @@ curl -s https://get.nextflow.io | bash && wget https://github.com/mzmine/mzmine2
 ```
 4. Pull singularity image if using high-performance computing (**if using local machine, skip this step**)
 ```
-mkdir -p work/singularity && singularity pull --name work/singularity/xinsongdu-lemaslab_reump.img docker://xinsongdu/lemaslab_reump:v0.0.0
+mkdir -p work/singularity && singularity pull --name work/singularity/xinsongdu-lemaslab_reump.img docker://xinsongdu/lemaslab_rump:v0.0.0
 ```
 
 # General Behavior
 
-ReUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); and pathway analysis are done with [mummichog](http://mummichog.org/).
+RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); and pathway analysis are done with [mummichog](http://mummichog.org/).
 
 #### Default parameter settings for MZmine-2.53 (the following parameters are specifically for data processed by [SECIM Core](http://secim.ufl.edu/)):
 
@@ -64,7 +64,7 @@ Negative mode:
 - Complex search (Ionization method: [M-H]-; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.003 m/z or 10.0 ppm; Max complex peak height: 0.4)
 - Custom database search (m/z tolerance: 0.003 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.2)
 
-### Following statistics are currently included in ReUMP
+### Following statistics are currently included in RUMP
 
 * *Student t-test*: Test if there is a significant statistical difference of certain peak intensities between the two groups of samples.
 * *Venn diagram*: Report the number of peaks that are significantly enriched in one of the groups, and the number of peaks that have no significant difference between two groups.
@@ -78,11 +78,11 @@ Negative mode:
 - Create design files for positve data and negative data, indicating the group of each file. Sample design file can be found in `data/sample_data/pos_design.csv` and `data/sample_data/neg_design.csv`
 - Process your data with default parameters using local machine
 ```
-Nextflow run_all.nf -with-docker xinsongdu/lemaslab_reump:v0.0.0
+Nextflow run_all.nf -with-docker xinsongdu/lemaslab_rump:v0.0.0
 ```
 - Process your data with default parameters using high-performance computing (It is recommended to maximize CPU and memory in pos_peakDetection_mzmine and neg_peakDetection_mzmine processes in `nextflow.config` if using high-performance computing)
 ```
-Nextflow run_all.nf --container singularity -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
+Nextflow run_all.nf --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v0.0.0
 ```
 
 ### Process dataframe generatd by MZmine-2.53
@@ -91,12 +91,12 @@ Nextflow run_all.nf --container singularity -with-singularity docker://xinsongdu
 - Create design files describing the group of each column of positive/negative data, save them to `data/pos_design.csv` and `data/neg_design.csv`
 - Get statistical analysis and pathway analysis
 ```
-Nextflow run_aftermzmine.nf -with-docker xinsongdu/lemaslab_reump:v0.0.0
+Nextflow run_aftermzmine.nf -with-docker xinsongdu/lemaslab_rump:v0.0.0
 ```
 
 ### Help message
 
-ReUMP can display usage information on the command line:
+RUMP can display usage information on the command line:
 ```
 $ Nextflow run_all.nf --help true
 N E X T F L O W  ~  version 19.01.0
@@ -108,12 +108,12 @@ This pipeline is distributed in the hope that it will be useful
 but WITHOUT ANY WARRANTY. See the GNU GPL v3.0 for more details.
 
 Please report comments and bugs to xinsongdu@ufl.edu
-or at https://github.com/lemaslab/ReUMP/issues.
-Check https://github.com/lemaslab/ReUMP for updates, and refer to
-https://github.com/lemaslab/ReUMP/wiki
+or at https://github.com/lemaslab/RUMP/issues.
+Check https://github.com/lemaslab/RUMP for updates, and refer to
+https://github.com/lemaslab/RUMP/wiki
 
 Usage:
-   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_reump:v0.0.0
+   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_rump:v0.0.0
 
 Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:
 ----------------------------- common parameters ----------------------------------
@@ -128,9 +128,9 @@ Please refer to nextflow.config for more options.
 
 Container:
     Docker image to use with -with-docker|-with-singularity options is
-    'docker://xinsongdu/lemaslab_reump:v0.0.0'
+    'docker://xinsongdu/lemaslab_rump:v0.0.0'
 
-ReUMP supports .mzXML format files.
+RUMP supports .mzXML format files.
 ```
 
 ### Logging
@@ -155,17 +155,17 @@ bash clear.sh
 ### Running tests on local machine
 
 ```
-nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker xinsongdu/lemaslab_reump:v0.0.0
+nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker xinsongdu/lemaslab_rump:v0.0.0
 ```
 
 ### Running tests on high-performance computing
 
 ```
-nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --container singularity -with-singularity docker://xinsongdu/lemaslab_reump:v0.0.0
+nextflow run_all.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v0.0.0
 ```
 
 # Bug reporting and feature requests
 
 Please submit bug reports and feature requests to the issue tracker on GitHub:
 
-[ReUMP issue tracker](https://github.com/lemaslab/ReUMP/issues)
+[RUMP issue tracker](https://github.com/lemaslab/RUMP/issues)
