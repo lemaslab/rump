@@ -88,11 +88,6 @@ PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_
     Prints version when asked for
 */
 
-println "Project : $workflow.projectDir"
-println "Git info: $workflow.repository - $workflow.revision [$workflow.commitId]"
-println "Cmd line: $workflow.commandLine"
-println "Manifest's pipeline version: $workflow.manifest.version"
-
 if (params.version) {
     System.out.println("")
     System.out.println("RUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
