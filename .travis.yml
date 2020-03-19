@@ -12,3 +12,4 @@ script:
   # Functional tests
   - travis_wait 35 bash .travis/RUMP-test_all.sh
   - bash .travis/RUMP-test_aftermzmine.sh
+  - bash .travis/unit_tests.sh
