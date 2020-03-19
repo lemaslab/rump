@@ -83,9 +83,9 @@ def add_label(row, group1_name, group2_name):
     else:
         return str(row["row identity (main ID)"]) + "/" + str(round(row["fold_change" + "(" + str(group1_name) + " versus " + str(group2_name) + ")"], 2))
 
-def add_stats(input_file, design_file, output_file, library):
+def add_stats(data_file="data_pos_ph.csv", design_file="design", output_file="pos_withstats.csv", library="Positive_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv"):
 
-    data = pd.read_csv(input_file)
+    data = pd.read_csv(data_file)
     data["row identity (main ID)"] = data["row identity (main ID)"].apply(str)
     data = data[~(data["row identity (main ID)"].str.contains("adduct|Complex", na = False, regex = True))]
     data["number of comparisons"] = len(data)
@@ -135,6 +135,9 @@ def add_stats(input_file, design_file, output_file, library):
         data[str(group2_name) + "_selected"] = data.apply(lambda row: blank_subtraction_flag(row, group2_columns, "threshold", ratio_bar), axis = 1)
 
     data.to_csv(output_file, index = False)
+
+    # the following return is used for unit tests
+    return list(data["row identity (main ID)"])
 
 if __name__ == '__main__':
 
