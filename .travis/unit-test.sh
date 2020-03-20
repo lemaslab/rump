@@ -3,9 +3,15 @@
 set -e
 errors=0
 
+# Run unit tests
+python3 rump/unit_test.py || {
+    echo "'python python/rump/unit_test.py' failed"
+    let errors+=1
+}
+
 # Check program style
-pylint -E src/*.py || {
-    echo 'pylint -E bionitio/*.py failed'
+python3 -m pylint -E rump/*.py || {
+    echo 'pylint -E rump/*.py failed'
     let errors+=1
 }
 

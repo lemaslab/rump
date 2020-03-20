@@ -26,9 +26,9 @@ import warnings
 warnings.filterwarnings('ignore')
 pd.set_option('display.max_columns', 500)
 
-def blank_subtraction(input_file, design_file, output_file):
+def blank_subtraction(data_file="pos_data.csv", design_file="pos_design.csv", output_file="pos_data_withBS.csv"):
 
-    data = pd.read_csv(input_file)
+    data = pd.read_csv(data_file)
     design = pd.read_csv(design_file)
 
     group_names = list(set(design['group']))
@@ -44,6 +44,9 @@ def blank_subtraction(input_file, design_file, output_file):
     logger.info("blank subtraction done")
 
     data_withBS.to_csv(output_file, index = False)
+
+    # This returned value is used for unit test
+    return len(data_withBS)
 
 if __name__ == '__main__':
 

@@ -37,7 +37,7 @@ from matplotlib_venn import venn2
 import warnings
 warnings.filterwarnings('ignore')
 
-def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv):
+def vd(data_file="data_pos_ph.csv", design_file="pos_design.csv", output_fig="barplot_pos_withbg.png", BS="1", group1_csv="group1.csv", group2_csv="group1.csv", both_csv="both.csv"):
 
     # load design file
     design = pd.read_csv(design_file)
@@ -48,7 +48,7 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     group1_name = group_names[0]
     group2_name = group_names[1]
 
-    data = pd.read_csv(input_file)
+    data = pd.read_csv(data_file)
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
 
@@ -112,6 +112,9 @@ def vd(input_file, design_file, output_fig, BS, group1_csv, group2_csv, both_csv
     logger.info("saving venn diagram")
 
     plt.savefig(output_fig, bbox_inches="tight")
+
+    # This returned value is used for unit test
+    return len(only_group1)
 
 if __name__ == '__main__':
 
