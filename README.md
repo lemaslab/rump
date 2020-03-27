@@ -13,7 +13,7 @@ This program is released as open source software under the terms of [GNU GPL-v3.
 
 # Installing
 
-RUMP can be run in any UNIX-like system. [Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
+RUMP can be run in any UNIX-like system. [Nextflow](https://www.nextflow.io/) and [Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
 
 1. Clone this repository: 
 ```
@@ -23,9 +23,9 @@ $ git clone https://github.com/lemaslab/RUMP.git
 ```
 $ cd RUMP
 ```
-3. Download [Nextflow](https://www.nextflow.io/) and [MZmine-2.53](https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip) to the repository
+3. Download and [MZmine-2.53](https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip) to the repository
 ```
-curl -s https://get.nextflow.io | bash && wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip && unzip MZmine-2.53-Linux.zip && rm MZmine-2.53-Linux.zip
+wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip && unzip MZmine-2.53-Linux.zip && rm MZmine-2.53-Linux.zip
 ```
 4. Pull singularity image if using high-performance computing (**if using local machine, skip this step**)
 ```
