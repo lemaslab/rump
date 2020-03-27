@@ -35,23 +35,57 @@ import warnings
 warnings.filterwarnings('ignore')
 
 def add_threshold(row, names):
+    '''Add threshold for blank subtraction algorithm.
+
+    # Arguments:
+        row: certain row of peak table (pandas dataframe).
+        names: column names in the peak table of a certain group of samples
+
+    # Returns:
+        threshold value
+    '''
+
     value = np.mean(row[names]) + 3*np.std(row[names])
     return value if value >0 else 5000 
 
 def blank_subtraction_flag(row, name_group, name_threshold, bar):
+    '''Blank subtraction function.
+
+    Blank subtraction algorithm:
+    - Calculate mean (mean_blank) and standard deviation (sd_blank) of peak intensions in blank samples.
+    - Threshold ← mean_blank+3*sd_blank
+    - If threshold <=0, then replace it with 5,000 (why 5,000?)
+    - Calculate mean peak intension in fat (mean_fat), whole (mean_whole) and skim (mean_skim) samples.
+    - ratio_fat ← (mean_fat-threshold)/threshold; ratio_whole ← (mean_whole-threshold)/threshold; ratio_skim ← (mean_skim-threshold)/threshold
+    - If ratio_fat<self_defined_number (e.g. 100) and ratio_whole<self_defined_number and ratio_skim<self_defined_number, then drop the peak.
+
+    # Arguments:
+        row: certain row of peak table (pandas dataframe).
+        name_group: name of the group.
+        name_threshold: name of the threshold column.
+        bar: bar value of blank subtraction algorithm.
+
+    # Returns:
+        If a certain peak of this group still exist after blank subtraction
+
+    '''
     return (np.mean(row[name_group]) - row[name_threshold])/row[name_threshold] > bar
 
-def zero_intension_flag(row, name_group):
+# Judge whether certain peak intensity of a sample is 0 or not
+def zero_intensity_flag(row, name_group):
     return np.mean(row[name_group]) <= 0
 
+# Add p-value for student t-test between two groups of samples
 def add_pvalue(row, left_names, right_names):
     _, p = stats.ttest_ind(row[left_names], row[right_names])
     return p
 
+# Add t-value for student t-test between two groups of samples
 def add_tvalue(row, left_names, right_names):
     t, _ = stats.ttest_ind(row[left_names], row[right_names])
     return t
 
+# Add fold-change for the mean values of two groups of samples
 def fold_change(row, left, right):
     if row[right] == 0:
         return np.inf
@@ -61,9 +95,12 @@ def fold_change(row, left, right):
         result = row[left]/row[right]
         return result if result >=1 else -1/result
 
+# Absolute value of fold-change
 def abs_fold_change(row, fold_change_column):
         return abs(row[fold_change_column])
 
+# Add ppm value for identified metabolites. 
+# The library search result produced by MZmine may exceed 5 ppm, so those beyond 5 ppm should be filtered out
 def add_ppm(row, library_df):
     if pd.isnull(row['row identity (main ID)']):
         return None
@@ -123,8 +160,8 @@ def add_stats(data_file="data_pos_ph.csv", design_file="design", output_file="po
     data['p_value'] = data.apply(lambda row: add_pvalue(row, group1_columns, group2_columns), axis = 1)   
     data['t_value'] = data.apply(lambda row: add_tvalue(row, group1_columns, group2_columns), axis = 1)
     data.dropna(subset = ["p_value"], inplace = True)
-    data[str(group1_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group1_columns), axis = 1)
-    data[str(group2_name) + '_zero'] = data.apply(lambda row: zero_intension_flag(row, group2_columns), axis = 1)
+    data[str(group1_name) + '_zero'] = data.apply(lambda row: zero_intensity_flag(row, group1_columns), axis = 1)
+    data[str(group2_name) + '_zero'] = data.apply(lambda row: zero_intensity_flag(row, group2_columns), axis = 1)
     data['label'] = data.apply(lambda row: add_label(row, group1_name, group2_name), axis = 1)
     judge, adjust_p = multipletests(pvals = data.p_value.tolist(), alpha = 0.05, method = "fdr_bh")[:2]
     data["adjusted_p_value"] = adjust_p
