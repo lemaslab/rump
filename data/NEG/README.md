@@ -1,3 +1,1 @@
-# To Users
-
-Put negative data files (.mzXML format) in this folder.
+placeholder. Remove README after moving your data to this folder

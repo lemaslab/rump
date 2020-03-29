@@ -36,9 +36,11 @@ BATCHFILE_GENERATOR_POS = Channel.fromPath(params.batchfile_generator_pos) // Th
 BATCHFILE_GENERATOR_NEG = Channel.fromPath(params.batchfile_generator_neg) // This channel stores Python code (~/src/batchfile_generator_neg.py) for generating MzMine batchfile for negative samples, which enables us to run MzMine in batch mode. 
 
 POS_DATA_DIR = Channel.fromPath(params.input_dir_pos, type: 'dir') // Location of folder storing positive data
-POS_DATA_DIR.into{POS_DATA_DIR_INFO; POS_DATA_DIR_BS}
+POS_DATA_DIR.into{POS_DATA_DIR_UNIT_TESTS; POS_DATA_DIR_INFO; POS_DATA_DIR_BS}
 NEG_DATA_DIR = Channel.fromPath(params.input_dir_neg, type: 'dir') // Location of folder storing negative data
-NEG_DATA_DIR.into{NEG_DATA_DIR_INFO; NEG_DATA_DIR_BS}
+NEG_DATA_DIR.into{NEG_DATA_DIR_UNIT_TESTS; NEG_DATA_DIR_INFO; NEG_DATA_DIR_BS}
+
+PYTHON_INPUT_CHECK = Channel.fromPath(params.python_input_check)
 
 PYTHON_VD = Channel.fromPath(params.python_vd) // Chennel of Python code for venn diagram
 PYTHON_VD.into{PYTHON_VD_NOBG; PYTHON_VD_WITHBG}
@@ -63,9 +65,9 @@ PYTHON_BS = Channel.fromPath(params.python_bs)
 
 // Design files for positive data and negative data.
 POS_DESIGN = Channel.fromPath(params.POS_design_path)
-POS_DESIGN.into{POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG; POS_DESIGN_FOR_VD_NOBG; POS_DESIGN_FOR_VD_WITHBG; POS_DESIGN_FOR_BARPLOT_NOBG; POS_DESIGN_FOR_BARPLOT_WITHBG}
+POS_DESIGN.into{POS_DESIGN_FOR_UNIT_TESTS; POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG; POS_DESIGN_FOR_VD_NOBG; POS_DESIGN_FOR_VD_WITHBG; POS_DESIGN_FOR_BARPLOT_NOBG; POS_DESIGN_FOR_BARPLOT_WITHBG}
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
-NEG_DESIGN.into{NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG; NEG_DESIGN_FOR_VD_NOBG; NEG_DESIGN_FOR_VD_WITHBG; NEG_DESIGN_FOR_BARPLOT_NOBG; NEG_DESIGN_FOR_BARPLOT_WITHBG}
+NEG_DESIGN.into{NEG_DESIGN_FOR_UNIT_TESTS; NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG; NEG_DESIGN_FOR_VD_NOBG; NEG_DESIGN_FOR_VD_WITHBG; NEG_DESIGN_FOR_BARPLOT_NOBG; NEG_DESIGN_FOR_BARPLOT_WITHBG}
 
 // Library
 POS_LIBRARY = Channel.fromPath(params.pos_library)
@@ -93,6 +95,15 @@ if (params.version) {
     System.out.println("RUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
     exit 1
 }
+
+/**
+    Basic running information
+*/
+
+println "Project : $workflow.projectDir"
+println "Git info: $workflow.repository - $workflow.revision [$workflow.commitId]"
+println "Cmd line: $workflow.commandLine"
+println "Manifest's pipeline version: $workflow.manifest.version"
 
 /**
     Prints help when asked for
@@ -132,6 +143,25 @@ if (params.help) {
     exit 1
 }
 
+// Unit tests
+process input_check {
+
+    echo true
+
+    input:
+    file python_input_check from PYTHON_INPUT_CHECK // Python code for unit tests
+    file pos_data_dir from POS_DATA_DIR_UNIT_TESTS // Location of positive data
+    file neg_data_dir from NEG_DATA_DIR_UNIT_TESTS // Location of negative data
+    file pos_design from POS_DESIGN_FOR_UNIT_TESTS // Location of positive design
+    file neg_design from NEG_DESIGN_FOR_UNIT_TESTS // Location of negative design
+
+    shell:
+    """
+    echo "checking input eligibility" &&
+    python3 ${python_input_check} --pos_data ${pos_data_dir} --neg_data ${neg_data_dir} --pos_design ${pos_design} --neg_design ${neg_design}
+    """
+}
+
 // Process for generating MultiQC report regarding data information
 process mqc_data_info {
 
@@ -149,6 +179,7 @@ process mqc_data_info {
 
     shell:
     """
+    sleep 5 &&
     python3 ${get_data_info} -i ${pos_data_dir} -o $params.pos_data_info_mqc -n p &&
     python3 ${get_data_info} -i ${neg_data_dir} -o $params.neg_data_info_mqc -n n
     """
@@ -169,7 +200,8 @@ process batchfile_generation_mzmine {
     file params.neg_config into NEG_BATCHFILE // Generated batchfile for processing negative data
 
     shell:
-    """  
+    """ 
+    sleep 15 && 
     echo "setting parameters for MZmine" &&
     python ${batchfile_generator_pos} -x ${params.pos_config} -i ${pos_data_dir} -l $params.pos_library -o $params.pos_mzmine_peak_output &&
     python ${batchfile_generator_neg} -x ${params.neg_config} -i ${neg_data_dir} -l $params.neg_library -o $params.neg_mzmine_peak_output
@@ -192,7 +224,8 @@ process pos_peakDetection_mzmine {
 // Change "startMZmine_Linux.sh" to "startMZmine_MacOSX.command" in the following code if running locally with Mac
 
     shell:
-    """   
+    """
+    sleep 5 &&
     echo "peak detection and library matching for positive data" &&
     mv ${p_b} ${p_m} && mv ${pos_library} ${p_m} && cd ${p_m} && ./startMZmine-Linux ${p_b}
     """
@@ -212,7 +245,8 @@ process neg_peakDetection_mzmine {
 // Change "startMZmine_Linux.sh" to "startMZmine_MacOSX.command" in the following code if running locally with Mac
 
     shell:
-    """   
+    """ 
+    sleep 5 &&  
     echo "peak detection and library matching for negative data" &&
     mv ${n_b} ${n_m} && mv ${neg_library} ${n_m} && cd ${n_m} && ./startMZmine-Linux ${n_b}
     """

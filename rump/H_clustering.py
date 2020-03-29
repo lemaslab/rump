@@ -34,7 +34,7 @@ import seaborn as sns; sns.set(color_codes=True)
 import warnings
 warnings.filterwarnings('ignore')
 
-def H_clustering(input_file, design_file, output_fig, only_matched, BS):
+def H_clustering(data_file, design_file, output_fig, only_matched, BS):
 
     # load design file
     design = pd.read_csv(design_file)
@@ -45,7 +45,7 @@ def H_clustering(input_file, design_file, output_fig, only_matched, BS):
     group1_name = group_names[0]
     group2_name = group_names[1]
 
-    data = pd.read_csv(input_file)
+    data = pd.read_csv(data_file)
     group1_columns = design[design.group == group1_name].sampleID.tolist()
     group2_columns = design[design.group == group2_name].sampleID.tolist()
 

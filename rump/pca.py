@@ -96,7 +96,7 @@ def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
     ellipse.set_transform(transf + ax.transData)
     return ax.add_patch(ellipse)
 
-def pca_2g(input_file, design_file, output_fig):
+def pca_2g(data_file, design_file, output_fig):
 
     # load design file
     design = pd.read_csv(design_file)
@@ -108,7 +108,7 @@ def pca_2g(input_file, design_file, output_fig):
     group2_name = group_names[1]
     ratio_bar = 100
 
-    data_pca = pd.read_csv(input_file)
+    data_pca = pd.read_csv(data_file)
     if len(data_pca) <= 2:
         logger.info("empty fig")
         plt.savefig(output_fig)
