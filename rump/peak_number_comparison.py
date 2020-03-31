@@ -2,30 +2,44 @@
 # -*- coding: utf-8 -*-
 
 '''
-Description : This code generate file that can be parsed by MultiQC, including number of peaks in different data analysis stage
+Description : This code generate file that can be parsed by MultiQC,
+              including number of peaks in different data analysis stage
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Xinsong Du
-License     : GNU GPL-v3.0 License 
+License     : GNU GPL-v3.0 License
 Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
-Usage       : python peak_number_comparison.py -i1 $peak_table_for_positive_before_blank_subtraction
-                                               -i2 $peak_table_for_negative_before_blank_subtraction
-                                               -i3 $peak_table_for_positive_after_blank_subtraction
-                                               -i4 $peak_table_for_negative_after_blank_subtraction
-                                               -o $output_file
+Usage       : python peak_number_comparison.py -i1
+                                               $peak_table_for_positive_before_blank_subtraction
+                                               -i2
+                                               $peak_table_for_negative_before_blank_subtraction
+                                               -i3
+                                               $peak_table_for_positive_after_blank_subtraction
+                                               -i4
+                                               $peak_table_for_negative_after_blank_subtraction
+                                               -o
+                                               $output_file
 '''
 
-import os
 import logging
 import logging.handlers
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
-import yaml
-import csv
-import pandas as pd
-
 def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_txt):
+    '''Produce file containing peak number information that can be parsed by MultiQC.
+
+    # Arguments:
+        pos_nobg: peak table (csv file) of positive data before blank subtraction.
+        neg_nobg: peak table (csv file) of negative data before blank subtraction.
+        pos_withbg: peak table (csv file) of positive data after blank subtraction.
+        neg_withbg: peak table (csv file) of negative data after blank subtraction.
+        output_txt: name of output text file
+
+    # Outputs:
+        txt file containing peak number information.
+    '''
 
     pos = []
     neg = []
@@ -35,7 +49,7 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
     data_pos_nobg_matched = data_pos_nobg[data_pos_nobg.ppm < 5]
     pos.append(len(data_pos_nobg_matched))
     pos.append(len(data_pos_nobg_matched[data_pos_nobg_matched.adjusted_p_value < 0.05]))
-    
+
     data_neg_nobg = pd.read_csv(neg_nobg)
     neg.append(len(data_neg_nobg))
     data_neg_nobg_matched = data_neg_nobg[data_neg_nobg.ppm < 5]
@@ -43,8 +57,9 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
     neg.append(len(data_neg_nobg_matched[data_neg_nobg_matched.adjusted_p_value < 0.05]))
 
     if pos_withbg != "none":
-        steps = ["before_blank_subtraction", "match_before_blank_subtraction", "significant_match_before_blank_subtraction", 
-                 "after_blank_subtraction", 'match_after_blank_subtraction', "significant_match_after_blank_subtraction"]
+        steps = ["before_blank_subtraction", "match_before_blank_subtraction", \
+        "significant_match_before_blank_subtraction", "after_blank_subtraction", \
+        'match_after_blank_subtraction', "significant_match_after_blank_subtraction"]
         data_pos_withbg = pd.read_csv(pos_withbg)
         pos.append(len(data_pos_withbg))
         data_pos_withbg_matched = data_pos_withbg[data_pos_withbg.ppm < 5]
@@ -58,7 +73,8 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
         neg.append(len(data_neg_withbg_matched[data_neg_withbg_matched.adjusted_p_value < 0.05]))
 
     else:
-        steps = ["before_blank_subtraction", "match_before_blank_subtraction", "significant_match_before_blank_subtraction"]
+        steps = ["before_blank_subtraction", "match_before_blank_subtraction", \
+        "significant_match_before_blank_subtraction"]
 
 
 #    data_category = ["pos", "neg"]
@@ -93,17 +109,26 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-i1', '--pos_nobg', help="number of peaks for positive and without background subtraction;", default="0", dest = "pos_nobg", required = False)
+        '-i1', '--pos_nobg', \
+        help="number of peaks for positive and without background subtraction;", \
+        default="0", dest="pos_nobg", required=False)
     parser.add_argument(
-        '-i2', '--neg_nobg', help="number of peaks for negative and without background subtraction;", default="0", dest = "neg_nobg", required = False)
+        '-i2', '--neg_nobg', \
+        help="number of peaks for negative and without background subtraction;", \
+        default="0", dest="neg_nobg", required=False)
     parser.add_argument(
-        '-i3', '--pos_withbg', help="number of peaks for positive and after background subtraction;", default="0", dest = "pos_withbg", required = False)
+        '-i3', '--pos_withbg', \
+        help="number of peaks for positive and after background subtraction;", \
+        default="0", dest="pos_withbg", required=False)
     parser.add_argument(
-        '-i4', '--neg_withbg', help="number of peaks for negative and after background subtraction;", default="0", dest = "neg_withbg", required = False)
+        '-i4', '--neg_withbg', \
+        help="number of peaks for negative and after background subtraction;", \
+        default="0", dest="neg_withbg", required=False)
     parser.add_argument(
-        '-o', '--output', help="define the location of output csv file;", default="c_peak_number_comparison_mqc.txt", required = False)
-    
+        '-o', '--output', \
+        help="define the location of output csv file;", \
+        default="c_peak_number_comparison_mqc.txt", required=False)
+
     args = parser.parse_args()
-    peak_number_comparison(args.pos_nobg, args.neg_nobg, args.pos_withbg, args.neg_withbg, args.output)
-
-
+    peak_number_comparison(args.pos_nobg, args.neg_nobg, args.pos_withbg, \
+        args.neg_withbg, args.output)

@@ -147,9 +147,9 @@ bash clear.sh
 ### Exit status values
 
 RUMP returns the following exit status values:
-- 3: One or more input files does not exist.
-- 4: Positive file groups are not the same as negative file groups, please check design files.
-- 5: Not all input files are in .mzXML format, please check input data folders.
+- 3: Positive file groups are not the same as negative file groups, please check design files.
+- 4: Not all input files are in .mzXML format, please check input data folders.
+- 5: One or more input files does not exist.
 - Other Linux reserved exit codes: https://tldp.org/LDP/abs/html/exitcodes.html
 
 # Testing
