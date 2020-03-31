@@ -21,12 +21,13 @@ import logging.handlers
 import warnings
 import copy
 import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import seaborn as sns
+
 sns.set(color_codes=True)
-matplotlib.use('agg')
 warnings.filterwarnings('ignore')
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')

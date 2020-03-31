@@ -20,6 +20,8 @@ import logging.handlers
 import warnings
 
 import matplotlib
+matplotlib.use('agg')
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -28,7 +30,6 @@ from sklearn.preprocessing import StandardScaler
 from matplotlib.patches import Ellipse
 import matplotlib.transforms as transforms
 
-matplotlib.use('agg')
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 warnings.filterwarnings('ignore')
