@@ -5,13 +5,12 @@
 Description : This code generates batchfile for MZmine-2.53 to process negative data
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Xinsong Du
-License     : GNU GPL-v3.0 License 
+License     : GNU GPL-v3.0 License
 Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
-Usage       : python batchfile_generator_pos_253.py -x $batchfile_output_location 
-                                                    -i $input_negative_data_location 
-                                                    -l $library_location 
+Usage       : python batchfile_generator_pos_253.py -x $batchfile_output_location
+                                                    -i $input_negative_data_location
+                                                    -l $library_location
                                                     -o $output_peak_table_location
-                                                    -n $number_of_input_files_wanted
 '''
 
 import os
@@ -21,21 +20,28 @@ import logging.handlers
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
-def batchfile_generator(xml_file, input_dir, library, output_csv, n):
+def batchfile_generator(xml_file, input_dir, library, output_csv):
+    '''Generate MZmine batchfile for positive data.
 
-#    output = os.path.abspath(output_csv)
+    # Arguments:
+        xml_file: location and name of the produced batchfile.
+        input_dir: input data folder location.
+        library: location and name of library file.
+        output_csv: name of output peak table produced by MZmine.
+
+    # Outputs:
+        MZmine batchfile for positive data.
+    '''
 
     input_files = [os.path.abspath(os.path.join(input_dir, f)) for f in os.listdir(input_dir)]
     input_str = ""
     for i in input_files:
-        if i == int(n):
-            break
         input_str += "            <file>" + i + "</file>\n"
 
     with open(xml_file, "w+") as f:
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><batch>\n\
     <batchstep method=\"io.github.mzmine.modules.io.rawdataimport.RawDataImportModule\">\n\
-        <parameter name=\"Raw data file names\">\n" + input_str + 
+        <parameter name=\"Raw data file names\">\n" + input_str + \
 "        </parameter>\n\
     </batchstep>\n\
     <batchstep method=\"io.github.mzmine.modules.dataprocessing.featdet_massdetection.MassDetectionModule\">\n\
@@ -343,17 +349,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-x', '--x_output', help="define the location of the xml file that needs to be generated;", dest = "x_output", default="config.xml", required = False)
+        '-x', '--x_output', help="define the location of the xml file that needs to be generated;", dest="x_output", default="config.xml", required=False)
     parser.add_argument(
-        '-l', '--library', help="define the location of the library file;", dest = "library", default="Positive_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv", required = False)
+        '-l', '--library', help="define the location of the library file;", dest="library", default="Positive_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv", required=False)
     parser.add_argument(
-        '-i', '--input', help="define the location of input folder;", default="../../../data/metabolomics/fraction/grp1_fat/", required = False)
+        '-i', '--input', help="define the location of input folder;", default="../../../data/metabolomics/fraction/grp1_fat/", required=False)
     parser.add_argument(
-        '-o', '--output', help="define the location of output csv file;", default="../results/test.csv", required = False)
-    parser.add_argument(
-        '-n', '--n_files', help="define the number of input files wanted;", dest = "n_files", default="10000", required = False)
-    
+        '-o', '--output', help="define the location of output csv file;", default="../results/test.csv", required=False)
+
     args = parser.parse_args()
-    batchfile_generator(args.x_output, args.input, args.library, args.output, args.n_files)
-
-
+    batchfile_generator(args.x_output, args.input, args.library, args.output)
