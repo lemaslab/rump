@@ -75,7 +75,7 @@ Negative mode:
 ### Process your own data
 
 - Save your positive data files to `data/POS/` and negative data to `data/NEG/`
-- Create design files for positve data and negative data, indicating the group of each file. Sample design file can be found in `data/sample_data/pos_design.csv` and `data/sample_data/neg_design.csv`
+- Create design files for positve data and negative data, indicating the group of each file, save them to `data/pos_design.csv` and `data/neg_design.csv`. Sample design file can be found in `data/sample_data/pos_design.csv` and `data/sample_data/neg_design.csv`
 - Process your data with default parameters using local machine
 ```
 nextflow main.nf -with-docker xinsongdu/lemaslab_rump:v0.0.0
