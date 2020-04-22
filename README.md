@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f07b1c0408d4d319fea35651d414e21)](https://app.codacy.com/manual/XinsongDu/RUMP?utm_source=github.com&utm_medium=referral&utm_content=XinsongDu/RUMP&utm_campaign=Badge_Grade_Dashboard)
 [![travis](https://travis-ci.com/lemaslab/RUMP.svg?branch=master)](https://travis-ci.com/lemaslab/RUMP)
 [![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 
