@@ -7,9 +7,6 @@ options(scipen=20)
 # Setting the correct working directory.
 # NOTE!!! -> Can be linked differently on different computers.
 # setwd("/Users/xinsongdu/mnt/projects/beach01/secimtools")
-# Extra check
-getwd()
-setwd("/Users/xinsongdu/mnt/projects/HumanVSBovine_Milk/results_HumanVSBovine/peak_table")
 
 library(optparse) # add this library to enable argparse arguments
 library(cmmr)
