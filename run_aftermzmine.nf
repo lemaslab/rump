@@ -82,7 +82,7 @@ NEG_DESIGN.into{NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; N
 
 // R code for unknown search
 R_UNKNOWN_SEARCH = Channel.fromPath(params.r_unknown_search)
-R_UNKNOWN_SEARCH.into{R_UNKNOWN_SEARCH_NOBG, R_UNKNOWN_SEARCH_WITHBG}
+R_UNKNOWN_SEARCH.into{R_UNKNOWN_SEARCH_NOBG; R_UNKNOWN_SEARCH_WITHBG}
 
 // Result files used by MultiQC to generate report.
 // MQC_DIR = Channel.fromPath(params.mqc_dir, type: 'dir')

@@ -85,7 +85,7 @@ PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_
 
 // R code for unknown search
 R_UNKNOWN_SEARCH = Channel.fromPath(params.r_unknown_search)
-R_UNKNOWN_SEARCH.into{R_UNKNOWN_SEARCH_NOBG, R_UNKNOWN_SEARCH_WITHBG}
+R_UNKNOWN_SEARCH.into{R_UNKNOWN_SEARCH_NOBG; R_UNKNOWN_SEARCH_WITHBG}
 
 // Result files used by MultiQC to generate report.
 // MQC_DIR = Channel.fromPath(params.mqc_dir, type: 'dir')
