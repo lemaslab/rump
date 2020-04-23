@@ -35,9 +35,9 @@ mzs = as.vector(data[['row.m.z']])
 # mzs = lapply(mzs,round,4)
 
 if (opt$ion=="negative"){
-  adduct <- "negative"
+  adduct <- '["M-H"]'
 } else {
-  adduct <- "positive"
+  adduct <- '["M+H"]'
 }
 
 # batch search
