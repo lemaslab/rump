@@ -49,7 +49,7 @@ batch_df <- batch_search('http://ceumass.eps.uspceu.es/mediator/api/v3/batch',
                              adduct,
                              5,
                              'ppm',
-                             c(0.00))
+                             mzs)
 if (typeof(batch_df)=="character"){
   data_merge <- data.frame(Empty=character())
 } else {
