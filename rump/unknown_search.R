@@ -1,5 +1,5 @@
 # 2018.12.19. ask
-rm(list=ls(all=TRUE))
+# rm(list=ls(all=TRUE))
 
 # 20 Digits Precision Representation
 options(scipen=20)
@@ -50,5 +50,10 @@ batch_df <- batch_search('http://ceumass.eps.uspceu.es/mediator/api/v3/batch',
                              5,
                              'ppm',
                              mzs)
-data_merge <- merge(data, batch_df, by.x='row.m.z', by.y='experimental_mass')
+if (nrow(batch_df)==0){
+  data_merge <- data.frame(Empty=character())
+} else {
+  data_merge <- merge(data, batch_df, by.x='row.m.z', by.y='experimental_mass')
+}
+
 write.csv(data_merge, opt$output, row.names=TRUE)
