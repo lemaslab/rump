@@ -5,7 +5,7 @@
 
 Data processing for metabolomics data. Pipeline overview:
 
-![alt text](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V3.png)
+![alt text](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V4.png)
 
 # Licence
 
