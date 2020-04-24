@@ -29,7 +29,7 @@ wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux
 ```
 4. Pull singularity image if using high-performance computing (**if using local machine, skip this step**)
 ```
-mkdir -p work/singularity && singularity pull --name work/singularity/xinsongdu-lemaslab_reump.img docker://xinsongdu/lemaslab_rump:v0.0.0
+mkdir -p work/singularity && singularity pull --name work/singularity/xinsongdu-lemaslab_reump.img docker://xinsongdu/lemaslab_rump:v1.0.0
 ```
 
 # General Behavior
@@ -78,11 +78,11 @@ Negative mode:
 - Create design files for positve data and negative data, indicating the group of each file, save them to `data/pos_design.csv` and `data/neg_design.csv`. Sample design file can be found in `data/sample_data/pos_design.csv` and `data/sample_data/neg_design.csv`
 - Process your data with default parameters using local machine
 ```
-nextflow main.nf -with-docker xinsongdu/lemaslab_rump:v0.0.0
+nextflow main.nf -with-docker xinsongdu/lemaslab_rump:v1.0.0
 ```
 - Process your data with default parameters using high-performance computing (It is recommended to maximize CPU and memory in pos_peakDetection_mzmine and neg_peakDetection_mzmine processes in `nextflow.config` if using high-performance computing)
 ```
-nextflow main.nf --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v0.0.0
+nextflow main.nf --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v1.0.0
 ```
 
 ### Process dataframe generatd by MZmine-2.53
@@ -91,7 +91,7 @@ nextflow main.nf --container singularity -with-singularity docker://xinsongdu/le
 - Create design files describing the group of each column of positive/negative data, save them to `data/pos_design.csv` and `data/neg_design.csv`
 - Get statistical analysis and pathway analysis
 ```
-nextflow run_aftermzmine.nf -with-docker xinsongdu/lemaslab_rump:v0.0.0
+nextflow run_aftermzmine.nf -with-docker xinsongdu/lemaslab_rump:v1.0.0
 ```
 
 ### Help message
@@ -113,7 +113,7 @@ Check https://github.com/lemaslab/RUMP for updates, and refer to
 https://github.com/lemaslab/RUMP/wiki
 
 Usage:
-   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_rump:v0.0.0
+   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_rump:v1.0.0
 
 Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:
 ----------------------------- common parameters ----------------------------------
@@ -128,7 +128,7 @@ Please refer to nextflow.config for more options.
 
 Container:
     Docker image to use with -with-docker|-with-singularity options is
-    'docker://xinsongdu/lemaslab_rump:v0.0.0'
+    'docker://xinsongdu/lemaslab_rump:v1.0.0'
 
 RUMP supports .mzXML format files.
 ```
@@ -163,13 +163,13 @@ RUMP returns the following exit status values:
 ### Running tests on local machine
 
 ```
-nextflow main.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker xinsongdu/lemaslab_rump:v0.0.0
+nextflow main.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker xinsongdu/lemaslab_rump:v1.0.0
 ```
 
 ### Running tests on high-performance computing
 
 ```
-nextflow main.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v0.0.0
+nextflow main.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v1.0.0
 ```
 
 # Bug reporting and feature requests

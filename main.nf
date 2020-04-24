@@ -83,6 +83,10 @@ MQC_CONFIG = Channel.fromPath(params.mqc_config)
 PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
 PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG}
 
+// R code for unknown search
+R_UNKNOWN_SEARCH = Channel.fromPath(params.r_unknown_search)
+R_UNKNOWN_SEARCH.into{R_UNKNOWN_SEARCH_NOBG; R_UNKNOWN_SEARCH_WITHBG}
+
 // Result files used by MultiQC to generate report.
 // MQC_DIR = Channel.fromPath(params.mqc_dir, type: 'dir')
 
@@ -143,7 +147,7 @@ if (params.help) {
     exit 1
 }
 
-// Unit tests
+// Check appropriateness of input
 process input_check {
 
     echo true
@@ -278,8 +282,8 @@ process add_stats {
     """
 }
 
-POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT; POS_NOBG_FOR_MUMMICHOG}
-NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT; NEG_NOBG_FOR_MUMMICHOG}
+POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT; POS_NOBG_FOR_MUMMICHOG; POS_NOBG_FOR_UNKNOWN_SEARCH}
+NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT; NEG_NOBG_FOR_MUMMICHOG; NEG_NOBG_FOR_UNKNOWN_SEARCH}
 
 // Background subtraction
 process blank_subtraction {
@@ -311,8 +315,8 @@ process blank_subtraction {
 
 
 // split channel content for multiple-time use
-POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT; POS_WITHBG_FOR_MUMMICHOG}
-NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT; NEG_WITHBG_FOR_MUMMICHOG}
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT; POS_WITHBG_FOR_MUMMICHOG; POS_WITHBG_FOR_UNKNOWN_SEARCH}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT; NEG_WITHBG_FOR_MUMMICHOG; NEG_WITHBG_FOR_UNKNOWN_SEARCH}
 
 // Process for generating files that can be parsed by MultiQC regarding peak numbers of different steps.
 process mqc_peak_number_comparison {
@@ -563,6 +567,55 @@ process bar_plot_withbg {
     """   
     python3 ${python_barplot} -i ${data_pos} -d ${pos_design} -o ${params.barplot_pos_withbg} -m 0 -bs 1 &&
     python3 ${python_barplot} -i ${data_neg} -d ${neg_design} -o ${params.barplot_neg_withbg} -m 0 -bs 1
+
+    """
+
+}
+
+// unknown search for metabolites identified before blank subtraction
+process unknown_search_nobg {
+    
+    publishDir './results/peak_table/', mode: 'copy'
+
+    input:
+    file data_pos from POS_NOBG_FOR_UNKNOWN_SEARCH
+    file data_neg from NEG_NOBG_FOR_UNKNOWN_SEARCH
+    file r_unknown_search from R_UNKNOWN_SEARCH_NOBG
+
+    output:
+    file params.unknown_search_pos_nobg into UNKNOWN_SEARCH_POS_NOBG
+    file params.unknown_search_neg_nobg into UNKNOWN_SEARCH_NEG_NOBG
+
+    shell:
+    """   
+    Rscript ${r_unknown_search} -i ${data_pos} -n positive -c ${params.mz_col_pos_nobg} -o ${params.unknown_search_pos_nobg} &&
+    Rscript ${r_unknown_search} -i ${data_neg} -n negative -c ${params.mz_col_neg_nobg} -o ${params.unknown_search_neg_nobg}
+
+    """
+
+}
+
+// unknown search for metabolites identified after blank subtraction
+process unknown_search_withbg {
+    
+    publishDir './results/peak_table/', mode: 'copy'
+
+    input:
+    file data_pos from POS_WITHBG_FOR_UNKNOWN_SEARCH
+    file data_neg from NEG_WITHBG_FOR_UNKNOWN_SEARCH
+    file r_unknown_search from R_UNKNOWN_SEARCH_WITHBG
+
+    output:
+    file params.unknown_search_pos_withbg into UNKNOWN_SEARCH_POS_WITHBG
+    file params.unknown_search_neg_withbg into UNKNOWN_SEARCH_NEG_WITHBG
+
+    when:
+    params.bs == "1"
+
+    shell:
+    """   
+    Rscript ${r_unknown_search} -i ${data_pos} -n positive -c ${params.mz_col_pos_withbg} -o ${params.unknown_search_pos_withbg} &&
+    Rscript ${r_unknown_search} -i ${data_neg} -n negative -c ${params.mz_col_neg_withbg} -o ${params.unknown_search_neg_withbg}
 
     """
 

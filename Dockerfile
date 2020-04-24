@@ -1,6 +1,6 @@
-# Dockerfile for UMPIRE
+# Dockerfile for RUMP
 
-FROM rocker/r-ver:3.5.2
+FROM rocker/rstudio:3.6.3
 
 MAINTAINER xinsongdu@ufl.edu
 
@@ -58,7 +58,11 @@ WORKDIR /app
 COPY accessibility.properties /app
 
 # Fix a bug for java
-RUN mv accessibility.properties /etc/java-8-openjdk/
+# RUN mv accessibility.properties /etc/java-8-openjdk/
+
+# install R packages
+COPY r_package_install.R /app
+RUN Rscript r_package_install.R
 
 # Install mummichog
 RUN pip install --upgrade setuptools
