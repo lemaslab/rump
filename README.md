@@ -1,3 +1,4 @@
+[![release](https://zenodo.org/badge/DOI/10.5281/zenodo.3774470.svg)](https://zenodo.org/record/3774470#.XqiOhBcnaL8)
 [![travis](https://travis-ci.com/lemaslab/RUMP.svg?branch=master)](https://travis-ci.com/lemaslab/RUMP)
 [![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 
@@ -135,7 +136,7 @@ RUMP supports .mzXML format files.
 
 ### Logging
 
-Logs and error reports will be stored under `logs` folder after running.
+Logs and error reports will be stored under `logs/` folder after running.
 
 ### Clean repository
 
