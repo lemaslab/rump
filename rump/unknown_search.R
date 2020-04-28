@@ -56,4 +56,4 @@ if (typeof(batch_df)=="character"){
   data_merge <- merge(data, batch_df, by.x='row.m.z', by.y='experimental_mass')
 }
 
-write.csv(data_merge, opt$output, row.names=TRUE)
+write.csv(data_merge, opt$output, row.names=FALSE)
