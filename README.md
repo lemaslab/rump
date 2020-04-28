@@ -136,7 +136,7 @@ RUMP supports .mzXML format files.
 
 ### Logging
 
-Logs and error reports will be stored under `logs` folder after running.
+Logs and error reports will be stored under `logs/` folder after running.
 
 ### Clean repository
 
