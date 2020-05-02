@@ -134,6 +134,7 @@ if (params.help) {
     System.out.println("    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'")
     System.out.println("    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'")
     System.out.println("    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05")
+    System.out.println("    --unknown_search                        whether do unknown search for unidentified metabolites or not, default is '0', please set it to '1' when needed")
     System.out.println("    --version                               whether to show version information or not, default is null")
     System.out.println("    --help                                  whether to show help information or not, default is null")
     System.out.println("Please refer to nextflow.config for more options.")
@@ -586,6 +587,9 @@ process unknown_search_nobg {
     file params.unknown_search_pos_nobg into UNKNOWN_SEARCH_POS_NOBG
     file params.unknown_search_neg_nobg into UNKNOWN_SEARCH_NEG_NOBG
 
+    when:
+    params.us == "1"
+
     shell:
     """   
     Rscript ${r_unknown_search} -i ${data_pos} -n positive -c ${params.mz_col_pos_nobg} -o ${params.unknown_search_pos_nobg} &&
@@ -610,7 +614,7 @@ process unknown_search_withbg {
     file params.unknown_search_neg_withbg into UNKNOWN_SEARCH_NEG_WITHBG
 
     when:
-    params.bs == "1"
+    params.bs == "1" && params.us == "1"
 
     shell:
     """   

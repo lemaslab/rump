@@ -3,42 +3,65 @@
 [![travis](https://travis-ci.com/lemaslab/RUMP.svg?branch=master)](https://travis-ci.com/lemaslab/RUMP)
 [![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 
-# Overview
-
-Data processing for metabolomics data. Pipeline overview:
+# RUMP
 
 ![alt text](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V4.png)
 
-# Licence
+## Licence
 
 This program is released as open source software under the terms of [GNU GPL-v3.0 License](https://github.com/GalaxyDream/RUMP/blob/master/LICENSE).
 
-# Installing
+## Usage
+Please refer to our [wiki](https://github.com/lemaslab/RUMP/wiki) for how to install and use RUMP
 
-RUMP can be run in any UNIX-like system. [Nextflow](https://www.nextflow.io/) and [Docker](https://www.docker.com/) (or [Singularity](https://singularity.lbl.gov/) if using high-performance computing) are required for this software
+## Help message
 
-1. Clone this repository: 
+RUMP can display usage information on the command line:
 ```
-$ git clone https://github.com/lemaslab/RUMP.git
-```
-2. Move into the repository directory:
-```
-$ cd RUMP
-```
-3. Download and [MZmine-2.53](https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip) to the repository
-```
-wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip && unzip MZmine-2.53-Linux.zip && rm MZmine-2.53-Linux.zip
-```
-4. Pull singularity image if using high-performance computing (**if using local machine, skip this step**)
-```
-mkdir -p work/singularity && singularity pull --name work/singularity/xinsongdu-lemaslab_reump.img docker://xinsongdu/lemaslab_rump:v1.0.0
+$ Nextflow main.nf --help true
+N E X T F L O W  ~  version 19.01.0
+Launching `main.nf` [romantic_celsius] - revision: 9004e52396
+Project : /Users/xinsongdu/mnt/projects/RUMP
+Git info: null - null [null]
+Cmd line: /Users/xinsongdu/.pyenv/shims/Nextflow main.nf --help true
+Manifest's pipeline version: 0.0.0
+
+RUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: 0.0.0 (20200226)
+This pipeline is distributed in the hope that it will be useful
+but WITHOUT ANY WARRANTY. See the GNU GPL v3.0 for more details.
+
+Please report comments and bugs to xinsongdu@ufl.edu
+or at https://github.com/lemaslab/RUMP/issues.
+Check https://github.com/lemaslab/RUMP for updates, and refer to
+https://github.com/lemaslab/RUMP/wiki
+
+Usage:
+   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_rump:v0.0.0
+
+Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:
+----------------------------- common parameters ----------------------------------
+    --input_dir_pos                         folder location for positive data, default is 'data/POS'
+    --input_dir_neg                         folder location for positive data, default is 'data/NEG'
+    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'
+    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'
+    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05
+    --unknown_search                        whether do unknown search for unidentified metabolites or not, default is '0', please set it to '1' when needed
+    --version                               whether to show version information or not, default is null
+    --help                                  whether to show help information or not, default is null
+Please refer to nextflow.config for more options.
+
+Container:
+    Docker image to use with -with-docker|-with-singularity options is
+    'docker://xinsongdu/lemaslab_rump:v0.0.0'
+
+RUMP supports .mzXML format files.
 ```
 
-# General Behavior
+## Components
 
-RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); and pathway analysis are done with [mummichog](http://mummichog.org/).
+RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); pathway analysis are done with [mummichog](http://mummichog.org/); unknown metabolites search are done with [CEU Mass Mediator](https://github.com/lzyacht/cmmr). Note that the processes related to unknow search with CEU Mass Mediator is turned off by default due to their unstable server, it can be turned on by setting parameter `--unknown_search` to "1".
 
-#### Default parameter settings for MZmine-2.53 (the following parameters are specifically for data processed by [SECIM Core](http://secim.ufl.edu/)):
+## Default parameter settings for MZmine-2.53 (the following parameters are specifically for data processed by [SECIM Core](http://secim.ufl.edu/)):
 
 Positive ion mode:
 - Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; Scans: MS level - 1)
@@ -66,7 +89,7 @@ Negative mode:
 - Complex search (Ionization method: [M-H]-; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.003 m/z or 10.0 ppm; Max complex peak height: 0.4)
 - Custom database search (m/z tolerance: 0.003 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.2)
 
-### Following statistics are currently included in RUMP
+## Currently included statistical analysis
 
 * *Student t-test*: Test if there is a significant statistical difference of certain peak intensities between the two groups of samples.
 * *Venn diagram*: Report the number of peaks that are significantly enriched in one of the groups, and the number of peaks that have no significant difference between two groups.
@@ -74,82 +97,18 @@ Negative mode:
 * *Hierarchical clustering*: Cluster all samples and plot a heatmap to show the difference between samples and peaks.
 * *Bar plot*: plot the metabolites with top-10 and bottom-10 fold-change for the comparison between two groups. (note: the figure will display abnormally if there is an infinite fold change value)
 
-### Process your own data
-
-- Save your positive data files to `data/POS/` and negative data to `data/NEG/`
-- Create design files for positve data and negative data, indicating the group of each file, save them to `data/pos_design.csv` and `data/neg_design.csv`. Sample design file can be found in `data/sample_data/pos_design.csv` and `data/sample_data/neg_design.csv`
-- Process your data with default parameters using local machine
-```
-nextflow main.nf -with-docker xinsongdu/lemaslab_rump:v1.0.0
-```
-- Process your data with default parameters using high-performance computing (It is recommended to maximize CPU and memory in pos_peakDetection_mzmine and neg_peakDetection_mzmine processes in `nextflow.config` if using high-performance computing)
-```
-nextflow main.nf --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v1.0.0
-```
-
-### Process dataframe generatd by MZmine-2.53
-
-- Save the dataframe for positive data and negative data to `data/pos_data.csv` and `data/neg_data.csv`
-- Create design files describing the group of each column of positive/negative data, save them to `data/pos_design.csv` and `data/neg_design.csv`
-- Get statistical analysis and pathway analysis
-```
-nextflow run_aftermzmine.nf -with-docker xinsongdu/lemaslab_rump:v1.0.0
-```
-
-### Help message
-
-RUMP can display usage information on the command line:
-```
-$ Nextflow main.nf --help true
-N E X T F L O W  ~  version 19.01.0
-Launching `main.nf` [ridiculous_galileo] - revision: 1776a0bcdd
-Project : /Users/xinsongdu/mnt/projects/RUMP
-Git info: null - null [null]
-Cmd line: /Users/xinsongdu/.pyenv/shims/Nextflow main.nf --help true
-Manifest's pipeline version: 0.0.0
-
-RUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: 0.0.0 (20200226)
-This pipeline is distributed in the hope that it will be useful
-but WITHOUT ANY WARRANTY. See the GNU GPL v3.0 for more details.
-
-Please report comments and bugs to xinsongdu@ufl.edu
-or at https://github.com/lemaslab/RUMP/issues.
-Check https://github.com/lemaslab/RUMP for updates, and refer to
-https://github.com/lemaslab/RUMP/wiki
-
-Usage:
-   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_rump:v0.0.0
-
-Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:
------------------------------ common parameters ----------------------------------
-    --input_dir_pos                         folder location for positive data, default is 'data/POS'
-    --input_dir_neg                         folder location for positive data, default is 'data/NEG'
-    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'
-    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'
-    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05
-    --version                               whether to show version information or not, default is null
-    --help                                  whether to show help information or not, default is null
-Please refer to nextflow.config for more options.
-
-Container:
-    Docker image to use with -with-docker|-with-singularity options is
-    'docker://xinsongdu/lemaslab_rump:v0.0.0'
-
-RUMP supports .mzXML format files.
-```
-
-### Logging
+## Logging
 
 Logs and error reports will be stored under `logs/` folder after running.
 
-### Clean repository
+## Clean repository
 
 Run the following command to clean all the files generated by Nextflow
 ```
 bash clear.sh
 ```
 
-### Exit status values
+## Exit status values
 
 RUMP returns the following exit status values:
 - 3: Positive file groups are not the same as negative file groups, please check design files.
@@ -157,28 +116,8 @@ RUMP returns the following exit status values:
 - 5: One or more input files does not exist.
 - Other Linux reserved exit codes: https://tldp.org/LDP/abs/html/exitcodes.html
 
-# Testing
+## Bug reporting and feature requests
 
-### Test data
-
-- Sample test input files are provided in the `functional_test/sample_data/POS` and `functional_test/sample_data/NEG` folders, which are from [Metabolomics Workbench PR000188](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR000188).
-- Design files are `functional_test/sample_data/pos_design.csv` and `functional_test/sample_data/neg_design.csv`.
-- It may take around 8 hours to finish if using default resource settings in `nextflow.config`. See `functional_test/sample_Nextflow_output/timeline.html` for detail.
-
-### Running tests on local machine
-
-```
-nextflow main.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv -with-docker xinsongdu/lemaslab_rump:v1.0.0
-```
-
-### Running tests on high-performance computing
-
-```
-nextflow main.nf --input_dir_pos functional_test/sample_data/POS/ --input_dir_neg functional_test/sample_data/NEG --POS_design_path functional_test/sample_data/pos_design.csv --NEG_design_path functional_test/sample_data/neg_design.csv --container singularity -with-singularity docker://xinsongdu/lemaslab_rump:v1.0.0
-```
-
-# Bug reporting and feature requests
-
-Please submit bug reports and feature requests to the issue tracker on GitHub:
+Please submit questions, bug reports and feature requests to the issue tracker on GitHub:
 
 [RUMP issue tracker](https://github.com/lemaslab/RUMP/issues)
