@@ -15,6 +15,6 @@ install:
   - mkdir -p ~/bin; cp nextflow ~/bin
 script:
   # Functional tests
-  - travis_wait 35 bash .travis/RUMP-test_all.sh
+  - travis_wait 38 bash .travis/RUMP-test_all.sh
   - bash .travis/RUMP-test_aftermzmine.sh
   - bash .travis/unit-test.sh
