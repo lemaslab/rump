@@ -102,10 +102,13 @@ RUMP can display usage information on the command line:
 ```
 $ Nextflow main.nf --help true
 N E X T F L O W  ~  version 19.01.0
-Launching `run_all.nf` [happy_heyrovsky] - revision: ae03ed6970
-WARN: There's no process matching config selector: raw_stats_merge_nobg
+Launching `main.nf` [ridiculous_galileo] - revision: 1776a0bcdd
+Project : /Users/xinsongdu/mnt/projects/RUMP
+Git info: null - null [null]
+Cmd line: /Users/xinsongdu/.pyenv/shims/Nextflow main.nf --help true
+Manifest's pipeline version: 0.0.0
 
-UMPIRE: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: 0.0.0 (20200226)
+RUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: 0.0.0 (20200226)
 This pipeline is distributed in the hope that it will be useful
 but WITHOUT ANY WARRANTY. See the GNU GPL v3.0 for more details.
 
@@ -115,7 +118,7 @@ Check https://github.com/lemaslab/RUMP for updates, and refer to
 https://github.com/lemaslab/RUMP/wiki
 
 Usage:
-   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_rump:v1.0.0
+   nextflow run_all.nf [options] -with-docker xinsongdu/lemaslab_rump:v0.0.0
 
 Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:
 ----------------------------- common parameters ----------------------------------
@@ -130,7 +133,7 @@ Please refer to nextflow.config for more options.
 
 Container:
     Docker image to use with -with-docker|-with-singularity options is
-    'docker://xinsongdu/lemaslab_rump:v1.0.0'
+    'docker://xinsongdu/lemaslab_rump:v0.0.0'
 
 RUMP supports .mzXML format files.
 ```
