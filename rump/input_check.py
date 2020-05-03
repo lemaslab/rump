@@ -121,7 +121,7 @@ class DataCheck():
         """Check if input file exist.
         """
         for pos_file, neg_file in zip(self.pos_data_files, self.neg_data_files):
-            if !os.path.exists(pos_file) or !os.path.exists(neg_file):
+            if !(os.path.exists(pos_file) and os.path.exists(neg_file)):
                 raise ValueError('one or more input files does not exist.')
                 sys.exit(EXIT_FILE_EXISTANCE_ERROR)
 
