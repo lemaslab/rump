@@ -284,7 +284,7 @@ def add_stats(data_file="data_pos_ph.csv", design_file="design", \
 
         data[str(group1_name) + "_selected"] = data.apply(lambda row: \
             blank_subtraction_flag(row, group1_columns, "threshold", ratio_bar), axis=1)
-        
+
         data[str(group2_name) + "_selected"] = data.apply(lambda row: \
             blank_subtraction_flag(row, group2_columns, "threshold", ratio_bar), axis=1)
 

@@ -476,7 +476,7 @@ process unknown_search_nobg {
     file params.unknown_search_neg_nobg into UNKNOWN_SEARCH_NEG_NOBG
 
     when:
-    params.us == "1"
+    params.unknown_search == "1"
 
     shell:
     """   
@@ -502,7 +502,7 @@ process unknown_search_withbg {
     file params.unknown_search_neg_withbg into UNKNOWN_SEARCH_NEG_WITHBG
 
     when:
-    params.bs == "1" && params.us == "1"
+    params.bs == "1" && params.unknown_search == "1"
 
     shell:
     """   
