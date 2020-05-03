@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Description : This code generate file that can be parsed by MultiQC,
               including number of peaks in different data analysis stage
 Copyright   : (c) LemasLab, 02/23/2020
@@ -18,7 +18,7 @@ Usage       : python peak_number_comparison.py -i1
                                                $peak_table_for_negative_after_blank_subtraction
                                                -o
                                                $output_file
-'''
+"""
 
 import logging
 import logging.handlers
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_txt):
-    '''Produce file containing peak number information that can be parsed by MultiQC.
+    """Produce file containing peak number information that can be parsed by MultiQC.
 
     # Arguments:
         pos_nobg: peak table (csv file) of positive data before blank subtraction.
@@ -39,7 +39,7 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
 
     # Outputs:
         txt file containing peak number information.
-    '''
+    """
 
     pos = []
     neg = []
@@ -82,8 +82,8 @@ def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_tx
 #    with_bg = [pos_withbg, neg_withbg]
 
     data = ""
-    for i in range(len(steps)):
-        data += "{0}            {1}            {2}            \n".format(steps[i], pos[i], neg[i])
+    for i, step in enumerate(steps):
+        data += "{0}            {1}            {2}            \n".format(step, pos[i], neg[i])
 
     with open(output_txt, 'w') as txt_file:
         txt_file.write("# plot_type: 'table'\n\

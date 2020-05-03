@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Description : This code generates yaml file that can be parsed by MultiQC,
               including input data information
 Copyright   : (c) LemasLab, 02/23/2020
@@ -11,7 +11,7 @@ Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python data_info.py -i $input_data_location
                                   -o $output_yaml_file
                                   -n $ion_mode
-'''
+"""
 
 import os
 import logging
@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def data_info(input_dir, output_yaml, ion):
-    '''Generate file that can be parsed by MultiQC and
+    """Generate file that can be parsed by MultiQC and
     containing basic information of input data files.
 
     # Arguments:
@@ -30,7 +30,7 @@ def data_info(input_dir, output_yaml, ion):
 
     # Outputs:
         yaml file that can be parsed by MultiQC.
-    '''
+    """
 
     filenames = []
     sizes = []
@@ -64,14 +64,14 @@ pconfig:\n\
 data:\n" + data)
 
 def filesize_converter(size):
-    '''Convert filesize unit to KB, MB and GB based on the size value.
+    """Convert filesize unit to KB, MB and GB based on the size value.
 
     # Arguments:
         size: number of bytes
 
     # Returns:
         converted size.
-    '''
+    """
 
     if size <= 1024:
         size_report = str(round(size, 2)) + " KB"

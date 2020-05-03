@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Description : This code do bar plot for peak table output by MZmine-2.53,
               peak table should firstly be processed by "add_stats.py" before
               input to this program
@@ -14,7 +14,7 @@ Usage       : python bar_plot.py -i $input_peak_table
                                  -o $output_figure_location
                                  -m $only_use_identified_metabolites_or_not
                                  -bs $do_blank_subtraction_or_not
-'''
+"""
 
 import sys
 import warnings
@@ -33,7 +33,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %
 warnings.filterwarnings('ignore')
 
 def bar_plot(data_file, design_file, output_fig, only_matched, bs):
-    '''Draw bar plot for two group comparison based on peak table.
+    """Draw bar plot for two group comparison based on peak table.
 
     # Arguments:
         data_file: peak table.
@@ -43,7 +43,7 @@ def bar_plot(data_file, design_file, output_fig, only_matched, bs):
 
     # Outputs:
         bar plot figure.
-    '''
+    """
 
     # load design file
     design = pd.read_csv(design_file)

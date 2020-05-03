@@ -64,38 +64,38 @@ RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [
 ## Default parameter settings for MZmine-2.53 (the following parameters are specifically for data processed by [SECIM Core](http://secim.ufl.edu/))
 
 Positive ion mode:
-- Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; Scans: MS level - 1)
-- Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.002 m/z or 5.0 ppm; Suffix: "chromatograms-1E5")
-- Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
-- Chromatogram deconvolution (Suffix: "deconvoluted"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.05; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
-- Isotopic peak grouper (Name suffix: deisopoted; m/z tolerance: 0.002 m/z or 5.0 ppm; Retention time tolerance: 0.05; Monotonic shape: false; Maximum charge: 3; Representative isotope: Most intense; Remove original peaklist: true)
-- Join aligner (Feature list name: Aligned feature list; m/z tolerance: 0.003 m/z or 5.0 ppm; Weight for m/z: 20.0; Retention time tolerance: 0.05; Weight for RT: 20.0; Require same charge state: false; Require same ID: false; Compare isotope pattern: false; compare spectra similarity: false)
-- Peak finder (Name suffix: gap-filled; intensity tolerance: 0.25; m/z tolerance: 0.003 m/z or 5.0 ppm; Retention time tolerance: absolute, 0.05; RT correction: false; Parallel: false; Remove original feature list: false)
-- Duplicate peak filter (Name suffix: filtered; Filter mode: NEW AVERAGE; m/z tolerance: 0.002 m/z or 5.0 ppm; RT tolerance: absolute, 0.05; Require same identification: false; Remove original peaklist: false)
-- Adduct search (RT tolerance: absolute, 0.05; select all Adducts; m/z tolerance: 0.003 m/z or 5.0 ppm; Max relative adduct peak height: 0.4)
-- Complex search (Ionization method: [M+H]+; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.002 m/z or 5.0 ppm; Max complex peak height: 5.0)
-- Custom database search (m/z tolerance: 0.001 m/z or 5.0 ppm; Retention time tolerance: absolute, 0.2)
+-   Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; Scans: MS level - 1)
+-   Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.002 m/z or 5.0 ppm; Suffix: "chromatograms-1E5")
+-   Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
+-   Chromatogram deconvolution (Suffix: "deconvoluted"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.05; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
+-   Isotopic peak grouper (Name suffix: deisopoted; m/z tolerance: 0.002 m/z or 5.0 ppm; Retention time tolerance: 0.05; Monotonic shape: false; Maximum charge: 3; Representative isotope: Most intense; Remove original peaklist: true)
+-   Join aligner (Feature list name: Aligned feature list; m/z tolerance: 0.003 m/z or 5.0 ppm; Weight for m/z: 20.0; Retention time tolerance: 0.05; Weight for RT: 20.0; Require same charge state: false; Require same ID: false; Compare isotope pattern: false; compare spectra similarity: false)
+-   Peak finder (Name suffix: gap-filled; intensity tolerance: 0.25; m/z tolerance: 0.003 m/z or 5.0 ppm; Retention time tolerance: absolute, 0.05; RT correction: false; Parallel: false; Remove original feature list: false)
+-   Duplicate peak filter (Name suffix: filtered; Filter mode: NEW AVERAGE; m/z tolerance: 0.002 m/z or 5.0 ppm; RT tolerance: absolute, 0.05; Require same identification: false; Remove original peaklist: false)
+-   Adduct search (RT tolerance: absolute, 0.05; select all Adducts; m/z tolerance: 0.003 m/z or 5.0 ppm; Max relative adduct peak height: 0.4)
+-   Complex search (Ionization method: "[M+H]+"; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.002 m/z or 5.0 ppm; Max complex peak height: 5.0)
+-   Custom database search (m/z tolerance: 0.001 m/z or 5.0 ppm; Retention time tolerance: absolute, 0.2)
 
 Negative mode:
-- Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; Scans: MS level - 1)
-- Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.005 m/z or 10.0 ppm; Suffix: "chromatograms-1E5")
-- Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
-- Chromatogram deconvolution (Suffix: "deconvoluted"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.2; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
-- Isotopic peak grouper (Name suffix: deisopoted; m/z tolerance: 0.005 m/z or 10.0 ppm; Retention time tolerance: 0.05; Monotonic shape: false; Maximum charge: 2; Representative isotope: Most intense; Remove original peaklist: true)
-- Join aligner (Feature list name: Aligned feature list; m/z tolerance: 0.005 m/z or 10.0 ppm; Weight for m/z: 20.0; Retention time tolerance: 0.05; Weight for RT: 15.0; Require same charge state: false; Require same ID: false; Compare isotope pattern: false; compare spectra similarity: false)
-- Peak finder (Name suffix: gap-filled; intensity tolerance: 0.25; m/z tolerance: 0.005 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.3; RT correction: false; Parallel: false; Remove original feature list: false)
-- Duplicate peak filter (Name suffix: filtered; Filter mode: NEW AVERAGE; m/z tolerance: 0.003 m/z or 10.0 ppm; RT tolerance: absolute, 0.05; Require same identification: false; Remove original peaklist: false)
-- Adduct search (RT tolerance: absolute, 0.05; select all Adducts; m/z tolerance: 0.003 m/z or 10.0 ppm; Max relative adduct peak height: 0.4)
-- Complex search (Ionization method: [M-H]-; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.003 m/z or 10.0 ppm; Max complex peak height: 0.4)
-- Custom database search (m/z tolerance: 0.003 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.2)
+-   Mass detection (detector: Centoid; noise level: 1,000; mass list name: masses; Scans: MS level - 1)
+-   Chromatogram buider (Mass list: masses; Min time span: 0.06; Min height: 1.0E5; m/z tolerance: 0.005 m/z or 10.0 ppm; Suffix: "chromatograms-1E5")
+-   Smoothing (Filename suffix: "smoothed"; Filter width: 5; Remove original peak list: False)
+-   Chromatogram deconvolution (Suffix: "deconvoluted"; Algorithm: Local minimum search; Chromatographic threshold: 0.95; Search minimum in RT range (min): 0.2; Minimum relative height: 0.05; Minimum absolute height: 30000.0; Min ratio of peak top/edge: 3.0; Minimum peak duration range (min): 0.06; Maximum peak duration range (min): 1.0; Remove original peak list: True)
+-   Isotopic peak grouper (Name suffix: deisopoted; m/z tolerance: 0.005 m/z or 10.0 ppm; Retention time tolerance: 0.05; Monotonic shape: false; Maximum charge: 2; Representative isotope: Most intense; Remove original peaklist: true)
+-   Join aligner (Feature list name: Aligned feature list; m/z tolerance: 0.005 m/z or 10.0 ppm; Weight for m/z: 20.0; Retention time tolerance: 0.05; Weight for RT: 15.0; Require same charge state: false; Require same ID: false; Compare isotope pattern: false; compare spectra similarity: false)
+-   Peak finder (Name suffix: gap-filled; intensity tolerance: 0.25; m/z tolerance: 0.005 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.3; RT correction: false; Parallel: false; Remove original feature list: false)
+-   Duplicate peak filter (Name suffix: filtered; Filter mode: NEW AVERAGE; m/z tolerance: 0.003 m/z or 10.0 ppm; RT tolerance: absolute, 0.05; Require same identification: false; Remove original peaklist: false)
+-   Adduct search (RT tolerance: absolute, 0.05; select all Adducts; m/z tolerance: 0.003 m/z or 10.0 ppm; Max relative adduct peak height: 0.4)
+-   Complex search (Ionization method: "[M-H]-"; Retention time tolerance: absolute, 0.05; m/z tolerance: 0.003 m/z or 10.0 ppm; Max complex peak height: 0.4)
+-   Custom database search (m/z tolerance: 0.003 m/z or 10.0 ppm; Retention time tolerance: absolute, 0.2)
 
 ## Currently included statistical analysis
 
-* *Student t-test*: Test if there is a significant statistical difference of certain peak intensities between the two groups of samples.
-* *Venn diagram*: Report the number of peaks that are significantly enriched in one of the groups, and the number of peaks that have no significant difference between two groups.
-* *Principal component analysis*: Dimensional reduction using the peak intensities of the two group samples, and visualize the difference.
-* *Hierarchical clustering*: Cluster all samples and plot a heatmap to show the difference between samples and peaks.
-* *Bar plot*: plot the metabolites with top-10 and bottom-10 fold-change for the comparison between two groups. (note: the figure will display abnormally if there is an infinite fold change value)
+-   *Student t-test*: Test if there is a significant statistical difference of certain peak intensities between the two groups of samples.
+-   *Venn diagram*: Report the number of peaks that are significantly enriched in one of the groups, and the number of peaks that have no significant difference between two groups.
+-   *Principal component analysis*: Dimensional reduction using the peak intensities of the two group samples, and visualize the difference.
+-   *Hierarchical clustering*: Cluster all samples and plot a heatmap to show the difference between samples and peaks.
+-   *Bar plot*: plot the metabolites with top-10 and bottom-10 fold-change for the comparison between two groups. (note: the figure will display abnormally if there is an infinite fold change value)
 
 ## Logging
 
@@ -111,10 +111,10 @@ bash clear.sh
 ## Exit status values
 
 RUMP returns the following exit status values:
-- 3: Positive file groups are not the same as negative file groups, please check design files.
-- 4: Not all input files are in .mzXML format, please check input data folders.
-- 5: One or more input files does not exist.
-- Other Linux reserved exit codes: https://tldp.org/LDP/abs/html/exitcodes.html
+-   3: Positive file groups are not the same as negative file groups, please check design files.
+-   4: Not all input files are in .mzXML format, please check input data folders.
+-   5: One or more input files does not exist.
+-   Other Linux reserved exit codes: https://tldp.org/LDP/abs/html/exitcodes.html
 
 ## Bug reporting and feature requests
 
