@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Description : This code do basic statistical tests (i.e., student t-test, fold change,
               Benjamini-Hochberg false discovery rate adjustment) for peak table generated
               by MZmine-2.53
@@ -13,7 +13,7 @@ Usage       : python add_stats.py -i $input_peak_table
                                   -d $design_file_location
                                   -o $output_peak_table
                                   -l $library_location
-'''
+"""
 
 import warnings
 import logging
@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %
 warnings.filterwarnings('ignore')
 
 def add_threshold(row, names):
-    '''Add threshold for blank subtraction algorithm.
+    """Add threshold for blank subtraction algorithm.
 
     # Arguments:
         row: certain row of peak table (pandas dataframe).
@@ -37,13 +37,13 @@ def add_threshold(row, names):
 
     # Returns:
         threshold value
-    '''
+    """
 
     value = np.mean(row[names]) + 3*np.std(row[names])
     return value if value > 0 else 5000
 
 def blank_subtraction_flag(row, name_group, name_threshold, bar):
-    '''Blank subtraction function.
+    """Blank subtraction function.
 
     Blank subtraction algorithm:
     - Calculate mean (mean_blank) and standard deviation (sd_blank)
@@ -68,12 +68,12 @@ def blank_subtraction_flag(row, name_group, name_threshold, bar):
     # Returns:
         If a certain peak of this group still exist after blank subtraction
 
-    '''
+    """
     return (np.mean(row[name_group]) - row[name_threshold])/row[name_threshold] > bar
 
 # Judge whether certain peak intensity of a sample is 0 or not
 def zero_intensity_flag(row, name_group):
-    '''Check if the mean intensity of certain group of samples is zero. If zero, then
+    """Check if the mean intensity of certain group of samples is zero. If zero, then
     the metabolite is not existed in that material.
 
     # Arguments:
@@ -82,12 +82,12 @@ def zero_intensity_flag(row, name_group):
 
     # Returns:
         True (the mean intensity is zero) or False (the mean intensity is not zero).
-    '''
+    """
     return np.mean(row[name_group]) <= 0
 
 # Add p-value for student t-test between two groups of samples
 def add_pvalue(row, left_names, right_names):
-    '''Add p value for two group comparison based on student t-test.
+    """Add p value for two group comparison based on student t-test.
 
     # Arguments:
         row: certain row of peak table (pandas dataframe).
@@ -96,13 +96,13 @@ def add_pvalue(row, left_names, right_names):
 
     # Returns:
         p value of student t-test
-    '''
+    """
     _, p = stats.ttest_ind(row[left_names], row[right_names])
     return p
 
 # Add t-value for student t-test between two groups of samples
 def add_tvalue(row, left_names, right_names):
-    '''Add t value for two group comparison based on student t-test.
+    """Add t value for two group comparison based on student t-test.
 
     # Arguments:
         row: certain row of peak table (pandas dataframe).
@@ -111,13 +111,13 @@ def add_tvalue(row, left_names, right_names):
 
     # Returns:
         t value of student t-test
-    '''
+    """
     t, _ = stats.ttest_ind(row[left_names], row[right_names])
     return t
 
 # Add fold-change for the mean values of two groups of samples
 def fold_change(row, left, right):
-    '''Add fold change value for two group comparison.
+    """Add fold change value for two group comparison.
 
     # Arguments:
         row: certain row of peak table (pandas dataframe).
@@ -126,7 +126,7 @@ def fold_change(row, left, right):
 
     # Returns:
         fold change value.
-    '''
+    """
     if row[right] == 0:
         return np.inf
     if row[left] == 0:
@@ -136,7 +136,7 @@ def fold_change(row, left, right):
 
 # Absolute value of fold-change
 def abs_fold_change(row, fold_change_column):
-    '''Add absolute fold change value for two group comparison.
+    """Add absolute fold change value for two group comparison.
 
     # Arguments:
         row: certain row of peak table (pandas dataframe).
@@ -144,14 +144,14 @@ def abs_fold_change(row, fold_change_column):
 
     # Returns:
         absolute fold change value.
-    '''
+    """
     return abs(row[fold_change_column])
 
 # Add ppm value for identified metabolites.
 ## The library search result produced by MZmine may exceed 5 ppm,
 ## so those beyond 5 ppm should be filtered out
 def add_ppm(row, library_df):
-    '''Add part per million (ppm) value for library matching. The library matching done by
+    """Add part per million (ppm) value for library matching. The library matching done by
     MZmine may not follow the threshold strictly (i.e., when setting the ppm to 5, some
     metabolites with ppm of more than 5 may also appear in the peak table).
 
@@ -161,7 +161,7 @@ def add_ppm(row, library_df):
 
     # Returns:
         ppm value of the matched metabolite in the row.
-    '''
+    """
     if pd.isnull(row['row identity (main ID)']):
         return None
     mzs = list(library_df[library_df.Name.str.strip() == row['row identity (main ID)']]['M/Z'])
@@ -175,7 +175,7 @@ def add_ppm(row, library_df):
     return abs((mz_observe-mz_theoretical)*10e5/mz_theoretical)
 
 def add_label(row, group1_name, group2_name):
-    '''Add label for metabolite represented by the row.
+    """Add label for metabolite represented by the row.
     Format: "m_z/retention_time/fold_change".
 
     # Arguments:
@@ -185,7 +185,7 @@ def add_label(row, group1_name, group2_name):
 
     # Returns:
         label (string type).
-    '''
+    """
     if pd.isnull(row["row identity (main ID)"]) or \
        row["row identity (main ID)"] == "nan" or \
        row["row identity (main ID)"] == None:
@@ -202,7 +202,7 @@ def add_label(row, group1_name, group2_name):
 def add_stats(data_file="data_pos_ph.csv", design_file="design", \
               output_file="pos_withstats.csv", \
               library="Positive_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv"):
-    '''Add basic statistics to peak table produced by MZmine.
+    """Add basic statistics to peak table produced by MZmine.
 
     # Arguments:
         data_file: peak table.
@@ -215,7 +215,7 @@ def add_stats(data_file="data_pos_ph.csv", design_file="design", \
 
     # Outputs:
         prosessed peak table
-    '''
+    """
 
     data = pd.read_csv(data_file)
     data["row identity (main ID)"] = data["row identity (main ID)"].apply(str)

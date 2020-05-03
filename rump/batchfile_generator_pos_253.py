@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Description : This code generates batchfile for MZmine-2.53 to process negative data
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Xinsong Du
@@ -11,7 +11,7 @@ Usage       : python batchfile_generator_pos_253.py -x $batchfile_output_locatio
                                                     -i $input_negative_data_location
                                                     -l $library_location
                                                     -o $output_peak_table_location
-'''
+"""
 
 import os
 import logging
@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def batchfile_generator(xml_file, input_dir, library, output_csv):
-    '''Generate MZmine batchfile for positive data.
+    """
+    Generate MZmine batchfile for positive data.
 
     # Arguments:
         xml_file: location and name of the produced batchfile.
@@ -31,7 +32,7 @@ def batchfile_generator(xml_file, input_dir, library, output_csv):
 
     # Outputs:
         MZmine batchfile for positive data.
-    '''
+    """
 
     input_files = [os.path.abspath(os.path.join(input_dir, f)) for f in os.listdir(input_dir)]
     input_str = ""
