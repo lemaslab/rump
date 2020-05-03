@@ -27,7 +27,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def exit_with_error(message, exit_status):
-    """Print an error message to stderr, prefixed by the program name and 'ERROR'.
+    """
+    Print an error message to stderr, prefixed by the program name and 'ERROR'.
     Then exit program with supplied exit status.
     # Arguments:
         message: an error message as a string.
@@ -39,7 +40,8 @@ def exit_with_error(message, exit_status):
     sys.exit(exit_status)
 
 def parse_arguments():
-    """Parse command line arguments.
+    """
+    Parse command line arguments.
     Returns Options object with command line argument values as attributes.
     Will exit the program on a command line error.
     """
@@ -74,12 +76,13 @@ def parse_arguments():
 class DataCheck():
     """Check inputs for RUMP"""
     def __init__(self, input_dir_pos, input_dir_neg, POS_design_path, NEG_design_path):
-        """Defind variables.
-        """
+        """Defind variables."""
         pos_data_file_names = os.listdir(input_dir_pos)
         neg_data_file_names = os.listdir(input_dir_neg)
-        if len(pos_data_file_names) == 0 or len(neg_data_file_names) == 0:
-            raise ValueError('one or more input files does not exist.')
+        try:
+            if len(pos_data_file_names) == 0 or len(neg_data_file_names) == 0:
+                raise ValueError('one or more input files does not exist.')
+        except:
             sys.exit(EXIT_FILE_EXISTANCE_ERROR)
 
         self.pos_design_file = POS_design_path
@@ -88,7 +91,8 @@ class DataCheck():
         self.neg_data_files = [os.path.join(input_dir_neg, x) for x in neg_data_file_names]
 
     def get_pos_groupnames(self):
-        """Get group name of positive data.
+        """
+        Get group name of positive data.
 
         # Returns:
             group name.
@@ -97,7 +101,8 @@ class DataCheck():
         return sorted(list(data['group']))
 
     def get_neg_groupnames(self):
-        """Get group name of negative data.
+        """
+        Get group name of negative data.
 
         # Returns:
             group name.
@@ -106,7 +111,8 @@ class DataCheck():
         return sorted(list(data['group']))
 
     def get_inputfile_format(self):
-        """Get input file type.
+        """
+        Get input file type.
 
         # Returns:
             input file names extention.
@@ -118,33 +124,35 @@ class DataCheck():
 
     # Test if positive file groups are the same as negative file groups
     def check_input_existance(self):
-        """Check if input file exist.
-        """
-        for pos_file, neg_file in zip(self.pos_data_files, self.neg_data_files):
-            if not (os.path.exists(pos_file) and os.path.exists(neg_file)):
-                raise ValueError('one or more input files does not exist.')
-                sys.exit(EXIT_FILE_EXISTANCE_ERROR)
+        """Check if input file exist."""
+        try:
+            for pos_file, neg_file in zip(self.pos_data_files, self.neg_data_files):
+                if not (os.path.exists(pos_file) and os.path.exists(neg_file)):
+                    raise ValueError('one or more input files does not exist.')
+        except:
+            sys.exit(EXIT_FILE_EXISTANCE_ERROR)
 
     def check_input_balance(self):
-        """Check if input positive and negative files balanced.
-        """
-        if self.get_pos_groupnames() != self.get_neg_groupnames():
-            raise ValueError('positive file groups are not the same as \
-            negative file groups, please check design files.')
+        """Check if input positive and negative files balanced."""
+        try:
+            if self.get_pos_groupnames() != self.get_neg_groupnames():
+                raise ValueError('positive file groups are not the same as \
+                negative file groups, please check design files.')
+        except:
             sys.exit(EXIT_FILE_BALANCE_ERROR)
 
     def check_input_formats(self):
-        """Check if input file type is mzXML.
-        """
-        if self.get_inputfile_format() != ['mzXML']:
-            raise ValueError('not all input files are in .mzXML format, \
-            please check input data folders.')
+        """Check if input file type is mzXML."""
+        try:
+            if self.get_inputfile_format() != ['mzXML']:
+                raise ValueError('not all input files are in .mzXML format, \
+                please check input data folders.')
+        except:
             sys.exit(EXIT_FILE_TYPE_ERROR)
 
 def main():
-    """Main function.
-    """
-# Orchestrate the execution of the program
+    """Main function."""
+    # Orchestrate the execution of the program
     args = parse_arguments()
     check = DataCheck(args.pos_data, args.neg_data, args.pos_design, args.neg_design)
     logger.info("start input check: ")

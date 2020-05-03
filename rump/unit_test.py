@@ -20,27 +20,23 @@ class RumpTest(unittest.TestCase):
     """Unit tests for RUMP"""
 
     def do_test(self, result, expected):
-        """Wrapper function for testing RUMP.
-        """
+        """Wrapper function for testing RUMP."""
         self.assertEqual(expected, result)
 
     def test_add_stats(self):
-        """Test blank subtraction outputs correct result.
-        """
+        """Test blank subtraction outputs correct result."""
         expected = "CITRATE" in add_stats(data_file=".travis/pos_data.csv", \
             design_file=".travis/pos_design.csv", output_file=".travis/pos_withstats.csv")
         self.do_test(True, expected)
 
     def test_blank_subtraction(self):
-        """Test blank subtraction outputs correct result.
-        """
+        """Test blank subtraction outputs correct result."""
         expected = blank_subtraction(data_file=".travis/pos_withstats.csv", \
             design_file=".travis/pos_design.csv")
         self.do_test(41, expected)
 
     def test_venn(self):
-        """Test venn diagram code outputs correct result.
-        """
+        """Test venn diagram code outputs correct result."""
         expected = vd(data_file=".travis/pos_withstats.csv", \
             design_file=".travis/pos_design.csv")
         self.do_test(48, expected)

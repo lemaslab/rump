@@ -97,7 +97,8 @@ def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
     return ax.add_patch(ellipse)
 
 def pca_2g(data_file, design_file, output_fig):
-    """Draw principal component analysis (PCA) plot for two groups comparison.
+    """
+    Draw principal component analysis (PCA) plot for two groups comparison.
 
     # Arguments:
         data_file: peak table.

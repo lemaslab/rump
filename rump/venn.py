@@ -36,7 +36,8 @@ warnings.filterwarnings('ignore')
 def vd(data_file="data_pos_ph.csv", design_file="pos_design.csv", \
     output_fig="barplot_pos_withbg.png", bs="1", group1_csv="group1.csv", \
     group2_csv="group1.csv", both_csv="both.csv"):
-    """Draw venn diagram for two groups comparison.
+    """
+    Draw venn diagram for two groups comparison.
 
     # Arguments:
         data_file: peak table.

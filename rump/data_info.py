@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def data_info(input_dir, output_yaml, ion):
-    """Generate file that can be parsed by MultiQC and
+    """
+    Generate file that can be parsed by MultiQC and
     containing basic information of input data files.
 
     # Arguments:
@@ -64,7 +65,8 @@ pconfig:\n\
 data:\n" + data)
 
 def filesize_converter(size):
-    """Convert filesize unit to KB, MB and GB based on the size value.
+    """
+    Convert filesize unit to KB, MB and GB based on the size value.
 
     # Arguments:
         size: number of bytes

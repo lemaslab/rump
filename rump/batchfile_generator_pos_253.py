@@ -21,7 +21,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def batchfile_generator(xml_file, input_dir, library, output_csv):
-    """Generate MZmine batchfile for positive data.
+    """
+    Generate MZmine batchfile for positive data.
 
     # Arguments:
         xml_file: location and name of the produced batchfile.

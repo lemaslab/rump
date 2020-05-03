@@ -28,7 +28,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def peak_number_comparison(pos_nobg, neg_nobg, pos_withbg, neg_withbg, output_txt):
-    """Produce file containing peak number information that can be parsed by MultiQC.
+    """
+    Produce file containing peak number information that can be parsed by MultiQC.
 
     # Arguments:
         pos_nobg: peak table (csv file) of positive data before blank subtraction.

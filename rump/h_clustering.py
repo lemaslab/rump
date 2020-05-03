@@ -33,7 +33,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def h_clustering(data_file, design_file, output_fig, only_matched):
-    """Do hierarchical clustering for peak table.
+    """
+    Do hierarchical clustering for peak table.
 
     # Arguments:
         data_file: peak table.

@@ -33,7 +33,8 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %
 warnings.filterwarnings('ignore')
 
 def bar_plot(data_file, design_file, output_fig, only_matched, bs):
-    """Draw bar plot for two group comparison based on peak table.
+    """
+    Draw bar plot for two group comparison based on peak table.
 
     # Arguments:
         data_file: peak table.

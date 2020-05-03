@@ -26,7 +26,8 @@ pd.set_option('display.max_columns', 500)
 
 def blank_subtraction(data_file="pos_data.csv", \
     design_file="pos_design.csv", output_file="pos_data_with_bs.csv"):
-    """Do blank subtraction based on blank_subtraction_flag
+    """
+    Do blank subtraction based on blank_subtraction_flag
     (see function "blank_subtraction_flag" in "add_stats.py" for detail).
 
     # Arguments:

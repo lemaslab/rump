@@ -24,8 +24,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %
 warnings.filterwarnings('ignore')
 
 def mummichog_input_prepare(input_file, output_file):
-    """Convert peak table to text file that can be used as mummichog input.
-    """
+    """Convert peak table to text file that can be used as mummichog input."""
     data = pd.read_csv(input_file)
 
     data_formummichog = data[["row m/z", "row retention time", "p_value", "t_value", "label"]]
