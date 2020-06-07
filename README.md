@@ -7,6 +7,7 @@
 
 ![alt text](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V4.png)
 
+
 ## Licence
 
 This program is released as open source software under the terms of [GNU GPL-v3.0 License](https://github.com/GalaxyDream/RUMP/blob/master/LICENSE).
