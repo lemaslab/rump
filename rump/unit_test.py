@@ -23,11 +23,11 @@ class RumpTest(unittest.TestCase):
         """Wrapper function for testing RUMP."""
         self.assertEqual(expected, result)
 
-#    def test_add_stats(self):
-#        """Test blank subtraction outputs correct result."""
-#        expected = "CITRATE" in add_stats(data_file=".travis/pos_data.csv", \
-#            design_file=".travis/pos_design.csv", output_file=".travis/pos_withstats.csv")
-#        self.do_test(True, expected)
+    def test_add_stats(self):
+        """Test blank subtraction outputs correct result."""
+        expected = "CITRATE" in add_stats(data_file=".travis/pos_data.csv", \
+            design_file=".travis/pos_design.csv", output_file=".travis/pos_withstats.csv")
+        self.do_test(True, expected)
 
     def test_blank_subtraction(self):
         """Test blank subtraction outputs correct result."""
