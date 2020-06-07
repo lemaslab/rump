@@ -201,7 +201,7 @@ def add_label(row, group1_name, group2_name):
 
 def add_stats(data_file="data_pos_ph.csv", design_file="design", \
               output_file="pos_withstats.csv", \
-              library="Positive_Garrett_MetaboliteStd_Library_RP_edited01152019JG.csv"):
+              library="positive_library.csv"):
     """Add basic statistics to peak table produced by MZmine.
 
     # Arguments:
