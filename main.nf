@@ -134,7 +134,7 @@ if (params.help) {
     System.out.println("    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'")
     System.out.println("    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'")
     System.out.println("    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05")
-    System.out.println("    --unknown_search                        whether do unknown search for unidentified metabolites or not, default is '0', please set it to '1' when needed")
+    System.out.println("    --unknown_search                        whether do unknown search for unidentified metabolites or not, default is '1', please set it to '0' when you want to disable it")
     System.out.println("    --version                               whether to show version information or not, default is null")
     System.out.println("    --help                                  whether to show help information or not, default is null")
     System.out.println("Please refer to nextflow.config for more options.")
