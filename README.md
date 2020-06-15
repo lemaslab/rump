@@ -96,6 +96,6 @@ Please submit questions, bug reports and feature requests to the issue tracker o
 [RUMP issue tracker](https://github.com/lemaslab/RUMP/issues)
 
 ## References
-- [SECIM Core](http://secim.ufl.edu/) provided valuable guidance related to parameter settings of data processing.
-- Sample data is from [Metabolomics Workbench PR000188](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR000188)
-- Data used for continuous integration is from [Metabolights MTBLS146](https://www.ebi.ac.uk/metabolights/MTBLS146/descriptors)
+-   [SECIM Core](http://secim.ufl.edu/) provided valuable guidance related to parameter settings of data processing.
+-   Sample data is from [Metabolomics Workbench PR000188](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR000188)
+-   Data used for continuous integration is from [Metabolights MTBLS146](https://www.ebi.ac.uk/metabolights/MTBLS146/descriptors)
