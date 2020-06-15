@@ -60,7 +60,7 @@ RUMP supports .mzXML format files.
 
 ## Components
 
-RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/), and Default parameter settings for MZmine-2.53 are specifically for data processed by [SECIM Core](http://secim.ufl.edu/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); pathway analysis are done with [mummichog](http://mummichog.org/); unknown metabolites search are done with [CEU Mass Mediator](https://github.com/lzyacht/cmmr). Note that the processes related to unknow search with CEU Mass Mediator is turned off by default due to their unstable server, it can be turned on by setting parameter `--unknown_search` to "1".
+RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); pathway analysis are done with [mummichog](http://mummichog.org/); unknown metabolites search are done with [CEU Mass Mediator](https://github.com/lzyacht/cmmr). Note that the processes related to unknow search with CEU Mass Mediator is turned off by default due to their unstable server, it can be turned on by setting parameter `--unknown_search` to "1".
 
 ## Currently included statistical analysis
 
@@ -94,3 +94,8 @@ RUMP returns the following exit status values:
 Please submit questions, bug reports and feature requests to the issue tracker on GitHub:
 
 [RUMP issue tracker](https://github.com/lemaslab/RUMP/issues)
+
+## References
+- [SECIM Core](http://secim.ufl.edu/) provided valuable guidance related to parameter settings of data processing.
+- Sample data is from [Metabolomics Workbench PR000188](https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR000188)
+- Data used for continuous integration is from [Metabolights MTBLS146](https://www.ebi.ac.uk/metabolights/MTBLS146/descriptors)
