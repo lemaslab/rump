@@ -11,9 +11,9 @@
 #         title: 'Negative'
 #         description: 'Number of peaks detected for negative data'
 Steps            col1            col2
-before_blank_subtraction            6236            3301            
-match_before_blank_subtraction            112            4            
-significant_match_before_blank_subtraction            12            1            
-after_blank_subtraction            815            601            
-match_after_blank_subtraction            69            0            
-significant_match_after_blank_subtraction            9            0            
+before_blank_subtraction            6233            3243            
+match_before_blank_subtraction            149            94            
+significant_match_before_blank_subtraction            10            6            
+after_blank_subtraction            815            600            
+match_after_blank_subtraction            86            36            
+significant_match_after_blank_subtraction            8            4            
