@@ -1,8 +1,8 @@
-# Dockerfile for UMPIRE
+# Dockerfile for RUMP
 
-FROM rocker/r-ver:3.5.2
+FROM rocker/rstudio:3.6.3
 
-MAINTAINER xinsongdu@ufl.edu
+LABEL maintainer="xinsongdu@ufl.edu"
 
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
@@ -39,7 +39,7 @@ RUN apt-get update -qq && \
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
 # Install python3-based necessary dependencies for UMPIRE
-RUN pip3 install --upgrade setuptools
+RUN pip3 install --upgrade 'setuptools==45.2.0'
 RUN pip3 install 'numpy==1.18.1' 'scipy==1.4.1' 'pandas==0.25.3' 'matplotlib<3.0.0,>=2.1.1' 'plotly==4.5.0' 'seaborn==0.9.1' 'scikit-learn==0.22.1' matplotlib_venn 'multiqc==1.8' 'statsmodels==0.11.0' 'fastcluster==1.1.26' 'pylint==2.4.4'
 RUN echo "alias python=python3" >> ~/.bash_profile
 
@@ -58,8 +58,12 @@ WORKDIR /app
 COPY accessibility.properties /app
 
 # Fix a bug for java
-RUN mv accessibility.properties /etc/java-8-openjdk/
+# RUN mv accessibility.properties /etc/java-8-openjdk/
+
+# install R packages
+COPY r_package_install.R /app
+RUN Rscript r_package_install.R
 
 # Install mummichog
-RUN pip install --upgrade setuptools
-RUN pip install mummichog
+RUN pip install --upgrade 'setuptools==44.0.0'
+RUN pip install 'mummichog==2.2.0'

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
+"""
 Description : Unit tests for RUMP
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Xinsong Du
 License     : GNU GPL-v3.0 License
 Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
-'''
+"""
 
 import os
 import sys
@@ -27,22 +27,24 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %(message)s')
 
 def exit_with_error(message, exit_status):
-    '''Print an error message to stderr, prefixed by the program name and 'ERROR'.
+    """
+    Print an error message to stderr, prefixed by the program name and 'ERROR'.
     Then exit program with supplied exit status.
-    Arguments:
+    # Arguments:
         message: an error message as a string.
         exit_status: a positive integer representing the exit status of the
             program.
-    '''
+    """
     logging.error(message)
 #    print("{} ERROR: {}, exiting".format(PROGRAM_NAME, message), file=sys.stderr)
     sys.exit(exit_status)
 
 def parse_arguments():
-    '''Parse command line arguments.
+    """
+    Parse command line arguments.
     Returns Options object with command line argument values as attributes.
     Will exit the program on a command line error.
-    '''
+    """
     description = 'Basic information for rump inputs'
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument(
@@ -72,15 +74,16 @@ def parse_arguments():
     return parser.parse_args()
 
 class DataCheck():
-    '''Check inputs for RUMP'''
+    """Check inputs for RUMP"""
     def __init__(self, input_dir_pos, input_dir_neg, POS_design_path, NEG_design_path):
+        """Defind variables."""
+        pos_data_file_names = os.listdir(input_dir_pos)
+        neg_data_file_names = os.listdir(input_dir_neg)
         try:
-            pos_data_file_names = os.listdir(input_dir_pos)
-            neg_data_file_names = os.listdir(input_dir_neg)
-            assert len(pos_data_file_names) != 0
-            assert len(neg_data_file_names) != 0
+            if len(pos_data_file_names) == 0 or len(neg_data_file_names) == 0:
+                raise ValueError('one or more input files does not exist.')
         except:
-            exit_with_error('one or more input files does not exist.', EXIT_FILE_EXISTANCE_ERROR)
+            sys.exit(EXIT_FILE_EXISTANCE_ERROR)
 
         self.pos_design_file = POS_design_path
         self.neg_design_file = NEG_design_path
@@ -88,29 +91,32 @@ class DataCheck():
         self.neg_data_files = [os.path.join(input_dir_neg, x) for x in neg_data_file_names]
 
     def get_pos_groupnames(self):
-        '''Get group name of positive data.
+        """
+        Get group name of positive data.
 
         # Returns:
             group name.
-        '''
+        """
         data = pd.read_csv(self.pos_design_file)
         return sorted(list(data['group']))
 
     def get_neg_groupnames(self):
-        '''Get group name of negative data.
+        """
+        Get group name of negative data.
 
         # Returns:
             group name.
-        '''
+        """
         data = pd.read_csv(self.neg_design_file)
         return sorted(list(data['group']))
 
     def get_inputfile_format(self):
-        '''Get input file type.
+        """
+        Get input file type.
 
         # Returns:
             input file names extention.
-        '''
+        """
         formats = []
         for file in self.pos_data_files + self.neg_data_files:
             formats.append(file.split('.')[-1])
@@ -118,37 +124,35 @@ class DataCheck():
 
     # Test if positive file groups are the same as negative file groups
     def check_input_existance(self):
-        '''Check if input file exist.
-        '''
+        """Check if input file exist."""
         try:
             for pos_file, neg_file in zip(self.pos_data_files, self.neg_data_files):
-                assert os.path.exists(pos_file)
-                assert os.path.exists(neg_file)
-        except AssertionError:
-            exit_with_error('one or more input files does not exist.', EXIT_FILE_EXISTANCE_ERROR)
+                if not (os.path.exists(pos_file) and os.path.exists(neg_file)):
+                    raise ValueError('one or more input files does not exist.')
+        except:
+            sys.exit(EXIT_FILE_EXISTANCE_ERROR)
 
     def check_input_balance(self):
-        '''Check if input positive and negative files balanced.
-        '''
+        """Check if input positive and negative files balanced."""
         try:
-            assert self.get_pos_groupnames() == self.get_neg_groupnames()
-        except AssertionError:
-            exit_with_error('positive file groups are not the same as \
-                negative file groups, please check design files.', EXIT_FILE_BALANCE_ERROR)
+            if self.get_pos_groupnames() != self.get_neg_groupnames():
+                raise ValueError('positive file groups are not the same as \
+                negative file groups, please check design files.')
+        except:
+            sys.exit(EXIT_FILE_BALANCE_ERROR)
 
     def check_input_formats(self):
-        '''Check if input file type is mzXML.
-        '''
+        """Check if input file type is mzXML."""
         try:
-            assert self.get_inputfile_format() == ['mzXML']
-        except AssertionError:
-            exit_with_error('not all input files are in .mzXML format, \
-                please check input data folders.', EXIT_FILE_TYPE_ERROR)
+            if self.get_inputfile_format() != ['mzXML']:
+                raise ValueError('not all input files are in .mzXML format, \
+                please check input data folders.')
+        except:
+            sys.exit(EXIT_FILE_TYPE_ERROR)
 
 def main():
-    '''Main function.
-    '''
-# Orchestrate the execution of the program
+    """Main function."""
+    # Orchestrate the execution of the program
     args = parse_arguments()
     check = DataCheck(args.pos_data, args.neg_data, args.pos_design, args.neg_design)
     logger.info("start input check: ")
