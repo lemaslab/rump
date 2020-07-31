@@ -4,6 +4,7 @@
 [![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 
 # RUMP
+<img src="/figs/RUMP_Logo.png" width="200">
 
 ![alt text](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V4.png)
 
