@@ -1,4 +1,4 @@
-<p align="left">
+<p align="center">
     <img src="/figs/RUMP_Logo.png" width="250">
 <p>
 
