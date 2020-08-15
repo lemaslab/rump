@@ -14,6 +14,7 @@ tmp/
 reproducibility_test/
 results/
 databases/
+nbs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
