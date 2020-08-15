@@ -1,4 +1,4 @@
-<img src="/figs/RUMP_Logo.png" width="200">
+<img src="/figs/RUMP_Logo.png" width="150">
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0b6bdc545b50439596d40f3917ef3aa6)](https://app.codacy.com/gh/lemaslab/RUMP?utm_source=github.com&utm_medium=referral&utm_content=lemaslab/RUMP&utm_campaign=Badge_Grade_Dashboard)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3884275.svg)](https://doi.org/10.5281/zenodo.3884275)
@@ -6,6 +6,7 @@
 [![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 [![HitCount](http://hits.dwyl.com/lemaslab/RUMP.svg)](http://hits.dwyl.com/lemaslab/RUMP)
 
+---
 ![alt text](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V4.png)
 
 
