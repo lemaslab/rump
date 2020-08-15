@@ -1,8 +1,7 @@
 <p align="center">
     <img src="/figs/RUMP_Logo.png" width="400">
 <p>
-
-![logo](https://user-images.githubusercontent.com/62911395/89073144-ecf77300-d347-11ea-8ddb-6fe6350dbe47.png)
+    
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0b6bdc545b50439596d40f3917ef3aa6)](https://app.codacy.com/gh/lemaslab/RUMP?utm_source=github.com&utm_medium=referral&utm_content=lemaslab/RUMP&utm_campaign=Badge_Grade_Dashboard)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3884275.svg)](https://doi.org/10.5281/zenodo.3884275)
 [![travis](https://travis-ci.com/lemaslab/RUMP.svg?branch=master)](https://travis-ci.com/lemaslab/RUMP)
