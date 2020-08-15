@@ -1,15 +1,12 @@
-<p align="left">
-    <img src="/figs/RUMP_Logo.png" width="180">
-<p>
-
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0b6bdc545b50439596d40f3917ef3aa6)](https://app.codacy.com/gh/lemaslab/RUMP?utm_source=github.com&utm_medium=referral&utm_content=lemaslab/RUMP&utm_campaign=Badge_Grade_Dashboard)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3884275.svg)](https://doi.org/10.5281/zenodo.3884275)
 [![travis](https://travis-ci.com/lemaslab/RUMP.svg?branch=master)](https://travis-ci.com/lemaslab/RUMP)
 [![license](http://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Flemaslab%2FRUMP)](https://hits.seeyoufarm.com)
 
----
-![RUMP workflow](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V4.png)
+# RUMP
+
+![RUMP workflow](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V5.png)
 
 
 ## Licence
