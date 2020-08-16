@@ -15,6 +15,6 @@ install:
   - mkdir -p ~/bin; cp nextflow ~/bin
 script:
   # Functional tests
-  - travis_wait 35 bash .travis/RUMP-test_all.sh # test data is from Metabolights MTBLS146 (https://bit.ly/3dcPv6i)
+  - travis_wait 40 bash .travis/RUMP-test_all.sh # test data is from Metabolights MTBLS146 (https://bit.ly/3dcPv6i)
   - bash .travis/RUMP-test_aftermzmine.sh
   - bash .travis/unit-test.sh
