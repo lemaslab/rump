@@ -15,7 +15,7 @@ def svm_code(csv_file, output_fig):
     sum_noc7 = []
     sum_noc8 = []
 
-    for i in len(df_read):
+    for i in range(len(df_read)):
         sum_1noc = df_read["QE2_sbs_11_11[27NOC].mzXML Peak height"].values[i]
         sum_2noc = df_read["QE2_sbs_11_15[29NOC].mzXML Peak height"].values[i]
         sum_3noc = df_read["QE2_sbs_11_12[30NOC].mzXML Peak height"].values[i]
@@ -64,7 +64,7 @@ def svm_code(csv_file, output_fig):
     sum_n7 = []
     sum_n8 = []
 
-    for i in len(df_read):
+    for i in range(len(df_read)):
         sum_1n = df_read["QE2_sbs_11_19[16N].mzXML Peak height"].values[i]
         sum_2n = df_read["QE2_sbs_11_20[11N].mzXML Peak height"].values[i]
         sum_3n = df_read["QE2_sbs_11_32[15N].mzXML Peak height"].values[i]
