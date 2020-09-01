@@ -1,3 +1,19 @@
+##-------------- 
+# **************************************************************************** #
+# ***************                Project Overview              *************** #
+# **************************************************************************** #
+
+# Author:             Ke Xu 
+# START  Date:        July 17, 2020 
+# REVISE Date:        Sep  1, 2020
+# Project:            RUMP
+# Description:        Volcano Plot for sample data
+# Note:               
+
+# **************************************************************************** #
+# ***************                Library                       *************** #
+# **************************************************************************** #
+
 #Library your packages
 library(ggplot2)
 library(gridExtra)
@@ -7,13 +23,17 @@ library(psych)
 library(processx)
 library(optparse)
 library(cmmr)
+library(webshot)
+library(webshot2)
+library(remotes)
 
 # 20 Digits Precision Representation
 options(scipen = 20)
 # If shows every warning
 options(warn = -1)
 
-setwd("/Users/xu.ke/Dropbox (UFL)/Research/Active/20200707_RUMP/DATA0")
+# set your working directory
+# setwd("/Users/xu.ke/Dropbox (UFL)/Research/Active/20200707_RUMP/DATA0")
 
 # Define input and output arguments
 option_list <- list(
@@ -39,7 +59,7 @@ option_list <- list(
               default = "outliers.csv",
               help = "output outliers table path and plot file name"),
   make_option(c("-o", "--volcano_plot"), type = "character",
-              default = "volcano_plot.html",
+              default = "volcano_plot.png",
               help = "output volcano path and plot file name")
 );
 
@@ -124,7 +144,9 @@ for (i in seq_len(nrow(top_peaks))) {
 
 # make the Plot.ly plot
 p <- plot_ly(data = sample_data, x = ~Fold, y = ~-log10(FDR),
-             mode = "markers", color = ~group) %>%
+             mode = "markers", color = ~group, type = "scatter") %>%
   layout(title = "Volcano Plot") %>%
   layout(annotations = a)
-htmlwidgets::saveWidget(p, file = opt$volcano_plot)
+
+htmlwidgets::saveWidget(p, file = 'volcano_plot.html')
+webshot2::webshot('volcano_plot.html', opt$volcano_plot, delay=2, cliprect ="viewport")
