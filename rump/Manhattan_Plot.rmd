@@ -1,0 +1,146 @@
+---
+title: "Manhattan Plot"
+author: "Yasmine Gillespie"
+date: "6/6/2020"
+output: html_document
+---
+
+
+```{r , warning=FALSE, include=FALSE}         
+install.packages("cmmr")
+devtools::install_github("lzyacht/cmmr")
+```
+
+```{r , warning=FALSE, include=FALSE}
+          
+library(shiny)
+library(ggplot2)
+library(dplyr)
+library(grid)
+library(plotly)
+library(manhattanly)
+library(forcats)
+library(readr)
+library(ggrepel)
+library(RColorBrewer)
+library(tidyr)
+library(qqman)
+library(argparser, quietly=TRUE)
+library(optparse) # add this library to enable argparse arguments
+library(cmmr)
+library(lintr)
+
+
+tempdir()
+# [1] "C:\Users\XYZ~1\AppData\Local\Temp\Rtmp86bEoJ\Rtxt32dcef24de2"
+dir.create(tempdir())
+```
+
+```{r , warning=FALSE, include=FALSE}         
+
+
+options(warn=-1)
+
+## Define input and output arguments
+option_list = list(
+  make_option(c("-i", "--input"), type="character", default="bovine_enriched_unknown.csv", 
+              help="input data file"),
+  make_option(c("-c", "--mz_col"), type="character", default="row.m.z", 
+              help="column name indicating m/z values"),
+  make_option(c("-n", "--ion"), type="character", default="positive", 
+              help="ion mode"),
+  make_option(c("-o", "--output"), type="character", default="searched_unknown_pos_after_blank_subtraction.csv", 
+              help="output csv file name")
+); 
+
+opt_parser = OptionParser(option_list=option_list);
+opt = parse_args(opt_parser);
+
+# read data
+data = rio::import("C:\\Users\\Yasmine\\Documents\\pos_data_after_blank_subtraction.csv")
+
+
+# extract mz values from data
+mzs = as.vector(data[['row.m.z']])
+# mzs = lapply(mzs,round,4)
+
+if (opt$ion=="negative"){
+  adduct <- '["M-H"]'
+} else {
+  adduct <- '["M+H"]'
+}
+
+# batch search
+batch_df <- batch_search('http://ceumass.eps.uspceu.es/mediator/api/v3/batch',
+                             'all-except-peptides',
+                             '["all-except-mine"]',
+                             'mz',
+                             opt$ion,
+                             adduct,
+                             5,
+                             'ppm',
+                             mzs)
+if (typeof(batch_df)=="character"){
+  data_merge <- data.frame(Empty=character())
+} else {
+  data_merge <- merge(data, batch_df, by.x='row.m.z', by.y='experimental_mass')
+}
+
+write.csv(data_merge, opt$output, row.names=FALSE)
+```
+
+```{r , warning=FALSE, include=FALSE}         
+New_Data <- data %>%
+             select("row", "time", "p_value", "adjusted_p_value")
+#str(New_Data, list.len = ncol(df))
+```
+
+```{r , warning=FALSE, include=FALSE}         
+MZ_Data <- data %>%
+             select("row", "p_value", "adjusted_p_value")
+#str(MZ_Data, list.len = ncol(df))
+```
+
+```{r setup, include=FALSE}          
+Time_Data <- data %>%
+             select( "time", "p_value", "adjusted_p_value")
+#str(New_Data, list.len = ncol(df))
+```
+
+```{r echo=FALSE}         
+# Basic dot plot MZ data 
+Metabolite = MZ_Data$row
+yval =-log10(MZ_Data$p_value)
+plot(Metabolite,yval)
+abline(h=-log10(0.050000877), col="blue")
+abline(h=-log10(0.005508435), col="blue")
+```
+
+```{r echo=FALSE}         
+# Basic dot plot MZ data 
+Time = Time_Data$time
+yval =-log10(Time_Data$p_value)
+plot(Time,yval)
+abline(h=-log10(0.050000877), col="blue")
+abline(h=-log10(0.005508435), col="blue")
+```
+
+```{r , warning=FALSE, include=FALSE}         
+# check code quality
+library(lintr)
+# replace your path of .R file 
+lint("/Users/xu.ke/Dropbox (UFL)/Research/Active/20200707_RUMP/P0001/Volcano_Plot_checkquality.R")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
