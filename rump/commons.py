@@ -138,7 +138,6 @@ def plot_coefficients_nonlinear(classifier, feature_names, top_features=20, outp
     importance_df = pd.DataFrame(list(zip(names, classifier.feature_importances_.ravel())), \
                                  columns = ['var_name', 'importance_score']).sort_values(by = \
                                 ["importance_score"], ascending=False)
-    coef = classifier.feature_importances_.ravel()
     top_positive_names = list(importance_df.var_name)[0: top_features]
     top_positive_coefficients = list(importance_df.importance_score)[0: top_features]
     top_names = top_positive_names
