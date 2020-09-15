@@ -135,7 +135,7 @@ def plot_coefficients_nonlinear(classifier, feature_names, top_features=20, outp
     # Outputs:
         Variable importance figure for non-linear model.
     """
-    importance_df = pd.DataFrame(list(zip(names, classifier.feature_importances_.ravel())), \
+    importance_df = pd.DataFrame(list(zip(feature_names, classifier.feature_importances_.ravel())), \
                                  columns = ['var_name', 'importance_score']).sort_values(by = \
                                 ["importance_score"], ascending=False)
     top_positive_names = list(importance_df.var_name)[0: top_features]
