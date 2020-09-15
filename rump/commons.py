@@ -121,3 +121,39 @@ def plot_coefficients_linear(classifier, feature_names, \
                rotation=60,
                ha='right')
     figure.savefig(output_fig)
+
+def plot_coefficients_nonlinear(classifier, feature_names, top_features=20, output_fig="sample_fig.png"):
+    """
+    Plot variable importance for non-linear models.
+
+    # Arguments:
+        classifier: trained classifier.
+        names: list of variable names.
+        top_features: number of top ranked variables included in the figure
+        output_fig: location of the output figure.
+
+    # Outputs:
+        Variable importance figure for non-linear model.
+    """
+    importance_df = pd.DataFrame(list(zip(names, classifier.feature_importances_.ravel())), \
+                                 columns = ['var_name', 'importance_score']).sort_values(by = \
+                                ["importance_score"], ascending=False)
+    coef = classifier.feature_importances_.ravel()
+    top_positive_names = list(importance_df.var_name)[0: top_features]
+    top_positive_coefficients = list(importance_df.importance_score)[0: top_features]
+    top_names = top_positive_names
+    top_coefficients = top_positive_coefficients
+    # create plot
+    figure = plt.figure(figsize=(15, 5))
+    colors = ['red' if c < 0 else 'blue' for c in top_coefficients]
+
+    plt.bar(np.arange(top_features), top_coefficients, color=colors)
+    plt.xlabel("Metabolite Identity")
+    plt.suptitle("Most Important Features")
+    plt.ylabel("Relative Importance")
+    r = np.arange(1, 1 + top_features)
+    plt.xticks(r,
+               top_names,
+               rotation=60,
+               ha='right')
+    figure.savefig(output_fig)
