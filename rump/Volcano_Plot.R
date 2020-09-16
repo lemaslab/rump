@@ -1,14 +1,14 @@
-##-------------- 
+##--------------
 # **************************************************************************** #
 # ***************                Project Overview              *************** #
 # **************************************************************************** #
 
-# Author:             Ke Xu 
-# START  Date:        July 17, 2020 
+# Author:             Ke Xu
+# START  Date:        July 17, 2020
 # REVISE Date:        Sep  1, 2020
 # Project:            RUMP
 # Description:        Volcano Plot for sample data
-# Note:               
+# Note:
 
 # **************************************************************************** #
 # ***************                Library                       *************** #
@@ -31,9 +31,6 @@ library(remotes)
 options(scipen = 20)
 # If shows every warning
 options(warn = -1)
-
-# set your working directory
-# setwd("/Users/xu.ke/Dropbox (UFL)/Research/Active/20200707_RUMP/DATA0")
 
 # Define input and output arguments
 option_list <- list(
@@ -97,7 +94,7 @@ outliers_table <- sample_data[is_outlier(sample_data$Fold), ]
 write.csv(outliers_table, opt$outliers_tb)
 
 # if deleted fold's outliers
-outliers<-outliers_table$Fold
+outliers <- outliers_table$Fold
 if (opt$outliers == "yes") {
   sample_data <- sample_data[-which(sample_data$Fold %in% outliers), ]
 }
@@ -109,22 +106,32 @@ sample_data["group"] <- "NonSignificant"
 # FDR < 0.05 (significance level)
 # Fold Change > 1.5
 
-# change the grouping for the entries with significance but not a large enough Fold change
-sample_data[which(sample_data["FDR"] < 0.01 & abs(sample_data["Fold"]) < 1.5), "group"] <- "Significant"
+# change the grouping for the entries with
+# significance but not a large enough Fold change
+sample_data[which(sample_data["FDR"] < 0.01
+                  & abs(sample_data["Fold"]) < 1.5), "group"] <- "Significant"
 
-# change the grouping for the entries a large enough Fold change but not a low enough p value
-sample_data[which(sample_data["FDR"] > 0.01 & abs(sample_data["Fold"]) > 1.5), "group"] <- "FoldChange"
+# change the grouping for the entries with
+# a large enough Fold change but not a low enough p value
+sample_data[which(sample_data["FDR"] > 0.01
+                  & abs(sample_data["Fold"]) > 1.5), "group"] <- "FoldChange"
 
-# change the grouping for the entries with both significance and large enough fold change
-sample_data[which(sample_data["FDR"] < 0.01 & abs(sample_data["Fold"]) > 1.5), "group"] <- "Significant&FoldChange"
+# change the grouping for the entries with
+# both significance and large enough fold change
+sample_data[which(sample_data["FDR"] < 0.01
+                  & abs(sample_data["Fold"]) > 1.5),
+            "group"] <- "Significant&FoldChange"
 
 
 # Find and label the top peaks..
 top_peaks <- sample_data[with(sample_data, order(Fold, FDR)), ][1:5, ]
-top_peaks <- rbind(top_peaks, sample_data[with(sample_data, order(-Fold, FDR)), ][1:5, ])
+top_peaks <- rbind(top_peaks,
+                   sample_data[with(sample_data,
+                                    order(-Fold, FDR)), ][1:5, ])
 
 # Add gene labels for all of the top genes we found
-# here we are creating an empty list, and filling it with entries for each row in the dataframe
+# Creating an empty list
+# and filling it with entries for each row in the dataframe
 # each list entry is another list with named items that will be used by Plot.ly
 a <- list()
 for (i in seq_len(nrow(top_peaks))) {
@@ -148,5 +155,6 @@ p <- plot_ly(data = sample_data, x = ~Fold, y = ~-log10(FDR),
   layout(title = "Volcano Plot") %>%
   layout(annotations = a)
 
-htmlwidgets::saveWidget(p, file = 'volcano_plot.html')
-webshot2::webshot('volcano_plot.html', opt$volcano_plot, delay=2, cliprect ="viewport")
+htmlwidgets::saveWidget(p, file = "volcano_plot.html")
+webshot2::webshot("volcano_plot.html",
+                  opt$volcano_plot, delay = 2, cliprect = "viewport")
