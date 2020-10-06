@@ -5,7 +5,7 @@
 
 # Author:             Ke Xu
 # START  Date:        July 17, 2020
-# REVISE Date:        Sep  1, 2020
+# REVISE Date:        Oct  6, 2020
 # Project:            RUMP
 # Description:        Volcano Plot for sample data
 # Note:
@@ -38,7 +38,7 @@ option_list <- list(
               default = "pos_data_after_blank_subtraction.csv",
               help = "input data file"),
   make_option(c("-c", "--fc_col"), type = "character",
-              default = "fold_change.group1.versus.group2.",
+              default = "log2_fold_change.group1.versus.group2.",
               help = "column name indicating fold change values"),
   make_option(c("-p", "--padjust_col"), type = "character",
               default = "adjusted_p_value",
@@ -47,7 +47,7 @@ option_list <- list(
               default = "label",
               help = "sample identifier"),
   make_option(c("-r", "--outliers"), type = "character",
-              default = "yes",
+              default = "no",
               help = "if ignore outliers"),
   make_option(c("-b", "--boxplot"), type = "character",
               default = "outliers_boxplot.png",
@@ -103,7 +103,7 @@ if (opt$outliers == "yes") {
 sample_data["group"] <- "NonSignificant"
 
 # for our plot, we want to highlight
-# FDR < 0.05 (significance level)
+# FDR < 0.01 (significance level)
 # Fold Change > 1.5
 
 # change the grouping for the entries with
