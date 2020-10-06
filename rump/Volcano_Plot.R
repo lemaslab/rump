@@ -40,9 +40,12 @@ option_list <- list(
   make_option(c("-c", "--fc_col"), type = "character",
               default = "log2_fold_change.group1.versus.group2.",
               help = "column name indicating fold change values"),
-  make_option(c("-p", "--padjust_col"), type = "character",
+  make_option(c("-q", "--padjust_col"), type = "character",
               default = "adjusted_p_value",
               help = "column name indicating padjusted values"),
+  make_option(c("-p", "--p_col"), type = "character",
+              default = "p_value",
+              help = "column name indicating p values"),
   make_option(c("-l", "--label_col"), type = "character",
               default = "label",
               help = "sample identifier"),
@@ -69,6 +72,7 @@ sample_data <- read.csv(file = opt$input)
 sample_data$Fold <- sample_data[, opt$fc_col]
 #adjusted p.value
 sample_data$FDR <- sample_data[, opt$padjust_col]
+sample_data$p.value <- sample_data[, opt$p_col]
 sample_data$external_gene_name <- sample_data[, opt$label_col]
 sample_data[, "value_name"] <- "Fold"
 
@@ -103,22 +107,22 @@ if (opt$outliers == "yes") {
 sample_data["group"] <- "NonSignificant"
 
 # for our plot, we want to highlight
-# FDR < 0.01 (significance level)
+# p.value < 0.01 (significance level)
 # Fold Change > 1.5
 
 # change the grouping for the entries with
 # significance but not a large enough Fold change
-sample_data[which(sample_data["FDR"] < 0.01
+sample_data[which(sample_data["p.value"] < 0.01
                   & abs(sample_data["Fold"]) < 1.5), "group"] <- "Significant"
 
 # change the grouping for the entries with
 # a large enough Fold change but not a low enough p value
-sample_data[which(sample_data["FDR"] > 0.01
+sample_data[which(sample_data["p.value"] > 0.01
                   & abs(sample_data["Fold"]) > 1.5), "group"] <- "FoldChange"
 
 # change the grouping for the entries with
 # both significance and large enough fold change
-sample_data[which(sample_data["FDR"] < 0.01
+sample_data[which(sample_data["p.value"] < 0.01
                   & abs(sample_data["Fold"]) > 1.5),
             "group"] <- "Significant&FoldChange"
 
@@ -150,11 +154,12 @@ for (i in seq_len(nrow(top_peaks))) {
 }
 
 # make the Plot.ly plot
-p <- plot_ly(data = sample_data, x = ~Fold, y = ~-log10(FDR),
+volcano.plot <- plot_ly(data = sample_data, x = ~Fold, y = ~-log10(FDR),
              mode = "markers", color = ~group, type = "scatter") %>%
   layout(title = "Volcano Plot") %>%
   layout(annotations = a)
 
-htmlwidgets::saveWidget(p, file = "volcano_plot.html")
+htmlwidgets::saveWidget(volcano.plot, file = "volcano_plot.html")
+
 webshot2::webshot("volcano_plot.html",
                   opt$volcano_plot, delay = 2, cliprect = "viewport")
