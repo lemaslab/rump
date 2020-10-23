@@ -36,8 +36,10 @@ mzs = as.vector(data[['row.m.z']])
 
 if (opt$ion=="negative"){
   adduct <- '["M-H"]'
+  mz_tolerance <- 10
 } else {
   adduct <- '["M+H"]'
+  mz_tolerance <- 5
 }
 
 # batch search
@@ -47,7 +49,7 @@ batch_df <- batch_search('http://ceumass.eps.uspceu.es/mediator/api/v3/batch',
                              'mz',
                              opt$ion,
                              adduct,
-                             5,
+                             mz_tolerance,
                              'ppm',
                              mzs)
 if (typeof(batch_df)=="character"){
