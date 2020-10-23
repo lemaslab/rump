@@ -1,3 +1,4 @@
+*.Rhistory
 history/
 nextflow_report*
 *backups/
