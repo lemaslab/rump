@@ -57,7 +57,7 @@ PYTHON_HCLUSTERING = Channel.fromPath(params.python_hclustering) // Chennel of P
 PYTHON_HCLUSTERING.into{PYTHON_HCLUSTERING_NOBG; PYTHON_HCLUSTERING_WITHBG}
 
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
-// PYTHON_MODIS_INFO = Channel.fromPath(params.modis_info) // Python code for generating MultiQC file regarding MODIS test information including MODIS score, if required metadata are provided, etc.
+PYTHON_MODIS_INFO = Channel.fromPath(params.modis_info) // Python code for generating MultiQC file regarding MODIS test information including MODIS score, if required metadata are provided, etc.
 PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
 PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
 
@@ -71,7 +71,7 @@ NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
 NEG_DESIGN.into{NEG_DESIGN_FOR_UNIT_TESTS; NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG; NEG_DESIGN_FOR_VD_NOBG; NEG_DESIGN_FOR_VD_WITHBG; NEG_DESIGN_FOR_BARPLOT_NOBG; NEG_DESIGN_FOR_BARPLOT_WITHBG}
 
 // MODIS Excel file
-// MODIS_INFO_EXCEL = Channel.fromPath(params.modis_info_excel)
+MODIS_INFO_EXCEL = Channel.fromPath(params.modis_info_excel)
 
 // Library
 POS_LIBRARY = Channel.fromPath(params.pos_library)
