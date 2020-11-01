@@ -52,6 +52,7 @@ PYTHON_BARPLOT.into{PYTHON_BARPLOT_NOBG; PYTHON_BARPLOT_WITHBG}
 PYTHON_ADDSTATS = Channel.fromPath(params.python_addstats)
 
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
+PYTHON_MODIS_INFO = Channel.fromPath(params.modis_info) // Python code for generating MultiQC file regarding MODIS test information including MODIS score, if required metadata are provided, etc.
 PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
 PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
 PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG}
@@ -75,6 +76,10 @@ POS_DESIGN = Channel.fromPath(params.POS_design_path)
 POS_DESIGN.into{POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG; POS_DESIGN_FOR_VD_NOBG; POS_DESIGN_FOR_VD_WITHBG; POS_DESIGN_FOR_BARPLOT_NOBG; POS_DESIGN_FOR_BARPLOT_WITHBG}
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
 NEG_DESIGN.into{NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG; NEG_DESIGN_FOR_VD_NOBG; NEG_DESIGN_FOR_VD_WITHBG; NEG_DESIGN_FOR_BARPLOT_NOBG; NEG_DESIGN_FOR_BARPLOT_WITHBG}
+
+
+// MODIS Excel file
+MODIS_INFO_EXCEL = Channel.fromPath(params.modis_info_excel)
 
 // Pre-build MultiQC report information
 // EXPERIMENTS_INFO = Channel.fromPath(params.experiments_info)
