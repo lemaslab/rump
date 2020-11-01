@@ -194,7 +194,7 @@ process mqc_data_info {
     sleep 5 &&
     python3 ${get_data_info} -i ${pos_data_dir} -o $params.pos_data_info_mqc -n p &&
     python3 ${get_data_info} -i ${neg_data_dir} -o $params.neg_data_info_mqc -n n &&
-    python3 ${modis_info} -i ${modis_info_excel} -o $params.modis_info_mqc
+    python3 ${python_modis_info} -i ${modis_info_excel} -o $params.modis_info_mqc
     """
 }
 
