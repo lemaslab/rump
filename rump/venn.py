@@ -87,7 +87,7 @@ def vd(data_file="data_pos_ph.csv", design_file="pos_design.csv", \
 
     group1.to_csv(group1_csv, index=False)
     group2.to_csv(group2_csv, index=False)
-    data.to_csv(both_csv, index=False)
+    data.to_csv(both_csv, index=False) # the output "both.csv" contains all peaks
 
     with open(group1_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
         f.write(str(0.05))
