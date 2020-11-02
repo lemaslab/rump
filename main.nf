@@ -726,8 +726,6 @@ process mummichog_report_nobg {
     input:
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
-//    file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
-//    file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG
     val mat_config_dir_nobg from MAT_CONFIG_DIR_NOBG
     val mat_config_file_nobg from MAT_CONFIG_FILE_NOBG
@@ -741,10 +739,6 @@ process mummichog_report_nobg {
     echo "generating mommichog report for peaks before blank subtraction" &&
     mkdir -p !{mat_config_dir_nobg} &&
     echo "backend: Agg" > !{mat_config_file_nobg} &&
-//    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
-//    mummichog1 -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c !{params.cutoff} &&
-//    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
-//    mummichog1 -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
     mummichog1 -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
     """
@@ -758,8 +752,6 @@ process mummichog_report_withbg {
     input:
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
-//    file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
-//    file pos_vd_group2_withbg from POS_VD_GROUP2_WITHBG
     file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
     val mat_config_dir_withbg from MAT_CONFIG_DIR_WITHBG
     val mat_config_file_withbg from MAT_CONFIG_FILE_WITHBG
@@ -776,10 +768,6 @@ process mummichog_report_withbg {
     echo "generating mommichog report for peaks after blank subtraction" &&
     mkdir -p !{mat_config_dir_withbg} &&
     echo "backend: Agg" > !{mat_config_file_withbg} &&
-//    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
-//    mummichog1 -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c !{params.cutoff} &&
-//    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
-//    mummichog1 -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
     mummichog1 -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
     """
