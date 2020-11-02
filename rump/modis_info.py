@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 """
 Description : This code generate file that can be parsed by MultiQC,
               including modis data quality test results.
