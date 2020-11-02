@@ -66,4 +66,4 @@ RUN Rscript r_package_install.R
 
 # Install mummichog
 RUN python2.7 -m pip install --upgrade 'setuptools==44.0.0'
-RUN python2.7 -m pip install 'mummichog1==1.0.10'
+RUN python2.7 -m pip install 'networkx==1.11' 'mummichog1==1.0.10'
