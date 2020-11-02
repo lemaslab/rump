@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generates yaml file that can be parsed by MultiQC,
               including input data information
@@ -12,7 +11,6 @@ Usage       : python data_info.py -i $input_data_location
                                   -o $output_yaml_file
                                   -n $ion_mode
 """
-
 import os
 import logging
 import logging.handlers

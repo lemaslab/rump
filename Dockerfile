@@ -38,9 +38,9 @@ RUN apt-get update -qq && \
 
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
-# Install python3-based necessary dependencies for UMPIRE
-RUN pip3 install --upgrade 'setuptools==45.2.0'
-RUN pip3 install 'numpy==1.18.1' 'scipy==1.4.1' 'pandas==0.25.3' 'matplotlib<3.0.0,>=2.1.1' 'plotly==4.5.0' 'seaborn==0.9.1' 'scikit-learn==0.22.1' matplotlib_venn 'multiqc==1.8' 'statsmodels==0.11.0' 'fastcluster==1.1.26' 'pylint==2.4.4'
+# Install python3-based necessary dependencies for RUMP
+RUN pip3 install --upgrade 'pip==20.2.4' 'setuptools==50.3.2'
+RUN pip3 install 'wheel==0.34.2' 'numpy==1.18.1' 'scipy==1.4.1' 'matplotlib<3.0.0,>=2.1.1' 'plotly==4.5.0' 'seaborn==0.9.1' 'scikit-learn==0.22.1' matplotlib_venn 'multiqc==1.8' 'statsmodels==0.11.0' 'fastcluster==1.1.26' 'pylint==2.4.4' 'pandas==0.25.3' 'xlrd==1.2.0'
 RUN echo "alias python=python3" >> ~/.bash_profile
 
 ENV NETCDF_INCLUDE=/usr/include
@@ -65,5 +65,5 @@ COPY r_package_install.R /app
 RUN Rscript r_package_install.R
 
 # Install mummichog
-RUN pip install --upgrade 'setuptools==44.0.0'
-RUN pip install 'mummichog==2.2.0'
+RUN python2.7 -m pip install --upgrade 'setuptools==44.0.0'
+RUN python2.7 -m pip install 'networkx==1.11' 'mummichog1==1.0.10'

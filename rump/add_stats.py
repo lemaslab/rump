@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code do basic statistical tests (i.e., student t-test, fold change,
               Benjamini-Hochberg false discovery rate adjustment) for peak table generated
@@ -14,7 +13,6 @@ Usage       : python add_stats.py -i $input_peak_table
                                   -o $output_peak_table
                                   -l $library_location
 """
-
 import warnings
 import logging
 import logging.handlers

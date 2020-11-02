@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generate file that can be parsed by MultiQC,
               including number of peaks in different data analysis stage
@@ -19,7 +18,6 @@ Usage       : python peak_number_comparison.py -i1
                                                -o
                                                $output_file
 """
-
 import logging
 import logging.handlers
 import pandas as pd

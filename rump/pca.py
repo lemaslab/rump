@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code do principal component analysis for
               peak table output by MZmine-2.53, peak table should
@@ -13,7 +12,6 @@ Usage       : python pca.py -i $input_peak_table
                             -d $design_file
                             -o $output_figure
 """
-
 import sys
 import logging
 import logging.handlers

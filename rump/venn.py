@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generates two-group comparison venn diagram for
               MZmine-2.53 to process positive data
@@ -17,7 +16,6 @@ Usage       : python venn.py -i $input_peak_table
                              -g2 $peak_table_for_metabolites_enriched_in_group1
                              -bt $peak_table_for_all_metabolites_in_two_groups
 """
-
 import sys
 import logging
 import logging.handlers
@@ -87,7 +85,7 @@ def vd(data_file="data_pos_ph.csv", design_file="pos_design.csv", \
 
     group1.to_csv(group1_csv, index=False)
     group2.to_csv(group2_csv, index=False)
-    data.to_csv(both_csv, index=False)
+    data.to_csv(both_csv, index=False) # the output "both.csv" contains all peaks
 
     with open(group1_csv.split(".")[0] + "_cutoff.txt", "w+") as f:
         f.write(str(0.05))

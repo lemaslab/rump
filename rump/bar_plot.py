@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code do bar plot for peak table output by MZmine-2.53,
               peak table should firstly be processed by "add_stats.py" before
@@ -15,7 +14,6 @@ Usage       : python bar_plot.py -i $input_peak_table
                                  -m $only_use_identified_metabolites_or_not
                                  -bs $do_blank_subtraction_or_not
 """
-
 import sys
 import warnings
 import logging

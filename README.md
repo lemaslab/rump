@@ -6,7 +6,7 @@
 
 # RUMP
 
-![RUMP workflow](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V5.png)
+![RUMP workflow](https://github.com/lemaslab/RUMP/blob/master/figs/Metabolomics_Pipeline_V6.png)
 
 
 ## Licence

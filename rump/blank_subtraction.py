@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code do blank subtraction for peak table output by MZmine-2.53,
               peak table should firstly be processed by "add_stats.py"
@@ -13,7 +12,6 @@ Usage       : python blank_subtraction.py -i $input_peak_table_before_blank_subt
                                           -d $design_file_location
                                           -o $output_peak_table_after_blank_subtraction
 """
-
 import logging
 import logging.handlers
 import warnings

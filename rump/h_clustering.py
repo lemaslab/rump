@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code do hierarchical clustering for peak table output by MZmine-2.53,
               peak table should firstly be processed by "add_stats.py" before input to this program
@@ -13,8 +12,6 @@ Usage       : python H_clustering.py -i $input_peak_table
                                     -o $output_figure_location
                                     -m $only_use_identified_metabolites_or_not
 """
-
-
 import sys
 import logging
 import logging.handlers

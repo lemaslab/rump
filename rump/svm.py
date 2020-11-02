@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generates variable importance figure based on SVM
 Copyright   : (c) LemasLab, 02/23/2020
@@ -11,7 +10,6 @@ Usage       : python svm.py -i $input_peak_table
                             -d $design_file
                             -o $output_figure
 """
-
 import logging
 import logging.handlers
 import warnings
