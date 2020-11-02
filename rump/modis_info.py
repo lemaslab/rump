@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generate file that can be parsed by MultiQC,
               including modis data quality test results.
@@ -8,10 +7,9 @@ Copyright   : (c) LemasLab, 10/31/2020
 Author      : Xinsong Du
 License     : GNU GPL-v3.0 License
 Maintainer  : xinsongdu@ufl.edu, djlemas@ufl.edu
-Usage       : python modis_info.py -i  $modis_table
+Usage       : python modis_info.py -i $modis_table -t $threshold -o $output_file
 
 """
-
 import logging
 import logging.handlers
 import pandas as pd

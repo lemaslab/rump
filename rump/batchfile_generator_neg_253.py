@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generates batchfile for MZmine-2.53 to process positive data
 Copyright   : (c) LemasLab, 02/23/2020
@@ -12,7 +11,6 @@ Usage       : python batchfile_generator_neg_253.py -x $batchfile_output_locatio
                                                     -l $library_location
                                                     -o $output_peak_table_location
 """
-
 import os
 import logging
 import logging.handlers

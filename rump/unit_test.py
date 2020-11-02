@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : Unit tests for RUMP.
 Copyright   : (c) LemasLab, 02/23/2020
@@ -9,7 +8,6 @@ License     : GNU GPL-v3.0 License
 Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python -m unittest -v unit_tests.py
 """
-
 import unittest
 #pylint: disable=no-name-in-module
 from blank_subtraction import blank_subtraction

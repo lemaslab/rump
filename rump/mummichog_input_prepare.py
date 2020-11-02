@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generate file that can be used by mummichog for pathway analysi,
               according to peak table
@@ -11,7 +10,6 @@ Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python mummichog_input_prepare.py -i $input_peak_table
                                                 -o $output_file
 """
-
 import logging
 import logging.handlers
 import warnings

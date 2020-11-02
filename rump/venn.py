@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 Description : This code generates two-group comparison venn diagram for
               MZmine-2.53 to process positive data
@@ -17,7 +16,6 @@ Usage       : python venn.py -i $input_peak_table
                              -g2 $peak_table_for_metabolites_enriched_in_group1
                              -bt $peak_table_for_all_metabolites_in_two_groups
 """
-
 import sys
 import logging
 import logging.handlers

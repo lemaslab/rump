@@ -39,7 +39,7 @@ RUN apt-get update -qq && \
     libnetcdf-dev libpng-dev libbz2-dev liblzma-dev libpcre3-dev libicu-dev
 
 # Install python3-based necessary dependencies for RUMP
-RUN pip3 install --upgrade pip 'setuptools==50.3.2'
+RUN pip3 install --upgrade 'pip==20.2.4' 'setuptools==50.3.2'
 RUN pip3 install 'wheel==0.34.2' 'numpy==1.18.1' 'scipy==1.4.1' 'matplotlib<3.0.0,>=2.1.1' 'plotly==4.5.0' 'seaborn==0.9.1' 'scikit-learn==0.22.1' matplotlib_venn 'multiqc==1.8' 'statsmodels==0.11.0' 'fastcluster==1.1.26' 'pylint==2.4.4' 'pandas==0.25.3' 'xlrd==1.2.0'
 RUN echo "alias python=python3" >> ~/.bash_profile
 
