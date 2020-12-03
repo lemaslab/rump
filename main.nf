@@ -34,6 +34,8 @@ MZMINE = Channel.fromPath(params.mzmine_dir, type: 'dir') // The location of fol
 MZMINE.into{POS_MZMINE; NEG_MZMINE} // Duplicate the MZMINE chennel into two channels, one of which deals with positive sample while the other deals with negative sample.
 BATCHFILE_GENERATOR_POS = Channel.fromPath(params.batchfile_generator_pos) // This channel stores Python code (~/src/batchfile_generator_pos.py) for generating MzMine batchfile for positive samples, which enables us to run MzMine in batch mode. 
 BATCHFILE_GENERATOR_NEG = Channel.fromPath(params.batchfile_generator_neg) // This channel stores Python code (~/src/batchfile_generator_neg.py) for generating MzMine batchfile for negative samples, which enables us to run MzMine in batch mode. 
+POS_BATCHFILE = Channel.fromPath(params.pos_config)
+NEG_BATCHFILE = Channel.fromPath(params.neg_config)
 
 POS_DATA_DIR = Channel.fromPath(params.input_dir_pos, type: 'dir') // Location of folder storing positive data
 POS_DATA_DIR.into{POS_DATA_DIR_UNIT_TESTS; POS_DATA_DIR_INFO; POS_DATA_DIR_BS}
@@ -171,6 +173,30 @@ process input_check {
     """
 }
 
+process dependency_reporting {
+
+    echo true
+
+    publishDir './results/dependencies/'
+
+    output:
+    file "*" into DEPENDENCIES
+
+    shell:
+    """
+    python -c "import platform; print(platform.platform(aliased=True))" > !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    echo "python versions and its dependencies:" >> !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    python -c 'import platform; print(platform.python_version())' >> !params.dependencies && 
+    python3 -V >> dependencies.txt && pip freeze >> !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    echo "R and its dependencies:" >> !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    R --version >> !params.dependencies && Rscript -e "write.table(installed.packages(), 'R_packages.csv', row.names=FALSE)"
+    """
+}
+
 // Process for generating MultiQC report regarding data information
 process mqc_data_info {
 
@@ -195,31 +221,6 @@ process mqc_data_info {
     python3 ${get_data_info} -i ${pos_data_dir} -o $params.pos_data_info_mqc -n p &&
     python3 ${get_data_info} -i ${neg_data_dir} -o $params.neg_data_info_mqc -n n &&
     python3 ${python_modis_info} -i ${modis_info_excel} -o $params.modis_info_mqc
-    """
-}
-
-// Process for generating MZmine batchfile of positive and negative modes
-process batchfile_generation_mzmine {
-
-    echo true
-
-    input:
-    file batchfile_generator_pos from BATCHFILE_GENERATOR_POS 
-    file batchfile_generator_neg from BATCHFILE_GENERATOR_NEG
-    file pos_data_dir from POS_DATA_DIR_BS // Location of positive data
-    file neg_data_dir from NEG_DATA_DIR_BS // Location of negative data
-
-    output:
-    file params.pos_config into POS_BATCHFILE // Generated batchfile for processing positive data
-    file params.neg_config into NEG_BATCHFILE // Generated batchfile for processing negative data
-
-    shell:
-    """ 
-    sleep 15 && 
-    echo "setting parameters for MZmine" &&
-    python ${batchfile_generator_pos} -x ${params.pos_config} -i ${pos_data_dir} -l $params.pos_library -o $params.pos_mzmine_peak_output &&
-    python ${batchfile_generator_neg} -x ${params.neg_config} -i ${neg_data_dir} -l $params.neg_library -o $params.neg_mzmine_peak_output
-
     """
 }
 
