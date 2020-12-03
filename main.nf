@@ -33,7 +33,7 @@ timestamp='20200226'
 MZMINE = Channel.fromPath(params.mzmine_dir, type: 'dir') // The location of folder of MzMine
 MZMINE.into{POS_MZMINE; NEG_MZMINE} // Duplicate the MZMINE chennel into two channels, one of which deals with positive sample while the other deals with negative sample.
 BATCHFILE_GENERATOR_POS = Channel.fromPath(params.batchfile_generator_pos) // This channel stores Python code (~/src/batchfile_generator_pos.py) for generating MzMine batchfile for positive samples, which enables us to run MzMine in batch mode. 
-BATCHFILE_GENERATOR_NEG = Channel.fromPath(params.batchfile_generator_neg) // This channel stores Python code (~/src/batchfile_generator_neg.py) for generating MzMine batchfile for negative samples, which enables us to run MzMine in batch mode. 
+BATCHFILE_GENERATOR_NEG = Channel.fromPath(params.batchfile_generator_neg) // This channel stores Python code (~/src/batchfile_generator_neg.py) for generating MzMine batchfile for negative samples, which enables us to run MzMine in batch mode.
 
 POS_DATA_DIR = Channel.fromPath(params.input_dir_pos, type: 'dir') // Location of folder storing positive data
 POS_DATA_DIR.into{POS_DATA_DIR_UNIT_TESTS; POS_DATA_DIR_INFO; POS_DATA_DIR_BS}
@@ -171,6 +171,30 @@ process input_check {
     """
 }
 
+process dependency_reporting {
+
+    echo true
+
+    publishDir './results/dependencies/'
+
+    output:
+    file "*" into DEPENDENCIES
+
+    shell:
+    """
+    python -c "import platform; print(platform.platform(aliased=True))" > !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    echo "python versions and its dependencies:" >> !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    python -c 'import platform; print(platform.python_version())' >> !params.dependencies && 
+    python3 -V >> dependencies.txt && pip freeze >> !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    echo "R and its dependencies:" >> !params.dependencies && 
+    echo "--------------------------------------" >> !params.dependencies && 
+    R --version >> !params.dependencies && Rscript -e "write.table(installed.packages(), 'R_packages.csv', row.names=FALSE)"
+    """
+}
+
 // Process for generating MultiQC report regarding data information
 process mqc_data_info {
 
@@ -202,6 +226,8 @@ process mqc_data_info {
 process batchfile_generation_mzmine {
 
     echo true
+
+    publishDir './results/MZmine_parameters/', mode: 'copy' //copy the output files to the folder "./results/MZmine_parameters"
 
     input:
     file batchfile_generator_pos from BATCHFILE_GENERATOR_POS 
