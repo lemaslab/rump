@@ -182,16 +182,17 @@ process dependency_reporting {
 
     shell:
     """
-    python -c "import platform; print(platform.platform(aliased=True))" > !params.dependencies && 
-    echo "--------------------------------------" >> !params.dependencies && 
-    echo "python versions and its dependencies:" >> !params.dependencies && 
-    echo "--------------------------------------" >> !params.dependencies && 
-    python -c 'import platform; print(platform.python_version())' >> !params.dependencies && 
-    python3 -V >> dependencies.txt && pip freeze >> !params.dependencies && 
-    echo "--------------------------------------" >> !params.dependencies && 
-    echo "R and its dependencies:" >> !params.dependencies && 
-    echo "--------------------------------------" >> !params.dependencies && 
-    R --version >> !params.dependencies && Rscript -e "write.table(installed.packages(), 'R_packages.csv', row.names=FALSE)"
+    python -c "import platform; print(platform.platform(aliased=True))" > !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    echo "python versions and its dependencies:" >> !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    python -c 'import platform; print(platform.python_version())' >> !{params.dependencies} && 
+    python3 -V >> !{params.dependencies} && 
+    pip freeze >> !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    echo "R and its dependencies:" >> !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    R --version >> !{params.dependencies} && Rscript -e "write.table(installed.packages(), 'R_packages.csv', row.names=FALSE)"
     """
 }
 

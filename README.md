@@ -61,7 +61,7 @@ RUMP supports .mzXML format files.
 
 ## Components
 
-RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); pathway analysis are done with [mummichog](http://mummichog.org/); unknown metabolites search are done with [CEU Mass Mediator](https://github.com/lzyacht/cmmr). Note that the processes related to unknow search with CEU Mass Mediator is turned off by default due to their unstable server, it can be turned on by setting parameter `--unknown_search` to "1".
+RUMP accepts `.mzXML` and `.mzXL` files. Files are processed in parallel using [MZmine-2.53](http://mzmine.github.io/); several statists are calculated using [Python3](https://www.python.org/download/releases/3.0/) codes; interactive report is generated with [MultiQC](https://multiqc.info/); pathway analysis are done with [mummichog](http://mummichog.org/); unknown metabolites search are done with [CEU Mass Mediator](https://github.com/lzyacht/cmmr). Note that the processes related to unknow search with CEU Mass Mediator is turned off by default due to the unstable server, it can be turned on by setting parameter `--unknown_search` to "1".
 
 ## Currently included statistical analysis
 
