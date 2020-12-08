@@ -539,7 +539,7 @@ process mummichog_report_nobg {
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG
-    file neg_vd_both_nobg from NEG_VD_BOTH_NOBG
+//    file neg_vd_both_nobg from NEG_VD_BOTH_NOBG
     val mat_config_dir_nobg from MAT_CONFIG_DIR_NOBG
     val mat_config_file_nobg from MAT_CONFIG_FILE_NOBG
 //    file "*" from POS_NOBG_CUTOFFS
@@ -554,8 +554,6 @@ process mummichog_report_nobg {
     echo "backend: Agg" > !{mat_config_file_nobg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
     mummichog1 -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
-    python3 !{python_mummichog_input_prepare} -i !{neg_vd_both_nobg} -o !{params.data_neg_nobg_both_mummichog} &&
-    mummichog1 -f !{params.data_neg_nobg_both_mummichog} -o !{params.data_neg_nobg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
@@ -568,7 +566,7 @@ process mummichog_report_withbg {
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
     file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
-    file neg_vd_both_withbg from NEG_VD_BOTH_WITHBG
+//    file neg_vd_both_withbg from NEG_VD_BOTH_WITHBG
     val mat_config_dir_withbg from MAT_CONFIG_DIR_WITHBG
     val mat_config_file_withbg from MAT_CONFIG_FILE_WITHBG
 //    file "*" from POS_WITHBG_CUTOFFS
@@ -586,8 +584,6 @@ process mummichog_report_withbg {
     echo "backend: Agg" > !{mat_config_file_withbg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
     mummichog1 -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
-    python3 !{python_mummichog_input_prepare} -i !{neg_vd_both_withbg} -o !{params.data_neg_withbg_both_mummichog} &&
-    mummichog1 -f !{params.data_neg_withbg_both_mummichog} -o !{params.data_neg_withbg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
