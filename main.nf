@@ -734,6 +734,7 @@ process report_generator {
 
 }
 
+// The following conditional codes is because the folder of matplotlib is different using HPC and using local machine
 if (params.container != "Docker") {
     MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
     MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
@@ -746,6 +747,7 @@ else {
 MAT_CONFIG_DIR.into{MAT_CONFIG_DIR_NOBG; MAT_CONFIG_DIR_WITHBG}
 MAT_CONFIG_FILE.into{MAT_CONFIG_FILE_NOBG; MAT_CONFIG_FILE_WITHBG}
 
+// Mummichog pathway analysis
 process mummichog_report_nobg {
 
     publishDir './results/mummichog/before_blank_subtraction', mode: 'copy'
@@ -754,9 +756,10 @@ process mummichog_report_nobg {
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG
+//    file neg_vd_both_nobg from NEG_VD_BOTH_NOBG
     val mat_config_dir_nobg from MAT_CONFIG_DIR_NOBG
     val mat_config_file_nobg from MAT_CONFIG_FILE_NOBG
-    file "*" from POS_NOBG_CUTOFFS
+//    file "*" from POS_NOBG_CUTOFFS
 
     output:
     file "*" into MUMMICHOG_REPORT_NOBG
@@ -780,9 +783,10 @@ process mummichog_report_withbg {
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
     file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
+//    file neg_vd_both_withbg from NEG_VD_BOTH_WITHBG
     val mat_config_dir_withbg from MAT_CONFIG_DIR_WITHBG
     val mat_config_file_withbg from MAT_CONFIG_FILE_WITHBG
-    file "*" from POS_WITHBG_CUTOFFS
+//    file "*" from POS_WITHBG_CUTOFFS
 
     output:
     file "*" into MUMMICHOG_REPORT_WITHBG
