@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-'''
+"""
 Description : This code generate file that can be used by mummichog for pathway analysi,
               according to peak table
 Copyright   : (c) LemasLab, 02/23/2020
@@ -10,8 +9,7 @@ License     : GNU GPL-v3.0 License
 Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python mummichog_input_prepare.py -i $input_peak_table
                                                 -o $output_file
-'''
-
+"""
 import logging
 import logging.handlers
 import warnings
@@ -24,8 +22,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(asctime)s]: %(levelname)s: %
 warnings.filterwarnings('ignore')
 
 def mummichog_input_prepare(input_file, output_file):
-    '''Convert peak table to text file that can be used as mummichog input.
-    '''
+    """Convert peak table to text file that can be used as mummichog input."""
     data = pd.read_csv(input_file)
 
     data_formummichog = data[["row m/z", "row retention time", "p_value", "t_value", "label"]]

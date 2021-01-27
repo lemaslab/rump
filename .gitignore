@@ -1,4 +1,4 @@
-MZmine-2.53-Linux/
+*.Rhistory
 history/
 nextflow_report*
 *backups/
@@ -14,6 +14,8 @@ materials/
 tmp/
 reproducibility_test/
 results/
+databases/
+nbs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

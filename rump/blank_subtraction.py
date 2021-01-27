@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-'''
+"""
 Description : This code do blank subtraction for peak table output by MZmine-2.53,
               peak table should firstly be processed by "add_stats.py"
               before input to this program
@@ -12,8 +11,7 @@ Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python blank_subtraction.py -i $input_peak_table_before_blank_subtraction
                                           -d $design_file_location
                                           -o $output_peak_table_after_blank_subtraction
-'''
-
+"""
 import logging
 import logging.handlers
 import warnings
@@ -26,7 +24,8 @@ pd.set_option('display.max_columns', 500)
 
 def blank_subtraction(data_file="pos_data.csv", \
     design_file="pos_design.csv", output_file="pos_data_with_bs.csv"):
-    '''Do blank subtraction based on blank_subtraction_flag
+    """
+    Do blank subtraction based on blank_subtraction_flag
     (see function "blank_subtraction_flag" in "add_stats.py" for detail).
 
     # Arguments:
@@ -39,7 +38,7 @@ def blank_subtraction(data_file="pos_data.csv", \
 
     # Outputs:
         peak table after blank subtraction.
-    '''
+    """
 
     data = pd.read_csv(data_file)
     design = pd.read_csv(design_file)

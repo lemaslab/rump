@@ -33,7 +33,7 @@ timestamp='20200226'
 MZMINE = Channel.fromPath(params.mzmine_dir, type: 'dir') // The location of folder of MzMine
 MZMINE.into{POS_MZMINE; NEG_MZMINE} // Duplicate the MZMINE chennel into two channels, one of which deals with positive sample while the other deals with negative sample.
 BATCHFILE_GENERATOR_POS = Channel.fromPath(params.batchfile_generator_pos) // This channel stores Python code (~/src/batchfile_generator_pos.py) for generating MzMine batchfile for positive samples, which enables us to run MzMine in batch mode. 
-BATCHFILE_GENERATOR_NEG = Channel.fromPath(params.batchfile_generator_neg) // This channel stores Python code (~/src/batchfile_generator_neg.py) for generating MzMine batchfile for negative samples, which enables us to run MzMine in batch mode. 
+BATCHFILE_GENERATOR_NEG = Channel.fromPath(params.batchfile_generator_neg) // This channel stores Python code (~/src/batchfile_generator_neg.py) for generating MzMine batchfile for negative samples, which enables us to run MzMine in batch mode.
 
 POS_DATA_DIR = Channel.fromPath(params.input_dir_pos, type: 'dir') // Location of folder storing positive data
 POS_DATA_DIR.into{POS_DATA_DIR_UNIT_TESTS; POS_DATA_DIR_INFO; POS_DATA_DIR_BS}
@@ -57,6 +57,7 @@ PYTHON_HCLUSTERING = Channel.fromPath(params.python_hclustering) // Chennel of P
 PYTHON_HCLUSTERING.into{PYTHON_HCLUSTERING_NOBG; PYTHON_HCLUSTERING_WITHBG}
 
 PYTHON_DATA_INFO = Channel.fromPath(params.data_info) // Python code for generating MultiQC file regarding data information including file name and file size.
+PYTHON_MODIS_INFO = Channel.fromPath(params.modis_info) // Python code for generating MultiQC file regarding MODIS test information including MODIS score, if required metadata are provided, etc.
 PYTHON_PEAK_NUMBER_COMPARISON = Channel.fromPath(params.peak_number_comparison_path) // Python code for generating MultiQC file ragarding peak numbers for different background subtraction threshold.
 PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
 
@@ -68,6 +69,9 @@ POS_DESIGN = Channel.fromPath(params.POS_design_path)
 POS_DESIGN.into{POS_DESIGN_FOR_UNIT_TESTS; POS_DESIGN_FOR_AS; POS_DESIGN_FOR_BS; POS_DESIGN_FOR_PCA_NOBG; POS_DESIGN_FOR_PCA_WITHBG; POS_DESIGN_FOR_HCLUSTERING_NOBG; POS_DESIGN_FOR_HCLUSTERING_WITHBG; POS_DESIGN_FOR_VD_NOBG; POS_DESIGN_FOR_VD_WITHBG; POS_DESIGN_FOR_BARPLOT_NOBG; POS_DESIGN_FOR_BARPLOT_WITHBG}
 NEG_DESIGN = Channel.fromPath(params.NEG_design_path)
 NEG_DESIGN.into{NEG_DESIGN_FOR_UNIT_TESTS; NEG_DESIGN_FOR_AS; NEG_DESIGN_FOR_BS; NEG_DESIGN_FOR_PCA_NOBG; NEG_DESIGN_FOR_PCA_WITHBG; NEG_DESIGN_FOR_HCLUSTERING_NOBG; NEG_DESIGN_FOR_HCLUSTERING_WITHBG; NEG_DESIGN_FOR_VD_NOBG; NEG_DESIGN_FOR_VD_WITHBG; NEG_DESIGN_FOR_BARPLOT_NOBG; NEG_DESIGN_FOR_BARPLOT_WITHBG}
+
+// MODIS Excel file
+MODIS_INFO_EXCEL = Channel.fromPath(params.modis_info_excel)
 
 // Library
 POS_LIBRARY = Channel.fromPath(params.pos_library)
@@ -82,6 +86,10 @@ MQC_CONFIG = Channel.fromPath(params.mqc_config)
 // Python code for mummichog input files
 PYTHON_MUMMICHOG_INPUT_PREPARE = Channel.fromPath(params.python_mummichog_input_prepare)
 PYTHON_MUMMICHOG_INPUT_PREPARE.into{PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG; PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG}
+
+// R code for unknown search
+R_UNKNOWN_SEARCH = Channel.fromPath(params.r_unknown_search)
+R_UNKNOWN_SEARCH.into{R_UNKNOWN_SEARCH_NOBG; R_UNKNOWN_SEARCH_WITHBG}
 
 // Result files used by MultiQC to generate report.
 // MQC_DIR = Channel.fromPath(params.mqc_dir, type: 'dir')
@@ -130,6 +138,7 @@ if (params.help) {
     System.out.println("    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'")
     System.out.println("    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'")
     System.out.println("    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05")
+    System.out.println("    --unknown_search                        whether do unknown search for unidentified metabolites or not, default is '1', please set it to '0' when you want to disable it")
     System.out.println("    --version                               whether to show version information or not, default is null")
     System.out.println("    --help                                  whether to show help information or not, default is null")
     System.out.println("Please refer to nextflow.config for more options.")
@@ -143,7 +152,45 @@ if (params.help) {
     exit 1
 }
 
-// Unit tests
+custom_runName = params.name
+if (!(workflow.runName ==~ /[a-z]+_[a-z]+/)) {
+    custom_runName = workflow.runName
+}
+
+// Header log info
+log.info nfcoreHeader()
+def summary = [:]
+summary['Pipeline Name']  = 'RUMP'
+if(workflow.revision) summary['Pipeline Release'] = workflow.revision
+summary['Run Name']         = custom_runName ?: workflow.runName
+summary['Input']            = params.input
+summary['Max Resources']    = "$params.max_memory memory, $params.max_cpus cpus, $params.max_time time per job"
+if (workflow.containerEngine) summary['Container'] = "$workflow.containerEngine - $workflow.container"
+summary['Output dir']       = params.outdir
+summary['Launch dir']       = workflow.launchDir
+summary['Working dir']      = workflow.workDir
+summary['Script dir']       = workflow.projectDir
+summary['User']             = workflow.userName
+if (workflow.profile.contains('awsbatch')) {
+    summary['AWS Region']   = params.awsregion
+    summary['AWS Queue']    = params.awsqueue
+    summary['AWS CLI']      = params.awscli
+}
+summary['Config Profile'] = workflow.profile
+if (params.config_profile_description) summary['Config Profile Description'] = params.config_profile_description
+if (params.config_profile_contact)     summary['Config Profile Contact']     = params.config_profile_contact
+if (params.config_profile_url)         summary['Config Profile URL']         = params.config_profile_url
+summary['Config Files'] = workflow.configFiles.join(', ')
+if (params.email || params.email_on_fail) {
+    summary['E-mail Address']    = params.email
+    summary['E-mail on failure'] = params.email_on_fail
+//    summary['MultiQC maxsize']   = params.max_multiqc_email_size
+}
+log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
+log.info "-\033[2m--------------------------------------------------\033[0m-"
+
+
+// Check appropriateness of input
 process input_check {
 
     echo true
@@ -162,6 +209,31 @@ process input_check {
     """
 }
 
+process dependency_reporting {
+
+    echo true
+
+    publishDir './results/dependencies/'
+
+    output:
+    file "*" into DEPENDENCIES
+
+    shell:
+    """
+    python -c "import platform; print(platform.platform(aliased=True))" > !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    echo "python versions and its dependencies:" >> !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    python -c 'import platform; print(platform.python_version())' >> !{params.dependencies} && 
+    python3 -V >> !{params.dependencies} && 
+    pip freeze >> !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    echo "R and its dependencies:" >> !{params.dependencies} && 
+    echo "--------------------------------------" >> !{params.dependencies} && 
+    R --version >> !{params.dependencies} && Rscript -e "write.table(installed.packages(), 'R_packages.csv', row.names=FALSE)"
+    """
+}
+
 // Process for generating MultiQC report regarding data information
 process mqc_data_info {
 
@@ -169,25 +241,32 @@ process mqc_data_info {
 
     input:
     file get_data_info from PYTHON_DATA_INFO // Python code for generating MultiQC file regarding data information including file name and file size.
+    file python_modis_info from PYTHON_MODIS_INFO // Python code for generating MultiQC file regarding modis test results.
     file pos_data_dir from POS_DATA_DIR_INFO // Location of positive data
     file neg_data_dir from NEG_DATA_DIR_INFO // Location of negative data
+    file modis_info_excel from MODIS_INFO_EXCEL // Location of MODIS information table
 
     // POS_DATA and NEG_DATA are channels containing filtered POS and NEG data, which are ready to be input to R codes.
     output:
     file params.pos_data_info_mqc into POS_DATA_INFO_MQC // file regarding positive data information that can be parsed by MultiQC
     file params.neg_data_info_mqc into NEG_DATA_INFO_MQC // file regarding negative data information that can be parsed by MultiQC
+    file params.modis_info_mqc into MODIS_INFO_MQC // file regarding MODIS test results information that can be parsed by MultiQC
 
     shell:
     """
     sleep 5 &&
     python3 ${get_data_info} -i ${pos_data_dir} -o $params.pos_data_info_mqc -n p &&
-    python3 ${get_data_info} -i ${neg_data_dir} -o $params.neg_data_info_mqc -n n
+    python3 ${get_data_info} -i ${neg_data_dir} -o $params.neg_data_info_mqc -n n &&
+    python3 ${python_modis_info} -i ${modis_info_excel} -o $params.modis_info_mqc
     """
 }
 
+// Process for generating MZmine batchfile of positive and negative modes
 process batchfile_generation_mzmine {
 
     echo true
+
+    publishDir './results/MZmine_parameters/', mode: 'copy' //copy the output files to the folder "./results/MZmine_parameters"
 
     input:
     file batchfile_generator_pos from BATCHFILE_GENERATOR_POS 
@@ -209,6 +288,7 @@ process batchfile_generation_mzmine {
     """
 }
 
+// Process for running MZmine with positive mode batchfile and data to generate peak table of positive mode
 process pos_peakDetection_mzmine {
 
     echo true
@@ -231,6 +311,7 @@ process pos_peakDetection_mzmine {
     """
 }
 
+// Process for running MZmine with negative mode batchfile and data to generate peak table of negative mode
 process neg_peakDetection_mzmine {
 
     input:
@@ -278,8 +359,8 @@ process add_stats {
     """
 }
 
-POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT; POS_NOBG_FOR_MUMMICHOG}
-NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT; NEG_NOBG_FOR_MUMMICHOG}
+POS_DATA_NOBG.into{POS_NOBG_FOR_BS; POS_NOBG_FOR_MQC; POS_NOBG_FOR_PCA; POS_NOBG_FOR_HCLUSTERING; POS_NOBG_FOR_VD; POS_NOBG_FOR_BARPLOT; POS_NOBG_FOR_MUMMICHOG; POS_NOBG_FOR_UNKNOWN_SEARCH}
+NEG_DATA_NOBG.into{NEG_NOBG_FOR_BS; NEG_NOBG_FOR_MQC; NEG_NOBG_FOR_PCA; NEG_NOBG_FOR_HCLUSTERING; NEG_NOBG_FOR_VD; NEG_NOBG_FOR_BARPLOT; NEG_NOBG_FOR_MUMMICHOG; NEG_NOBG_FOR_UNKNOWN_SEARCH}
 
 // Background subtraction
 process blank_subtraction {
@@ -311,8 +392,8 @@ process blank_subtraction {
 
 
 // split channel content for multiple-time use
-POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT; POS_WITHBG_FOR_MUMMICHOG}
-NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT; NEG_WITHBG_FOR_MUMMICHOG}
+POS_DATA_WITHBG.into{POS_WITHBG_FOR_MQC; POS_WITHBG_FOR_PCA; POS_WITHBG_FOR_HCLUSTERING; POS_WITHBG_FOR_VD; POS_WITHBG_FOR_BARPLOT; POS_WITHBG_FOR_MUMMICHOG; POS_WITHBG_FOR_UNKNOWN_SEARCH}
+NEG_DATA_WITHBG.into{NEG_WITHBG_FOR_MQC; NEG_WITHBG_FOR_PCA; NEG_WITHBG_FOR_HCLUSTERING; NEG_WITHBG_FOR_VD; NEG_WITHBG_FOR_BARPLOT; NEG_WITHBG_FOR_MUMMICHOG; NEG_WITHBG_FOR_UNKNOWN_SEARCH}
 
 // Process for generating files that can be parsed by MultiQC regarding peak numbers of different steps.
 process mqc_peak_number_comparison {
@@ -568,6 +649,58 @@ process bar_plot_withbg {
 
 }
 
+// unknown search for metabolites identified before blank subtraction
+process unknown_search_nobg {
+    
+    publishDir './results/peak_table/', mode: 'copy'
+
+    input:
+    file data_pos from POS_NOBG_FOR_UNKNOWN_SEARCH
+    file data_neg from NEG_NOBG_FOR_UNKNOWN_SEARCH
+    file r_unknown_search from R_UNKNOWN_SEARCH_NOBG
+
+    output:
+    file params.unknown_search_pos_nobg into UNKNOWN_SEARCH_POS_NOBG
+    file params.unknown_search_neg_nobg into UNKNOWN_SEARCH_NEG_NOBG
+
+    when:
+    params.unknown_search == "1"
+
+    shell:
+    """   
+    Rscript ${r_unknown_search} -i ${data_pos} -n positive -c ${params.mz_col_pos_nobg} -o ${params.unknown_search_pos_nobg} &&
+    Rscript ${r_unknown_search} -i ${data_neg} -n negative -c ${params.mz_col_neg_nobg} -o ${params.unknown_search_neg_nobg}
+
+    """
+
+}
+
+// unknown search for metabolites identified after blank subtraction
+process unknown_search_withbg {
+    
+    publishDir './results/peak_table/', mode: 'copy'
+
+    input:
+    file data_pos from POS_WITHBG_FOR_UNKNOWN_SEARCH
+    file data_neg from NEG_WITHBG_FOR_UNKNOWN_SEARCH
+    file r_unknown_search from R_UNKNOWN_SEARCH_WITHBG
+
+    output:
+    file params.unknown_search_pos_withbg into UNKNOWN_SEARCH_POS_WITHBG
+    file params.unknown_search_neg_withbg into UNKNOWN_SEARCH_NEG_WITHBG
+
+    when:
+    params.bs == "1" && params.unknown_search == "1"
+
+    shell:
+    """   
+    Rscript ${r_unknown_search} -i ${data_pos} -n positive -c ${params.mz_col_pos_withbg} -o ${params.unknown_search_pos_withbg} &&
+    Rscript ${r_unknown_search} -i ${data_neg} -n negative -c ${params.mz_col_neg_withbg} -o ${params.unknown_search_neg_withbg}
+
+    """
+
+}
+
 process mqc_figs {
 
     publishDir './results/mqc/', mode: 'copy'
@@ -624,6 +757,7 @@ process report_generator {
     file pos_data_info_mqc from POS_DATA_INFO_MQC
     file neg_data_info_mqc from NEG_DATA_INFO_MQC
     file experiments_info from EXPERIMENTS_INFO
+    file modis_info_mqc from MODIS_INFO_MQC
     file mqc_config from MQC_CONFIG
     file peak_number_comparison_mqc from PEAK_NUMBER_COMPARISON_MQC
     file '*' from MQC_FIGS
@@ -638,6 +772,7 @@ process report_generator {
 
 }
 
+// The following conditional codes is because the folder of matplotlib is different using HPC and using local machine
 if (params.container != "Docker") {
     MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
     MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
@@ -650,6 +785,7 @@ else {
 MAT_CONFIG_DIR.into{MAT_CONFIG_DIR_NOBG; MAT_CONFIG_DIR_WITHBG}
 MAT_CONFIG_FILE.into{MAT_CONFIG_FILE_NOBG; MAT_CONFIG_FILE_WITHBG}
 
+// Mummichog pathway analysis
 process mummichog_report_nobg {
 
     publishDir './results/mummichog/before_blank_subtraction', mode: 'copy'
@@ -657,12 +793,11 @@ process mummichog_report_nobg {
     input:
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_NOBG
-    file pos_vd_group1_nobg from POS_VD_GROUP1_NOBG
-    file pos_vd_group2_nobg from POS_VD_GROUP2_NOBG
     file pos_vd_both_nobg from POS_VD_BOTH_NOBG
+//    file neg_vd_both_nobg from NEG_VD_BOTH_NOBG
     val mat_config_dir_nobg from MAT_CONFIG_DIR_NOBG
     val mat_config_file_nobg from MAT_CONFIG_FILE_NOBG
-    file "*" from POS_NOBG_CUTOFFS
+//    file "*" from POS_NOBG_CUTOFFS
 
     output:
     file "*" into MUMMICHOG_REPORT_NOBG
@@ -672,12 +807,8 @@ process mummichog_report_nobg {
     echo "generating mommichog report for peaks before blank subtraction" &&
     mkdir -p !{mat_config_dir_nobg} &&
     echo "backend: Agg" > !{mat_config_file_nobg} &&
-    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_nobg} -o !{params.data_pos_nobg_group1_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_group1_mummichog} -o !{params.data_pos_nobg_group1_mummichog_out} -c !{params.cutoff} &&
-    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_nobg} -o !{params.data_pos_nobg_group2_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_group2_mummichog} -o !{params.data_pos_nobg_group2_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
-    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
+    mummichog1 -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
@@ -689,12 +820,11 @@ process mummichog_report_withbg {
     input:
 
     file python_mummichog_input_prepare from PYTHON_MUMMICHOG_INPUT_PREPARE_WITHBG
-    file pos_vd_group1_withbg from POS_VD_GROUP1_WITHBG
-    file pos_vd_group2_withbg from POS_VD_GROUP2_WITHBG
     file pos_vd_both_withbg from POS_VD_BOTH_WITHBG
+//    file neg_vd_both_withbg from NEG_VD_BOTH_WITHBG
     val mat_config_dir_withbg from MAT_CONFIG_DIR_WITHBG
     val mat_config_file_withbg from MAT_CONFIG_FILE_WITHBG
-    file "*" from POS_WITHBG_CUTOFFS
+//    file "*" from POS_WITHBG_CUTOFFS
 
     output:
     file "*" into MUMMICHOG_REPORT_WITHBG
@@ -707,12 +837,33 @@ process mummichog_report_withbg {
     echo "generating mommichog report for peaks after blank subtraction" &&
     mkdir -p !{mat_config_dir_withbg} &&
     echo "backend: Agg" > !{mat_config_file_withbg} &&
-    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group1_withbg} -o !{params.data_pos_withbg_group1_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_group1_mummichog} -o !{params.data_pos_withbg_group1_mummichog_out} -c !{params.cutoff} &&
-    python3 !{python_mummichog_input_prepare} -i !{pos_vd_group2_withbg} -o !{params.data_pos_withbg_group2_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_group2_mummichog} -o !{params.data_pos_withbg_group2_mummichog_out} -c !{params.cutoff} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
-    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
+    mummichog1 -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
+
+def nfcoreHeader() {
+    // Log colors ANSI codes
+    c_black = params.monochrome_logs ? '' : "\033[0;30m";
+    c_blue = params.monochrome_logs ? '' : "\033[0;34m";
+    c_cyan = params.monochrome_logs ? '' : "\033[0;36m";
+    c_dim = params.monochrome_logs ? '' : "\033[2m";
+    c_green = params.monochrome_logs ? '' : "\033[0;32m";
+    c_purple = params.monochrome_logs ? '' : "\033[0;35m";
+    c_reset = params.monochrome_logs ? '' : "\033[0m";
+    c_white = params.monochrome_logs ? '' : "\033[0;37m";
+    c_yellow = params.monochrome_logs ? '' : "\033[0;33m";
+
+    return """    -${c_dim}--------------------------------------------------${c_reset}-
+                                            ${c_green},--.${c_black}/${c_green},-.${c_reset}
+    ${c_blue}        ___     __   __   __   ___     ${c_green}/,-._.--~\'${c_reset}
+    ${c_blue}  |\\ | |__  __ /  ` /  \\ |__) |__         ${c_yellow}}  {${c_reset}
+    ${c_blue}  | \\| |       \\__, \\__/ |  \\ |___     ${c_green}\\`-._,-`-,${c_reset}
+                                            ${c_green}`._,._,\'${c_reset}
+    ${c_purple}  lemaslab/RUMP v${workflow.manifest.version}${c_reset}
+    -${c_dim}--------------------------------------------------${c_reset}-
+    """.stripIndent()
+}
+
+

@@ -5,8 +5,10 @@ report_section_order:
         order: 1000
     download_links_n:
         order: 900
+    modis:
+        order: 800
     peak_number_comparison:
-        after: 'download_links_n'
+        after: 'modis'
     PCA_for_negative_no_background_subtraction:
         after: 'peak_number_comparison'
     PCA_for_negative_with_background_subtraction:

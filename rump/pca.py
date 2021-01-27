@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-'''
+"""
 Description : This code do principal component analysis for
               peak table output by MZmine-2.53, peak table should
               firstly be processed by "add_stats.py" before input to this program
@@ -12,8 +11,7 @@ Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python pca.py -i $input_peak_table
                             -d $design_file
                             -o $output_figure
-'''
-
+"""
 import sys
 import logging
 import logging.handlers
@@ -97,7 +95,8 @@ def confidence_ellipse(x, y, ax, n_std=3.0, facecolor='none', **kwargs):
     return ax.add_patch(ellipse)
 
 def pca_2g(data_file, design_file, output_fig):
-    '''Draw principal component analysis (PCA) plot for two groups comparison.
+    """
+    Draw principal component analysis (PCA) plot for two groups comparison.
 
     # Arguments:
         data_file: peak table.
@@ -106,7 +105,7 @@ def pca_2g(data_file, design_file, output_fig):
 
     # Outputs:
         PCA figure.
-    '''
+    """
 
     # load design file
     design = pd.read_csv(design_file)
