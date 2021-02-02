@@ -1,0 +1,554 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/./master/nextflow_schema.json",
+    "title": ". pipeline parameters",
+    "description": "RUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline",
+    "type": "object",
+    "definitions": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "required": [
+                "input"
+            ],
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "fa_icon": "fas fa-dna",
+                    "description": "Input FastQ files.",
+                    "help_text": "Use this to specify the location of your input FastQ files. For example:\n\n```bash\n--input 'path/to/data/sample_*_{1,2}.fastq'\n```\n\nPlease note the following requirements:\n\n1. The path must be enclosed in quotes\n2. The path must have at least one `*` wildcard character\n3. When using the pipeline with paired end data, the path must use `{1,2}` notation to specify read pairs.\n\nIf left unspecified, a default pattern is used: `data/*{1,2}.fastq.gz`"
+                },
+                "outdir": {
+                    "type": "string",
+                    "description": "The output directory where the results will be saved.",
+                    "default": "./results",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address for completion summary.",
+                    "fa_icon": "fas fa-envelope",
+                    "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
+                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+                }
+            }
+        },
+        "reference_genome_options": {
+            "title": "Reference genome options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for the reference genome indices used to align reads."
+        },
+        "generic_options": {
+            "title": "Generic options",
+            "type": "object",
+            "fa_icon": "fas fa-file-import",
+            "description": "Less common options for the pipeline, typically set in a config file.",
+            "help_text": "These options are common to all nf-core pipelines and allow you to customise some of the core preferences for how the pipeline runs.\n\nTypically these options would be set in a Nextflow config file loaded for all pipeline runs, such as `~/.nextflow/config`.",
+            "properties": {
+                "help": {
+                    "type": "boolean",
+                    "description": "Display help text.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Workflow name.",
+                    "fa_icon": "fas fa-fingerprint",
+                    "hidden": true,
+                    "help_text": "A custom name for the pipeline run. Unlike the core nextflow `-name` option with one hyphen this parameter can be reused multiple times, for example if using `-resume`. Passed through to steps such as MultiQC and used for things like report filenames and titles."
+                },
+                "email_on_fail": {
+                    "type": "string",
+                    "description": "Email address for completion summary, only when pipeline fails.",
+                    "fa_icon": "fas fa-exclamation-triangle",
+                    "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
+                    "hidden": true,
+                    "help_text": "This works exactly as with `--email`, except emails are only sent if the workflow is not successful."
+                }
+            }
+        },
+        "max_job_request_options": {
+            "title": "Max job request options",
+            "type": "object",
+            "fa_icon": "fab fa-acquisitions-incorporated",
+            "description": "Set the top limit for requested resources for any single job.",
+            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details."
+        },
+        "institutional_config_options": {
+            "title": "Institutional config options",
+            "type": "object",
+            "fa_icon": "fas fa-university",
+            "description": "Parameters used to describe centralised config profiles. These should not be edited.",
+            "help_text": "The centralised nf-core configuration profiles use a handful of pipeline parameters to describe themselves. This information is then printed to the Nextflow log when you run a pipeline. You should not need to change these values when you run a pipeline.",
+            "properties": {
+                "config_profile_description": {
+                    "type": "string",
+                    "description": "Institutional config description.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_contact": {
+                    "type": "string",
+                    "description": "Institutional config contact information.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                },
+                "config_profile_url": {
+                    "type": "string",
+                    "description": "Institutional config URL link.",
+                    "hidden": true,
+                    "fa_icon": "fas fa-users-cog"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/reference_genome_options"
+        },
+        {
+            "$ref": "#/definitions/generic_options"
+        },
+        {
+            "$ref": "#/definitions/max_job_request_options"
+        },
+        {
+            "$ref": "#/definitions/institutional_config_options"
+        }
+    ],
+    "properties": {
+        "bs": {
+            "type": "string"
+        },
+        "unknown_search": {
+            "type": "string"
+        },
+        "mzmine_dir": {
+            "type": "string",
+            "default": "MZmine-2.53-Linux/"
+        },
+        "pos_library": {
+            "type": "string",
+            "default": "positive_library.csv"
+        },
+        "neg_library": {
+            "type": "string",
+            "default": "negative_library.csv"
+        },
+        "modis_info_excel": {
+            "type": "string",
+            "default": "MODIS.xlsx"
+        },
+        "pos_config": {
+            "type": "string",
+            "default": "pos_config.xml"
+        },
+        "neg_config": {
+            "type": "string",
+            "default": "neg_config.xml"
+        },
+        "pos_mzmine_peak_output": {
+            "type": "string",
+            "default": "pos_data.csv"
+        },
+        "neg_mzmine_peak_output": {
+            "type": "string",
+            "default": "neg_data.csv"
+        },
+        "pos_data_nobg": {
+            "type": "string",
+            "default": "pos_data_before_blank_subtraction.csv"
+        },
+        "neg_data_nobg": {
+            "type": "string",
+            "default": "neg_data_before_blank_subtraction.csv"
+        },
+        "python_input_check": {
+            "type": "string",
+            "default": "./rump/input_check.py"
+        },
+        "batchfile_generator_pos": {
+            "type": "string",
+            "default": "./rump/batchfile_generator_pos_253.py"
+        },
+        "batchfile_generator_neg": {
+            "type": "string",
+            "default": "./rump/batchfile_generator_neg_253.py"
+        },
+        "python_vd": {
+            "type": "string",
+            "default": "./rump/venn.py"
+        },
+        "python_addstats": {
+            "type": "string",
+            "default": "./rump/add_stats.py"
+        },
+        "python_pca": {
+            "type": "string",
+            "default": "./rump/pca.py"
+        },
+        "python_hclustering": {
+            "type": "string",
+            "default": "./rump/h_clustering.py"
+        },
+        "python_barplot": {
+            "type": "string",
+            "default": "./rump/bar_plot.py"
+        },
+        "data_info": {
+            "type": "string",
+            "default": "./rump/data_info.py"
+        },
+        "modis_info": {
+            "type": "string",
+            "default": "./rump/modis_info.py"
+        },
+        "peak_number_comparison_path": {
+            "type": "string",
+            "default": "./rump/peak_number_comparison.py"
+        },
+        "python_bs": {
+            "type": "string",
+            "default": "./rump/blank_subtraction.py"
+        },
+        "r_unknown_search": {
+            "type": "string",
+            "default": "./rump/unknown_search.R"
+        },
+        "mz_col_pos_nobg": {
+            "type": "string",
+            "default": "row.m.z"
+        },
+        "mz_col_neg_nobg": {
+            "type": "string",
+            "default": "row.m.z"
+        },
+        "mz_col_pos_withbg": {
+            "type": "string",
+            "default": "row.m.z"
+        },
+        "mz_col_neg_withbg": {
+            "type": "string",
+            "default": "row.m.z"
+        },
+        "mqc_dir": {
+            "type": "string",
+            "default": "./results/mqc/"
+        },
+        "experiments_info": {
+            "type": "string",
+            "default": "./rump/software_descriptions_mqc.txt"
+        },
+        "mqc_config": {
+            "type": "string",
+            "default": "./rump/multiqc_config.yaml"
+        },
+        "pos_data_info_mqc": {
+            "type": "string",
+            "default": "pos_data_info_mqc.yaml"
+        },
+        "neg_data_info_mqc": {
+            "type": "string",
+            "default": "neg_data_info_mqc.yaml"
+        },
+        "modis_info_mqc": {
+            "type": "string",
+            "default": "modis_mqc.txt"
+        },
+        "POS_data_path": {
+            "type": "string",
+            "default": "pos_data_extracted.csv"
+        },
+        "NEG_data_path": {
+            "type": "string",
+            "default": "neg_data_extracted.csv"
+        },
+        "POS_Rdata_path": {
+            "type": "string",
+            "default": "milk_data_pos_ph.Rdata"
+        },
+        "POS_Rdata_csv_path": {
+            "type": "string",
+            "default": "milk_data_pos_ph.csv"
+        },
+        "POS_Rdesign_path": {
+            "type": "string",
+            "default": "milk_design_pos_ph.Rdata"
+        },
+        "NEG_Rdata_path": {
+            "type": "string",
+            "default": "milk_data_neg_ph.Rdata"
+        },
+        "NEG_Rdata_csv_path": {
+            "type": "string",
+            "default": "milk_data_neg_ph.csv"
+        },
+        "NEG_Rdesign_path": {
+            "type": "string",
+            "default": "milk_design_neg_ph.Rdata"
+        },
+        "dependencies": {
+            "type": "string",
+            "default": "dependencies.txt"
+        },
+        "pos_data_withbg": {
+            "type": "string",
+            "default": "pos_data_after_blank_subtraction.csv"
+        },
+        "neg_data_withbg": {
+            "type": "string",
+            "default": "neg_data_after_blank_subtraction.csv"
+        },
+        "peak_number_comparison_mqc": {
+            "type": "string",
+            "default": "peak_number_comparison_mqc.txt"
+        },
+        "pos_nobg_ready": {
+            "type": "string",
+            "default": "pos_nobg_ready.csv"
+        },
+        "neg_nobg_ready": {
+            "type": "string",
+            "default": "neg_nobg_ready.csv"
+        },
+        "pca_pos_nobg": {
+            "type": "string",
+            "default": "pca_pos_nobg.png"
+        },
+        "pca_neg_nobg": {
+            "type": "string",
+            "default": "pca_neg_nobg.png"
+        },
+        "pca_pos_withbg": {
+            "type": "string",
+            "default": "pca_pos_withbg.png"
+        },
+        "pca_neg_withbg": {
+            "type": "string",
+            "default": "pca_neg_withbg.png"
+        },
+        "vd_pos_nobg": {
+            "type": "string",
+            "default": "pos_vd_nobg.png"
+        },
+        "pos_vd_group1_nobg": {
+            "type": "string",
+            "default": "pos_vd_group1_nobg.csv"
+        },
+        "pos_vd_group2_nobg": {
+            "type": "string",
+            "default": "pos_vd_group2_nobg.csv"
+        },
+        "pos_vd_both_nobg": {
+            "type": "string",
+            "default": "pos_vd_both_nobg.csv"
+        },
+        "vd_neg_nobg": {
+            "type": "string",
+            "default": "neg_venn_nobg.png"
+        },
+        "neg_vd_group1_nobg": {
+            "type": "string",
+            "default": "neg_vd_group1_nobg.csv"
+        },
+        "neg_vd_group2_nobg": {
+            "type": "string",
+            "default": "neg_vd_group2_nobg.csv"
+        },
+        "neg_vd_both_nobg": {
+            "type": "string",
+            "default": "neg_vd_both_nobg.csv"
+        },
+        "vd_pos_withbg": {
+            "type": "string",
+            "default": "pos_vd_withbg.png"
+        },
+        "pos_vd_group1_withbg": {
+            "type": "string",
+            "default": "pos_vd_group1_withbg.csv"
+        },
+        "pos_vd_group2_withbg": {
+            "type": "string",
+            "default": "pos_vd_group2_withbg.csv"
+        },
+        "pos_vd_both_withbg": {
+            "type": "string",
+            "default": "pos_vd_both_withbg.csv"
+        },
+        "vd_neg_withbg": {
+            "type": "string",
+            "default": "neg_venn_withbg.png"
+        },
+        "neg_vd_group1_withbg": {
+            "type": "string",
+            "default": "neg_vd_group1_withbg.csv"
+        },
+        "neg_vd_group2_withbg": {
+            "type": "string",
+            "default": "neg_vd_group2_withbg.csv"
+        },
+        "neg_vd_both_withbg": {
+            "type": "string",
+            "default": "neg_vd_both_withbg.csv"
+        },
+        "hclustering_pos_nobg": {
+            "type": "string",
+            "default": "hclustering_pos_nobg.png"
+        },
+        "hclustering_pos_nobg_om": {
+            "type": "string",
+            "default": "hclustering_onlymatched_pos_nobg.png"
+        },
+        "hclustering_neg_nobg": {
+            "type": "string",
+            "default": "hclustering_neg_nobg.png"
+        },
+        "hclustering_neg_nobg_om": {
+            "type": "string",
+            "default": "hclustering_onlymatched_neg_nobg.png"
+        },
+        "hclustering_pos_withbg": {
+            "type": "string",
+            "default": "hclustering_pos_withbg.png"
+        },
+        "hclustering_pos_withbg_om": {
+            "type": "string",
+            "default": "hclustering_onlymatched_pos_withbg.png"
+        },
+        "hclustering_neg_withbg": {
+            "type": "string",
+            "default": "hclustering_neg_withbg.png"
+        },
+        "hclustering_neg_withbg_om": {
+            "type": "string",
+            "default": "hclustering_onlymatched_neg_withbg.png"
+        },
+        "barplot_pos_nobg": {
+            "type": "string",
+            "default": "pos_barplot_group1_nobg.png"
+        },
+        "barplot_pos_nobg_om": {
+            "type": "string",
+            "default": "pos_onlymatched_barplot_group1_nobg.png"
+        },
+        "barplot_neg_nobg": {
+            "type": "string",
+            "default": "neg_barplot_group1_nobg.png"
+        },
+        "barplot_neg_nobg_om": {
+            "type": "string",
+            "default": "neg_onlymatched_barplot_group1_nobg.png"
+        },
+        "barplot_pos_withbg": {
+            "type": "string",
+            "default": "pos_barplot_group1_withbg.png"
+        },
+        "barplot_pos_withbg_om": {
+            "type": "string",
+            "default": "pos_onlymatched_barplot_group1_withbg.png"
+        },
+        "barplot_neg_withbg": {
+            "type": "string",
+            "default": "neg_barplot_group1_withbg.png"
+        },
+        "barplot_neg_withbg_om": {
+            "type": "string",
+            "default": "neg_onlymatched_barplot_group1_withbg.png"
+        },
+        "unknown_search_pos_nobg": {
+            "type": "string",
+            "default": "unknown_search_pos_nobg.csv"
+        },
+        "unknown_search_neg_nobg": {
+            "type": "string",
+            "default": "unknown_search_neg_nobg.csv"
+        },
+        "unknown_search_pos_withbg": {
+            "type": "string",
+            "default": "unknown_search_pos_withbg.csv"
+        },
+        "unknown_search_neg_withbg": {
+            "type": "string",
+            "default": "unknown_search_neg_withbg.csv"
+        },
+        "python_mummichog_input_prepare": {
+            "type": "string",
+            "default": "./rump/mummichog_input_prepare.py"
+        },
+        "data_pos_nobg_both_mummichog": {
+            "type": "string",
+            "default": "data_pos_nobg_both_mummichog.txt"
+        },
+        "data_pos_nobg_both_mummichog_out": {
+            "type": "string",
+            "default": "data_pos_both_before_blank_subtraction"
+        },
+        "data_pos_withbg_both_mummichog": {
+            "type": "string",
+            "default": "data_pos_withbg_both_mummichog.txt"
+        },
+        "data_pos_withbg_both_mummichog_out": {
+            "type": "string",
+            "default": "data_pos_both_after_blank_subtraction"
+        },
+        "data_neg_nobg_both_mummichog": {
+            "type": "string",
+            "default": "data_neg_nobg_both_mummichog.txt"
+        },
+        "data_neg_nobg_both_mummichog_out": {
+            "type": "string",
+            "default": "data_neg_both_before_blank_subtraction"
+        },
+        "data_neg_withbg_both_mummichog": {
+            "type": "string",
+            "default": "data_neg_withbg_both_mummichog.txt"
+        },
+        "data_neg_withbg_both_mummichog_out": {
+            "type": "string",
+            "default": "data_neg_both_after_blank_subtraction"
+        },
+        "cutoff": {
+            "type": "number",
+            "default": 0.05
+        },
+        "tracedir": {
+            "type": "string",
+            "default": "./results/pipeline_info"
+        },
+        "max_memory": {
+            "type": "string",
+            "default": "7 GB"
+        },
+        "max_cpus": {
+            "type": "integer",
+            "default": 4
+        },
+        "max_time": {
+            "type": "string",
+            "default": "1d"
+        },
+        "input_dir_pos": {
+            "type": "string",
+            "default": "data/POS/"
+        },
+        "input_dir_neg": {
+            "type": "string",
+            "default": "data/NEG/"
+        },
+        "POS_design_path": {
+            "type": "string",
+            "default": "data/pos_design.csv"
+        },
+        "NEG_design_path": {
+            "type": "string",
+            "default": "data/neg_design.csv"
+        }
+    }
+}
