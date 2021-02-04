@@ -25,7 +25,7 @@ Please refer to our [wiki](https://github.com/lemaslab/RUMP/wiki) for how to ins
 RUMP can display usage information on the command line:
 
 ```bash
-$ Nextflow main.nf --help true
+Nextflow main.nf --help true
 ```
 
 ## Components
@@ -55,10 +55,11 @@ bash clear.sh
 ## Exit status values
 
 RUMP returns the following exit status values:
+
 - 3: Positive file groups are not the same as negative file groups, please check design files.
 - 4: Not all input files are in .mzXML format, please check input data folders.
 - 5: One or more input files does not exist.
-- Other Linux reserved exit codes: https://tldp.org/LDP/abs/html/exitcodes.html
+- [Other Linux reserved exit codes](https://tldp.org/LDP/abs/html/exitcodes.html)
 
 ## Bug reporting and feature requests
 
