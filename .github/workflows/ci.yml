@@ -34,13 +34,13 @@ jobs:
 
       - name: Build new docker image
         if: env.MATCHED_FILES
-        run: docker build --no-cache . -t xinsongdu/lemaslab_rump:latest:dev
+        run: docker build --no-cache . -t xinsongdu/lemaslab_rump:dev
 
       - name: Pull docker image
         if: ${{ !env.MATCHED_FILES }}
         run: |
-          docker pull xinsongdu/lemaslab_rump:latest:dev
-          docker tag xinsongdu/lemaslab_rump:latest:dev xinsongdu/lemaslab_rump:latest
+          docker pull xinsongdu/lemaslab_rump:dev
+          docker tag xinsongdu/lemaslab_rump:dev xinsongdu/lemaslab_rump:latest
 
       - name: Install Nextflow
         env:
