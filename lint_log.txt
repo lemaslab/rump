@@ -1,0 +1,34 @@
+[2021-02-04 17:51:28,683] git.cmd              [DEBUG  ]  Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/xinsongdu/mnt/projects/nf-core-rump, universal_newlines=False, shell=None, istream=<valid stream>)
+[2021-02-04 17:51:28,695] nf_core.lint         [INFO   ]  Testing pipeline: [magenta].
+[2021-02-04 17:51:28,701] nf_core.lint         [DEBUG  ]  Running lint test: check_files_exist
+[2021-02-04 17:51:28,702] nf_core.lint         [DEBUG  ]  Running lint test: check_licence
+[2021-02-04 17:51:28,702] nf_core.lint         [DEBUG  ]  Running lint test: check_docker
+[2021-02-04 17:51:28,702] nf_core.lint         [DEBUG  ]  Running lint test: check_nextflow_config
+[2021-02-04 17:51:28,702] nf_core.utils        [DEBUG  ]  Found a config cache, loading: /Users/xinsongdu/.nextflow/nf-core/wf-config-cache-9806ba23e658943b431e46696.json
+[2021-02-04 17:51:28,703] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_branch_protection
+[2021-02-04 17:51:28,707] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_ci
+[2021-02-04 17:51:28,713] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_lint
+[2021-02-04 17:51:28,721] nf_core.lint         [CRITICAL]  Found test failures in `check_actions_lint`, halting lint run.
+[2021-02-04 17:51:28,725] nf_core.lint         [DEBUG  ]  Printing final results
+[2021-02-04 17:51:54,483] git.cmd              [DEBUG  ]  Popen(['git', 'cat-file', '--batch-check'], cwd=/Users/xinsongdu/mnt/projects/nf-core-rump, universal_newlines=False, shell=None, istream=<valid stream>)
+[2021-02-04 17:51:54,495] nf_core.lint         [INFO   ]  Testing pipeline: [magenta].
+[2021-02-04 17:51:54,502] nf_core.lint         [DEBUG  ]  Running lint test: check_files_exist
+[2021-02-04 17:51:54,502] nf_core.lint         [DEBUG  ]  Running lint test: check_licence
+[2021-02-04 17:51:54,502] nf_core.lint         [DEBUG  ]  Running lint test: check_docker
+[2021-02-04 17:51:54,502] nf_core.lint         [DEBUG  ]  Running lint test: check_nextflow_config
+[2021-02-04 17:51:54,503] nf_core.utils        [DEBUG  ]  Found a config cache, loading: /Users/xinsongdu/.nextflow/nf-core/wf-config-cache-9806ba23e658943b431e46696.json
+[2021-02-04 17:51:54,503] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_branch_protection
+[2021-02-04 17:51:54,507] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_ci
+[2021-02-04 17:51:54,513] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_lint
+[2021-02-04 17:51:54,521] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_awstest
+[2021-02-04 17:51:54,526] nf_core.lint         [DEBUG  ]  Running lint test: check_actions_awsfulltest
+[2021-02-04 17:51:54,531] nf_core.lint         [DEBUG  ]  Running lint test: check_readme
+[2021-02-04 17:51:54,532] nf_core.lint         [DEBUG  ]  Running lint test: check_conda_env_yaml
+[2021-02-04 17:51:54,532] nf_core.lint         [DEBUG  ]  Running lint test: check_conda_dockerfile
+[2021-02-04 17:51:54,532] nf_core.lint         [DEBUG  ]  Running lint test: check_pipeline_todos
+[2021-02-04 17:52:26,695] nf_core.lint         [DEBUG  ]  Running lint test: check_pipeline_name
+[2021-02-04 17:52:26,695] nf_core.lint         [DEBUG  ]  Running lint test: check_cookiecutter_strings
+[2021-02-04 17:52:34,632] nf_core.lint         [DEBUG  ]  Running lint test: check_schema_lint
+[2021-02-04 17:52:34,638] nf_core.utils        [DEBUG  ]  Found a config cache, loading: /Users/xinsongdu/.nextflow/nf-core/wf-config-cache-9806ba23e658943b431e46696.json
+[2021-02-04 17:52:34,639] nf_core.lint         [DEBUG  ]  Running lint test: check_schema_params
+[2021-02-04 17:52:34,642] nf_core.lint         [DEBUG  ]  Printing final results
