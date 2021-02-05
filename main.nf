@@ -136,7 +136,7 @@ if (params.help) {
     System.out.println("")
     System.out.println("Container:")
     System.out.println("    Docker image to use with -with-docker|-with-singularity options is")
-    System.out.println("    'docker://xinsongdu/lemaslab_rump:v0.0.0'")
+    System.out.println("    'docker://xinsongdu/lemaslab_rump'")
     System.out.println("")
     System.out.println("RUMP supports .mzXML format files.")
     System.out.println("")
@@ -155,7 +155,7 @@ summary['Pipeline Name']  = 'RUMP'
 if(workflow.revision) summary['Pipeline Release'] = workflow.revision
 summary['Run Name']         = custom_runName ?: workflow.runName
 summary['Input']            = params.input
-summary['Max Resources']    = "$params.max_memory memory, $params.maxs_cpus cpus, $params.max_time time per job"
+summary['Max Resources']    = "$params.max_memory memory, $params.max_cpus cpus, $params.max_time time per job"
 if (workflow.containerEngine) summary['Container'] = "$workflow.containerEngine - $workflow.container"
 summary['Output dir']       = params.outdir
 summary['Launch dir']       = workflow.launchDir
@@ -764,7 +764,7 @@ process report_generator {
 }
 
 // The following conditional codes is because the folder of matplotlib is different using HPC and using local machine
-if (params.container != "Docker") {
+if ($workflow.profile != "docker") {
     MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
     MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
 }
