@@ -764,7 +764,7 @@ process report_generator {
 }
 
 // The following conditional codes is because the folder of matplotlib is different using HPC and using local machine
-if ($workflow.profile != "docker") {
+if (workflow.profile != "docker") {
     MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
     MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
 }
