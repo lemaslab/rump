@@ -7,6 +7,9 @@
 [![travis](https://travis-ci.com/lemaslab/RUMP.svg?branch=master)](https://travis-ci.com/lemaslab/RUMP)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/lemaslab/RUMP/blob/master/LICENSE)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Flemaslab%2FRUMP)](https://hits.seeyoufarm.com)
+[![GitHub Actions CI Status](https://github.com/lemaslab/rump/workflows/nf-core%20CI/badge.svg)](https://github.com/lemaslab/rump/actions)
+[![GitHub Actions Linting Status](https://github.com/lemaslab/rump/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/ampliseq/actions)
+[![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A519.10.0-brightgreen.svg)](https://www.nextflow.io/)
 
 ---
 
