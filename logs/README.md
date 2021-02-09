@@ -1,1 +1,3 @@
-This folder stors the code outputs
+# Logs Folder
+
+This folder stors the code outputs, errors, etc.

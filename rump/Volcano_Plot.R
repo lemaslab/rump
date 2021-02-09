@@ -6,7 +6,7 @@
 # Author:             Ke Xu
 # START  Date:        July 17, 2020
 # REVISE Date:        Oct  20, 2020
-# Project:            RUMP
+# Project:            rump
 # Description:        Volcano Plot for sample data
 # Note:
 

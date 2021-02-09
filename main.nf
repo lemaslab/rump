@@ -27,7 +27,7 @@
 
 // Those variable names which are all uppercase are channel names
 
-version='0.0.0'
+// version='1.0dev'
 timestamp='20200226'
 
 MZMINE = Channel.fromPath(params.mzmine_dir, type: 'dir') // The location of folder of MzMine
@@ -95,16 +95,6 @@ R_UNKNOWN_SEARCH.into{R_UNKNOWN_SEARCH_NOBG; R_UNKNOWN_SEARCH_WITHBG}
 // MQC_DIR = Channel.fromPath(params.mqc_dir, type: 'dir')
 
 /**
-    Prints version when asked for
-*/
-
-if (params.version) {
-    System.out.println("")
-    System.out.println("RUMP: A Reproducible Untargeted Metabolomics Data Processing Pipeline - Version: $version ($timestamp)")
-    exit 1
-}
-
-/**
     Basic running information
 */
 
@@ -133,19 +123,20 @@ if (params.help) {
     System.out.println("")
     System.out.println("Arguments (it is mandatory to change `input_file` and `mzmine_dir` before running:")
     System.out.println("----------------------------- common parameters ----------------------------------")
+    System.out.println("    -profile                                docker (run pipeline locally), singularity (run pipeline on supercomputer), or test (run test data locally with docker)")
     System.out.println("    --input_dir_pos                         folder location for positive data, default is 'data/POS'")
     System.out.println("    --input_dir_neg                         folder location for positive data, default is 'data/NEG'")
     System.out.println("    --POS_design_path                       location for positive design file, default is 'data/pos_design.csv'")
     System.out.println("    --NEG_design_path                       location for negative design file, default is 'data/neg_design.csv'")
     System.out.println("    --cutoff                                cutoff p-value for mummichog pathway analysis, default is 0.05")
-    System.out.println("    --unknown_search                        whether do unknown search for unidentified metabolites or not, default is '1', please set it to '0' when you want to disable it")
+    System.out.println("    --unknown_search                        whether do unknown search for unidentified metabolites or not, default is '0', please set it to '1' when you want to disable it")
     System.out.println("    --version                               whether to show version information or not, default is null")
     System.out.println("    --help                                  whether to show help information or not, default is null")
     System.out.println("Please refer to nextflow.config for more options.")
     System.out.println("")
     System.out.println("Container:")
     System.out.println("    Docker image to use with -with-docker|-with-singularity options is")
-    System.out.println("    'docker://xinsongdu/lemaslab_rump:v0.0.0'")
+    System.out.println("    'docker://xinsongdu/lemaslab_rump'")
     System.out.println("")
     System.out.println("RUMP supports .mzXML format files.")
     System.out.println("")
@@ -704,6 +695,7 @@ process unknown_search_withbg {
 process mqc_figs {
 
     publishDir './results/mqc/', mode: 'copy'
+    container 'ewels/multiqc'
 
     input:
     file pca_pos_nobg from PCA_POS_NOBG
@@ -773,7 +765,7 @@ process report_generator {
 }
 
 // The following conditional codes is because the folder of matplotlib is different using HPC and using local machine
-if (params.container != "Docker") {
+if (workflow.profile != "docker") {
     MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
     MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
 }
@@ -804,11 +796,12 @@ process mummichog_report_nobg {
 
     shell:
     """
+    pip install networkx==1.11 &&
     echo "generating mommichog report for peaks before blank subtraction" &&
-    mkdir -p !{mat_config_dir_nobg} &&
-    echo "backend: Agg" > !{mat_config_file_nobg} &&
+    sudo mkdir -p !{mat_config_dir_nobg} &&
+    sudo echo "backend: Agg" > !{mat_config_file_nobg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
-    mummichog1 -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
+    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
@@ -834,11 +827,12 @@ process mummichog_report_withbg {
 
     shell:
     """
+    pip install networkx==1.11 &&
     echo "generating mommichog report for peaks after blank subtraction" &&
-    mkdir -p !{mat_config_dir_withbg} &&
-    echo "backend: Agg" > !{mat_config_file_withbg} &&
+    sudo mkdir -p !{mat_config_dir_withbg} &&
+    sudo echo "backend: Agg" > !{mat_config_file_withbg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
-    mummichog1 -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
+    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }

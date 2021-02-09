@@ -518,7 +518,8 @@ process unknown_search_withbg {
 
 }
 
-if (params.container != "Docker") {
+// The following conditional codes is because the folder of matplotlib is different using HPC and using local machine
+if (workflow.profile != "docker") {
     MAT_CONFIG_DIR = Channel.from('~/.config/matplotlib/')
     MAT_CONFIG_FILE = Channel.from('~/.config/matplotlib/matplotlibrc')
 }
@@ -549,11 +550,12 @@ process mummichog_report_nobg {
 
     shell:
     """
+    pip install networkx==1.11 &&
     echo "generating mommichog report for peaks before blank subtraction" &&
-    mkdir -p !{mat_config_dir_nobg} &&
-    echo "backend: Agg" > !{mat_config_file_nobg} &&
+    sudo mkdir -p !{mat_config_dir_nobg} &&
+    sudo echo "backend: Agg" > !{mat_config_file_nobg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_nobg} -o !{params.data_pos_nobg_both_mummichog} &&
-    mummichog1 -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
+    mummichog -f !{params.data_pos_nobg_both_mummichog} -o !{params.data_pos_nobg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }
@@ -579,11 +581,12 @@ process mummichog_report_withbg {
 
     shell:
     """
+    pip install networkx==1.11 &&
     echo "generating mommichog report for peaks after blank subtraction" &&
-    mkdir -p !{mat_config_dir_withbg} &&
-    echo "backend: Agg" > !{mat_config_file_withbg} &&
+    sudo mkdir -p !{mat_config_dir_withbg} &&
+    sudo echo "backend: Agg" > !{mat_config_file_withbg} &&
     python3 !{python_mummichog_input_prepare} -i !{pos_vd_both_withbg} -o !{params.data_pos_withbg_both_mummichog} &&
-    mummichog1 -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
+    mummichog -f !{params.data_pos_withbg_both_mummichog} -o !{params.data_pos_withbg_both_mummichog_out} -c !{params.cutoff}
     """
 
 }

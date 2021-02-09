@@ -5,7 +5,7 @@ Description : This code generate file that can be used by mummichog for pathway 
               according to peak table
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Xinsong Du
-License     : GNU GPL-v3.0 License
+License     : MIT License
 Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python mummichog_input_prepare.py -i $input_peak_table
                                                 -o $output_file
