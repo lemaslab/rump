@@ -6,7 +6,7 @@ Description : This code do bar plot for peak table output by MZmine-2.53,
               input to this program
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Xinsong Du
-License     : GNU GPL-v3.0 License
+License     : MIT License
 Maintainer  : xinsongdu@ufl.edu, manfiol@ufl.edu, djlemas@ufl.edu
 Usage       : python bar_plot.py -i $input_peak_table
                                  -d $design_file_location

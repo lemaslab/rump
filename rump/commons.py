@@ -4,7 +4,7 @@
 Description : This file includes functions frequently used by other files
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Xinsong Du
-License     : GNU GPL-v3.0 License
+License     : MIT License
 Maintainer  : xinsongdu@ufl.edu, djlemas@ufl.edu
 """
 import copy

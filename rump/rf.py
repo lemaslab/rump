@@ -5,7 +5,7 @@
 Description : This code generates variable importance figure based on SVM
 Copyright   : (c) LemasLab, 02/23/2020
 Author      : Hailey Ballard, Xinsong Du
-License     : GNU GPL-v3.0 License
+License     : MIT License
 Maintainer  : xinsongdu@ufl.edu, djlemas@ufl.edu
 Usage       : python svm.py -i $input_peak_table
                             -d $design_file
