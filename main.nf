@@ -5,7 +5,7 @@
     Description : A Nextflow-based reproducible pipeline for untargeted metabolomics data analysis
     Copyright   : (C) LemasLab
     Author      : Xinsong Du
-    License     : GNU GPL-v3.0 License
+    License     : MIT License
           
     This script is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
