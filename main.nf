@@ -181,6 +181,21 @@ log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
 log.info "-\033[2m--------------------------------------------------\033[0m-"
 
 
+// Download MZmine-2.53-Linux
+process mzmine_download{
+    
+    publishDir './'
+    
+    output:
+    file "*" into MZMINE_SOFTWARE
+
+    shell:
+    """
+    wget https://github.com/mzmine/mzmine2/releases/download/v2.53/MZmine-2.53-Linux.zip && unzip MZmine-2.53-Linux.zip && rm MZmine-2.53-Linux.zip
+    """
+
+}
+
 // Check appropriateness of input
 process input_check {
 
