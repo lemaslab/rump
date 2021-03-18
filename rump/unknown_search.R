@@ -8,6 +8,11 @@ options(scipen=20)
 # NOTE!!! -> Can be linked differently on different computers.
 # setwd("/Users/xinsongdu/mnt/projects/beach01/secimtools")
 
+# Installation
+install.packages("devtools")
+devtools::install_github("lzyacht/cmmr")
+
+# Load libraries
 library(optparse) # add this library to enable argparse arguments
 library(cmmr)
 options(warn=-1)
